@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using ModuloContabilidadApi.Models.Enums;
 
 namespace ModuloContabilidadApi.Models;
 
 public class Periodo
 {
+    [Key]
     public Guid           IdPeriodo   { get; set; }
     public string         Nombre      { get; set; }
     public DateTime       FechaInicio { get; set; }
