@@ -6,14 +6,17 @@ namespace ModuloContabilidadApi.Models;
 
 public class Gestion
 {
-    /*
-        IdUsuario
-        IdEmpresa
-     * 
-     */
-    [Key] public Guid     IdGestion   { get; set; } = Guid.NewGuid();
-    public       string   Nombre      { get; set; }
-    public       DateTime FechaInicio { get; set; }
-    public       DateTime FechaFin    { get; set; }
-    public EstadosGestion Estado { get; set; } = EstadosGestion.Abierto;
+    [Key]
+    public Guid IdGestion { get; set; }
+
+    public string         Nombre      { get; set; }
+    public DateTime       FechaInicio { get; set; }
+    public DateTime       FechaFin    { get; set; }
+    public EstadosGestion Estado      { get; set; } = EstadosGestion.Abierto;
+
+    public List<Periodo> Periodos  { get; set; }
+    public Guid           IdEmpresa { get; set; }
+    public Guid           IdUsuario { get; set; }
+    public Usuario        Usuario   { get; set; }
+    public Empresa        Empresa   { get; set; }
 }
