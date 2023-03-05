@@ -42,12 +42,13 @@ public class ApplicationDbContext : DbContext
         #region Configuracion de Relaciones
 
         modelBuilder.Entity<Empresa>().HasOne(empresa => empresa.Usuario)
-            .WithMany(usuario => usuario.Empresas).HasForeignKey(empresa => empresa.UsuarioId);
+            .WithMany(usuario => usuario.Empresas)
+            .HasForeignKey(empresa => empresa.UsuarioId);
 
 
         modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Empresa)
-            .WithMany(empresa => empresa.Gestiones).HasForeignKey(gestion => gestion
-            .IdEmpresa)
+            .WithMany(empresa => empresa.Gestiones)
+            .HasForeignKey(gestion => gestion.IdEmpresa)
             .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Usuario)
@@ -57,12 +58,12 @@ public class ApplicationDbContext : DbContext
 
 
         modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Usuario)
-            .WithMany(usuario => usuario.Periodos).HasForeignKey(periodo => periodo
-            .IdGestion);
+            .WithMany(usuario => usuario.Periodos)
+            .HasForeignKey(periodo =>periodo.IdGestion);
 
         modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Gestion)
-            .WithMany(gestion => gestion.Periodos).HasForeignKey(periodo => periodo
-            .IdUsuario);
+            .WithMany(gestion => gestion.Periodos)
+            .HasForeignKey(periodo =>periodo.IdUsuario);
 
         #endregion
     }
