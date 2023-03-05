@@ -81,9 +81,6 @@ namespace ModuloContabilidadApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EmpresaIdEmpresa")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
@@ -103,18 +100,11 @@ namespace ModuloContabilidadApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UsuarioIdUsuario")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("IdGestion");
-
-                    b.HasIndex("EmpresaIdEmpresa");
 
                     b.HasIndex("IdEmpresa");
 
                     b.HasIndex("IdUsuario");
-
-                    b.HasIndex("UsuarioIdUsuario");
 
                     b.ToTable("Gestiones");
                 });
@@ -134,9 +124,6 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<DateTime>("FechaInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("GestionIdGestion")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("IdGestion")
                         .HasColumnType("uniqueidentifier");
 
@@ -147,18 +134,11 @@ namespace ModuloContabilidadApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UsuarioIdUsuario")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("IdPeriodo");
-
-                    b.HasIndex("GestionIdGestion");
 
                     b.HasIndex("IdGestion");
 
                     b.HasIndex("IdUsuario");
-
-                    b.HasIndex("UsuarioIdUsuario");
 
                     b.ToTable("Periodos");
                 });
@@ -241,25 +221,17 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Empresa", null)
-                        .WithMany("Gestiones")
-                        .HasForeignKey("EmpresaIdEmpresa");
-
                     b.HasOne("ModuloContabilidadApi.Models.Empresa", "Empresa")
-                        .WithMany()
+                        .WithMany("Gestiones")
                         .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", null)
                         .WithMany("Gestiones")
-                        .HasForeignKey("UsuarioIdUsuario");
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Empresa");
 
@@ -268,25 +240,17 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("ModuloContabilidadApi.Models.Periodo", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Gestion", null)
+                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
                         .WithMany("Periodos")
-                        .HasForeignKey("GestionIdGestion");
-
-                    b.HasOne("ModuloContabilidadApi.Models.Gestion", "Gestion")
-                        .WithMany()
                         .HasForeignKey("IdGestion")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
-                        .WithMany()
+                    b.HasOne("ModuloContabilidadApi.Models.Gestion", "Gestion")
+                        .WithMany("Periodos")
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", null)
-                        .WithMany("Periodos")
-                        .HasForeignKey("UsuarioIdUsuario");
 
                     b.Navigation("Gestion");
 

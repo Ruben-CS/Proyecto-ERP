@@ -42,23 +42,27 @@ public class ApplicationDbContext : DbContext
         #region Configuracion de Relaciones
 
         modelBuilder.Entity<Empresa>().HasOne(empresa => empresa.Usuario)
-            .WithMany(
-                usuario => usuario
-                    .Empresas).HasForeignKey(empresa => empresa.UsuarioId);
+            .WithMany(usuario => usuario.Empresas).HasForeignKey(empresa => empresa.UsuarioId);
 
-        modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Usuario)
-            .WithMany
-                ().HasForeignKey(usuario => usuario.IdUsuario);
 
         modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Empresa)
-            .WithMany
-                ().HasForeignKey(empresa => empresa.IdEmpresa);
+            .WithMany(empresa => empresa.Gestiones).HasForeignKey(gestion => gestion
+            .IdEmpresa)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Usuario)
+            .WithMany(usuario => usuario.Gestiones)
+            .HasForeignKey(gestion => gestion.IdUsuario)
+            .OnDelete(DeleteBehavior.NoAction);
+
 
         modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Usuario)
-            .WithMany().HasForeignKey(usuario => usuario.IdUsuario);
+            .WithMany(usuario => usuario.Periodos).HasForeignKey(periodo => periodo
+            .IdGestion);
 
         modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Gestion)
-            .WithMany().HasForeignKey(gestion => gestion.IdGestion);
+            .WithMany(gestion => gestion.Periodos).HasForeignKey(periodo => periodo
+            .IdUsuario);
 
         #endregion
     }

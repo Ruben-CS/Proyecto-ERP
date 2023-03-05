@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModuloContabilidadApi.Models;
 
@@ -30,8 +31,10 @@ public class Empresa
     public bool   IsDeleted { get; set; } = false;
 
     public List<Gestion> Gestiones { get; set; }
-
+    
+    [ForeignKey("Usuario")]
     public Guid    UsuarioId { get; set; }
+    [InverseProperty("Empresas")]
     public Usuario Usuario   { get; set; }
     
 }

@@ -4079,6 +4079,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.3",
       "Microsoft.AspNetCore.OpenApi >= 7.0.3",
       "Microsoft.EntityFrameworkCore >= 7.0.3",
+      "Microsoft.EntityFrameworkCore.Relational >= 7.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.3",
       "Swashbuckle.AspNetCore >= 6.4.0"
@@ -4132,6 +4133,10 @@
             "version": "[7.0.3, )"
           },
           "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.3, )"
+          },
+          "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
             "version": "[7.0.3, )"
           },
