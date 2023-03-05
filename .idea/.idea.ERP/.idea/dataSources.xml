@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="20cb1e87-48c6-4b50-94d1-6e91a9ccc252">
+    <data-source source="LOCAL" name="ContabilidadDb@localhost" uuid="20cb1e87-48c6-4b50-94d1-6e91a9ccc252">
       <driver-ref>sqlserver.jb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
-      <jdbc-url>Server=localhost\MSSQLSERVER,1433</jdbc-url>
+      <jdbc-url>Server=localhost\MSSQLSERVER,1433;Database=ContabilidadDb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
