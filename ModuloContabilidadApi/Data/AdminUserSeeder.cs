@@ -1,14 +1,21 @@
 using Microsoft.AspNetCore.Identity;
+using ModuloContabilidadApi.Data.Interfaces;
 using ModuloContabilidadApi.Models;
 
 namespace ModuloContabilidadApi.Data;
 
-public static class AdminUserSeeder
+public class AdminUserSeeder : IDataSeeder
 {
-    public static async Task SeedAdminUserAsync(UserManager<Usuario>
-                                                    userManager)
+    private readonly UserManager<Usuario> _userManager;
+
+    public AdminUserSeeder(UserManager<Usuario> userManager)
     {
-        var adminUser = await userManager.FindByNameAsync("admin") ??
+        _userManager = userManager;
+    }
+
+    public async Task SeedAsync()
+    {
+        var adminUser = await _userManager.FindByNameAsync("admin") ??
                         new Usuario()
                         {
                             Nombre   = "admin",
@@ -19,6 +26,19 @@ public static class AdminUserSeeder
         var passwordHash = new PasswordHasher<Usuario>();
 
         adminUser.PasswordHash = passwordHash.HashPassword(adminUser, password);
-        await userManager.CreateAsync(adminUser);
+
+        var result = await _userManager.CreateAsync(adminUser);
+
+        if (result.Succeeded)
+        {
+            Console.WriteLine("User created succesfully");
+            await _userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+        else
+        {
+            var errorMessage = string.Join(",", result.Errors.Select(error =>
+                error.Description));
+            Console.WriteLine($"Admin user creation failed : {errorMessage}");
+        }
     }
 }
