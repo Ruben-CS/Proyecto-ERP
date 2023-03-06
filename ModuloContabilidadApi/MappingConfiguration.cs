@@ -4,7 +4,7 @@ using ModuloContabilidadApi.Models.Dtos;
 
 namespace ModuloContabilidadApi;
 
-public class MappingConfiguration
+public static class MappingConfiguration
 {
     public static MapperConfiguration RegisterMaps()
     {
