@@ -27,6 +27,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Nit).IsUnique();
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique();
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique();
+        modelBuilder.Entity<Empresa>().HasQueryFilter(e => !e.IsDeleted);
 
         #endregion
 
