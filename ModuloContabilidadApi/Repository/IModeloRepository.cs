@@ -1,9 +1,9 @@
 namespace ModuloContabilidadApi.Repository;
 
-public interface IModeloRepository<TModelo> where TModelo : class
+public interface IModeloRepository<TModeloDto> where TModeloDto : class
 {
-    public Task<IEnumerable<TModelo>> GetModelos();
-    public Task<TModelo>              GetModelo(Guid modeloId);
-    public Task<TModelo>              CreateUpdateModelDto(TModelo modeloDto);
+    public Task<IEnumerable<TModeloDto>> GetModelos();
+    public Task<TModeloDto>              GetModelo(Guid modeloId);
+    public Task<TModeloDto>              CreateUpdateModelDto(TModeloDto modeloDto);
     public Task<bool>                 DeleteModel(Guid modeloId);
 }
