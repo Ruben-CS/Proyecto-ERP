@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ModuloContabilidadApi.ApplicationContexts;
@@ -5,12 +6,12 @@ using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository;
 
-
+namespace ModuloContabilidadApi.Repository;
 public class EmpresaRepository : IModeloRepository<EmpresaDto>
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
-    private IMapper _mapper;
+    private readonly IMapper _mapper;
 
     public EmpresaRepository(ApplicationDbContext applicationDbContext,
                              IMapper mapper)

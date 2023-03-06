@@ -1,9 +1,15 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ModuloContabilidadApi;
 using ModuloContabilidadApi.ApplicationContexts;
 using ModuloContabilidadApi.Models;
+using ModuloContabilidadApi.Models.Dtos;
+using ModuloContabilidadApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
+var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
+
 
 // Add services to the container.
 
@@ -31,6 +37,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength         = 0;
 });
 
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IModeloRepository<EmpresaDto>, EmpresaRepository>();
 
 var app = builder.Build();
 
