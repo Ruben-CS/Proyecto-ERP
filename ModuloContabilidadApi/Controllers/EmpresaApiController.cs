@@ -63,7 +63,7 @@ public class EmpresaRepository : ControllerBase
     {
         try
         {
-            var empresaDto = await _empresaRepository.CreateModel(empresa);
+            var empresaDto = await _empresaRepository.CreateUpdateModelDto(empresa);
             _responseDto.Result = empresaDto;
         }
         catch (Exception e)
@@ -81,7 +81,7 @@ public class EmpresaRepository : ControllerBase
     {
         try
         {
-            var empresaDto = await _empresaRepository.CreateModel(empresa);
+            var empresaDto = await _empresaRepository.CreateUpdateModelDto(empresa);
             _responseDto.Result = empresaDto;
         }
         catch (Exception e)
