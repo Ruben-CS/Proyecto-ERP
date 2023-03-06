@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuloContabilidadApi", "ModuloContabilidadApi\ModuloContabilidadApi.csproj", "{AEB60841-A49C-481A-A9DE-04EB388B5518}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuloContabilidadApi", "ModuloContabilidadApi\ModuloContabilidadApi.csproj", "{AEB60841-A49C-481A-A9DE-04EB388B5518}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd.ERP", "FrontEnd.ERP\FrontEnd.ERP.csproj", "{85F3EC05-7AA0-49C0-AFFC-33BAD5769061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,12 @@ Global
 		{AEB60841-A49C-481A-A9DE-04EB388B5518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEB60841-A49C-481A-A9DE-04EB388B5518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEB60841-A49C-481A-A9DE-04EB388B5518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F3EC05-7AA0-49C0-AFFC-33BAD5769061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F3EC05-7AA0-49C0-AFFC-33BAD5769061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F3EC05-7AA0-49C0-AFFC-33BAD5769061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F3EC05-7AA0-49C0-AFFC-33BAD5769061}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
