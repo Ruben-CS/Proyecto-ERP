@@ -1,27 +1,31 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ModuloContabilidadApi.Models.Enums;
 
 namespace ModuloContabilidadApi.Models.Dtos;
 
-public class Periodo
+public class Gestion
 {
-    public Guid           IdPeriodo   { get; set; }
+    public Guid IdGestion { get; set; }
+
     public string         Nombre      { get; set; }
     public DateTime       FechaInicio { get; set; }
     public DateTime       FechaFin    { get; set; }
-    public EstadosPeriodo Estado      { get; set; } = EstadosPeriodo.Abierto;
+    public EstadosGestion Estado      { get; set; }
+    public List<Periodo>  Periodos    { get; set; }
+    
+
+    [ForeignKey("Empresa")]
+    public Guid IdEmpresa { get; set; }
 
     [ForeignKey("Usuario")]
     public Guid IdUsuario { get; set; }
 
-    [ForeignKey("Gestion")]
-    public Guid IdGestion { get; set; }
-
-    [InverseProperty("Periodos")]
+    [InverseProperty("Gestiones")]
     public Usuario Usuario { get; set; }
-
-    [InverseProperty("Periodos")]
-    public Gestion Gestion { get; set; }
+    
+    [InverseProperty("Gestiones")]
+    public EmpresaDto EmpresaDto { get; set; }
 }
