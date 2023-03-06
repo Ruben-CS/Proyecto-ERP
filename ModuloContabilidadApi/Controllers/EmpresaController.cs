@@ -5,8 +5,5 @@ namespace ModuloContabilidadApi.Controllers;
 public class EmpresaController : Controller
 {
     // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 }
