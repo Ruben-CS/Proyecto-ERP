@@ -5,7 +5,7 @@ using ModuloContabilidadApi.Models.Enums;
 
 namespace ModuloContabilidadApi.Models.Dtos;
 
-public class Periodo
+public class PeriodoDto
 {
     public Guid           IdPeriodo   { get; set; }
     public string         Nombre      { get; set; }

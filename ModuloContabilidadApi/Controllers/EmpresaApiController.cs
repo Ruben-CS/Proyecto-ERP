@@ -1,19 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
+using ModuloContabilidadApi.Models;
+using ModuloContabilidadApi.Repository;
 
 namespace ModuloContabilidadApi.Controllers;
 
-public class EmpresaController : Controller
+public class EmpresaApiController : Controller
 {
-    using Microsoft.AspNetCore.Mvc;
-using ModuloContabilidadApi.Models;
-
-namespace ModuloContabilidadApi.Repository;
+    
 
 [Route("api/empresas")]
 public class EmpresaRepository : ControllerBase
 {
-    protected ResponseDto _responseDto;
-    private IModeloRepository<Empresa> _empresaRepository;
+    protected ResponseDto                _responseDto;
+    private   IModeloRepository<Empresa> _empresaRepository;
 
     public EmpresaRepository(IModeloRepository<Empresa> empresaRepository)
     {

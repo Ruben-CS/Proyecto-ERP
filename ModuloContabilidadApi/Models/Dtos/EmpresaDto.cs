@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModuloContabilidadApi.Models.Dtos;
 
-public class Empresa
+public class EmpresaDto
 {
     public Guid          IdEmpresa { get; set; } = Guid.NewGuid();
     public string        Nombre    { get; set; }
@@ -14,7 +14,7 @@ public class Empresa
     public string?       Direccion { get; set; }
     public int           Niveles   { get; set; }
     public bool          IsDeleted { get; set; } = false;
-    public List<Gestion> Gestiones { get; set; }
+    public List<GestionDto> Gestiones { get; set; }
     
     [ForeignKey("Usuario")]
     public Guid UsuarioId { get; set; }

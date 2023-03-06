@@ -6,7 +6,7 @@ using ModuloContabilidadApi.Models.Enums;
 
 namespace ModuloContabilidadApi.Models.Dtos;
 
-public class Gestion
+public class GestionDto
 {
     public Guid IdGestion { get; set; }
 
@@ -14,7 +14,7 @@ public class Gestion
     public DateTime       FechaInicio { get; set; }
     public DateTime       FechaFin    { get; set; }
     public EstadosGestion Estado      { get; set; }
-    public List<Periodo>  Periodos    { get; set; }
+    public List<PeriodoDto>  Periodos    { get; set; }
     
 
     [ForeignKey("Empresa")]
