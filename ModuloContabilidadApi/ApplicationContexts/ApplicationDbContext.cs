@@ -30,6 +30,19 @@ public class ApplicationDbContext : DbContext
 
         #endregion
 
+        #region Configuracion de Usuario
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.Property(e => e.Id).IsRequired(false);
+            entity.Property(e => e.EmailConfirmed).IsRequired(false);
+            entity.Property(e => e.PhoneNumberConfirmed).IsRequired(false);
+            entity.Property(e => e.LockoutEnabled).IsRequired(false);
+            entity.Property(e => e.TwoFactorEnabled).IsRequired(false);
+            entity.Property(e => e.AccessFailedCount).IsRequired(false);
+        });
+
+        #endregion
 
         #region Configruacion Gestion
 
@@ -59,11 +72,11 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Usuario)
             .WithMany(usuario => usuario.Periodos)
-            .HasForeignKey(periodo =>periodo.IdGestion);
+            .HasForeignKey(periodo => periodo.IdGestion);
 
         modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Gestion)
             .WithMany(gestion => gestion.Periodos)
-            .HasForeignKey(periodo =>periodo.IdUsuario);
+            .HasForeignKey(periodo => periodo.IdUsuario);
 
         #endregion
     }
