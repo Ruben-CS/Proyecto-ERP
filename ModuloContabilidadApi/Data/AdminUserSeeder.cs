@@ -22,12 +22,12 @@ public class AdminUserSeeder : IDataSeeder
                             UserName = "admin",
                         };
 
-        var password     = "Passw0rd";
-        var passwordHash = new PasswordHasher<Usuario>();
+        const string password     = "Ilpcgamailp19";
+        var          passwordHash = new PasswordHasher<Usuario>();
 
         adminUser.PasswordHash = passwordHash.HashPassword(adminUser, password);
 
-        var result = await _userManager.CreateAsync(adminUser);
+        var result = await _userManager.CreateAsync(adminUser, password);
 
         if (result.Succeeded)
         {

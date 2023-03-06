@@ -6,7 +6,7 @@ namespace ModuloContabilidadApi.Models;
 public class Usuario : IdentityUser
 {
     [Key]
-    public Guid IdUsuario { get; set; }
+    public Guid IdUsuario { get; set; } = Guid.NewGuid();
 
     public string Nombre   { get; set; }
     public string Password { get; set; }

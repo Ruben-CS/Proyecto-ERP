@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -27,6 +26,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
         builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit           = false;
+    options.Password.RequireLowercase       = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase       = false;
+    options.Password.RequiredLength         = 0;
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,9 +49,9 @@ using (var scope = app.Services.CreateScope())
 {
     try
     {
-        // get the data seeder from the scope
-        var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-        // seed the database
+        var dataSeeder =
+            scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+
         dataSeeder.SeedAsync().Wait();
     }
     catch (Exception ex)
@@ -51,6 +60,7 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occurred while seeding the database.");
     }
 }
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
