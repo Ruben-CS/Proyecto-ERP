@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ModuloContabilidadApi.Migrations
 {
     /// <inheritdoc />
-    public partial class AgregacionDeModelosCorrected : Migration
+    public partial class EditadoElUsuario : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,21 +18,21 @@ namespace ModuloContabilidadApi.Migrations
                     IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: true),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,17 +75,11 @@ namespace ModuloContabilidadApi.Migrations
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     IdEmpresa = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmpresaIdEmpresa = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gestiones", x => x.IdGestion);
-                    table.ForeignKey(
-                        name: "FK_Gestiones_Empresas_EmpresaIdEmpresa",
-                        column: x => x.EmpresaIdEmpresa,
-                        principalTable: "Empresas",
-                        principalColumn: "IdEmpresa");
                     table.ForeignKey(
                         name: "FK_Gestiones_Empresas_IdEmpresa",
                         column: x => x.IdEmpresa,
@@ -108,35 +102,23 @@ namespace ModuloContabilidadApi.Migrations
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdGestion = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GestionIdGestion = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UsuarioIdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    IdGestion = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Periodos", x => x.IdPeriodo);
                     table.ForeignKey(
-                        name: "FK_Periodos_Gestiones_GestionIdGestion",
-                        column: x => x.GestionIdGestion,
-                        principalTable: "Gestiones",
-                        principalColumn: "IdGestion");
-                    table.ForeignKey(
-                        name: "FK_Periodos_Gestiones_IdGestion",
-                        column: x => x.IdGestion,
+                        name: "FK_Periodos_Gestiones_IdUsuario",
+                        column: x => x.IdUsuario,
                         principalTable: "Gestiones",
                         principalColumn: "IdGestion",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Periodos_Usuarios_IdUsuario",
-                        column: x => x.IdUsuario,
+                        name: "FK_Periodos_Usuarios_IdGestion",
+                        column: x => x.IdGestion,
                         principalTable: "Usuarios",
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Periodos_Usuarios_UsuarioIdUsuario",
-                        column: x => x.UsuarioIdUsuario,
-                        principalTable: "Usuarios",
-                        principalColumn: "IdUsuario");
                 });
 
             migrationBuilder.CreateIndex(
@@ -163,11 +145,6 @@ namespace ModuloContabilidadApi.Migrations
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gestiones_EmpresaIdEmpresa",
-                table: "Gestiones",
-                column: "EmpresaIdEmpresa");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Gestiones_IdEmpresa",
                 table: "Gestiones",
                 column: "IdEmpresa");
@@ -178,11 +155,6 @@ namespace ModuloContabilidadApi.Migrations
                 column: "IdUsuario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Periodos_GestionIdGestion",
-                table: "Periodos",
-                column: "GestionIdGestion");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Periodos_IdGestion",
                 table: "Periodos",
                 column: "IdGestion");
@@ -191,11 +163,6 @@ namespace ModuloContabilidadApi.Migrations
                 name: "IX_Periodos_IdUsuario",
                 table: "Periodos",
                 column: "IdUsuario");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Periodos_UsuarioIdUsuario",
-                table: "Periodos",
-                column: "UsuarioIdUsuario");
         }
 
         /// <inheritdoc />

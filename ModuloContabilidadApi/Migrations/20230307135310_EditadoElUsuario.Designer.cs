@@ -12,8 +12,8 @@ using ModuloContabilidadApi.ApplicationContexts;
 namespace ModuloContabilidadApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230306001828_ModificadoUsuario")]
-    partial class ModificadoUsuario
+    [Migration("20230307135310_EditadoElUsuario")]
+    partial class EditadoElUsuario
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

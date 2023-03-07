@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ModuloContabilidadApi.Models;
 
@@ -25,16 +26,16 @@ public class Empresa
     public string? Direccion { get; set; }
 
     [Required]
-    [Range(3, 7,ErrorMessage = "Nivel no aceptale")]
+    [Range(3, 7, ErrorMessage = "Nivel no aceptale")]
     public int Niveles { get; set; }
 
-    public bool   IsDeleted { get; set; } = false;
+    public bool IsDeleted { get; set; } = false;
 
-    public List<Gestion> Gestiones { get; set; }
-    
+    public List<Gestion>? Gestiones { get; set; }
+
     [ForeignKey("Usuario")]
-    public Guid    UsuarioId { get; set; }
+    public Guid UsuarioId { get; set; }
+
     [InverseProperty("Empresas")]
     public Usuario? Usuario { get; set; }
-    
 }
