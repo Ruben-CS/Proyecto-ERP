@@ -5,6 +5,7 @@ using ModuloContabilidadApi.ApplicationContexts;
 using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository;
+using ModuloContabilidadApi.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
@@ -38,7 +39,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<IModeloRepository<EmpresaDto>, EmpresaRepository>();
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 
 var app = builder.Build();
 
