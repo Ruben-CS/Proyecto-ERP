@@ -1,43 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
 using ModuloContabilidadApi.Models;
+using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository;
+using ModuloContabilidadApi.Repository.Interfaces;
+using ResponseDto = ModuloContabilidadApi.Models.ResponseDto;
 
 namespace ModuloContabilidadApi.Controllers;
 
-public class EmpresaApiController : Controller
+[ApiController]
+[Route("empresas")]
+public class EmpresaApiController : ControllerBase
 {
-    
+    protected readonly ResponseDto                ResponseDto;
+    private readonly   IEmpresaRepository _empresaRepository;
 
-[Route("api/empresas")]
-public class EmpresaRepository : ControllerBase
-{
-    protected ResponseDto                _responseDto;
-    private   IModeloRepository<Empresa> _empresaRepository;
-
-    public EmpresaRepository(IModeloRepository<Empresa> empresaRepository)
+    public EmpresaApiController(IEmpresaRepository empresaRepository)
     {
         _empresaRepository = empresaRepository;
-        _responseDto       = new ResponseDto();
+        ResponseDto        = new ResponseDto();
     }
-    
-    [HttpGet]
+
+    [HttpGet("ListarEmpresa")]
     public async Task<object> Get()
     {
         try
         {
             var empresaDto = await _empresaRepository.GetModelos();
-            _responseDto.Result = empresaDto;
+            ResponseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            _responseDto.IsSucces = false;
-            _responseDto.ErrorMessages = new List<string>()
+            ResponseDto.IsSucces = false;
+            ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
-        return _responseDto;
+
+        return ResponseDto;
     }
+
     [HttpGet]
     [Route("{id}")]
     public async Task<object> Get(Guid id)
@@ -45,54 +47,60 @@ public class EmpresaRepository : ControllerBase
         try
         {
             var empresaDto = await _empresaRepository.GetModelo(id);
-            _responseDto.Result = empresaDto;
+            ResponseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            _responseDto.IsSucces = false;
-            _responseDto.ErrorMessages = new List<string>()
+            ResponseDto.IsSucces = false;
+            ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
-        return _responseDto;
+
+        return ResponseDto;
     }
-    
-    [HttpPost]
-    public async Task<object> Post([FromBody] Empresa empresa)
+
+    [HttpPost("agregarEmpresa")]
+    public async Task<object> Post([FromBody] EmpresaDto empresa)
     {
         try
         {
-            var empresaDto = await _empresaRepository.CreateUpdateModelDto(empresa);
-            _responseDto.Result = empresaDto;
+            var empresaDto =
+                await _empresaRepository.CreateUpdateModelDto(empresa);
+            ResponseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            _responseDto.IsSucces = false;
-            _responseDto.ErrorMessages = new List<string>()
+            ResponseDto.IsSucces = false;
+            ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
-        return _responseDto;
+
+        return ResponseDto;
     }
+
     [HttpPut]
-    public async Task<object> Put([FromBody] Empresa empresa)
+    public async Task<object> Put([FromBody] EmpresaDto empresa)
     {
         try
         {
-            var empresaDto = await _empresaRepository.CreateUpdateModelDto(empresa);
-            _responseDto.Result = empresaDto;
+            var empresaDto =
+                await _empresaRepository.CreateUpdateModelDto(empresa);
+            ResponseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            _responseDto.IsSucces = false;
-            _responseDto.ErrorMessages = new List<string>()
+            ResponseDto.IsSucces = false;
+            ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
-        return _responseDto;
+
+        return ResponseDto;
     }
 
     [HttpDelete]
@@ -101,21 +109,18 @@ public class EmpresaRepository : ControllerBase
         try
         {
             var isSucces = await _empresaRepository.DeleteModel(id);
-            _responseDto.Result = isSucces;
+            ResponseDto.Result = isSucces;
         }
         catch (Exception e)
         {
-            _responseDto.IsSucces = false;
-            _responseDto.ErrorMessages = new List<string>()
+            ResponseDto.IsSucces = false;
+            ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
             throw;
         }
 
-        return _responseDto;
+        return ResponseDto;
     }
-
-}
-    
 }

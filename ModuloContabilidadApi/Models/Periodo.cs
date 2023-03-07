@@ -22,8 +22,8 @@ public class Periodo
     public Guid IdGestion { get; set; }
 
     [InverseProperty("Periodos")]
-    public Usuario Usuario { get; set; }
+    public Usuario? Usuario { get; set; }
 
     [InverseProperty("Periodos")]
-    public Gestion Gestion { get; set; }
+    public Gestion? Gestion { get; set; }
 }

@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "JUn8YGsrBPGkQU0IyNpZU2kgQTR83PyEYRsY6znoZck=",
+  "Hash": "sMd5O+/KLz3nhl4jmho1kKu7C2XBy8F4cNIAvVR1b/Y=",
   "Source": "FrontEnd.ERP",
   "BasePath": "_content/FrontEnd.ERP",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+      "Version": 2,
+      "Source": "ModuloContabilidadApi",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "FrontEnd.ERP\\wwwroot",

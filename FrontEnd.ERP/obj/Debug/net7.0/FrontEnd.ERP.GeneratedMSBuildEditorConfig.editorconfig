@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/LearnBlazor/BindProp.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVhcm5CbGF6b3JcQmluZFByb3AucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
