@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ModuloContabilidadApi;
 using ModuloContabilidadApi.ApplicationContexts;
-using ModuloContabilidadApi.Models;
-using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository;
 using ModuloContabilidadApi.Repository.Interfaces;
 
@@ -30,6 +27,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+builder.Services.AddScoped<IGestionRepository, GestionRepository>();
 
 var app = builder.Build();
 
