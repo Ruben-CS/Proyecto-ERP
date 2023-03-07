@@ -3,12 +3,8 @@ using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Repository;
 
 namespace ModuloContabilidadApi.Controllers;
-
-public class EmpresaApiController : Controller
-{
-    
-
-[Route("api/empresas")]
+[ApiController]
+[Route("empresas")]
 public class EmpresaRepository : ControllerBase
 {
     protected ResponseDto                _responseDto;
@@ -20,7 +16,7 @@ public class EmpresaRepository : ControllerBase
         _responseDto       = new ResponseDto();
     }
     
-    [HttpGet]
+    [HttpGet("ListarEmpresa")]
     public async Task<object> Get()
     {
         try
@@ -58,7 +54,7 @@ public class EmpresaRepository : ControllerBase
         return _responseDto;
     }
     
-    [HttpPost]
+    [HttpPost("agregarEmpresa")]
     public async Task<object> Post([FromBody] Empresa empresa)
     {
         try
@@ -116,6 +112,4 @@ public class EmpresaRepository : ControllerBase
         return _responseDto;
     }
 
-}
-    
 }
