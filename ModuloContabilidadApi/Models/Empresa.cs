@@ -35,6 +35,6 @@ public class Empresa
     [ForeignKey("Usuario")]
     public Guid    UsuarioId { get; set; }
     [InverseProperty("Empresas")]
-    public Usuario Usuario   { get; set; }
+    public Usuario? Usuario { get; set; }
     
 }
