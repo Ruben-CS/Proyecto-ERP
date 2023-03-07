@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ModuloContabilidadApi.Models;
+using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository;
+using ModuloContabilidadApi.Repository.Interfaces;
+using ResponseDto = ModuloContabilidadApi.Models.ResponseDto;
 
 namespace ModuloContabilidadApi.Controllers;
 
@@ -9,9 +12,9 @@ namespace ModuloContabilidadApi.Controllers;
 public class EmpresaApiController : ControllerBase
 {
     protected readonly ResponseDto                ResponseDto;
-    private readonly   IModeloRepository<Empresa> _empresaRepository;
+    private readonly   IEmpresaRepository _empresaRepository;
 
-    public EmpresaApiController(IModeloRepository<Empresa> empresaRepository)
+    public EmpresaApiController(IEmpresaRepository empresaRepository)
     {
         _empresaRepository = empresaRepository;
         ResponseDto        = new ResponseDto();
@@ -59,7 +62,7 @@ public class EmpresaApiController : ControllerBase
     }
 
     [HttpPost("agregarEmpresa")]
-    public async Task<object> Post([FromBody] Empresa empresa)
+    public async Task<object> Post([FromBody] EmpresaDto empresa)
     {
         try
         {
@@ -80,7 +83,7 @@ public class EmpresaApiController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<object> Put([FromBody] Empresa empresa)
+    public async Task<object> Put([FromBody] EmpresaDto empresa)
     {
         try
         {
