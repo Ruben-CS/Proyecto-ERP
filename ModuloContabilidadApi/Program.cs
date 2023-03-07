@@ -18,9 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //configuracion del usuario
-builder.Services.AddIdentity<Usuario, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
@@ -28,14 +26,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
         builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireDigit           = false;
-    options.Password.RequireLowercase       = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase       = false;
-    options.Password.RequiredLength         = 0;
-});
 
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

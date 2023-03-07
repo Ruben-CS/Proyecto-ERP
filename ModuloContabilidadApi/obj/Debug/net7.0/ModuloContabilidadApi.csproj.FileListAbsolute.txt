@@ -82,3 +82,4 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\obj\D
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\obj\Debug\net7.0\ref\ModuloContabilidadApi.dll
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\bin\Debug\net7.0\AutoMapper.dll
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

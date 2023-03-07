@@ -31,15 +31,6 @@ public class ApplicationDbContext : DbContext
 
         #region Configuracion de Usuario
 
-        modelBuilder.Entity<Usuario>(entity =>
-        {
-            entity.Property(e => e.Id).IsRequired(false);
-            entity.Property(e => e.EmailConfirmed).IsRequired(false);
-            entity.Property(e => e.PhoneNumberConfirmed).IsRequired(false);
-            entity.Property(e => e.LockoutEnabled).IsRequired(false);
-            entity.Property(e => e.TwoFactorEnabled).IsRequired(false);
-            entity.Property(e => e.AccessFailedCount).IsRequired(false);
-        });
 
         #endregion
 
