@@ -88,3 +88,4 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\bin\Debug\net7
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\bin\Debug\net7.0\ModuloContabilidadApi.pdb
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\FrontEnd.ERP.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\FrontEnd.ERP.csproj.CopyComplete
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

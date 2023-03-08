@@ -27,6 +27,10 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Nit).IsUnique();
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique();
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique();
+        modelBuilder.Entity<Empresa>().Property(i => i.IdUsuario)
+            .IsRequired(false);
+        modelBuilder.Entity<Empresa>().HasIndex(i => i.IdUsuario);
+
         #endregion
 
         #region Configuracion de Usuario
@@ -46,13 +50,9 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Empresa>().HasOne(empresa => empresa.Usuario)
             .WithMany(usuario => usuario.Empresas)
-            .HasForeignKey(empresa => empresa.UsuarioId);
+            .HasForeignKey(empresa => empresa.IdUsuario);
 
 
-        modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Empresa)
-            .WithMany(empresa => empresa.Gestiones)
-            .HasForeignKey(gestion => gestion.IdEmpresa)
-            .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Usuario)
             .WithMany(usuario => usuario.Gestiones)

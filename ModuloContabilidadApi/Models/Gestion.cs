@@ -9,7 +9,7 @@ namespace ModuloContabilidadApi.Models;
 public class Gestion
 {
     [Key]
-    public Guid IdGestion { get; set; }
+    public int IdGestion { get; set; }
 
     public string         Nombre      { get; set; }
     public DateTime       FechaInicio { get; set; }
@@ -19,14 +19,14 @@ public class Gestion
     public List<Periodo> Periodos { get; set; }
 
     [ForeignKey("Empresa")]
-    public Guid IdEmpresa { get; set; }
+    public int IdEmpresa { get; set; }
 
     [ForeignKey("Usuario")]
-    public Guid IdUsuario { get; set; }
+    public int IdUsuario { get; set; }
 
     [InverseProperty("Gestiones")]
     public Usuario Usuario { get; set; }
-    
+
     [InverseProperty("Gestiones")]
     public Empresa Empresa { get; set; }
 }

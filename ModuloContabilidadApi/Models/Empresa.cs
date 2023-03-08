@@ -7,7 +7,7 @@ namespace ModuloContabilidadApi.Models;
 public class Empresa
 {
     [Key]
-    public Guid IdEmpresa { get; set; } = Guid.NewGuid();
+    public int IdEmpresa { get; set; }
 
     [Required]
     public string Nombre { get; set; }
@@ -33,8 +33,11 @@ public class Empresa
 
     public List<Gestion>? Gestiones { get; set; }
 
+    // [ConcurrencyCheck]
+    // public byte[]? TimeStamp { get; set; }
+
     [ForeignKey("Usuario")]
-    public Guid UsuarioId { get; set; }
+    public int? IdUsuario { get; set; }
 
     [InverseProperty("Empresas")]
     public Usuario? Usuario { get; set; }

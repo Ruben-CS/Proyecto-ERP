@@ -26,7 +26,7 @@ public class GestionRepository : IGestionRepository
         return _mapper.Map<List<GestionDto>>(listaGestiones);
     }
 
-    public async Task<GestionDto> GetModelo(Guid modeloId)
+    public async Task<GestionDto> GetModelo(int modeloId)
     {
         var gestion = await _applicationDbContext.Gestiones
             .Where(id => id.IdGestion == modeloId).FirstOrDefaultAsync();
@@ -53,7 +53,7 @@ public class GestionRepository : IGestionRepository
         return _mapper.Map<Gestion, GestionDto>(gestion);
     }
 
-    public async Task<bool> DeleteModel(Guid modeloId)
+    public async Task<bool> DeleteModel(int modeloId)
     {
         try
         {

@@ -25,7 +25,7 @@ public class EmpresaRepository : IEmpresaRepository
         return _mapper.Map<List<EmpresaDto>>(listaEmpresas);
     }
 
-    public async Task<EmpresaDto> GetModelo(Guid modeloId)
+    public async Task<EmpresaDto> GetModelo(int modeloId)
     {
         var empresa = await _applicationDbContext.Empresas.Where(id => id
             .IdEmpresa == modeloId).FirstOrDefaultAsync();
@@ -36,9 +36,7 @@ public class EmpresaRepository : IEmpresaRepository
         modeloDto)
     {
         var empresa = _mapper.Map<EmpresaDto, Empresa>(modeloDto);
-        var existeEmpresa = await _applicationDbContext.Empresas
-            .FirstOrDefaultAsync(e => e.IdEmpresa == empresa.IdEmpresa);
-        if (existeEmpresa is null)
+        if (empresa.IdEmpresa > 0)
         {
             _applicationDbContext.Update(empresa);
         }
@@ -51,7 +49,7 @@ public class EmpresaRepository : IEmpresaRepository
         return _mapper.Map<Empresa, EmpresaDto>(empresa);
     }
 
-    public async Task<bool> DeleteModel(Guid modeloId)
+    public async Task<bool> DeleteModel(int modeloId)
     {
         try
         {

@@ -12,8 +12,8 @@ using ModuloContabilidadApi.ApplicationContexts;
 namespace ModuloContabilidadApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230307160340_EditadoElUsuarioNew")]
-    partial class EditadoElUsuarioNew
+    [Migration("20230308175712_EditadoLaEmpresa1")]
+    partial class EditadoLaEmpresa1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,11 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
                 {
-                    b.Property<Guid>("IdEmpresa")
+                    b.Property<int>("IdEmpresa")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEmpresa"));
 
                     b.Property<string>("Correo")
                         .IsRequired()
@@ -37,6 +39,9 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("IdUsuario")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -59,10 +64,13 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("IdEmpresa");
+
+                    b.HasIndex("IdUsuario");
 
                     b.HasIndex("Nit")
                         .IsUnique();
@@ -73,16 +81,16 @@ namespace ModuloContabilidadApi.Migrations
                     b.HasIndex("Sigla")
                         .IsUnique();
 
-                    b.HasIndex("UsuarioId");
-
                     b.ToTable("Empresas");
                 });
 
             modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
                 {
-                    b.Property<Guid>("IdGestion")
+                    b.Property<int>("IdGestion")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGestion"));
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
@@ -93,11 +101,11 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<DateTime>("FechaInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("IdEmpresa")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -114,9 +122,11 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("ModuloContabilidadApi.Models.Periodo", b =>
                 {
-                    b.Property<Guid>("IdPeriodo")
+                    b.Property<int>("IdPeriodo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPeriodo"));
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
@@ -127,11 +137,11 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<DateTime>("FechaInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("IdGestion")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdGestion")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -148,9 +158,11 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("ModuloContabilidadApi.Models.Usuario", b =>
                 {
-                    b.Property<Guid>("IdUsuario")
+                    b.Property<int>("IdUsuario")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUsuario"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -169,9 +181,7 @@ namespace ModuloContabilidadApi.Migrations
                 {
                     b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
                         .WithMany("Empresas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdUsuario");
 
                     b.Navigation("Usuario");
                 });
@@ -181,7 +191,7 @@ namespace ModuloContabilidadApi.Migrations
                     b.HasOne("ModuloContabilidadApi.Models.Empresa", "Empresa")
                         .WithMany("Gestiones")
                         .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")

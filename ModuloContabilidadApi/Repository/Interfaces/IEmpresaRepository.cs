@@ -6,7 +6,7 @@ namespace ModuloContabilidadApi.Repository.Interfaces;
 public interface IEmpresaRepository
 {
     public Task<IEnumerable<EmpresaDto>> GetModelos();
-    public Task<EmpresaDto> GetModelo(Guid modeloId);
+    public Task<EmpresaDto> GetModelo(int modeloId);
     public Task<EmpresaDto> CreateUpdateModelDto(EmpresaDto modeloDto);
-    public Task<bool> DeleteModel(Guid modeloId);
+    public Task<bool> DeleteModel(int modeloId);
 }

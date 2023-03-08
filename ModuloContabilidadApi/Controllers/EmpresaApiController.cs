@@ -11,7 +11,7 @@ namespace ModuloContabilidadApi.Controllers;
 [Route("empresas")]
 public class EmpresaApiController : ControllerBase
 {
-    protected readonly ResponseDto                ResponseDto;
+    protected readonly ResponseDto        ResponseDto;
     private readonly   IEmpresaRepository _empresaRepository;
 
     public EmpresaApiController(IEmpresaRepository empresaRepository)
@@ -42,7 +42,7 @@ public class EmpresaApiController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<object> Get(Guid id)
+    public async Task<object> Get(int id)
     {
         try
         {
@@ -104,7 +104,7 @@ public class EmpresaApiController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<object> Delete(Guid id)
+    public async Task<object> Delete(int id)
     {
         try
         {

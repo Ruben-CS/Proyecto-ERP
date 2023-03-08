@@ -7,17 +7,17 @@ namespace ModuloContabilidadApi.Models.Dtos;
 
 public class PeriodoDto
 {
-    public Guid           IdPeriodo   { get; set; }
+    public int            IdPeriodo   { get; set; }
     public string         Nombre      { get; set; }
     public DateTime       FechaInicio { get; set; }
     public DateTime       FechaFin    { get; set; }
     public EstadosPeriodo Estado      { get; set; } = EstadosPeriodo.Abierto;
 
     [ForeignKey("Usuario")]
-    public Guid IdUsuario { get; set; }
+    public int IdUsuario { get; set; }
 
     [ForeignKey("Gestion")]
-    public Guid IdGestion { get; set; }
+    public int IdGestion { get; set; }
 
     [InverseProperty("Periodos")]
     public Usuario Usuario { get; set; }

@@ -5,25 +5,26 @@ using ModuloContabilidadApi.Repository.Interfaces;
 namespace ModuloContabilidadApi.Controllers;
 
 [ApiController]
-[Route("gestiones")]
-public class GestionApiController : ControllerBase
+[Route("periodos")]
+public class PeriodoApiController : ControllerBase
 {
-    protected readonly ResponseDto        ResponseDto;
-    private readonly   IGestionRepository _gestionRepository;
+    protected readonly ResponseDto ResponseDto;
+    private readonly   IPeriodoRepository _periodoRepository;
 
-    public GestionApiController(IGestionRepository gestionRepository)
+
+    public PeriodoApiController(IPeriodoRepository periodoRepository)
     {
-        ResponseDto        = new ResponseDto();
-        _gestionRepository = gestionRepository;
+        _periodoRepository = periodoRepository;
+        this.ResponseDto   = new ResponseDto();
     }
 
-    [HttpGet("ListarGestion")]
+    [HttpGet("ListarPeriodo")]
     public async Task<object> Get()
     {
         try
         {
-            var gestionDto = await _gestionRepository.GetModelos();
-            ResponseDto.Result = gestionDto;
+            var periodoDto = await _periodoRepository.GetModelos();
+            ResponseDto.Result = periodoDto;
         }
         catch (Exception e)
         {
@@ -43,8 +44,8 @@ public class GestionApiController : ControllerBase
     {
         try
         {
-            var gestionDto = await _gestionRepository.GetModelo(id);
-            ResponseDto.Result = gestionDto;
+            var periodoDto = await _periodoRepository.GetModelo(id);
+            ResponseDto.Result = periodoDto;
         }
         catch (Exception e)
         {
@@ -58,14 +59,13 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPost("agregarGestion")]
-    public async Task<object> Post([FromBody] GestionDto gestionDto)
+    [HttpPost]
+    public async Task<object> Post(PeriodoDto periodoDto)
     {
         try
         {
-            var result =
-                await _gestionRepository.CreateUpdateModelDto(gestionDto);
-            ResponseDto.Result = result;
+            var periodo = await _periodoRepository.CreateUpdateModelDto(periodoDto);
+            ResponseDto.Result = periodo;
         }
         catch (Exception e)
         {
@@ -79,14 +79,13 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPut("actualizarGestion")]
-    public async Task<object> Put([FromBody] GestionDto gestionDto)
+    [HttpPut]
+    public async Task<object> Put(PeriodoDto periodoDto)
     {
         try
         {
-            var result =
-                await _gestionRepository.CreateUpdateModelDto(gestionDto);
-            ResponseDto.Result = result;
+            var periodo = await _periodoRepository.CreateUpdateModelDto(periodoDto);
+            ResponseDto.Result = periodo;
         }
         catch (Exception e)
         {
@@ -100,13 +99,14 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpDelete("eliminarGestion")]
+    [HttpDelete]
+    [Route("{id}")]
     public async Task<object> Delete(int id)
     {
         try
         {
-            var result = await _gestionRepository.DeleteModel(id);
-            ResponseDto.Result = result;
+            var periodo = await _periodoRepository.DeleteModel(id);
+            ResponseDto.Result = periodo;
         }
         catch (Exception e)
         {

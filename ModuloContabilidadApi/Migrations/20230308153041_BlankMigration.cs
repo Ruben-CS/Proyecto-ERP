@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ModuloContabilidadApi.Migrations
 {
     /// <inheritdoc />
-    public partial class EditadoElUsuarioNew : Migration
+    public partial class BlankMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace ModuloContabilidadApi.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -28,7 +29,8 @@ namespace ModuloContabilidadApi.Migrations
                 name: "Empresas",
                 columns: table => new
                 {
-                    IdEmpresa = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdEmpresa = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nit = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Sigla = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -37,30 +39,30 @@ namespace ModuloContabilidadApi.Migrations
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Niveles = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Empresas", x => x.IdEmpresa);
                     table.ForeignKey(
-                        name: "FK_Empresas_Usuarios_UsuarioId",
-                        column: x => x.UsuarioId,
+                        name: "FK_Empresas_Usuarios_IdUsuario",
+                        column: x => x.IdUsuario,
                         principalTable: "Usuarios",
-                        principalColumn: "IdUsuario",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IdUsuario");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Gestiones",
                 columns: table => new
                 {
-                    IdGestion = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdGestion = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
-                    IdEmpresa = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IdEmpresa = table.Column<int>(type: "int", nullable: false),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,7 +71,8 @@ namespace ModuloContabilidadApi.Migrations
                         name: "FK_Gestiones_Empresas_IdEmpresa",
                         column: x => x.IdEmpresa,
                         principalTable: "Empresas",
-                        principalColumn: "IdEmpresa");
+                        principalColumn: "IdEmpresa",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gestiones_Usuarios_IdUsuario",
                         column: x => x.IdUsuario,
@@ -81,13 +84,14 @@ namespace ModuloContabilidadApi.Migrations
                 name: "Periodos",
                 columns: table => new
                 {
-                    IdPeriodo = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdPeriodo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdGestion = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    IdGestion = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,6 +111,11 @@ namespace ModuloContabilidadApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Empresas_IdUsuario",
+                table: "Empresas",
+                column: "IdUsuario");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Empresas_Nit",
                 table: "Empresas",
                 column: "Nit",
@@ -123,11 +132,6 @@ namespace ModuloContabilidadApi.Migrations
                 table: "Empresas",
                 column: "Sigla",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Empresas_UsuarioId",
-                table: "Empresas",
-                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gestiones_IdEmpresa",
