@@ -20,20 +20,12 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/FetchData.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/Empresa/ListarEmpresas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxMaXN0YXJFbXByZXNhcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/LearnBlazor/BindProp.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVhcm5CbGF6b3JcQmluZFByb3AucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Shared/SurveyPrompt.razor]
