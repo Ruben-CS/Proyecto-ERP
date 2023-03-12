@@ -9,53 +9,53 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FrontEnd.ERP
 build_property.RootNamespace = FrontEnd.ERP
-build_property.ProjectDir = C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\
+build_property.ProjectDir = C:\Users\ruben\OneDrive\Documents\Repos\C#\Proyecto-ERP\FrontEnd.ERP\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP
+build_property.MSBuildProjectDirectory = C:\Users\ruben\OneDrive\Documents\Repos\C#\Proyecto-ERP\FrontEnd.ERP
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/App.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/Counter.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/FetchData.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/Index.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/LearnBlazor/BindProp.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/LearnBlazor/BindProp.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVhcm5CbGF6b3JcQmluZFByb3AucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Shared/SurveyPrompt.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/_Imports.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Shared/MainLayout.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-cpoehljszm
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Shared/NavMenu.razor]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-zh2gf2e87p
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/Error.cshtml]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/FrontEnd.ERP/Pages/_Host.cshtml]
+[C:/Users/ruben/OneDrive/Documents/Repos/C\#/Proyecto-ERP/FrontEnd.ERP/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PjYgvhyPbHHG5QXUpGXe0uzTmxop915iCKcTB4EPJwd0zG4Wmzig+5U8UlfqPc5lU0CC/iyXvhkRwzPR8t5zyg==",
+  "dgSpecHash": "z6HM+XbX0ilvvhmaQxNAG6G4BX2lK9lTJYnigcCt4ggS3dnAdqsuBhaDTl4y7FU9UA3cWAveaS6RChBbE8LF4g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\C#\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

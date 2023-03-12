@@ -21,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"));
+    o.UseSqlServer(
+        builder.Configuration.GetConnectionString("DesktopConnection"));
 });
 
 
