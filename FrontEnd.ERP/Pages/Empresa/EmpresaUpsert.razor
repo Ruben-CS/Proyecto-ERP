@@ -1,6 +1,21 @@
-@page "/EmpresaUpsert"
-<h3>EmpresaUpsert</h3>
+@page "/empresa/crear"
+
+<div class="row my-3">
+    <h3 class="card-title text-primary mb-3 ml-3">
+        @Titulo empresa
+    </h3>
+    <div class="col-12">
+        <EditForm Model="Empresa">
+            <div class="form-group">
+                <label>Nombre</label>
+                <InputText @bind-Value="Empresa.Nombre"
+                class="form-control"></InputText>
+            </div>
+        </EditForm>
+    </div>
+</div>
 
 @code {
-    
+    public EmpresaDto Empresa { get; set; } = new();
+    public string Titulo { get; set; } = "Crear";
 }
