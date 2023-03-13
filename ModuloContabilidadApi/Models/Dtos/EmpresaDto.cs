@@ -8,7 +8,7 @@ public class EmpresaDto
     public int IdEmpresa { get; set; }
 
     [Required(ErrorMessage = "Empresa requiere un nombre")]
-    string Nombre { get; set; }
+    public string Nombre { get; set; }
 
     [Required(ErrorMessage = "Empresa requiere un NIT")]
     public string Nit { get; set; }
