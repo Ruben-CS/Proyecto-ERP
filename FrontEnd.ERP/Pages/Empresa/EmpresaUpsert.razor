@@ -4,12 +4,38 @@
     <h3 class="card-title text-primary mb-3 ml-3">
         @Titulo empresa
     </h3>
-    <div class="col-12">
+    <div class="col-5">
         <EditForm Model="Empresa">
             <div class="form-group">
                 <label>Nombre</label>
                 <InputText @bind-Value="Empresa.Nombre"
-                class="form-control"></InputText>
+                           class="form-control">
+                </InputText>
+                <label>Nit</label>
+                <InputText @bind-Value="Empresa.Nit" class="form-control">
+                </InputText>
+                <label>Sigla</label>
+                <InputText @bind-Value="Empresa.Sigla" class="form-control">
+                </InputText>
+                <label>Telefono</label>
+                <InputText @bind-Value="Empresa.Telefono"
+                           class="form-control">
+                </InputText>
+                <label>Correo</label>
+                <InputText @bind-Value="Empresa.Correo"
+                           class="form-control">
+                </InputText>
+                <label>Direccion</label>
+                <InputText @bind-Value="Empresa.Direccion"
+                           class="form-control">
+                </InputText>
+            </div>
+            <div class="form-group py-3">
+                <button class="btn btn-primary"> Crear </button>
+                <NavLink href="listarempresas" class="btn btn-secondary">
+                    Volver al
+                    inicio
+                </NavLink>
             </div>
         </EditForm>
     </div>
