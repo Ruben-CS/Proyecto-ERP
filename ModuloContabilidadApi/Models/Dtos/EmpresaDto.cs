@@ -21,6 +21,8 @@ public class EmpresaDto
     [EmailAddress]
     public string  Correo    { get; set; }
     public string? Direccion { get; set; }
+    [Range(3, 7, ErrorMessage = "Nivel no aceptale")]
+
     public int     Niveles   { get; set; }
     public bool    IsDeleted { get; set; } = false;
 
