@@ -14,6 +14,8 @@ public class Usuario
     public string Password { get; set; }
 
     public List<Empresa>? Empresas  { get; set; }
+
+    public string Tipo { get; set; } = "admin";
     public List<Gestion>? Gestiones { get; set; }
     public List<Periodo>? Periodos  { get; set; }
 }
