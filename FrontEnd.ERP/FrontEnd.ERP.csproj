@@ -10,4 +10,12 @@
     <ProjectReference Include="..\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\LearnBlazor\BindProp.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data" />
+  </ItemGroup>
+
 </Project>
