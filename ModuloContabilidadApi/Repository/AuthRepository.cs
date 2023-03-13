@@ -60,7 +60,7 @@ public class AuthRepository : IAuthRepository
                 new Claim(ClaimTypes.Role,usuario.Tipo),
             }),
             Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new(new SymmetricSecurityKey(key),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
