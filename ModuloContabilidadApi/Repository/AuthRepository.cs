@@ -8,6 +8,7 @@ using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace ModuloContabilidadApi.Repository;
 
@@ -50,18 +51,22 @@ public class AuthRepository : IAuthRepository
             return null;
         }
 
-        var tokenHandler    = new JwtSecurityTokenHandler();
-        var key             = Encoding.ASCII.GetBytes(_secretKey);
+        var       tokenHandler = new JwtSecurityTokenHandler();
+        var       randomBytes  = new byte[32];
+        using var rng          = RandomNumberGenerator.Create();
+        rng.GetBytes(randomBytes);
+        var key = Convert.ToBase64String(randomBytes);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, usuario.Nombre),
-                new Claim(ClaimTypes.Role,usuario.Tipo),
+                new(ClaimTypes.Name, usuario.Nombre),
+                new(ClaimTypes.Role, usuario.Tipo),
             }),
             Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-            SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey
+                    (Encoding.ASCII.GetBytes(key)),
+                SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         LoginResponseDto loginResponseDto = new()

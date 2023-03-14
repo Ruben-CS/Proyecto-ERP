@@ -21,8 +21,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"));
-    o.UseSqlServer(
-        builder.Configuration.GetConnectionString("DesktopConnection"));
 });
 
 
@@ -44,8 +42,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.Run();

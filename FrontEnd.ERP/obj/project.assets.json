@@ -3924,11 +3924,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\C#\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
+      "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
       "projectName": "FrontEnd.ERP",
-      "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\C#\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
+      "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
       "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\C#\\Proyecto-ERP\\FrontEnd.ERP\\obj\\",
+      "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3945,8 +3945,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\C#\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
-              "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\C#\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
+            "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
+              "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
             }
           }
         }

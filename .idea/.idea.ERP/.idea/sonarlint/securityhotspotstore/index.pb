@@ -13,3 +13,5 @@ d
 4ModuloContabilidadApi/Models/Enums/EstadosPeriodo.cs,0\8\08631e1a818e8bf28f6a41382b845fa7e2211c65
 W
 'ModuloContabilidadApi/Models/Usuario.cs,d\b\dbbbc5e7db009812c7887231f8909a4a10e92770
+e
+5ModuloContabilidadApi/Repository/EmpresaRepository.cs,2\9\296dde97c5fd27cea25b3ced3384ea5673dd48a6

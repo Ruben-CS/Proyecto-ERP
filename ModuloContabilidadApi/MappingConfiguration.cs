@@ -18,6 +18,9 @@ public static class MappingConfiguration
 
             config.CreateMap<PeriodoDto, Periodo>();
             config.CreateMap<Periodo, PeriodoDto>();
+
+            config.CreateMap<UsuarioDto, Usuario>();
+            config.CreateMap<Usuario, UsuarioDto>();
         });
         return mappingConfig;
     }
