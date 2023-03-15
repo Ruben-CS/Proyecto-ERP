@@ -1,94 +1,32 @@
-@page "/ListarEmpresas"
+@page "/"
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Open form
-</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">@Title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-group text-center">
+                <label for="dropdown">Seleccione o cree una empresa:</label>
+                <select class="form-control" id="dropdown">
+                    <!-- colocar lista de empresas con linq -->
+                </select>
             </div>
-            <div class="modal-body">
-                <EditForm Model="Empresa" OnValidSubmit="UpsertEmpresa">
-                    <DataAnnotationsValidator/>
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <InputText @bind-Value="Empresa.Nombre"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Nombre"/>
-                        <label>Nit</label>
-                        <InputText @bind-Value="Empresa.Nit" class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Nit"/>
-                        <label>Sigla</label>
-                        <InputText @bind-Value="Empresa.Sigla" class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Sigla"/>
-                        <label>Telefono</label>
-                        <InputText @bind-Value="Empresa.Telefono"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Telefono"/>
-                        <label>Correo</label>
-                        <InputText @bind-Value="Empresa.Correo"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Correo"/>
-                        <label>Direccion</label>
-                        <InputText @bind-Value="Empresa.Direccion"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Direccion"/>
-                        <label>Niveles</label>
-                        <InputSelect @bind-Value="Empresa.Niveles" class="dropdown">
-                            @foreach (var item in _listaNiveles)
-                            {
-                                <option value="@item">@item</option>
-                            }
-                        </InputSelect>
-                        <ValidationMessage For="() => Empresa.Niveles"/>
-                    </div>
-                    <div class="form-group py-3">
-                        <button class="btn btn-primary"> Crear </button>
-                        <NavLink href="listarempresas" class="btn btn-secondary">
-                            Volver al inicio
-                        </NavLink>
-                    </div>
-                </EditForm>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Crear</button>
+            <div class="btn-group d-flex justify-content-center mt-3">
+                <button @onclick="ShowModal" type="button" class="btn btn-primary mx-2">Create</button>
+                <button type="button" class="btn btn-warning mx-2">Edit</button>
+                <button type="button" class="btn btn-danger mx-2">Delete</button>
             </div>
         </div>
     </div>
 </div>
 
+<CreateEmpresaModal @ref="modal" Title="Crear Empresa">
+    <_EmpresaUpsert/>
+</CreateEmpresaModal>
 
 @code {
+    private CreateEmpresaModal modal;
 
-    [Parameter]
-    public string? Title { get; set; }
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-
-    public EmpresaDto Empresa { get; set; } = new();
-    public string Titulo { get; set; } = "Crear";
-
-    private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
-
-    private void UpsertEmpresa()
+    private void ShowModal()
     {
-        Empresa.Nombre = "Empresa 1";
+        modal.IsVisible = true;
     }
-
 }

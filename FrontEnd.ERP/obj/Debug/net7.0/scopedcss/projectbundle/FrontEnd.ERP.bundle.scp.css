@@ -1,3 +1,24 @@
+/* _content/FrontEnd.ERP/Pages/Empresa/CreateEmpresaModal.razor.rz.scp.css */
+.modal[b-amdye4loo9] {
+    opacity: 100;
+    transition: opacity 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.modal.show[b-amdye4loo9] {
+    opacity: 1;
+}
+/* _content/FrontEnd.ERP/Pages/Login/Login.razor.rz.scp.css */
+.cascading-right[b-qroeqan9ep] {
+    margin-right: -50px;
+}
+
+@media (max-width: 991.98px) {
+    .cascading-right[b-qroeqan9ep] {
+        margin-right: 0;
+    }
+}
 /* _content/FrontEnd.ERP/Shared/MainLayout.razor.rz.scp.css */
 .page[b-cpoehljszm] {
     position: relative;

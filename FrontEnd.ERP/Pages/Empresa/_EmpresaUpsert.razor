@@ -1,62 +1,56 @@
 @page "/empresa/crear"
-
 <div class="row my-3">
     <h3 class="card-title text-primary mb-3 ml-3">
         @Titulo empresa
     </h3>
     <div class="col-5">
-        <_modalBootstrap>
-            <EditForm Model="Empresa" OnValidSubmit="UpsertEmpresa">
-                <DataAnnotationsValidator/>
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <InputText @bind-Value="Empresa.Nombre"
-                               class="form-control">
-                    </InputText>
-                    <ValidationMessage For="() => Empresa.Nombre"/>
+        <EditForm Model="Empresa" OnValidSubmit="UpsertEmpresa">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <label>Nombre</label>
+                <InputText @bind-Value="Empresa.Nombre"
+                           class="form-control">
+                </InputText>
+                <ValidationMessage For="() => Empresa.Nombre" />
+                <div class="col">
                     <label>Nit</label>
                     <InputText @bind-Value="Empresa.Nit" class="form-control">
                     </InputText>
-                    <ValidationMessage For="() => Empresa.Nit"/>
+                    <ValidationMessage For="() => Empresa.Nit" />
+                </div>
+                <div class="col">
                     <label>Sigla</label>
                     <InputText @bind-Value="Empresa.Sigla" class="form-control">
                     </InputText>
-                    <ValidationMessage For="() => Empresa.Sigla"/>
-                    <label>Telefono</label>
-                    <InputText @bind-Value="Empresa.Telefono"
-                               class="form-control">
-                    </InputText>
-                    <ValidationMessage For="() => Empresa.Telefono"/>
-                    <label>Correo</label>
-                    <InputText @bind-Value="Empresa.Correo"
-                               class="form-control">
-                    </InputText>
-                    <ValidationMessage For="() => Empresa.Correo"/>
-                    <label>Direccion</label>
-                    <InputText @bind-Value="Empresa.Direccion"
-                               class="form-control">
-                    </InputText>
-                    <ValidationMessage For="() => Empresa.Direccion"/>
-                    <label>Niveles</label>
-                    <InputSelect @bind-Value="Empresa.Niveles" class="dropdown">
-                        @foreach (var item in _listaNiveles)
-                        {
-                            <option value="@item">@item</option>
-                        }
-                    </InputSelect>
-                    <ValidationMessage For="() => Empresa.Niveles"/>
+                    <ValidationMessage For="() => Empresa.Sigla" />
                 </div>
-                <div class="form-group py-3">
-                    <button class="btn btn-primary"> Crear </button>
-                    <NavLink href="listarempresas" class="btn btn-secondary">
-                        Volver al inicio
-                    </NavLink>
-                </div>
-            </EditForm>
-        </_modalBootstrap>
+                <label>Telefono</label>
+                <InputText @bind-Value="Empresa.Telefono"
+                           class="form-control">
+                </InputText>
+                <ValidationMessage For="() => Empresa.Telefono" />
+                <label>Correo</label>
+                <InputText @bind-Value="Empresa.Correo"
+                           class="form-control">
+                </InputText>
+                <ValidationMessage For="() => Empresa.Correo" />
+                <label>Direccion</label>
+                <InputText @bind-Value="Empresa.Direccion"
+                           class="form-control">
+                </InputText>
+                <ValidationMessage For="() => Empresa.Direccion" />
+                <label>Niveles</label>
+                <InputSelect @bind-Value="Empresa.Niveles" class="form-control">
+                    @foreach(var item in _listaNiveles)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="() => Empresa.Niveles" />
+            </div>
+        </EditForm>
     </div>
 </div>
-
 @code {
 
     public EmpresaDto Empresa { get; set; } = new();
