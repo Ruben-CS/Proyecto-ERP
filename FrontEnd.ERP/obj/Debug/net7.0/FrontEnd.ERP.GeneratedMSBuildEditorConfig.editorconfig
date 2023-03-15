@@ -20,14 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/FrontEnd.ERP/Pages/Empresa/BotonModal.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxCb3Rvbk1vZGFsLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/FrontEnd.ERP/Pages/Empresa/CreateEmpresaModal.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhdGVFbXByZXNhTW9kYWwucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/FrontEnd.ERP/Pages/Empresa/Inicio.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxJbmljaW8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -43,6 +35,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/FrontEnd.ERP/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/FrontEnd.ERP/Pages/Empresa/CreateEmpresaModal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhdGVFbXByZXNhTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-amdye4loo9
 
 [C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/FrontEnd.ERP/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=

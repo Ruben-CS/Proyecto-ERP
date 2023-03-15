@@ -275,3 +275,4 @@ C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\ref
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\FrontEnd.ERP.pdb
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\FrontEnd.ERP.genruntimeconfig.cache
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\ref\FrontEnd.ERP.dll
+C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\scopedcss\Pages\Empresa\CreateEmpresaModal.razor.rz.scp.css
