@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LDB07bwJe9jJ2NQh1QKYP9gV66PcTBSO5B9zJjmHmB3J9omKwp7LjZi9zqVc8vYJ2R60iVJURLPjU+vHwk5LXQ==",
+  "dgSpecHash": "nN9AhzTqa7v2g/tfNTnCNBw1Fljs388XKStTNJoexoj73CeBhKMLRKpfsHeACilfBqwH2EGnG7mQsS5uZGjFtg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
