@@ -42,8 +42,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("registrar")]
-    public async Task<IResult> Registrar(IAuthRepository _authRepository,
-                                                 [FromBody] RegistroRequestDto modelo)
+    public async Task<IResult> Registrar(
+        [FromBody] RegistroRequestDto modelo)
     {
         var response = new APIResponse()
         {
@@ -65,7 +65,7 @@ public class AuthController : ControllerBase
         {
             return Results.BadRequest(response);
         }
-        
+
         response.IsSucces   = true;
         response.StatusCode = HttpStatusCode.OK;
         return Results.Ok(response);

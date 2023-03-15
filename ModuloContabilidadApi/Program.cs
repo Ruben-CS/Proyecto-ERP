@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Modelos.ApplicationContexts;
 using ModuloContabilidadApi;
-using ModuloContabilidadApi.ApplicationContexts;
 using ModuloContabilidadApi.Repository;
 using ModuloContabilidadApi.Repository.Interfaces;
 
