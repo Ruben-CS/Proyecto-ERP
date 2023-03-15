@@ -1,0 +1,12 @@
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.csproj.AssemblyReference.cache
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.AssemblyInfoInputs.cache
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.AssemblyInfo.cs
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.csproj.CoreCompileInputs.cache
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\bin\Debug\net7.0\Modelos.deps.json
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\bin\Debug\net7.0\Modelos.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\bin\Debug\net7.0\Modelos.pdb
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\refint\Modelos.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\Modelos.pdb
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\obj\Debug\net7.0\ref\Modelos.dll

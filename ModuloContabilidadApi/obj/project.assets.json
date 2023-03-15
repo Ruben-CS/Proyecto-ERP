@@ -1368,6 +1368,22 @@
             "rid": "win"
           }
         }
+      },
+      "Modelos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "AutoMapper": "12.0.1",
+          "Microsoft.EntityFrameworkCore": "7.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.3",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.3"
+        },
+        "compile": {
+          "bin/placeholder/Modelos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Modelos.dll": {}
+        }
       }
     }
   },
@@ -4165,6 +4181,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Modelos/1.0.0": {
+      "type": "project",
+      "path": "../Modelos/Modelos.csproj",
+      "msbuildProject": "../Modelos/Modelos.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4178,6 +4199,7 @@
       "Microsoft.EntityFrameworkCore.Relational >= 7.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.3",
+      "Modelos >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -4207,7 +4229,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+              "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4282,7 +4308,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

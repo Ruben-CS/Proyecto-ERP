@@ -1,6 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ModuloContabilidadApi.ApplicationContexts;
+using Modelos.ApplicationContexts;
 using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;

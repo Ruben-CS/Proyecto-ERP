@@ -180,3 +180,5 @@ C:\Users\ruben\OneDrive\Documents\Repos\C#\Proyecto-ERP\FrontEnd.ERP\obj\Debug\n
 C:\Users\ruben\OneDrive\Documents\Repos\C#\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\FrontEnd.ERP.pdb
 C:\Users\ruben\OneDrive\Documents\Repos\C#\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\FrontEnd.ERP.genruntimeconfig.cache
 C:\Users\ruben\OneDrive\Documents\Repos\C#\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\ref\FrontEnd.ERP.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\bin\Debug\net7.0\Modelos.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\bin\Debug\net7.0\Modelos.pdb
