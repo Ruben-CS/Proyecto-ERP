@@ -1,6 +1,5 @@
 @page "/inicio"
 
-
 <Modal @ref="modal" title="Modal title" IsVerticallyCentered="true">
     <BodyTemplate>
         <_EmpresaUpsert></_EmpresaUpsert>
@@ -15,7 +14,20 @@
     </FooterTemplate>
 </Modal>
 
-<Button Color="ButtonColor.Primary" @onclick="OnShowModalClick">Vertically centered modal</Button>
+
+<div class="container mx-auto">
+    <div class="row">
+        <div class="col-12">
+            <h1>Inicio</h1>
+            <p>Esta es la página de inicio</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <Button Color="ButtonColor.Primary" @onclick="OnShowModalClick">CrearEmpresa</Button>
+        </div>
+    </div>
+</div>
 
 
 @code {

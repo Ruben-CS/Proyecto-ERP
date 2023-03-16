@@ -2,9 +2,9 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @using ModuloContabilidadApi.Models.Dtos
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@inherits LoginLayout
 
-<h1>Iniciar Sesión</h1>
+
 
 @if (_showInvalidCredentials)
 {
@@ -14,22 +14,30 @@ else
 {
     <Toasts class="p-3" Messages="messages" Placement="ToastsPlacement.TopRight"/>
 }
-<EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
-    <div class="form-outline mb-4">
-        <InputText class="form-control"
-                   @bind-Value="RequestDto.Nombre"/>
-        <label class="form-label">Usuario</label>
-    </div>
+<div class="container d-flex justify-content-center align-items-center card shadow-sm" style="height: 100vh">
+    <div class="card" style="width: 30rem;">
+        <div class="card-body">
+            <h1>Iniciar Sesión</h1>
+            <EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
+                <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <InputText id="usuario" class="form-control" @bind-Value="RequestDto.Nombre"/>
+                </div>
 
-    <div class="form-outline mb-4">
-        <InputText type="password" class="form-control" @bind-Value="RequestDto.Password"/>
-        <label class="form-label">Contraseña</label>
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <InputText id="contrasena" type="password" class="form-control" @bind-Value="RequestDto.Password"/>
+                </div>
+
+                <div class="form-group text-center p-4 shadow-sm">
+                    <Button Color="ButtonColor.Success" Type="ButtonType.Submit" @onclick="() => ShowMessage(ToastType.Success)">
+                        Iniciar Sesión
+                    </Button>
+                </div>
+            </EditForm>
+        </div>
     </div>
-    <Button Color="ButtonColor.Success" Type="ButtonType.Submit" @onclick="() => ShowMessage(ToastType
-    .Success)">
-        Iniciar Sesion
-    </Button>
-</EditForm>
+</div>
 
 @code {
         public const string LoginUrl = "https://localhost:44378/Auth/login";
@@ -65,7 +73,7 @@ else
         if (response.IsSuccessStatusCode)
         {
             var loginResponseDto = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
-    // Use the loginResponseDto object to store the user's login information and token.
+            // Use the loginResponseDto object to store the user's login information and token.
             NavigationManager.NavigateTo("/Inicio");
         }
         else
