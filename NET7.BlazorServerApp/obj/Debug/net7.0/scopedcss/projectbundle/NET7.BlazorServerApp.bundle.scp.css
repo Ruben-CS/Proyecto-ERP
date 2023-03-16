@@ -1,21 +1,22 @@
-/* _content/NET7.BlazorServerApp/Pages/Empresa/CreateEmpresaModal.razor.rz.scp.css */
-.modal[b-m81wxaurby] {
+/* _content/NET7.BlazorServerApp/Pages/Empresa/Inicio.razor.rz.scp.css */
+/* _content/NET7.BlazorServerApp/Pages/Empresa/_CreateEmpresa.razor.rz.scp.css */
+.modal[b-szsnliyhrr] {
     opacity: 100;
     transition: opacity 0.2s ease-in-out;
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
 }
 
-.modal.show[b-m81wxaurby] {
+.modal.show[b-szsnliyhrr] {
     opacity: 1;
 }
-/* _content/NET7.BlazorServerApp/Pages/Login/Login.razor.rz.scp.css */
-.cascading-right[b-a6abn9rerb] {
+/* _content/NET7.BlazorServerApp/Pages/InicioSesion.razor.rz.scp.css */
+.cascading-right[b-ba4z36bvlv] {
     margin-right: -50px;
 }
 
 @media (max-width: 991.98px) {
-    .cascading-right[b-a6abn9rerb] {
+    .cascading-right[b-ba4z36bvlv] {
         margin-right: 0;
     }
 }
@@ -88,74 +89,5 @@ main[b-ldp6d3rg0w] {
     .top-row[b-ldp6d3rg0w], article[b-ldp6d3rg0w] {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
-    }
-}
-/* _content/NET7.BlazorServerApp/Shared/NavMenu.razor.rz.scp.css */
-.navbar-toggler[b-7438e89yqi] {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.top-row[b-7438e89yqi] {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.navbar-brand[b-7438e89yqi] {
-    font-size: 1.1rem;
-}
-
-.oi[b-7438e89yqi] {
-    width: 2rem;
-    font-size: 1.1rem;
-    vertical-align: text-top;
-    top: -2px;
-}
-
-.nav-item[b-7438e89yqi] {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
-}
-
-    .nav-item:first-of-type[b-7438e89yqi] {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type[b-7438e89yqi] {
-        padding-bottom: 1rem;
-    }
-
-    .nav-item[b-7438e89yqi]  a {
-        color: #d7d7d7;
-        border-radius: 4px;
-        height: 3rem;
-        display: flex;
-        align-items: center;
-        line-height: 3rem;
-    }
-
-.nav-item[b-7438e89yqi]  a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
-}
-
-.nav-item[b-7438e89yqi]  a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
-
-@media (min-width: 641px) {
-    .navbar-toggler[b-7438e89yqi] {
-        display: none;
-    }
-
-    .collapse[b-7438e89yqi] {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
-    
-    .nav-scrollable[b-7438e89yqi] {
-        /* Allow sidebar to scroll for tall menus */
-        height: calc(100vh - 3.5rem);
-        overflow-y: auto;
     }
 }

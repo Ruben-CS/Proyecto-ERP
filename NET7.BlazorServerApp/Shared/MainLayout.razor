@@ -7,18 +7,6 @@
              Title="Blazor Bootstrap"
              DataProvider="SidebarDataProvider" />
 
-    <main>
-        <div class="bb-top-row px-4 d-flex justify-content-end">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            <div class="py-2">
-                @Body
-            </div>
-        </article>
-    </main>
-
 </div>
 
 @code {
@@ -37,9 +25,10 @@
     {
         navItems = new List<NavItem>
         {
-            new NavItem { Id = "1", Href = "/", IconName = IconName.HouseDoorFill, Text = "Home", Match=NavLinkMatch.All},
+            new NavItem { Id = "1", Href = "/helloworld", IconName = IconName.HouseDoorFill, Text = "Home", Match=NavLinkMatch.All},
             new NavItem { Id = "2", Href = "/counter", IconName = IconName.PlusSquareFill, Text = "Counter"},
             new NavItem { Id = "3", Href = "/fetchdata", IconName = IconName.Table, Text = "Fetch Data"},
+            new() {Id = "4", Href = "/inicio", IconName = IconName.Buildings, Text = "Inicio"}
         };
 
         return navItems;

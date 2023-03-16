@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\OneDrive\Documents\Repos\Proyecto-ERP\Modelos\Modelos.csproj" />
-    <ProjectReference Include="..\..\..\..\..\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
+    <ProjectReference Include="..\Modelos\Modelos.csproj" />
+    <ProjectReference Include="..\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
   </ItemGroup>
 
 </Project>
