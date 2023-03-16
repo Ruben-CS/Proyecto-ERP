@@ -1,0 +1,9 @@
+.cascading-right[b-a6abn9rerb] {
+    margin-right: -50px;
+}
+
+@media (max-width: 991.98px) {
+    .cascading-right[b-a6abn9rerb] {
+        margin-right: 0;
+    }
+}

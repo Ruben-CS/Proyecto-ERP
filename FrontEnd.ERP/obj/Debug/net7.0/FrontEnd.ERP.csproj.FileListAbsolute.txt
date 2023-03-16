@@ -279,3 +279,4 @@ C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\sco
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\scopedcss\Pages\Login\Login.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\scopedcss\Pages\Empresa\CreateEmpresaModal.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\obj\Debug\net7.0\scopedcss\Pages\Login\Login.razor.rz.scp.css
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\FrontEnd.ERP\bin\Debug\net7.0\BootstrapBlazor.dll

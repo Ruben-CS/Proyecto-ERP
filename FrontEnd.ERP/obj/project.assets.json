@@ -75,7 +75,7 @@
           }
         }
       },
-      "BootstrapBlazor/7.4.2": {
+      "BootstrapBlazor/7.4.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Authorization": "7.0.0",
@@ -1770,14 +1770,14 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "BootstrapBlazor/7.4.2": {
-      "sha512": "t3lVayOQwRLjd9SugPEA2PplySWWitd+JfqyuBAFMO3Smybc4mw7Bq+Gp/6FMT9W6FxgO5jicXTOtPvZKPpCMA==",
+    "BootstrapBlazor/7.4.3": {
+      "sha512": "XdKVjjfMCSxdo/75S9ylUNkRDlmuhRCUOZCEaBmWiF9eHPzZdDWb4egKNmbUOa1INmUjEe2LkFLceelamK7D0Q==",
       "type": "package",
-      "path": "bootstrapblazor/7.4.2",
+      "path": "bootstrapblazor/7.4.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "bootstrapblazor.7.4.2.nupkg.sha512",
+        "bootstrapblazor.7.4.3.nupkg.sha512",
         "bootstrapblazor.nuspec",
         "build/BootstrapBlazor.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -4897,7 +4897,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "BootstrapBlazor >= 7.4.2",
+      "BootstrapBlazor >= 7.4.3",
       "ModuloContabilidadApi >= 1.0.0"
     ]
   },
@@ -4946,7 +4946,7 @@
         "dependencies": {
           "BootstrapBlazor": {
             "target": "Package",
-            "version": "[7.4.2, )"
+            "version": "[7.4.3, )"
           }
         },
         "imports": [

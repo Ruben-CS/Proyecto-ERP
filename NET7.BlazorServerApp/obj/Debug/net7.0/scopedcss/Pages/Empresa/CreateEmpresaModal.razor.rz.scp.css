@@ -1,0 +1,10 @@
+.modal[b-m81wxaurby] {
+    opacity: 100;
+    transition: opacity 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.modal.show[b-m81wxaurby] {
+    opacity: 1;
+}
