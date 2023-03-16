@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "pYmcryOUO28gSWaMtsKRxXKC22XJct6YLJfIpeALo04=",
+  "Hash": "rKm2/M36qFd+uS8XiqrJaIhO3wl4FiFplRgOvXufPV8=",
   "Source": "FrontEnd.ERP",
   "BasePath": "_content/FrontEnd.ERP",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
       "Version": 2,
       "Source": "ModuloContabilidadApi",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
@@ -22,17 +22,17 @@
     {
       "Name": "FrontEnd.ERP\\wwwroot",
       "Source": "FrontEnd.ERP",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FrontEnd.ERP.styles.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FrontEnd.ERP.styles.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "FrontEnd.ERP.styles.css",
       "AssetKind": "All",
@@ -43,13 +43,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FrontEnd.ERP.styles.css"
+      "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FrontEnd.ERP.styles.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FrontEnd.ERP.bundle.scp.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FrontEnd.ERP.bundle.scp.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "FrontEnd.ERP.bundle.scp.css",
       "AssetKind": "All",
@@ -60,13 +60,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FrontEnd.ERP.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FrontEnd.ERP.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -97,10 +97,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -114,10 +114,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -148,10 +148,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -165,10 +165,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -182,10 +182,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -199,10 +199,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -216,10 +216,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -233,10 +233,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -250,10 +250,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\css\\site.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -267,10 +267,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\favicon.png",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
@@ -284,10 +284,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.png"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\img\\7.jpg",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\img\\7.jpg",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "img/7.jpg",
       "AssetKind": "All",
@@ -301,10 +301,10 @@
       "OriginalItemSpec": "wwwroot\\img\\7.jpg"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\datepicker\\daterangepicker.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\datepicker\\daterangepicker.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/datepicker/daterangepicker.css",
       "AssetKind": "All",
@@ -318,10 +318,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\datepicker\\daterangepicker.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\datepicker\\daterangepicker.js",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\datepicker\\daterangepicker.js",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/datepicker/daterangepicker.js",
       "AssetKind": "All",
@@ -335,10 +335,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\datepicker\\daterangepicker.js"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\datepicker\\moment.min.js",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\datepicker\\moment.min.js",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/datepicker/moment.min.js",
       "AssetKind": "All",
@@ -352,10 +352,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\datepicker\\moment.min.js"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\css\\font-awesome.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\css\\font-awesome.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/css/font-awesome.css",
       "AssetKind": "All",
@@ -369,10 +369,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\css\\font-awesome.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\css\\font-awesome.min.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\css\\font-awesome.min.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/css/font-awesome.min.css",
       "AssetKind": "All",
@@ -386,10 +386,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\css\\font-awesome.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\FontAwesome.otf",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\FontAwesome.otf",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/fonts/FontAwesome.otf",
       "AssetKind": "All",
@@ -403,10 +403,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\fonts\\FontAwesome.otf"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.eot",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.eot",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/fonts/fontawesome-webfont.eot",
       "AssetKind": "All",
@@ -420,10 +420,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.eot"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.svg",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.svg",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/fonts/fontawesome-webfont.svg",
       "AssetKind": "All",
@@ -437,10 +437,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.svg"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.ttf",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.ttf",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/fonts/fontawesome-webfont.ttf",
       "AssetKind": "All",
@@ -454,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.ttf"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.woff",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.woff",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/fonts/fontawesome-webfont.woff",
       "AssetKind": "All",
@@ -471,10 +471,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.woff"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.woff2",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.woff2",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/fonts/fontawesome-webfont.woff2",
       "AssetKind": "All",
@@ -488,10 +488,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\fonts\\fontawesome-webfont.woff2"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\HELP-US-OUT.txt",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\font-awesome-4.7\\HELP-US-OUT.txt",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/font-awesome-4.7/HELP-US-OUT.txt",
       "AssetKind": "All",
@@ -505,10 +505,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\font-awesome-4.7\\HELP-US-OUT.txt"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\jquery\\jquery.js",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\jquery\\jquery.js",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/jquery/jquery.js",
       "AssetKind": "All",
@@ -522,10 +522,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\jquery\\jquery.js"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\jquery\\jquery.min.js",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\jquery\\jquery.min.js",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/jquery/jquery.min.js",
       "AssetKind": "All",
@@ -539,10 +539,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\jquery\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\css\\material-design-iconic-font.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\css\\material-design-iconic-font.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/css/material-design-iconic-font.css",
       "AssetKind": "All",
@@ -556,10 +556,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\css\\material-design-iconic-font.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\css\\material-design-iconic-font.min.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\css\\material-design-iconic-font.min.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/css/material-design-iconic-font.min.css",
       "AssetKind": "All",
@@ -573,10 +573,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\css\\material-design-iconic-font.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.eot",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.eot",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/fonts/Material-Design-Iconic-Font.eot",
       "AssetKind": "All",
@@ -590,10 +590,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.eot"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.svg",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.svg",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/fonts/Material-Design-Iconic-Font.svg",
       "AssetKind": "All",
@@ -607,10 +607,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.svg"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.ttf",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.ttf",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/fonts/Material-Design-Iconic-Font.ttf",
       "AssetKind": "All",
@@ -624,10 +624,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.ttf"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.woff",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.woff",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/fonts/Material-Design-Iconic-Font.woff",
       "AssetKind": "All",
@@ -641,10 +641,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.woff"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.woff2",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.woff2",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/mdi-font/fonts/Material-Design-Iconic-Font.woff2",
       "AssetKind": "All",
@@ -658,10 +658,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\mdi-font\\fonts\\Material-Design-Iconic-Font.woff2"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\select2\\select2.min.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\select2\\select2.min.css",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/select2/select2.min.css",
       "AssetKind": "All",
@@ -675,10 +675,10 @@
       "OriginalItemSpec": "wwwroot\\vendor\\select2\\select2.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\select2\\select2.min.js",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\vendor\\select2\\select2.min.js",
       "SourceId": "FrontEnd.ERP",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\wwwroot\\",
       "BasePath": "_content/FrontEnd.ERP",
       "RelativePath": "vendor/select2/select2.min.js",
       "AssetKind": "All",
