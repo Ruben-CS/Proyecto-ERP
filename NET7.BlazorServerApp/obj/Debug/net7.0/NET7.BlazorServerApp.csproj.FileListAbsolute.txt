@@ -181,7 +181,6 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\De
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\Pages\Empresa\CreateEmpresaModal.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\Pages\Login\Login.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\bundle\NET7.BlazorServerApp.styles.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\projectbundle\NET7.BlazorServerApp.bundle.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\NET7.BlazorServerApp.csproj.CopyComplete
