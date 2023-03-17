@@ -1,6 +1,6 @@
 @page "/inicio"
 
-<Modal @ref="_modal" title="Modal title" IsVerticallyCentered="true" Style="">
+<Modal @ref="_modal" Title="Crear Empresa" IsVerticallyCentered="true" Style="">
     <BodyTemplate>
         <_EmpresaUpsert></_EmpresaUpsert>
     </BodyTemplate>
@@ -15,24 +15,64 @@
 </Modal>
 
 
-<div class="container d-flex justify-content-center align-items-center mt-5">
+@* <div class="container-xxl border border-primary rounded d-flex justify-content-center"> *@
+@*     <div class="align-items-center mt-5"> *@
+@*         <div class="row"> *@
+@*             <div class="col-12"> *@
+@*                 <h1>Inicio</h1> *@
+@*                 <p>Esta es la página de inicio</p> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="row"> *@
+@*             <div class="col-12"> *@
+@*                 <Button Color="ButtonColor.Primary" @onclick="OnShowModalClick">CrearEmpresa</Button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+
+<div class="container-fluid ">
     <div class="row">
-        <div class="col-12">
-            <h1>Inicio</h1>
-            <p>Esta es la página de inicio</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <Button Color="ButtonColor.Primary" @onclick="OnShowModalClick">CrearEmpresa</Button>
+        <div class="col-md-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
+                        <div class="container text-center">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="mb-3">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown Button
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Option 1</a>
+                                            <a class="dropdown-item" href="#">Option 2</a>
+                                            <a class="dropdown-item" href="#">Option 3</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary mx-2">Button 1</button>
+                                        <button type="button" class="btn btn-primary mx-2">Button 2</button>
+                                        <button type="button" class="btn btn-primary mx-2">Button 3</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-@code {
-    private Modal _modal;
 
-    public string styles = "background-color: rgba(255, 255, 255, 0.8);box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);border-radius: 10px;";
+@code {
+    private Modal _modal = null!;
+
+    public string Styles = "background-color: rgba(255, 255, 255, 0.8);box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);border-radius: 10px;";
 
     private async Task OnShowModalClick()
     {
@@ -41,7 +81,7 @@
 
     private async Task OnHideModalClick()
     {
-        await _modal?.HideAsync();
+        await _modal.HideAsync();
     }
 
 }
