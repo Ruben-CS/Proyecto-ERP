@@ -1,51 +1,81 @@
 @page "/empresa/crear"
 @using Microsoft.AspNetCore.Components
 @using ModuloContabilidadApi.Models.Dtos
-<EditForm Model="Empresa" OnValidSubmit="UpsertEmpresa">
-            <DataAnnotationsValidator/>
-            <div class="form-row">
-                <label>Nombre</label>
-                <InputText @bind-Value="Empresa.Nombre"
-                           class="form-control">
-                </InputText>
-                <ValidationMessage For="() => Empresa.Nombre"/>
-                <div class="col">
+
+<div class="">
+    <EditForm Model="Empresa" OnValidSubmit="UpsertEmpresa">
+        <DataAnnotationsValidator/>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                    <label>Nombre</label>
+                    <InputText @bind-Value="Empresa.Nombre"
+                               class="form-control">
+                    </InputText>
+                    <ValidationMessage For="() => Empresa.Nombre"/>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="form-outline">
                     <label>Nit</label>
                     <InputText @bind-Value="Empresa.Nit" class="form-control">
                     </InputText>
                     <ValidationMessage For="() => Empresa.Nit"/>
                 </div>
-                <div class="col">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="form-outline">
                     <label>Sigla</label>
                     <InputText @bind-Value="Empresa.Sigla" class="form-control">
                     </InputText>
                     <ValidationMessage For="() => Empresa.Sigla"/>
                 </div>
-                <label>Telefono</label>
-                <InputText @bind-Value="Empresa.Telefono"
-                           class="form-control">
-                </InputText>
-                <ValidationMessage For="() => Empresa.Telefono"/>
-                <label>Correo</label>
-                <InputText @bind-Value="Empresa.Correo"
-                           class="form-control">
-                </InputText>
-                <ValidationMessage For="() => Empresa.Correo"/>
-                <label>Direccion</label>
-                <InputText @bind-Value="Empresa.Direccion"
-                           class="form-control">
-                </InputText>
-                <ValidationMessage For="() => Empresa.Direccion"/>
-                <label>Niveles</label>
-                <InputSelect @bind-Value="Empresa.Niveles" class="form-control">
-                    @foreach (var item in _listaNiveles)
-                    {
-                        <option value="@item">@item</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="() => Empresa.Niveles"/>
             </div>
-        </EditForm>
+
+            <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                    <label>Telefono</label>
+                    <InputText @bind-Value="Empresa.Telefono"
+                               class="form-control">
+                    </InputText>
+                    <ValidationMessage For="() => Empresa.Telefono"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                    <label>Direccion</label>
+                    <InputText @bind-Value="Empresa.Direccion"
+                               class="form-control">
+                    </InputText>
+                    <ValidationMessage For="() => Empresa.Direccion"/>
+                </div>
+            </div>
+            <div class="col-md-6 md-4">
+                <div class="form-outline">
+                    <label>Niveles</label>
+                    <InputSelect @bind-Value="Empresa.Niveles" class="form-select" aria-label="Default select example">
+                        @foreach (var item in _listaNiveles)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="() => Empresa.Niveles"/>
+                </div>
+            </div>
+        </div>
+        <label>Correo</label>
+        <InputText @bind-Value="Empresa.Correo"
+                   class="form-control">
+        </InputText>
+        <ValidationMessage For="() => Empresa.Correo"/>
+
+    </EditForm>
+</div>
+
 @code {
 
     public EmpresaDto Empresa { get; set; } = new();
