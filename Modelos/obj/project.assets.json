@@ -3219,11 +3219,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+      "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
       "projectName": "Modelos",
-      "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+      "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
       "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\obj\\",
+      "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",

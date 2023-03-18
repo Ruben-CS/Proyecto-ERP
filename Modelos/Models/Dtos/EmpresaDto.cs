@@ -5,8 +5,6 @@ namespace ModuloContabilidadApi.Models.Dtos;
 
 public class EmpresaDto
 {
-    public int IdEmpresa { get; set; }
-
     [Required(ErrorMessage = "Empresa requiere un nombre")]
     public string Nombre { get; set; }
 
@@ -18,7 +16,7 @@ public class EmpresaDto
     public string Sigla { get; set; }
 
     public string? Telefono  { get; set; }
-    [EmailAddress]
+    [EmailAddress (ErrorMessage = "Correo no valido")]
     public string  Correo    { get; set; }
     public string? Direccion { get; set; }
     [Range(3, 7, ErrorMessage = "Nivel no aceptale")]
@@ -27,7 +25,6 @@ public class EmpresaDto
     public bool    IsDeleted { get; set; } = false;
 
     public List<Gestion>? Gestiones { get; set; }
-    // public byte[]         TimeStamp { get; set; }
 
     [ForeignKey("Usuario")]
     public int IdUsuario { get; set; }

@@ -20,7 +20,7 @@ public class Empresa
 
     public string? Telefono { get; set; }
 
-    [EmailAddress]
+    [EmailAddress (ErrorMessage = "Correo no valido")]
     public string Correo { get; set; }
 
     public string? Direccion { get; set; }
