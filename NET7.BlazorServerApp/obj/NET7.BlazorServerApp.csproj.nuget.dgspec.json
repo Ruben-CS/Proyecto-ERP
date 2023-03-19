@@ -229,6 +229,10 @@
             "Blazor.Bootstrap": {
               "target": "Package",
               "version": "[1.6.0, )"
+            },
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[6.2.0, )"
             }
           },
           "imports": [
