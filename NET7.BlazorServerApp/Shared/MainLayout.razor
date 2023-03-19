@@ -1,15 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
-<MudContainer Class="d-flex align-center justify-center mud-width-full"  style="height:100vh;">
-<MudPaper Height="400px" Width="100%" >
-        <MudContainer Fixed="true" Class="d-flex align-center justify-center mud-width-full" >
-            <MudPaper Height="400px" Width="100%" Square="true" Class="mud-theme-primary">
+<MudThemeProvider/>
+<MudContainer Class="d-flex align-center justify-center mud-width-full" style="height:100vh;">
+    <MudPaper Height="400px" Width="100%">
+        <MudContainer Fixed="true">
+            <MudPaper Height="400px" Width="100%" Square="true" Class="mud-theme-primary d-flex align-center justify-center mud-width-full">
                 @Body
             </MudPaper>
         </MudContainer>
     </MudPaper>
 </MudContainer>
+
 @code {
     bool _drawerOpen = true;
 
@@ -17,4 +18,5 @@
     {
         _drawerOpen = !_drawerOpen;
     }
+
 }
