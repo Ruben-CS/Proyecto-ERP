@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj": {}
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
         "projectName": "Modelos",
-        "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -77,14 +77,14 @@
         }
       }
     },
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
         "projectName": "ModuloContabilidadApi",
-        "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -101,8 +101,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
-                "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj"
+              "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+                "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj"
               }
             }
           }
@@ -183,14 +183,14 @@
         }
       }
     },
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
         "projectName": "NET7.BlazorServerApp",
-        "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\NET7.BlazorServerApp\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -207,11 +207,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
-                "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj"
+              "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+                "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj"
               },
-              "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
-                "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
+              "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
+                "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
               }
             }
           }

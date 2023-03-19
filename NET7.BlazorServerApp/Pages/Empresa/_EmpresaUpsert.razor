@@ -3,7 +3,7 @@
 @using ModuloContabilidadApi.Models.Dtos
 
 <div class="">
-    <EditForm Model="Empresa" OnValidSubmit="UpsertEmpresa">
+    <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
         <DataAnnotationsValidator/>
         <div class="row">
             <div class="col-md-6 mb-4">
@@ -78,7 +78,8 @@
 
 @code {
 
-    public EmpresaDto Empresa { get; set; } = new();
+    [Parameter]
+    public EmpresaDto Empresa { get; set; }
     public string Titulo { get; set; } = "Crear";
 
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();

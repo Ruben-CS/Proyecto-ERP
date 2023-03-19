@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RxZnhiI7SVY6m2tmca3eNSZzs9XDKtyr780kVEGR5Fh24HFaOpBdWKTeAbYfgGBfrqsw23S9tLAAxp0mw24QzQ==",
+  "dgSpecHash": "0dxO7BTJEHqlJW3z8HWSex1Vp3JKFwZG9hM7MJy2HqecxQ/n1dFBcQzxLH7mIS9ERxPNgD5eDLkjGDXY492tnQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

@@ -11,12 +11,13 @@ builder.Services.AddScoped<HttpClient>();
 
 var app = builder.Build();
 
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
