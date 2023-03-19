@@ -2,7 +2,6 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @using ModuloContabilidadApi.Models.Dtos
-@inherits LoginLayout
 
 
 
@@ -30,7 +29,9 @@ else
                 </div>
 
                 <div class="form-group text-center p-4 shadow-sm">
-                    <Button Color="ButtonColor.Success" Type="ButtonType.Submit" @onclick="() => ShowMessage(ToastType.Success)">
+                    <Button Color="ButtonColor.Success" Type="BlazorBootstrap.ButtonType.Submit"
+                    @onclick="() =>
+                    ShowMessage(ToastType.Success)">
                         Iniciar Sesión
                     </Button>
                 </div>
