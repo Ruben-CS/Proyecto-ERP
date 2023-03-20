@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
+using ModuloContabilidadApi.Models;
 
-namespace ModuloContabilidadApi.Models;
+namespace Modelos.Models;
 
 public class Empresa
 {

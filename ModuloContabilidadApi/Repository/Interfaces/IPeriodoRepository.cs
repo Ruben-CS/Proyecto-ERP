@@ -1,4 +1,4 @@
-using ModuloContabilidadApi.Models.Dtos;
+using Modelos.Models.Dtos;
 
 namespace ModuloContabilidadApi.Repository.Interfaces;
 

@@ -1,4 +1,4 @@
-namespace ModuloContabilidadApi.Models;
+namespace Modelos.Models;
 
 public class ResponseDto
 {

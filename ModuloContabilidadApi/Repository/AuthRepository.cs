@@ -2,14 +2,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
-using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using Microsoft.Extensions.Configuration;
 using Modelos.ApplicationContexts;
+using Modelos.Models;
+using Modelos.Models.Dtos;
 
 namespace ModuloContabilidadApi.Repository;
 

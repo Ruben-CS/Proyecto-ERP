@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Modelos.Models;
 using ModuloContabilidadApi.Models;
 
 namespace Modelos.ApplicationContexts;

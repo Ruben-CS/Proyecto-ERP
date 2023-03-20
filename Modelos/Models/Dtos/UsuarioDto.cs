@@ -1,4 +1,4 @@
-namespace ModuloContabilidadApi.Models.Dtos;
+namespace Modelos.Models.Dtos;
 
 public class UsuarioDto
 {

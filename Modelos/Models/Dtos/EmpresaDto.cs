@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ModuloContabilidadApi.Models;
 
-namespace ModuloContabilidadApi.Models.Dtos;
+namespace Modelos.Models.Dtos;
 
 public class EmpresaDto
 {

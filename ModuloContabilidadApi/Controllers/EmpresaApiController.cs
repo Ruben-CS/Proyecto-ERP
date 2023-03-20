@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ModuloContabilidadApi.Models;
-using ModuloContabilidadApi.Models.Dtos;
-using ModuloContabilidadApi.Repository;
+using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
-using ResponseDto = ModuloContabilidadApi.Models.ResponseDto;
-
 namespace ModuloContabilidadApi.Controllers;
 
 [ApiController]

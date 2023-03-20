@@ -1,9 +1,16 @@
 @page "/inicio"
 @inject HttpClient HttpClient
 @using ModuloContabilidadApi.Models.Dtos
+@using Modelos.Models.Dtos
+
+@if (IsSucces)
+{
+    <Toasts class="p-3" Messages="_messages" Placement="ToastsPlacement.TopRight" AutoHide="true" Delay="1000"/>
+}
 
 @* Crear Empresa *@
-<Modal @ref="_modal" title="Modal title" UseStaticBackdrop="true" IsVerticallyCentered="true">
+<Modal @ref="_modal" title="Llenar el formulario" UseStaticBackdrop="true"
+IsVerticallyCentered="true">
     <BodyTemplate>
         <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
@@ -119,11 +126,22 @@
 
     private EmpresaDto Empresa { get; } = new();
 
-    private HttpClient _httpClient;
+    [Inject]
+    protected ToastService ToastService { get; set; }
 
+    private Modal _modal = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
+    readonly List<ToastMessage> _messages = new();
+    private bool IsSucces { get; set; }
 
-    private Modal _modal = new Modal();
+    private void ShowMessage(ToastType toastType) => _messages.Add(CreateToastMessage(toastType));
+
+    private ToastMessage CreateToastMessage(ToastType toastType)
+        => new()
+        {
+            Type = toastType,
+            Message = $"Empresa creade exitosamente el: {DateTime.Now}",
+        };
 
     private async Task ShowCrearEmpresa()
     {
@@ -137,7 +155,7 @@
 
     private async Task UpsertEmpresa()
     {
-        const string url = "https://localhost:44378/empresas/agregarempresa.";
+        const string url = "https://localhost:44378/empresas/agregarempresa";
 
         var empresaDto = new EmpresaDto
         {
@@ -151,13 +169,21 @@
             IdUsuario = 1
         };
 
-        var response = await HttpClient.PostAsJsonAsync("https://localhost:44378/empresas/agregarempresa", empresaDto);
+        var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
 
-        if (response.IsSuccessStatusCode)
+        try
         {
-    // Empresa created successfully
-    // Do something here, like showing a success message
-            Console.WriteLine("creating success");
+            if (response.IsSuccessStatusCode)
+            {
+                await HideCrearEmpresa();
+                ShowMessage(ToastType.Success);
+                IsSucces = true;
+            }
+        }
+        catch (Exception e)
+        {
+            IsSucces = false;
+            throw;
         }
     }
 

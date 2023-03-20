@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 
