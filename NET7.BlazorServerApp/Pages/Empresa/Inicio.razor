@@ -1,35 +1,34 @@
 @page "/inicio"
 @inject HttpClient HttpClient
-@using ModuloContabilidadApi.Models.Dtos
-@using Modelos.Models.Dtos
+@using Microsoft.AspNetCore.Components
+@using Modelos.Models
+@using System.ComponentModel.DataAnnotations
 
 @if (IsSucces)
 {
-    <Toasts class="p-3" Messages="_messages" Placement="ToastsPlacement.TopRight" AutoHide="true" Delay="1000"/>
+    <Toasts class="p-3" Messages="_messages" Placement="ToastsPlacement.TopRight" AutoHide="true" Delay="4000"/>
 }
 
 @* Crear Empresa *@
 <Modal @ref="_modal" title="Llenar el formulario" UseStaticBackdrop="true"
-IsVerticallyCentered="true">
+       IsVerticallyCentered="true">
     <BodyTemplate>
-        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
+        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa" On>
             <DataAnnotationsValidator/>
+            <ValidationSummary/>
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         <label>Nombre</label>
-                        <InputText @bind-Value="Empresa.Nombre"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Nombre"/>
+                        <InputText @bind-Value="Empresa.Nombre" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => Empresa.Nombre)"/>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         <label>Nit</label>
-                        <InputText @bind-Value="Empresa.Nit" class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Nit"/>
+                        <InputText @bind-Value="Empresa.Nit" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => Empresa.Nit)"/>
                     </div>
                 </div>
             </div>
@@ -37,19 +36,16 @@ IsVerticallyCentered="true">
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         <label>Sigla</label>
-                        <InputText @bind-Value="Empresa.Sigla" class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Sigla"/>
+                        <InputText @bind-Value="Empresa.Sigla" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => Empresa.Sigla)"/>
                     </div>
                 </div>
 
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         <label>Telefono</label>
-                        <InputText @bind-Value="Empresa.Telefono"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Telefono"/>
+                        <InputText @bind-Value="Empresa.Telefono" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => Empresa.Telefono)"/>
                     </div>
                 </div>
             </div>
@@ -57,74 +53,80 @@ IsVerticallyCentered="true">
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         <label>Direccion</label>
-                        <InputText @bind-Value="Empresa.Direccion"
-                                   class="form-control">
-                        </InputText>
-                        <ValidationMessage For="() => Empresa.Direccion"/>
+                        <InputText @bind-Value="Empresa.Direccion" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => Empresa.Direccion)"/>
                     </div>
                 </div>
                 <div class="col-md-6 md-4">
                     <div class="form-outline">
                         <label>Niveles</label>
-                        <InputSelect @bind-Value="Empresa.Niveles" class="form-select"
-                                     aria-label="Default select example">
+                        <InputSelect @bind-Value="Empresa.Niveles" class="form-select" aria-label="Default select example">
                             @foreach (var item in _listaNiveles)
                             {
                                 <option value="@item">@item</option>
                             }
                         </InputSelect>
-                        <ValidationMessage For="() => Empresa.Niveles"/>
+                        <ValidationMessage For="@(() => Empresa.Niveles)"/>
                     </div>
                 </div>
             </div>
             <label>Correo</label>
-            <InputText @bind-Value="Empresa.Correo"
-                       class="form-control">
-            </InputText>
-            <ValidationMessage For="() => Empresa.Correo"/>
-
+            <InputText @bind-Value="Empresa.Correo" class="form-control"></InputText>
+            <ValidationMessage For="@(() => Empresa.Correo)"/>
         </EditForm>
     </BodyTemplate>
     <FooterTemplate>
-        <Button Color="ButtonColor.Secondary" @onclick="HideCrearEmpresa">Close</Button>
+        <Button Color="ButtonColor.Secondary" @onclick="HideCrearEmpresa">Cerrar</Button>
         <Button Color="ButtonColor.Primary" @onclick="UpsertEmpresa">Crear</Button>
     </FooterTemplate>
 </Modal>
 
-<div class="container-xxl border border-primary rounded d-flex justify-content-center">
-    <div class="align-items-center mt-5">
-        <div class="row">
-            <div class="col-12">
-                <h1>Inicio</h1>
-                <p>Esta es la página de inicio</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <Button Color="ButtonColor.Primary" @onclick="ShowCrearEmpresa">CrearEmpresa</Button>
-            </div>
-        </div>
-    </div>
-</div>
+<MudContainer MaxWidth="MaxWidth.Small">
+    <MudPaper Class="d-flex pa-4 ma-5" Elevation="0">
+        I'm a flexbox container.
+    </MudPaper>
+    <MudPaper Class="d-flex pa-4" Elevation="0">
+        <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+                @onclick="@ShowCrearEmpresa" Label="Agregar Empresa"/>
+    </MudPaper>
+</MudContainer>
 
-<MudGrid>
+<MudGrid Class="ma-2 pa-4">
     <MudItem xs="12">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=12</MudPaper>
+        <MudSelect T="string" Label="Empresa" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+            <MudSelectItem Value="string.Empty"/>
+            <MudSelectItem Value="string.Empty"/>
+            <MudSelectItem Value="string.Empty"/>
+            <MudSelectItem Value="string.Empty"/>
+        </MudSelect>
     </MudItem>
     <MudItem xs="4">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=4</MudPaper>
+        <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
+                Class="d-flex align-center
+        justify-center
+        mud-width-full py-8"
+                Label="Editar Empresa"/>
     </MudItem>
     <MudItem xs="4">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=4</MudPaper>
+        <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Eliminar Empresa"/>
     </MudItem>
     <MudItem xs="4">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=4</MudPaper>
+        <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Ingresar"/>
     </MudItem>
 </MudGrid>
 
 @code {
 
-    private EmpresaDto Empresa { get; } = new();
+    private Empresa Empresa { get; } = new();
+
 
     [Inject]
     protected ToastService ToastService { get; set; }
@@ -171,19 +173,12 @@ IsVerticallyCentered="true">
 
         var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
 
-        try
+
+        if (response.IsSuccessStatusCode)
         {
-            if (response.IsSuccessStatusCode)
-            {
-                await HideCrearEmpresa();
-                ShowMessage(ToastType.Success);
-                IsSucces = true;
-            }
-        }
-        catch (Exception e)
-        {
-            IsSucces = false;
-            throw;
+            await HideCrearEmpresa();
+            ShowMessage(ToastType.Success);
+            IsSucces = true;
         }
     }
 

@@ -293,3 +293,4 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\De
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\Debug\net7.0\Microsoft.JSInterop.dll
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\Debug\net7.0\MudBlazor.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\Debug\net7.0\Newtonsoft.Json.dll

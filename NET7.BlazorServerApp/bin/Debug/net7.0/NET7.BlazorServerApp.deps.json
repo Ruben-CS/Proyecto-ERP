@@ -11,7 +11,8 @@
           "Blazor.Bootstrap": "1.6.0",
           "Modelos": "1.0.0",
           "ModuloContabilidadApi": "1.0.0",
-          "MudBlazor": "6.2.0"
+          "MudBlazor": "6.2.0",
+          "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "NET7.BlazorServerApp.dll": {}
@@ -544,6 +545,14 @@
           "lib/net7.0/MudBlazor.dll": {
             "assemblyVersion": "6.2.0.0",
             "fileVersion": "6.2.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.3.27908"
           }
         }
       },
@@ -1205,6 +1214,13 @@
       "sha512": "sha512-Oqf+63FIhPGwuBURFihcXmCsE94doxHTcnpRa8Dna8TI/Mk3DAheWxOu7tnkKyCJiEzWEJSiFGbGPETIywVWVQ==",
       "path": "mudblazor/6.2.0",
       "hashPath": "mudblazor.6.2.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.4.0": {
       "type": "package",
