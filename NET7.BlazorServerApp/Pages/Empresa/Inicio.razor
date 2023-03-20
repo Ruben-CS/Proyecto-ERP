@@ -2,20 +2,87 @@
 @inject HttpClient HttpClient
 @using ModuloContabilidadApi.Models.Dtos
 
-<Modal @ref="_modal" Title="Crear Empresa" IsVerticallyCentered="true">
+@* Crear Empresa *@
+<Modal @ref="_modal" title="Modal title" UseStaticBackdrop="true" IsVerticallyCentered="true">
     <BodyTemplate>
-        <_EmpresaUpsert ></_EmpresaUpsert>
+        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
+            <DataAnnotationsValidator/>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Nombre</label>
+                        <InputText @bind-Value="Empresa.Nombre"
+                                   class="form-control">
+                        </InputText>
+                        <ValidationMessage For="() => Empresa.Nombre"/>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Nit</label>
+                        <InputText @bind-Value="Empresa.Nit" class="form-control">
+                        </InputText>
+                        <ValidationMessage For="() => Empresa.Nit"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Sigla</label>
+                        <InputText @bind-Value="Empresa.Sigla" class="form-control">
+                        </InputText>
+                        <ValidationMessage For="() => Empresa.Sigla"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Telefono</label>
+                        <InputText @bind-Value="Empresa.Telefono"
+                                   class="form-control">
+                        </InputText>
+                        <ValidationMessage For="() => Empresa.Telefono"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Direccion</label>
+                        <InputText @bind-Value="Empresa.Direccion"
+                                   class="form-control">
+                        </InputText>
+                        <ValidationMessage For="() => Empresa.Direccion"/>
+                    </div>
+                </div>
+                <div class="col-md-6 md-4">
+                    <div class="form-outline">
+                        <label>Niveles</label>
+                        <InputSelect @bind-Value="Empresa.Niveles" class="form-select"
+                                     aria-label="Default select example">
+                            @foreach (var item in _listaNiveles)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="() => Empresa.Niveles"/>
+                    </div>
+                </div>
+            </div>
+            <label>Correo</label>
+            <InputText @bind-Value="Empresa.Correo"
+                       class="form-control">
+            </InputText>
+            <ValidationMessage For="() => Empresa.Correo"/>
+
+        </EditForm>
     </BodyTemplate>
     <FooterTemplate>
-        <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">
-            Close
-        </Button>
-        <Button Color="ButtonColor.Primary" type="submit">
-            Save changes
-        </Button>
+        <Button Color="ButtonColor.Secondary" @onclick="HideCrearEmpresa">Close</Button>
+        <Button Color="ButtonColor.Primary" @onclick="UpsertEmpresa">Crear</Button>
     </FooterTemplate>
 </Modal>
-
 
 <div class="container-xxl border border-primary rounded d-flex justify-content-center">
     <div class="align-items-center mt-5">
@@ -27,45 +94,71 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <Button Color="ButtonColor.Primary" @onclick="OnShowModalClick">CrearEmpresa</Button>
+                <Button Color="ButtonColor.Primary" @onclick="ShowCrearEmpresa">CrearEmpresa</Button>
             </div>
         </div>
     </div>
 </div>
 
+<MudGrid>
+    <MudItem xs="12">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=12</MudPaper>
+    </MudItem>
+    <MudItem xs="4">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=4</MudPaper>
+    </MudItem>
+    <MudItem xs="4">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=4</MudPaper>
+    </MudItem>
+    <MudItem xs="4">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=4</MudPaper>
+    </MudItem>
+</MudGrid>
+
 @code {
-    private Modal _modal = null!;
 
-        private const string EmpresaCrudUrl = "https://localhost:44378/empresas/agregarEmpresa";
+    private EmpresaDto Empresa { get; } = new();
 
-    public EmpresaDto EmpresaDto { get; } = new();
+    private HttpClient _httpClient;
 
-    // public async Task CreateEmpresaAsync()
-    // {
-    //     var empresaDto = new EmpresaDto()
-    //     {
-    //         Nombre = EmpresaDto.Nombre,
-    //         Nit = EmpresaDto.Nit,
-    //         Sigla = EmpresaDto.Sigla,
-    //         Correo = EmpresaDto.Correo,
-    //         Niveles = EmpresaDto.Niveles
-    //     };
-    //     var response = await HttpClient.PostAsJsonAsync(EmpresaCrudUrl, empresaDto);
-    //     response.EnsureSuccessStatusCode();
-    //     if (response.IsSuccessStatusCode)
-    //     {
-    //         Console.WriteLine("empresa creada exitosamente");
-    //     }
-    // }
+    private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
 
-    private async Task OnShowModalClick()
+    private Modal _modal = new Modal();
+
+    private async Task ShowCrearEmpresa()
     {
         await _modal.ShowAsync();
     }
 
-    private async Task OnHideModalClick()
+    private async Task HideCrearEmpresa()
     {
         await _modal.HideAsync();
+    }
+
+    private async Task UpsertEmpresa()
+    {
+        const string url = "https://localhost:44378/empresas/agregarempresa.";
+
+        var empresaDto = new EmpresaDto
+        {
+            Nombre = Empresa.Nombre,
+            Nit = Empresa.Nit,
+            Sigla = Empresa.Sigla,
+            Telefono = Empresa.Telefono,
+            Correo = Empresa.Correo,
+            Direccion = Empresa.Direccion,
+            Niveles = Empresa.Niveles,
+            IdUsuario = 1
+        };
+
+        var response = await HttpClient.PostAsJsonAsync("https://localhost:44378/empresas/agregarempresa", empresaDto);
+
+        if (response.IsSuccessStatusCode)
+        {
+    // Empresa created successfully
+    // Do something here, like showing a success message
+            Console.WriteLine("creating success");
+        }
     }
 
 }
