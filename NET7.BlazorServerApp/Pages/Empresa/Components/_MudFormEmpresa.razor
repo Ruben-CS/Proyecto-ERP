@@ -3,49 +3,45 @@
 @using FluentValidation;
 @using NET7.BlazorServerApp.Validators
 
+<MudPaper Class="pa-4">
+    <MudForm Model="@Empresa" @ref="@form" Validation="@_empresaValidators.ValidateValue">
+        <MudTextField @bind-Value="Empresa.Nombre"
+                      For="@(() => Empresa.Nombre)"
+                      Immediate="true"
+                      Label="Nombre"/>
+        <MudTextField @bind-Value="Empresa.Nit"
+                      For="@(() => Empresa.Nit)"
+                      Immediate="true"
+                      Label="NIT"/>
+        <MudTextField @bind-Value="Empresa.Sigla"
+                      For="@(() => Empresa.Sigla)"
+                      Immediate="true"
+                      Label="Sigla"/>
+        <MudTextField @bind-Value="Empresa.Direccion"
+                      For="@(() => Empresa.Direccion)"
+                      Immediate="true"
+                      Label="Dirección"/>
+        <MudTextField bind-Value="Empresa.Telefono"
+                      For="@(() => Empresa.Telefono)"
+                      Immediate="true"
+                      Label="Telefono"/>
+        <MudSelect bind-Value="Empresa.Niveles" T="int" Label="Niveles"
+                   AnchorOrigin="Origin.BottomCenter">
+            @foreach (var item in _listaNiveles)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+        <MudTextField @bind-Value="Empresa.Correo"
+                      For="@(() => Empresa.Correo)"
+                      Immediate="true"
+                      Label="Correo"/>
+    </MudForm>
+    <MudPaper Elevation="0" Class="pa-4 mt-4">
+        <MudButton Variant="Variant.Filled" Color="Color.Success" Class="mx-2">Crear</MudButton>
+    </MudPaper>
+</MudPaper>
 
-<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex flex-row-reverse flex-grow-1 gap-4" Elevation="0">
-    <MudItem xs="12" sm="7">
-        <MudPaper Class="pa-4">
-            <MudForm Model="@Empresa" @ref="@form" Validation="@_empresaValidators.ValidateValue">
-                <MudTextField @bind-Value="Empresa.Nombre"
-                              For="@(() => Empresa.Nombre)"
-                              Immediate="true"
-                              Label="Nombre"/>
-                <MudTextField @bind-Value="Empresa.Nit"
-                              For="@(() => Empresa.Nit)"
-                              Immediate="true"
-                              Label="NIT"/>
-                <MudTextField @bind-Value="Empresa.Sigla"
-                              For="@(() => Empresa.Sigla)"
-                              Immediate="true"
-                              Label="Sigla"/>
-                <MudTextField @bind-Value="Empresa.Direccion"
-                              For="@(() => Empresa.Direccion)"
-                              Immediate="true"
-                              Label="Dirección"/>
-                <MudTextField bind-Value="Empresa.Telefono"
-                              For="@(() => Empresa.Telefono)"
-                              Immediate="true"
-                              Label="Telefono"/>
-                <MudSelect bind-Value="Empresa.Niveles" T="int" Label="Niveles"
-                           AnchorOrigin="Origin.BottomCenter">
-                    @foreach (var item in _listaNiveles)
-                    {
-                        <MudSelectItem Value="@item">@item</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudTextField @bind-Value="Empresa.Correo"
-                              For="@(() => Empresa.Correo)"
-                              Immediate="true"
-                              Label="Correo"/>
-            </MudForm>
-                    <MudPaper Elevation="0" Class="pa-4 mt-4">
-                        <MudButton Variant="Variant.Filled" Color="Color.Success" Class="mx-2">Crear</MudButton>
-                    </MudPaper>
-        </MudPaper>
-    </MudItem>
-</MudContainer>
 
 @code {
 
