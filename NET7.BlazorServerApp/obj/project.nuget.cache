@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KQ85DATm9Fc7RDK0A19hs8152zqI4DfzTOhDbrS8LeAMcJ+snQWA8I2VFgr4kIZfm3LJNSMP24GK6FkfPH4hlw==",
+  "dgSpecHash": "AkdBi7slEQDJsFdkvqbJ9IKed1jOWS6HxYfQcvFwSPT54rb0bUJJrnqiagXm5JFHvmncsV097S9/JSY9/SPjPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\NET7.BlazorServerApp.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\ruben\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\blazor.bootstrap\\1.6.0\\blazor.bootstrap.1.6.0.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.3\\microsoft.aspnetcore.authentication.jwtbearer.7.0.3.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.1\\microsoft.aspnetcore.authorization.7.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.aspnetcore.components\\7.0.1\\microsoft.aspnetcore.components.7.0.1.nupkg.sha512",

@@ -1,85 +1,13 @@
 @page "/inicio"
-@inject HttpClient HttpClient
-@using Microsoft.AspNetCore.Components
 @using Modelos.Models
-@using System.ComponentModel.DataAnnotations
+@using NET7.BlazorServerApp.Pages.Empresa.Components
+@inject IDialogService DialogService
 
 @if (IsSucces)
 {
     <Toasts class="p-3" Messages="_messages" Placement="ToastsPlacement.TopRight" AutoHide="true" Delay="4000"/>
 }
 
-@* Crear Empresa *@
-<Modal @ref="_modal" title="Llenar el formulario" UseStaticBackdrop="true"
-       IsVerticallyCentered="true">
-    <BodyTemplate>
-        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa" On>
-            <DataAnnotationsValidator/>
-            <ValidationSummary/>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Nombre</label>
-                        <InputText @bind-Value="Empresa.Nombre" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Nombre)"/>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Nit</label>
-                        <InputText @bind-Value="Empresa.Nit" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Nit)"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Sigla</label>
-                        <InputText @bind-Value="Empresa.Sigla" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Sigla)"/>
-                    </div>
-                </div>
-
-                <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Telefono</label>
-                        <InputText @bind-Value="Empresa.Telefono" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Telefono)"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Direccion</label>
-                        <InputText @bind-Value="Empresa.Direccion" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Direccion)"/>
-                    </div>
-                </div>
-                <div class="col-md-6 md-4">
-                    <div class="form-outline">
-                        <label>Niveles</label>
-                        <InputSelect @bind-Value="Empresa.Niveles" class="form-select" aria-label="Default select example">
-                            @foreach (var item in _listaNiveles)
-                            {
-                                <option value="@item">@item</option>
-                            }
-                        </InputSelect>
-                        <ValidationMessage For="@(() => Empresa.Niveles)"/>
-                    </div>
-                </div>
-            </div>
-            <label>Correo</label>
-            <InputText @bind-Value="Empresa.Correo" class="form-control"></InputText>
-            <ValidationMessage For="@(() => Empresa.Correo)"/>
-        </EditForm>
-    </BodyTemplate>
-    <FooterTemplate>
-        <Button Color="ButtonColor.Secondary" @onclick="HideCrearEmpresa">Cerrar</Button>
-        <Button Color="ButtonColor.Primary" @onclick="UpsertEmpresa">Crear</Button>
-    </FooterTemplate>
-</Modal>
 
 <MudContainer MaxWidth="MaxWidth.Small">
     <MudPaper Class="d-flex pa-4 ma-5" Elevation="0">
@@ -87,7 +15,7 @@
     </MudPaper>
     <MudPaper Class="d-flex pa-4" Elevation="0">
         <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
-                @onclick="@ShowCrearEmpresa" Label="Agregar Empresa"/>
+                @onclick="@ShowMudCrearEmpresaModal" Label="Agregar Empresa"/>
     </MudPaper>
 </MudContainer>
 
@@ -124,15 +52,12 @@
 </MudGrid>
 
 @code {
-
-    private Empresa Empresa { get; } = new();
-
+    private _MudCrearEmpresaModal MudCrearEmpresaModal { get; set; }
 
     [Inject]
     protected ToastService ToastService { get; set; }
 
-    private Modal _modal = new();
-    private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
+
     readonly List<ToastMessage> _messages = new();
     private bool IsSucces { get; set; }
 
@@ -145,41 +70,10 @@
             Message = $"Empresa creade exitosamente el: {DateTime.Now}",
         };
 
-    private async Task ShowCrearEmpresa()
+    private void ShowMudCrearEmpresaModal()
     {
-        await _modal.ShowAsync();
+        //opens the _MudCrearEmpresaModal
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true};
+        DialogService.Show<_MudCrearEmpresaModal>("Llene los datos de la empresa", options);
     }
-
-    private async Task HideCrearEmpresa()
-    {
-        await _modal.HideAsync();
-    }
-
-    private async Task UpsertEmpresa()
-    {
-        const string url = "https://localhost:44378/empresas/agregarempresa";
-
-        var empresaDto = new EmpresaDto
-        {
-            Nombre = Empresa.Nombre,
-            Nit = Empresa.Nit,
-            Sigla = Empresa.Sigla,
-            Telefono = Empresa.Telefono,
-            Correo = Empresa.Correo,
-            Direccion = Empresa.Direccion,
-            Niveles = Empresa.Niveles,
-            IdUsuario = 1
-        };
-
-        var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
-
-
-        if (response.IsSuccessStatusCode)
-        {
-            await HideCrearEmpresa();
-            ShowMessage(ToastType.Success);
-            IsSucces = true;
-        }
-    }
-
 }

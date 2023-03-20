@@ -230,6 +230,10 @@
               "target": "Package",
               "version": "[1.6.0, )"
             },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.5.1, )"
+            },
             "MudBlazor": {
               "target": "Package",
               "version": "[6.2.0, )"

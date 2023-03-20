@@ -9,6 +9,7 @@
       "NET7.BlazorServerApp/1.0.0": {
         "dependencies": {
           "Blazor.Bootstrap": "1.6.0",
+          "FluentValidation": "11.5.1",
           "Modelos": "1.0.0",
           "ModuloContabilidadApi": "1.0.0",
           "MudBlazor": "6.2.0",
@@ -83,6 +84,14 @@
           "lib/net6.0/BlazorBootstrap.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.6.0.0"
+          }
+        }
+      },
+      "FluentValidation/11.5.1": {
+        "runtime": {
+          "lib/net7.0/FluentValidation.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.5.1.0"
           }
         }
       },
@@ -878,6 +887,13 @@
       "sha512": "sha512-l9i6nil9DtKm7WLLc0ycJ5Ptk9Ut2wr3ALhHPalcxH71NwGV5cglO7UjRbm20KygZbJKRIS1+alB2DgU+Y1LXw==",
       "path": "blazor.bootstrap/1.6.0",
       "hashPath": "blazor.bootstrap.1.6.0.nupkg.sha512"
+    },
+    "FluentValidation/11.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0h1Q5lNOLLyYTWMJmyNoMqhY4CBRvvUWvJP1R4F2CnmmzuWwvB0A8aVmw5+lOuwYnwUwCRrdeMLbc81F38ahNQ==",
+      "path": "fluentvalidation/11.5.1",
+      "hashPath": "fluentvalidation.11.5.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.3": {
       "type": "package",
