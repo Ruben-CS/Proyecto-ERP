@@ -2,6 +2,7 @@ using NET7.BlazorServerApp.Data;
 using BlazorBootstrap;
 using System.Net.Http.Json;
 using MudBlazor.Services;
+using NET7.BlazorServerApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,10 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazorBootstrap();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddMudServices();
-var app = builder.Build();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<EmpresaService>();
 
+var app = builder.Build();
 
 
 if (!app.Environment.IsDevelopment())

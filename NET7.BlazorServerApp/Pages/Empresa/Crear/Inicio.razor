@@ -1,7 +1,13 @@
 @page "/inicio"
 @using Modelos.Models
 @using NET7.BlazorServerApp.Pages.Empresa.Components
+@using NET7.BlazorServerApp.Services
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using System.Net.Http.Headers
 @inject IDialogService DialogService
+@inject IHttpClientFactory HttpClientFactory
+@inject EmpresaService EmpresaService
 
 @if (IsSucces)
 {
@@ -21,11 +27,13 @@
 
 <MudGrid Class="ma-2 pa-4">
     <MudItem xs="12">
-        <MudSelect T="string" Label="Empresa" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-            <MudSelectItem Value="string.Empty"/>
-            <MudSelectItem Value="string.Empty"/>
-            <MudSelectItem Value="string.Empty"/>
-            <MudSelectItem Value="string.Empty"/>
+        <MudSelect T="string" Label="Empresa" Variant="Variant.Filled"
+        AnchorOrigin="Origin
+        .BottomCenter">
+            @foreach (var empresa in Empresas)
+            {
+                <MudSelectItem Value="@empresa.Nombre">@empresa.Nombre</MudSelectItem>
+            }
         </MudSelect>
     </MudItem>
     <MudItem xs="4">
@@ -52,11 +60,13 @@
 </MudGrid>
 
 @code {
+
     [Inject]
     protected ToastService ToastService { get; set; }
 
-
+    private IEnumerable<EmpresaDto> Empresas = new List<EmpresaDto>();
     readonly List<ToastMessage> _messages = new();
+
     private bool IsSucces { get; set; }
 
     private void ShowMessage(ToastType toastType) => _messages.Add(CreateToastMessage(toastType));
@@ -70,9 +80,20 @@
 
     private void ShowMudCrearEmpresaModal()
     {
-        //opens the _MudCrearEmpresaModal
-        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth
-        .Small, FullWidth = true};
-        DialogService.Show<_MudCrearEmpresaModal>("Llene los datos de la empresa", options);
+    //opens the _MudCrearEmpresaModal
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true, MaxWidth = MaxWidth
+                .Small,
+            FullWidth = true
+        };
+        DialogService.Show
+            <_MudCrearEmpresaModal>("Llene los datos de la empresa", options);
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Empresas = await EmpresaService.GetEmpresasAsync();
+    }
+
 }

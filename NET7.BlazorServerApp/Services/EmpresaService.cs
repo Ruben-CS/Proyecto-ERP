@@ -1,14 +1,32 @@
+using System.Net.Http.Headers;
 using Modelos.Models.Dtos;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace NET7.BlazorServerApp.Services;
 
-public static class GetEmpresas
+public class EmpresaService
 {
-    public static async Task<List<EmpresaDto>?> GetEmpresasAsync()
+    private readonly HttpClient _httpClient;
+
+
+    public EmpresaService(HttpClient httpClient)
     {
-        using var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync("https://localhost:44378/empresas/ListarEmpresa");
+        _httpClient = httpClient;
+    }
+
+    public async Task<List<EmpresaDto>> GetEmpresasAsync()
+    {
+        var response = await _httpClient.GetAsync("https://localhost:44378/empresas/ListarEmpresa");
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<List<EmpresaDto>>();
+
+        var content        = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<ResponseDto>(content);
+        if (responseObject.IsSuccess)
+        {
+            return JsonConvert.DeserializeObject<List<EmpresaDto>>(responseObject.Result.ToString());
+        }
+
+        throw new Exception(string.Join(", ", responseObject.ErrorMessages));
     }
 }

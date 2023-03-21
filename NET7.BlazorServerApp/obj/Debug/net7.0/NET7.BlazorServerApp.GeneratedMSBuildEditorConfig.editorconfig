@@ -40,13 +40,13 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Inicio.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxJbmljaW8ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-w4p7isbyr0
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Crear/Inicio.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhclxJbmljaW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-adffl5l5gf
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/_CreateEmpresa.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxfQ3JlYXRlRW1wcmVzYS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-szsnliyhrr
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Crear/_CreateEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhclxfQ3JlYXRlRW1wcmVzYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-txidi3ckb8
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/InicioSesion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VzaW9uLnJhem9y

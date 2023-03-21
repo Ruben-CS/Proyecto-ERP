@@ -28,7 +28,7 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -49,7 +49,7 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -70,7 +70,7 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -91,7 +91,7 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -111,7 +111,7 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
