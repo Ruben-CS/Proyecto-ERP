@@ -52,8 +52,6 @@
 </MudGrid>
 
 @code {
-    private _MudCrearEmpresaModal MudCrearEmpresaModal { get; set; }
-
     [Inject]
     protected ToastService ToastService { get; set; }
 
@@ -73,7 +71,8 @@
     private void ShowMudCrearEmpresaModal()
     {
         //opens the _MudCrearEmpresaModal
-        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true};
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth
+        .Small, FullWidth = true};
         DialogService.Show<_MudCrearEmpresaModal>("Llene los datos de la empresa", options);
     }
 }
