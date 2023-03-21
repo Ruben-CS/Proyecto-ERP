@@ -8,8 +8,6 @@ namespace NET7.BlazorServerApp.Services;
 public class EmpresaService
 {
     private readonly HttpClient _httpClient;
-
-
     public EmpresaService(HttpClient httpClient)
     {
         _httpClient = httpClient;

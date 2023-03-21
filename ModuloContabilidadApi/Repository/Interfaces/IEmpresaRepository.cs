@@ -1,3 +1,4 @@
+using Modelos.Models;
 using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Models.Dtos;
@@ -10,4 +11,6 @@ public interface IEmpresaRepository
     public Task<EmpresaDto> GetModelo(int modeloId);
     public Task<EmpresaDto> CreateUpdateModelDto(EmpresaDto modeloDto);
     public Task<bool> DeleteModel(int modeloId);
+
+    public Task<EmpresaDto> UpdateModelDto(EmpresaDto modeloDto);
 }

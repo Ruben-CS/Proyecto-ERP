@@ -84,7 +84,7 @@ public class EmpresaApiController : ControllerBase
         try
         {
             var empresaDto =
-                await _empresaRepository.CreateUpdateModelDto(empresa);
+                await _empresaRepository.UpdateModelDto(empresa);
             ResponseDto.Result = empresaDto;
         }
         catch (Exception e)

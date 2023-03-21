@@ -1,18 +1,8 @@
 @page "/inicio"
-@using Modelos.Models
 @using NET7.BlazorServerApp.Pages.Empresa.Components
 @using NET7.BlazorServerApp.Services
-@using Newtonsoft.Json
-@using Newtonsoft.Json.Linq
-@using System.Net.Http.Headers
 @inject IDialogService DialogService
-@inject IHttpClientFactory HttpClientFactory
 @inject EmpresaService EmpresaService
-
-@if (IsSucces)
-{
-    <Toasts class="p-3" Messages="_messages" Placement="ToastsPlacement.TopRight" AutoHide="true" Delay="4000"/>
-}
 
 
 <MudContainer MaxWidth="MaxWidth.Small">
@@ -28,9 +18,8 @@
 <MudGrid Class="ma-2 pa-4">
     <MudItem xs="12">
         <MudSelect T="string" Label="Empresa" Variant="Variant.Filled"
-        AnchorOrigin="Origin
-        .BottomCenter">
-            @foreach (var empresa in Empresas)
+                   AnchorOrigin="Origin.BottomCenter">
+            @foreach (var empresa in _empresas)
             {
                 <MudSelectItem Value="@empresa.Nombre">@empresa.Nombre</MudSelectItem>
             }
@@ -62,14 +51,9 @@
 @code {
 
     [Inject]
-    protected ToastService ToastService { get; set; }
+    protected ToastService? ToastService { get; set; }
 
-    private IEnumerable<EmpresaDto> Empresas = new List<EmpresaDto>();
-    readonly List<ToastMessage> _messages = new();
-
-    private bool IsSucces { get; set; }
-
-    private void ShowMessage(ToastType toastType) => _messages.Add(CreateToastMessage(toastType));
+    private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
 
     private ToastMessage CreateToastMessage(ToastType toastType)
         => new()
@@ -80,11 +64,10 @@
 
     private void ShowMudCrearEmpresaModal()
     {
-    //opens the _MudCrearEmpresaModal
         var options = new DialogOptions
         {
-            CloseOnEscapeKey = true, MaxWidth = MaxWidth
-                .Small,
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
             FullWidth = true
         };
         DialogService.Show
@@ -93,7 +76,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Empresas = await EmpresaService.GetEmpresasAsync();
+        _empresas = await EmpresaService.GetEmpresasAsync();
     }
 
 }

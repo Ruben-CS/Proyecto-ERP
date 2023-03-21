@@ -8,17 +8,21 @@ namespace Modelos.Models.Dtos;
 public class EmpresaDto
 {
     [Required(ErrorMessage = "Empresa requiere un nombre")]
+    public int IdEmpresa { get; set; }
 
     public string Nombre { get; set; }
-    [Required (ErrorMessage = "Empresa requiere un NIT")]
+
+    [Required(ErrorMessage = "Empresa requiere un NIT")]
 
     public string Nit { get; set; }
-    [Required (ErrorMessage = "Empresa requiere una sigla")]
+
+    [Required(ErrorMessage = "Empresa requiere una sigla")]
 
     public string Sigla { get; set; }
 
     public string? Telefono { get; set; }
-    [EmailAddress (ErrorMessage = "Correo no valido")]
+
+    [EmailAddress(ErrorMessage = "Correo no valido")]
 
     public string Correo { get; set; }
 
@@ -34,8 +38,10 @@ public class EmpresaDto
 
 
     public List<Gestion>? Gestiones { get; set; }
+
     [ForeignKey("Usuario")]
     public int IdUsuario { get; set; }
+
     [InverseProperty("Empresas")]
 
     public Usuario? Usuario { get; set; }
