@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
-using ModuloContabilidadApi.Models;
-using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 
 namespace ModuloContabilidadApi.Repository;
@@ -49,10 +47,9 @@ public class EmpresaRepository : IEmpresaRepository
         var empresa =
             await _applicationDbContext.Empresas.FirstOrDefaultAsync(e =>
                 e.IdEmpresa == modeloDto.IdEmpresa);
-        if (empresa == null)
+        if (empresa is null)
         {
-            throw new Exception(
-                $"Empresa with IdEmpresa {modeloDto.IdEmpresa} not found.");
+            throw new ArgumentNullException();
         }
 
         _applicationDbContext.Entry(empresa).State = EntityState.Detached;
@@ -81,7 +78,7 @@ public class EmpresaRepository : IEmpresaRepository
             await _applicationDbContext.SaveChangesAsync();
             return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return false;
         }

@@ -294,4 +294,3 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\De
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\Pages\Empresa\Crear\Inicio.razor.rz.scp.css
-C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\obj\Debug\net7.0\scopedcss\Pages\Empresa\Crear\_CreateEmpresa.razor.rz.scp.css

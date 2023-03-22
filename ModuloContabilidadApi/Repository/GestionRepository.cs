@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
-using ModuloContabilidadApi.Models;
-using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 
 namespace ModuloContabilidadApi.Repository;

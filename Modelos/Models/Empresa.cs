@@ -33,9 +33,6 @@ public class Empresa
 
     public List<Gestion>? Gestiones { get; set; }
 
-    // [ConcurrencyCheck]
-    // public byte[]? TimeStamp { get; set; }
-
     [ForeignKey("Usuario")]
     public int? IdUsuario { get; set; }
 
