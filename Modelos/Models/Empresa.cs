@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
+using ModuloContabilidadApi.Models;
 
-namespace ModuloContabilidadApi.Models;
+namespace Modelos.Models;
 
 public class Empresa
 {
@@ -20,7 +20,7 @@ public class Empresa
 
     public string? Telefono { get; set; }
 
-    [EmailAddress]
+    [EmailAddress (ErrorMessage = "Correo no valido")]
     public string Correo { get; set; }
 
     public string? Direccion { get; set; }
@@ -32,9 +32,6 @@ public class Empresa
     public bool IsDeleted { get; set; } = false;
 
     public List<Gestion>? Gestiones { get; set; }
-
-    // [ConcurrencyCheck]
-    // public byte[]? TimeStamp { get; set; }
 
     [ForeignKey("Usuario")]
     public int? IdUsuario { get; set; }

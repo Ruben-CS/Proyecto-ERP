@@ -1,5 +1,4 @@
-namespace ModuloContabilidadApi.Models.Enums;
-
+namespace Modelos.Models.Enums;
 public enum EstadosGestion
 {
     Abierto,

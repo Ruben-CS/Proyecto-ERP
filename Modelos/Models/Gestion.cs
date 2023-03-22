@@ -1,10 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ModuloContabilidadApi.Models.Enums;
+using Modelos.Models.Enums;
 
-namespace ModuloContabilidadApi.Models;
+namespace Modelos.Models;
 
 public class Gestion
 {

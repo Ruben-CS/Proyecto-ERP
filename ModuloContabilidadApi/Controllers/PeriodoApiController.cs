@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using ModuloContabilidadApi.Models.Dtos;
+using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 
 namespace ModuloContabilidadApi.Controllers;
@@ -28,7 +28,7 @@ public class PeriodoApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -49,7 +49,7 @@ public class PeriodoApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -69,7 +69,7 @@ public class PeriodoApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -89,7 +89,7 @@ public class PeriodoApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -110,7 +110,7 @@ public class PeriodoApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()

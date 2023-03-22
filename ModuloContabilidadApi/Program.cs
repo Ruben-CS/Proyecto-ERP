@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"));
+        builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Modelos"));
 });
 
 

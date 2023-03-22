@@ -1,0 +1,78 @@
+@page "/"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@layout LoginLayout
+@using ModuloContabilidadApi.Models.Dtos
+
+
+@if (_showInvalidCredentials)
+{
+    <p class="text-danger">Credenciales inválidas. Intente nuevamente.</p>
+}
+else
+{
+    <Toasts class="p-3" Messages="messages" Placement="ToastsPlacement.TopRight"/>
+}
+
+<EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
+    <div class="form-group">
+        <MudTextField @bind-Value="RequestDto.Nombre" id="usuario" Label="Usuario" Variant="Variant.Filled"/>
+    </div>
+
+    <div class="form-group">
+        <MudTextField @bind-Value="RequestDto.Password" Variant="Variant.Filled"
+                      Label="Contraseña"
+        InputType="InputType.Password"/>
+    </div>
+
+    <div class="form-group text-center p-4 shadow-sm">
+        <Button Color="ButtonColor.Success" Type="BlazorBootstrap.ButtonType.Submit"
+                @onclick="() => ShowMessage(ToastType.Success)">
+            Iniciar Sesión
+        </Button>
+    </div>
+</EditForm>
+
+@code {
+        public const string LoginUrl = "https://localhost:44378/Auth/login";
+    public LoginRequestDto RequestDto { get; } = new();
+    private bool _showInvalidCredentials;
+
+    List<ToastMessage> messages = new();
+
+    private void ShowMessage(ToastType toastType)
+    {
+        messages.Add(CreateToastMessage(toastType));
+    }
+
+    private ToastMessage CreateToastMessage(ToastType toastType)
+    {
+        return new ToastMessage
+        {
+            Type = toastType,
+            Message = $"Bienvenido: {RequestDto.Nombre} !",
+        };
+    }
+
+    private async Task LoginAsync()
+    {
+        var loginRequestDto = new LoginRequestDto
+        {
+            Nombre = RequestDto.Nombre,
+            Password = RequestDto.Password
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(LoginUrl, loginRequestDto);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var loginResponseDto = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+            NavigationManager.NavigateTo("/Inicio");
+        }
+        else
+        {
+            _showInvalidCredentials = true;
+        }
+    }
+
+}

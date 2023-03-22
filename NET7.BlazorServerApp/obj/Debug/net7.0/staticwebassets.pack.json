@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\NET7.BlazorServerApp.bundle.scp.css",
+      "PackagePath": "staticwebassets\\NET7.BlazorServerApp.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\NET7.BlazorServerApp\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.NET7.BlazorServerApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.NET7.BlazorServerApp.props",
+      "PackagePath": "build\\NET7.BlazorServerApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.NET7.BlazorServerApp.props",
+      "PackagePath": "buildMultiTargeting\\NET7.BlazorServerApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.NET7.BlazorServerApp.props",
+      "PackagePath": "buildTransitive\\NET7.BlazorServerApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

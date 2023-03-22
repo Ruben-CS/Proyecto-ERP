@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using Modelos.Models;
 
-namespace ModuloContabilidadApi.Models;
+namespace Modelos.Models;
+
 
 public class Usuario
 {

@@ -1,0 +1,69 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = NET7.BlazorServerApp
+build_property.RootNamespace = NET7.BlazorServerApp
+build_property.ProjectDir = C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\NET7.BlazorServerApp
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudCrearEmpresaModal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRDcmVhckVtcHJlc2FNb2RhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudEditarEmpresaModal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRFZGl0YXJFbXByZXNhTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudFormEditarEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRGb3JtRWRpdGFyRW1wcmVzYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudFormEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRGb3JtRW1wcmVzYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Shared/LoginLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Crear/Inicio.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhclxJbmljaW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-adffl5l5gf
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/InicioSesion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VzaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-ba4z36bvlv
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ldp6d3rg0w
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,4 +1,6 @@
 using AutoMapper;
+using Modelos.Models;
+using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Models;
 using ModuloContabilidadApi.Models.Dtos;
 

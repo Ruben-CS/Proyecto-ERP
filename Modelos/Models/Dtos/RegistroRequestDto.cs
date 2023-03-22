@@ -1,5 +1,4 @@
-namespace ModuloContabilidadApi.Models.Dtos;
-
+namespace Modelos.Models.Dtos;
 public class RegistroRequestDto
 {
     public string Nombre { get; set; }
