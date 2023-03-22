@@ -67,7 +67,6 @@ else
         if (response.IsSuccessStatusCode)
         {
             var loginResponseDto = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
-    // Use the loginResponseDto object to store the user's login information and token.
             NavigationManager.NavigateTo("/Inicio");
         }
         else

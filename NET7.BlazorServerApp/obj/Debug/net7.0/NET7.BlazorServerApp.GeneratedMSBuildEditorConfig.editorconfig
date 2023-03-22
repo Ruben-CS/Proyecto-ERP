@@ -24,6 +24,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRDcmVhckVtcHJlc2FNb2RhbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudEditarEmpresaModal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRFZGl0YXJFbXByZXNhTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudFormEditarEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRGb3JtRWRpdGFyRW1wcmVzYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/NET7.BlazorServerApp/Pages/Empresa/Components/_MudFormEmpresa.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDb21wb25lbnRzXF9NdWRGb3JtRW1wcmVzYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

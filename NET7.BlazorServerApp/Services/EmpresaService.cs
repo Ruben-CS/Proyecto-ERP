@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace NET7.BlazorServerApp.Services;
 
-public class EmpresaService
+public sealed class EmpresaService
 {
     private readonly HttpClient _httpClient;
     public EmpresaService(HttpClient httpClient)
@@ -26,5 +26,9 @@ public class EmpresaService
         }
 
         throw new Exception(string.Join(", ", responseObject.ErrorMessages));
+    }
+    public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id)
+    {
+        return await _httpClient.GetFromJsonAsync<EmpresaDto>($"https://localhost:44378/empresas/{id}");
     }
 }
