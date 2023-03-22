@@ -1,6 +1,7 @@
 @page "/"
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+@layout LoginLayout
 @using ModuloContabilidadApi.Models.Dtos
 
 
@@ -12,37 +13,30 @@ else
 {
     <Toasts class="p-3" Messages="messages" Placement="ToastsPlacement.TopRight"/>
 }
-<div class="container d-flex justify-content-center align-items-center card shadow-sm" style="height: 100vh">
-    <div class="card" style="width: 30rem;">
-        <div class="card-body">
-            <h1>Iniciar Sesión</h1>
-            <EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
-                <div class="form-group">
-                    <label for="usuario">Usuario</label>
-                    <InputText id="usuario" class="form-control" @bind-Value="RequestDto.Nombre"/>
-                </div>
 
-                <div class="form-group">
-                    <label for="contrasena">Contraseña</label>
-                    <InputText id="contrasena" type="password" class="form-control" @bind-Value="RequestDto.Password"/>
-                </div>
-
-                <div class="form-group text-center p-4 shadow-sm">
-                    <Button Color="ButtonColor.Success" Type="BlazorBootstrap.ButtonType.Submit"
-                    @onclick="() =>
-                    ShowMessage(ToastType.Success)">
-                        Iniciar Sesión
-                    </Button>
-                </div>
-            </EditForm>
-        </div>
+<EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
+    <div class="form-group">
+        <MudTextField @bind-Value="RequestDto.Nombre" id="usuario" Label="Usuario" Variant="Variant.Filled"/>
     </div>
-</div>
+
+    <div class="form-group">
+        <MudTextField @bind-Value="RequestDto.Password" Variant="Variant.Filled"
+                      Label="Contraseña"
+        InputType="InputType.Password"/>
+    </div>
+
+    <div class="form-group text-center p-4 shadow-sm">
+        <Button Color="ButtonColor.Success" Type="BlazorBootstrap.ButtonType.Submit"
+                @onclick="() => ShowMessage(ToastType.Success)">
+            Iniciar Sesión
+        </Button>
+    </div>
+</EditForm>
 
 @code {
         public const string LoginUrl = "https://localhost:44378/Auth/login";
-    public LoginRequestDto RequestDto { get; set; } = new();
-    private bool _showInvalidCredentials = false;
+    public LoginRequestDto RequestDto { get; } = new();
+    private bool _showInvalidCredentials;
 
     List<ToastMessage> messages = new();
 
@@ -56,7 +50,7 @@ else
         return new ToastMessage
         {
             Type = toastType,
-            Message = $"Hello, world! This is a simple toast message. DateTime: {DateTime.Now}",
+            Message = $"Bienvenido: {RequestDto.Nombre} !",
         };
     }
 
