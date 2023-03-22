@@ -1,11 +1,12 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
-using ModuloContabilidadApi.Models;
-using ModuloContabilidadApi.Models.Dtos;
+using Modelos.Models;
+using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 
 namespace ModuloContabilidadApi.Repository;
+
 public class EmpresaRepository : IEmpresaRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
@@ -33,20 +34,33 @@ public class EmpresaRepository : IEmpresaRepository
     }
 
     public async Task<EmpresaDto> CreateUpdateModelDto(EmpresaDto
-        modeloDto)
+                                                           modeloDto)
     {
         var empresa = _mapper.Map<EmpresaDto, Empresa>(modeloDto);
-        if (empresa.IdEmpresa > 0)
-        {
-            _applicationDbContext.Update(empresa);
-        }
-        else
-        {
-            _applicationDbContext.Add(empresa);
-        }
-
+        _applicationDbContext.Add(empresa);
         await _applicationDbContext.SaveChangesAsync();
         return _mapper.Map<Empresa, EmpresaDto>(empresa);
+    }
+
+    public async Task<EmpresaDto> UpdateModelDto(EmpresaDto modeloDto)
+    {
+        var empresa =
+            await _applicationDbContext.Empresas.FirstOrDefaultAsync(e =>
+                e.IdEmpresa == modeloDto.IdEmpresa);
+        if (empresa is null)
+        {
+            throw new ArgumentNullException();
+        }
+
+        _applicationDbContext.Entry(empresa).State = EntityState.Detached;
+
+        var updatedEmpresa = _mapper.Map<Empresa>(modeloDto);
+
+        _applicationDbContext.Entry(updatedEmpresa).State = EntityState.Modified;
+
+        await _applicationDbContext.SaveChangesAsync();
+
+        return _mapper.Map<EmpresaDto>(updatedEmpresa);
     }
 
     public async Task<bool> DeleteModel(int modeloId)
@@ -64,7 +78,7 @@ public class EmpresaRepository : IEmpresaRepository
             await _applicationDbContext.SaveChangesAsync();
             return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return false;
         }

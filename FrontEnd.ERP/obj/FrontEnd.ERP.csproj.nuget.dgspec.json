@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj": {}
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
         "projectName": "FrontEnd.ERP",
-        "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\FrontEnd.ERP.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\FrontEnd.ERP\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\FrontEnd.ERP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
-                "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
+              "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
+                "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
               }
             }
           }
@@ -43,6 +43,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "BootstrapBlazor": {
+              "target": "Package",
+              "version": "[7.4.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -62,18 +68,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
         "projectName": "Modelos",
-        "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -135,18 +141,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
         "projectName": "ModuloContabilidadApi",
-        "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -163,8 +169,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
-                "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj"
+              "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+                "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj"
               }
             }
           }
@@ -241,7 +247,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

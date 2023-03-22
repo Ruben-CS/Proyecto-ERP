@@ -1,3 +1,5 @@
+using Modelos.Models.Dtos;
+
 namespace ModuloContabilidadApi.Models.Dtos;
 
 public class LoginResponseDto
