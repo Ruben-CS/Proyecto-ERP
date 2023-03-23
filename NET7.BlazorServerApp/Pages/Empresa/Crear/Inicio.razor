@@ -50,7 +50,9 @@
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8"
-                Label="Ingresar"/>
+                Label="Ingresar"
+                Href="/inicio/overview"
+                />
     </MudItem>
 </MudGrid>
 @code {
@@ -104,5 +106,5 @@
         await DialogService.ShowAsync<_MudEditarEmpresaModal>
             ("Edite los datos de la empresa", options);
     }
-    
+
 }
