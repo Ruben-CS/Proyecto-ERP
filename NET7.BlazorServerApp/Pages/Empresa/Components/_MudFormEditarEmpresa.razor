@@ -92,22 +92,7 @@
     {
         const string url = "https://localhost:44378/empresas";
 
-        var editedEmpresa = new EmpresaDto
-        {
-            IdEmpresa = EmpresaDto.IdEmpresa,
-            Nombre = EmpresaDto.Nombre,
-            Nit = EmpresaDto.Nit,
-            Sigla = EmpresaDto.Sigla,
-            Telefono = EmpresaDto.Telefono,
-            Correo = EmpresaDto.Correo,
-            Direccion = EmpresaDto.Direccion,
-            Niveles = EmpresaDto.Niveles,
-            IsDeleted = EmpresaDto.IsDeleted,
-            Gestiones = EmpresaDto.Gestiones,
-            IdUsuario = 1,
-            Usuario = EmpresaDto.Usuario
-        };
-        var response = await HttpClient.PutAsJsonAsync(url, editedEmpresa);
+        var response = await HttpClient.PutAsJsonAsync(url, EmpresaDto);
 
         if (response.IsSuccessStatusCode)
         {
@@ -115,7 +100,5 @@
             //todo mostrar toast de mensaje
 
         }
-
     }
-
 }
