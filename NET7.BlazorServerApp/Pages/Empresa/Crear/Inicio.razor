@@ -64,16 +64,11 @@
 
     private int SelectedEmpresaId { get; set; }
 
-    private EmpresaDto _empresaDto;
-
     private MudDialog _mudDialog;
 
     private async Task LoadSelectedEmpresaAsync(int selectedId)
     {
         SelectedEmpresaId = selectedId;
-
-        _empresaDto = await EmpresaService.GetEmpresaByIdAsync(SelectedEmpresaId);
-        StateHasChanged();
     }
 
     private void ShowMudCrearEmpresaModal()

@@ -1,13 +1,18 @@
 @using NET7.BlazorServerApp.Services
+@using Modelos.Models
 @inject EmpresaService EmpresaService
+@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
 
-<EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId">
+
+<EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId" OnValidSubmit="EditarEmpresa">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="form-outline">
-               <label>Nombre</label>
+                <label>Nombre</label>
                 <InputText @bind-Value="EmpresaDto.Nombre" class="form-control">@EmpresaDto.Nombre</InputText>
                 <ValidationMessage For="@(() => EmpresaDto.Nombre)"/>
             </div>
@@ -62,6 +67,9 @@
     <InputText @bind-Value="EmpresaDto.Correo" class="form-control">@EmpresaDto.Correo</InputText>
     <ValidationMessage For="@(() => EmpresaDto.Correo)"/>
 </EditForm>
+<FooterTemplate>
+    <Button Color="ButtonColor.Primary" @onclick="EditarEmpresa">Guardar Cambios</Button>
+</FooterTemplate>
 
 @code {
 
@@ -79,4 +87,35 @@
             EmpresaDto = await EmpresaService.GetEmpresaByIdAsync(SelectedEmpresaId);
         }
     }
+
+    private async Task EditarEmpresa()
+    {
+        const string url = "https://localhost:44378/empresas";
+
+        var editedEmpresa = new EmpresaDto()
+        {
+            IdEmpresa = EmpresaDto.IdEmpresa,
+            Nombre = EmpresaDto.Nombre,
+            Nit = EmpresaDto.Nit,
+            Sigla = EmpresaDto.Sigla,
+            Telefono = EmpresaDto.Telefono,
+            Correo = EmpresaDto.Correo,
+            Direccion = EmpresaDto.Direccion,
+            Niveles = EmpresaDto.Niveles,
+            IsDeleted = EmpresaDto.IsDeleted,
+            Gestiones = EmpresaDto.Gestiones,
+            IdUsuario = 1,
+            Usuario = EmpresaDto.Usuario
+        };
+        var response = await HttpClient.PutAsJsonAsync(url, editedEmpresa);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Success");
+            //todo mostrar toast de mensaje
+
+        }
+
+    }
+
 }
