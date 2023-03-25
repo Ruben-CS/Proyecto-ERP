@@ -35,7 +35,7 @@
                 Class="d-flex align-center
         justify-center
         mud-width-full py-8"
-                Label="Editar Empresa"
+                Label="Editar"
                 OnClick="Callback"/>
     </MudItem>
     <MudItem xs="4">
@@ -43,14 +43,16 @@
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8"
-                Label="Eliminar Empresa"/>
+                Label="Eliminar"/>
     </MudItem>
     <MudItem xs="4">
         <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8"
-                Label="Ingresar"/>
+                Label="Ingresar"
+                Href="/inicio/overview"
+                />
     </MudItem>
 </MudGrid>
 @code {
@@ -60,18 +62,13 @@
 
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
 
-    private int SelectedEmpresaId { get; set; } = -1;
-
-    private EmpresaDto _empresaDto;
+    private int SelectedEmpresaId { get; set; }
 
     private MudDialog _mudDialog;
 
     private async Task LoadSelectedEmpresaAsync(int selectedId)
     {
         SelectedEmpresaId = selectedId;
-
-        _empresaDto = await EmpresaService.GetEmpresaByIdAsync(SelectedEmpresaId);
-        StateHasChanged();
     }
 
     private void ShowMudCrearEmpresaModal()
@@ -101,8 +98,13 @@
             FullWidth = true,
         };
 
+        var parameters = new DialogParameters
+        {
+            { "SelectedEmpresaId", SelectedEmpresaId }
+        };
+
         await DialogService.ShowAsync<_MudEditarEmpresaModal>
-            ("Edite los datos de la empresa", options);
+            ("Edite los datos de la empresa", parameters, options);
     }
-    
+
 }

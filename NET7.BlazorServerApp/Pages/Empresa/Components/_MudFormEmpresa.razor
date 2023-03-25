@@ -75,14 +75,14 @@
 @code {
 
     [Inject]
-    ISnackbar Snackbar { get; set; }
+    ISnackbar Snackbar { get; set; } = null!;
 
     private EmpresaDto Empresa { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
-    private MudForm form;
+    private MudForm _form = null!;
     EmpresaValidators _empresaValidators = new();
     private bool IsSucces { get; set; }
-    private DialogReference MudCrearEmpresaModal;
+    private DialogReference _mudCrearEmpresaModal = null!;
 
     private async Task UpsertEmpresa()
     {

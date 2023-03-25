@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Gestiones" />
+  </ItemGroup>
+
 </Project>

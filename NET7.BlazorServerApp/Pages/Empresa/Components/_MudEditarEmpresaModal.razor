@@ -1,10 +1,10 @@
-<h3>_MudEditarEmpresaModal</h3>
+<h3>Edite los campos deseados</h3>
 <MudDialog >
     <DialogContent>
+        <_MudFormEditarEmpresa SelectedEmpresaId="@SelectedEmpresaId"/>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Cancel">Cancelar</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -12,6 +12,8 @@
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
 
-    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    [Parameter]
+    public int SelectedEmpresaId { get; set; }
+
     void Cancel() => MudDialog.Cancel();
 }
