@@ -1,7 +1,5 @@
-using System.Net.Http.Headers;
 using Modelos.Models.Dtos;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace NET7.BlazorServerApp.Services;
 
@@ -15,26 +13,26 @@ public sealed class EmpresaService
 
     public async Task<List<EmpresaDto>> GetEmpresasAsync()
     {
-        var response = await _httpClient.GetAsync("https://localhost:44378/empresas/ListarEmpresa");
+        return await GetApiResponseAsync<List<EmpresaDto>>("https://localhost:44378/empresas/ListarEmpresa");
+    }
+
+    public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id)
+    {
+        return await GetApiResponseAsync<EmpresaDto>($"https://localhost:44378/empresas/{id}");
+    }
+
+    private async Task<T> GetApiResponseAsync<T>(string url)
+    {
+        var response = await _httpClient.GetAsync(url);
         response.EnsureSuccessStatusCode();
 
         var content        = await response.Content.ReadAsStringAsync();
         var responseObject = JsonConvert.DeserializeObject<ResponseDto>(content);
         if (responseObject.IsSuccess)
         {
-            return JsonConvert.DeserializeObject<List<EmpresaDto>>(responseObject.Result.ToString());
+            return JsonConvert.DeserializeObject<T>(responseObject.Result.ToString());
         }
 
-        throw new Exception(string.Join(", ", responseObject.ErrorMessages));
-    }
-    public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id)
-    {
-        var response = await _httpClient.GetAsync($"https://localhost:44378/empresas/{id}");
-        var content = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<ResponseDto>(content);
-        if(responseObject.IsSuccess){
-          return JsonConvert.DeserializeObject<EmpresaDto>(responseObject.Result.ToString());
-        }
         throw new Exception(string.Join(", ", responseObject.ErrorMessages));
     }
 }
