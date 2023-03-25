@@ -1,6 +1,9 @@
-<h3>_MudEditarEmpresaModal</h3>
+@using NET7.BlazorServerApp.Services
+<h3>Edite los campos deseados</h3>
 <MudDialog >
     <DialogContent>
+        <h6> Id : @SelectedEmpresaId</h6>
+        <_MudFormEditarEmpresa SelectedEmpresaId="@SelectedEmpresaId"/>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -11,6 +14,9 @@
 @code {
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public int SelectedEmpresaId { get; set; }
 
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
     void Cancel() => MudDialog.Cancel();

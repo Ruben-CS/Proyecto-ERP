@@ -29,6 +29,12 @@ public sealed class EmpresaService
     }
     public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id)
     {
-        return await _httpClient.GetFromJsonAsync<EmpresaDto>($"https://localhost:44378/empresas/{id}");
+        var response = await _httpClient.GetAsync($"https://localhost:44378/empresas/{id}");
+        var content = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<ResponseDto>(content);
+        if(responseObject.IsSuccess){
+          return JsonConvert.DeserializeObject<EmpresaDto>(responseObject.Result.ToString());
+        }
+        throw new Exception(string.Join(", ", responseObject.ErrorMessages));
     }
 }
