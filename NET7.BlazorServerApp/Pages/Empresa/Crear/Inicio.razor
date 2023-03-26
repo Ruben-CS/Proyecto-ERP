@@ -1,8 +1,10 @@
 @page "/inicio"
 @using NET7.BlazorServerApp.Pages.Empresa.Components
+@using NET7.BlazorServerApp.Pages.Empresa.Eliminar
 @using NET7.BlazorServerApp.Services
 @inject IDialogService DialogService
 @inject EmpresaService EmpresaService
+@inject HttpClient HttpClient
 
 
 <MudContainer MaxWidth="MaxWidth.Small">
@@ -21,11 +23,13 @@
                    AnchorOrigin="Origin.BottomCenter"
                    bind-Value="@SelectedEmpresaId"
                    ValueChanged="LoadSelectedEmpresaAsync"
-                   HelperText="Seleccione una empresa"
-                   >
+                   HelperText="Seleccione una empresa">
             @foreach (var empresa in _empresas)
             {
-                <MudSelectItem Value="@empresa.IdEmpresa">@empresa.Nombre</MudSelectItem>
+                @if (!empresa.IsDeleted)
+                {
+                    <MudSelectItem Value="@empresa.IdEmpresa">@empresa.Nombre</MudSelectItem>
+                }
             }
         </MudSelect>
     </MudItem>
@@ -35,7 +39,7 @@
         justify-center
         mud-width-full py-8"
                 Label="Editar"
-                OnClick="Callback"/>
+                OnClick="Editar"/>
     </MudItem>
     <MudItem xs="4">
         <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
@@ -43,8 +47,7 @@
                 justify-center
                 mud-width-full py-8"
                 Label="Eliminar"
-                @onclick=""
-                />
+                @onclick="Eliminar"/>
     </MudItem>
     <MudItem xs="4">
         <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
@@ -52,24 +55,23 @@
                 justify-center
                 mud-width-full py-8"
                 Label="Ingresar"
-                Href="/inicio/overview"
-                />
+                Href="/inicio/overview"/>
     </MudItem>
 </MudGrid>
+
 @code {
 
     [Inject]
-    protected ToastService? ToastService { get; set; }
+    ISnackbar Snackbar { get; set; } = null!;
 
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
 
     private int SelectedEmpresaId { get; set; }
 
-    private MudDialog _mudDialog;
-
-    private async Task LoadSelectedEmpresaAsync(int selectedId)
+    private Task LoadSelectedEmpresaAsync(int selectedId)
     {
         SelectedEmpresaId = selectedId;
+        return Task.CompletedTask;
     }
 
     private void ShowMudCrearEmpresaModal()
@@ -87,10 +89,9 @@
     protected override async Task OnInitializedAsync()
     {
         _empresas = await EmpresaService.GetEmpresasAsync();
-
     }
 
-    private async Task Callback(MouseEventArgs obj)
+    private async Task Editar(MouseEventArgs obj)
     {
         var options = new DialogOptions
         {
@@ -105,6 +106,24 @@
         };
 
         await DialogService.ShowAsync<_MudEditarEmpresaModal>
+            ("Edite los datos de la empresa", parameters, options);
+    }
+
+    private async void Eliminar(MouseEventArgs obj)
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+        };
+
+        var parameters = new DialogParameters
+        {
+            { "SelectedEmpresaId", SelectedEmpresaId }
+        };
+
+        await DialogService.ShowAsync<_MudEliminarEmpresaModal>
             ("Edite los datos de la empresa", parameters, options);
     }
 
