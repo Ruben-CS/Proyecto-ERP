@@ -4,7 +4,7 @@
 @inject IDialogService DialogService
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
-
+@inject ISnackbar Snackbar
 
 <EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId" OnValidSubmit="EditarEmpresa">
     <DataAnnotationsValidator/>
@@ -80,6 +80,8 @@
 
     private EmpresaDto? EmpresaDto { get; set; } = new();
 
+    public bool IsSuccess { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         if (EmpresaService != null && SelectedEmpresaId != 0)
@@ -97,8 +99,12 @@
         if (response.IsSuccessStatusCode)
         {
             Console.WriteLine("Success");
-            //todo mostrar toast de mensaje
-
+            IsSuccess = true;
+            Snackbar.Add("Empresa editada exitosamente", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("Se ha producido un error", Severity.Error);
         }
     }
 }
