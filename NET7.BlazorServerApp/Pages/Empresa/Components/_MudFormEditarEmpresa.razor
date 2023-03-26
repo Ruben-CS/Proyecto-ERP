@@ -80,8 +80,6 @@
 
     private EmpresaDto? EmpresaDto { get; set; } = new();
 
-    public bool IsSuccess { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
         if (EmpresaService != null && SelectedEmpresaId != 0)
@@ -98,8 +96,6 @@
 
         if (response.IsSuccessStatusCode)
         {
-            Console.WriteLine("Success");
-            IsSuccess = true;
             Snackbar.Add("Empresa editada exitosamente", Severity.Success);
         }
         else
