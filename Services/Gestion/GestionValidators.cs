@@ -5,13 +5,15 @@ using Modelos.Models.Enums;
 
 namespace Services.Gestion;
 
-public abstract class GestionValidators
+public class GestionValidators
 {
-    private static readonly ApplicationDbContext DbContext = null!;
+    private readonly ApplicationDbContext _dbContext;
 
-    private GestionValidators()
+    public GestionValidators(ApplicationDbContext dbContext)
     {
+        _dbContext = dbContext;
     }
+
 
     public async Task<bool> IsValid(GestionDto modeloDto, int idEmpresa)
     {
@@ -30,36 +32,40 @@ public abstract class GestionValidators
     }
 
 
-    public static async Task<bool> MasDeDosGestionesActivas(
+    public async Task<bool> MasDeDosGestionesActivas(
         GestionDto gestionDto, int idEmpresa)
     {
         var gestionesActivas = await
-            DbContext.Gestiones.Where(gestion =>
+            _dbContext.Gestiones.Where(gestion =>
                          gestionDto.IdEmpresa == idEmpresa &&
                          gestion.Estado       == EstadosGestion.Abierto)
                      .ToListAsync();
+        if (gestionesActivas is null)
+        {
+            return false;
+        }
         return gestionesActivas.Count == 2;
     }
 
-    public static async Task<bool> ExisteNombre(GestionDto gestionDto)
+    public async Task<bool> ExisteNombre(GestionDto gestionDto)
     {
-        return await DbContext.Gestiones.AnyAsync(gestion =>
+        return await _dbContext.Gestiones.AnyAsync(gestion =>
             gestionDto.Nombre == gestion.Nombre);
     }
 
-    public static async Task<bool> FechasSonIguales(GestionDto gestionDto)
+    public async Task<bool> FechasSonIguales(GestionDto gestionDto)
     {
         return await Task.Run(() => gestionDto.FechaInicio == gestionDto.FechaFin);
     }
 
-    public static async Task<bool> FechasInicioEsMayor(GestionDto gestionDto)
+    public async Task<bool> FechasInicioEsMayor(GestionDto gestionDto)
     {
         return await Task.Run(() => gestionDto.FechaInicio > gestionDto.FechaFin);
     }
 
-    public static async Task<bool> FechasNoSolapadan(GestionDto gestionDto)
+    public async Task<bool> FechasNoSolapadan(GestionDto gestionDto)
     {
-        var gestionesActivas = await DbContext.Gestiones.Where(gestion =>
+        var gestionesActivas = await _dbContext.Gestiones.Where(gestion =>
             gestionDto.IdEmpresa == gestion.IdEmpresa).ToListAsync();
 
         return !gestionesActivas.Any(gestion =>
