@@ -1,16 +1,25 @@
 @page "/inicio/overview"
 @using global::Services.Gestion
+@inject GestionServices GestionServices
+
+
 @layout DashboardLayout
 
 @* Table goes here *@
 <h3>Overview</h3>
-<MudTable Items="_gestionDtos" Hover="true" Breakpoint="Breakpoint.Sm">
+<MudTable Items="_gestiones" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
-        <MudTh>Nombre</MudTh>
-        <MudTh>Fecha de Inicio</MudTh>
-        <MudTh>Fecha de finalizacion</MudTh>
-        <MudTh>Estado</MudTh>
+        
     </HeaderContent>
+    <RowTemplate>
+        @foreach (var gestion in _gestiones)
+        {
+            <MudTd>@gestion.Nombre</MudTd>
+            <MudTd>@gestion.FechaInicio</MudTd>
+            <MudTd>@gestion.FechaFin</MudTd>
+            <MudTd>@gestion.Estado</MudTd>
+        }
+    </RowTemplate>
 </MudTable>
 
 
@@ -18,13 +27,13 @@
 
 
 @code {
-    private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
-    //
-    // private readonly GestionServices _gestionServices = null!;
-    //
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     _gestionDtos = await _gestionServices.GetGestionAsync();
-    // }
+    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
+
+    public GestionDto GestionDto { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _gestiones = await GestionServices.GetGestionAsync();
+    }
 
 }
