@@ -1,5 +1,5 @@
 @page "/inicio"
-@using BlazorFrontend.Pages.Empresa.Components
+@using BlazorFrontend.Pages.Components
 @using BlazorFrontend.Pages.Empresa.Eliminar
 @using BlazorFrontend.Services
 @inject IDialogService DialogService
@@ -80,7 +80,7 @@
             MaxWidth = MaxWidth.Small,
             FullWidth = true
         };
-        DialogService.ShowAsync<_MudCrearEmpresaModal>("Llene los datos de la empresa",
+        DialogService.ShowAsync<_MudModalCrearEmpresa>("Llene los datos de la empresa",
             options);
     }
 
@@ -103,7 +103,7 @@
             { "SelectedEmpresaId", SelectedEmpresaId }
         };
 
-        await DialogService.ShowAsync<_MudEditarEmpresaModal>
+        await DialogService.ShowAsync<_MudModalEditarEmpresa>
             ("Edite los datos de la empresa", parameters, options);
     }
 

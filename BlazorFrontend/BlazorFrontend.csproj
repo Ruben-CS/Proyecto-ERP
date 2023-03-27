@@ -19,8 +19,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Dashboard\Components" />
     <Folder Include="Pages\Gestiones" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudCrearEmpresaModal.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Pages\Components\_MudCrearEmpresaModal.razor" />
+    <AdditionalFiles Include="Pages\Components\_MudEditarEmpresaModal.razor" />
+    <AdditionalFiles Include="Pages\Components\_MudFormEditarEmpresa.razor" />
+    <AdditionalFiles Include="Pages\Components\_MudFormEmpresa.razor" />
   </ItemGroup>
 
 </Project>

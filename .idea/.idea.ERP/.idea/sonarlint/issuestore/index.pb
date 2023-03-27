@@ -5,9 +5,13 @@ i
 9ModuloContabilidadApi/Controllers/EmpresaApiController.cs,2\3\236f913b8d5b88cfdd524564489978122143404c
 Q
 !Modelos/Models/Dtos/EmpresaDto.cs,b\a\babf10422a5a82b916d749fecd5b8e683d3cdd44
-e
-5ModuloContabilidadApi/Repository/EmpresaRepository.cs,2\9\296dde97c5fd27cea25b3ced3384ea5673dd48a6
 I
 Modelos/Models/Empresa.cs,f\7\f7ed9e345efc33046bec56d65038b460497b6a2d
 c
 3Modelos/ApplicationContexts/ApplicationDbContext.cs,c\0\c0d5af8d3107275a0f1d1914c3e102e37a3c41d0
+X
+(Services/Repository/GestionRepository.cs,c\6\c6940d778a309605a3482d2f9a87185f5504f16e
+i
+9ModuloContabilidadApi/Controllers/GestionApiController.cs,0\b\0be7be2e6d46b57c282392d76ea5eb39b7aad475
+U
+%Services/Gestion/GestionValidators.cs,a\8\a88898fc81c1c1e1cd0abaae20434e368cd874d0
