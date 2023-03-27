@@ -6,6 +6,7 @@ using ModuloContabilidadApi.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;

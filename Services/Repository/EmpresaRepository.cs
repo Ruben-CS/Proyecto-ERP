@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
-using ModuloContabilidadApi.Repository.Interfaces;
+using Services.Repository.Interfaces;
 
-namespace ModuloContabilidadApi.Repository;
+namespace Services.Repository;
 
 public class EmpresaRepository : IEmpresaRepository
 {

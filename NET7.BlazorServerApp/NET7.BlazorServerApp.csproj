@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Dashboard\Components" />
     <Folder Include="Pages\Gestiones" />
   </ItemGroup>
 
