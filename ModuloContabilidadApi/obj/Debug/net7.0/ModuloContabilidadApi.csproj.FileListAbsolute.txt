@@ -257,3 +257,5 @@ C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\ModuloContabilidadApi\obj\Debug\n
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\ModuloContabilidadApi\obj\Debug\net7.0\ModuloContabilidadApi.pdb
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\ModuloContabilidadApi\obj\Debug\net7.0\ModuloContabilidadApi.genruntimeconfig.cache
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\ModuloContabilidadApi\obj\Debug\net7.0\ref\ModuloContabilidadApi.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\bin\Debug\net7.0\Services.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\ModuloContabilidadApi\bin\Debug\net7.0\Services.pdb

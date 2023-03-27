@@ -13,8 +13,8 @@
     <SourceRoot Include="C:\Users\ruben\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)mudblazor\6.2.0\buildTransitive\MudBlazor.props" Condition="Exists('$(NuGetPackageRoot)mudblazor\6.2.0\buildTransitive\MudBlazor.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.3\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.3\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)mudblazor\6.2.0\buildTransitive\MudBlazor.props" Condition="Exists('$(NuGetPackageRoot)mudblazor\6.2.0\buildTransitive\MudBlazor.props')" />
     <Import Project="$(NuGetPackageRoot)blazor.bootstrap\1.6.0\buildTransitive\Blazor.Bootstrap.props" Condition="Exists('$(NuGetPackageRoot)blazor.bootstrap\1.6.0\buildTransitive\Blazor.Bootstrap.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">

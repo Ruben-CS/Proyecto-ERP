@@ -14,13 +14,13 @@ public class Gestion
     public DateTime       FechaFin    { get; set; }
     public EstadosGestion Estado      { get; set; } = EstadosGestion.Abierto;
 
-    public List<Periodo> Periodos { get; set; }
+    public List<Periodo>? Periodos { get; set; }
 
     [ForeignKey("Empresa")]
     public int IdEmpresa { get; set; }
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     [InverseProperty("Gestiones")]
     public Usuario Usuario { get; set; }
