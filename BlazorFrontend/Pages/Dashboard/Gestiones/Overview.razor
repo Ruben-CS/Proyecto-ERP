@@ -1,11 +1,30 @@
 @page "/inicio/overview"
+@using global::Services.Gestion
 @layout DashboardLayout
 
 @* Table goes here *@
 <h3>Overview</h3>
+<MudTable Items="_gestionDtos" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Fecha de Inicio</MudTh>
+        <MudTh>Fecha de finalizacion</MudTh>
+        <MudTh>Estado</MudTh>
+    </HeaderContent>
+</MudTable>
+
+
 
 
 
 @code {
+    private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
+    //
+    // private readonly GestionServices _gestionServices = null!;
+    //
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     _gestionDtos = await _gestionServices.GetGestionAsync();
+    // }
 
 }

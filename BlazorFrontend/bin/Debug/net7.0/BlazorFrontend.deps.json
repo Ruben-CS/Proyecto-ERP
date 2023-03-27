@@ -848,7 +848,9 @@
       },
       "Services/1.0.0": {
         "dependencies": {
-          "Modelos": "1.0.0"
+          "FluentValidation": "11.5.1",
+          "Modelos": "1.0.0",
+          "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "Services.dll": {}
