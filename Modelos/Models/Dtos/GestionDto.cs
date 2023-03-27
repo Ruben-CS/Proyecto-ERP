@@ -28,7 +28,7 @@ public class GestionDto
 
     [ForeignKey("Usuario")]
     [JsonPropertyName("usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     [InverseProperty("Gestiones")]
     [JsonPropertyName("usuario")]
