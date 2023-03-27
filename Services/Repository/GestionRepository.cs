@@ -13,7 +13,7 @@ public class GestionRepository : IGestionRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly IMapper              _mapper;
-    private          GestionValidators    _gestionValidators;
+    private readonly GestionValidators    _gestionValidators;
 
     public GestionRepository(ApplicationDbContext applicationDbContext,
                              IMapper mapper, GestionValidators gestionValidators)
