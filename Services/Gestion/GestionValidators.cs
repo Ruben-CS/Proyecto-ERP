@@ -18,14 +18,13 @@ public class GestionValidators
 
     public async Task<bool> IsValid(GestionDto modeloDto, int idEmpresa)
     {
-        var isMasDeDosGestionesActivas =
-            await MasDeDosGestionesActivas(modeloDto, idEmpresa);
+        var multiplesGestiones  = await MasDeDosGestionesActivas(modeloDto, idEmpresa);
         var existeNombre        = await ExisteNombre(modeloDto);
         var fechasSonIguales    = await FechasSonIguales(modeloDto);
         var fechasInicioEsMayor = await FechasInicioEsMayor(modeloDto);
         var fechasNoSolapadan   = await FechasNoSolapadan(modeloDto);
 
-        return isMasDeDosGestionesActivas
+        return multiplesGestiones
                && existeNombre
                && fechasSonIguales
                && fechasInicioEsMayor
@@ -38,13 +37,14 @@ public class GestionValidators
     {
         var gestionesActivas = await
             _dbContext.Gestiones.Where(gestion =>
-                         gestionDto.IdEmpresa == idEmpresa &&
-                         gestion.Estado       == EstadosGestion.Abierto)
-                     .ToListAsync();
+                          gestionDto.IdEmpresa == idEmpresa &&
+                          gestion.Estado       == EstadosGestion.Abierto)
+                      .ToListAsync();
         if (gestionesActivas.IsNullOrEmpty())
         {
             return false;
         }
+
         return gestionesActivas.Count == 2;
     }
 

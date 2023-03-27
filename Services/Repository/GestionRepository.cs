@@ -38,22 +38,18 @@ public class GestionRepository : IGestionRepository
         return _mapper.Map<GestionDto>(gestion);
     }
 
-    //TODO add update gestion?
-    public async Task<GestionDto> CreateUpdateModelDto(GestionDto
-                                                           gestionDto, int idEmpresa)
+    public async Task<GestionDto> CreateUpdateModelDto(
+        GestionDto gestionDto, int idEmpresa)
     {
         var gestion = _mapper.Map<GestionDto, Gestion>(gestionDto);
-
         try
         {
             if (await _gestionValidators.IsValid(gestionDto, idEmpresa))
 
             {
-                //todo fix the conditional exception
-                throw new Exception();
+                _applicationDbContext.Add(gestion);
+                await _applicationDbContext.SaveChangesAsync();
             }
-            _applicationDbContext.Add(gestion);
-            await _applicationDbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -68,8 +64,8 @@ public class GestionRepository : IGestionRepository
         try
         {
             var gestion = await _applicationDbContext.Gestiones
-                                               .FirstOrDefaultAsync(e =>
-                                                   e.IdGestion == modeloId);
+                                                     .FirstOrDefaultAsync(e =>
+                                                         e.IdGestion == modeloId);
             if (gestion is null)
             {
                 return false;
