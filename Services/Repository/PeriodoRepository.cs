@@ -1,10 +1,9 @@
 using AutoMapper;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
-using ModuloContabilidadApi.Models.Dtos;
-using ModuloContabilidadApi.Repository.Interfaces;
+using Services.Repository.Interfaces;
 
-namespace ModuloContabilidadApi.Repository;
+namespace Services.Repository;
 
 public class PeriodoRepository : IPeriodoRepository
 {

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
+using Services.Repository.Interfaces;
+
 namespace ModuloContabilidadApi.Controllers;
 
 [ApiController]

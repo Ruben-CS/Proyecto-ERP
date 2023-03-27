@@ -22,7 +22,7 @@ namespace ModuloContabilidadApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
+            modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.Property<int>("IdEmpresa")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace ModuloContabilidadApi.Migrations
                     b.ToTable("Empresas");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
+            modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
                     b.Property<int>("IdGestion")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace ModuloContabilidadApi.Migrations
                     b.ToTable("Gestiones");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Periodo", b =>
+            modelBuilder.Entity("Modelos.Models.Periodo", b =>
                 {
                     b.Property<int>("IdPeriodo")
                         .ValueGeneratedOnAdd()
@@ -149,7 +149,7 @@ namespace ModuloContabilidadApi.Migrations
                     b.ToTable("Periodos");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Usuario", b =>
+            modelBuilder.Entity("Modelos.Models.Usuario", b =>
                 {
                     b.Property<int>("IdUsuario")
                         .ValueGeneratedOnAdd()
@@ -174,24 +174,24 @@ namespace ModuloContabilidadApi.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
+            modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Empresas")
                         .HasForeignKey("IdUsuario");
 
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
+            modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Empresa", "Empresa")
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
                         .WithMany("Gestiones")
                         .HasForeignKey("IdEmpresa")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Gestiones")
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -202,15 +202,15 @@ namespace ModuloContabilidadApi.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Periodo", b =>
+            modelBuilder.Entity("Modelos.Models.Periodo", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Periodos")
                         .HasForeignKey("IdGestion")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModuloContabilidadApi.Models.Gestion", "Gestion")
+                    b.HasOne("Modelos.Models.Gestion", "Gestion")
                         .WithMany("Periodos")
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -221,17 +221,17 @@ namespace ModuloContabilidadApi.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
+            modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.Navigation("Gestiones");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
+            modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
                     b.Navigation("Periodos");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Usuario", b =>
+            modelBuilder.Entity("Modelos.Models.Usuario", b =>
                 {
                     b.Navigation("Empresas");
 
