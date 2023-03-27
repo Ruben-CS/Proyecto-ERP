@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using Services.Gestion;
 using Services.Repository.Interfaces;
 
@@ -15,11 +16,11 @@ public class GestionRepository : IGestionRepository
     private          GestionValidators    _gestionValidators;
 
     public GestionRepository(ApplicationDbContext applicationDbContext,
-                             IMapper              mapper, GestionValidators gestionValidators)
+                             IMapper mapper, GestionValidators gestionValidators)
     {
-        _applicationDbContext   = applicationDbContext;
-        _mapper                 = mapper;
-        _gestionValidators = gestionValidators;
+        _applicationDbContext = applicationDbContext;
+        _mapper               = mapper;
+        _gestionValidators    = gestionValidators;
     }
 
     public async Task<IEnumerable<GestionDto>> GetModelos()
@@ -32,7 +33,8 @@ public class GestionRepository : IGestionRepository
     public async Task<GestionDto> GetModelo(int modeloId)
     {
         var gestion = await _applicationDbContext.Gestiones
-            .Where(id => id.IdGestion == modeloId).FirstOrDefaultAsync();
+                                                 .Where(id => id.IdGestion == modeloId)
+                                                 .FirstOrDefaultAsync();
         return _mapper.Map<GestionDto>(gestion);
     }
 
@@ -40,16 +42,24 @@ public class GestionRepository : IGestionRepository
     public async Task<GestionDto> CreateUpdateModelDto(GestionDto
                                                            gestionDto, int idEmpresa)
     {
-        Console.WriteLine("Inside CreateUpdateModelDto");
-        Console.WriteLine($"gestionDto: {gestionDto}");
-        Console.WriteLine($"idEmpresa: {idEmpresa}");
-
         var gestion = _mapper.Map<GestionDto, Gestion>(gestionDto);
-        if (!await _gestionValidators.IsValid(gestionDto, idEmpresa))
+
+        try
         {
+            if (await _gestionValidators.IsValid(gestionDto, idEmpresa))
+
+            {
+                //todo fix the conditional exception
+                throw new Exception();
+            }
             _applicationDbContext.Add(gestion);
+            await _applicationDbContext.SaveChangesAsync();
         }
-        await _applicationDbContext.SaveChangesAsync();
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
         return _mapper.Map<Gestion, GestionDto>(gestion);
     }
 
@@ -57,18 +67,17 @@ public class GestionRepository : IGestionRepository
     {
         try
         {
-            var gestion = _applicationDbContext.Gestiones
-                .FirstOrDefaultAsync(e => e.IdGestion == modeloId);
+            var gestion = await _applicationDbContext.Gestiones
+                                               .FirstOrDefaultAsync(e =>
+                                                   e.IdGestion == modeloId);
             if (gestion is null)
             {
                 return false;
             }
-            else
-            {
-                _applicationDbContext.Remove(gestion);
-                await _applicationDbContext.SaveChangesAsync();
-                return true;
-            }
+
+            gestion.Estado = EstadosGestion.Cerrado;
+            await _applicationDbContext.SaveChangesAsync();
+            return true;
         }
         catch (Exception e)
         {

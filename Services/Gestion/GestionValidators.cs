@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
@@ -24,11 +25,11 @@ public class GestionValidators
         var fechasInicioEsMayor = await FechasInicioEsMayor(modeloDto);
         var fechasNoSolapadan   = await FechasNoSolapadan(modeloDto);
 
-        return !isMasDeDosGestionesActivas
-               && !existeNombre
-               && !fechasSonIguales
-               && !fechasInicioEsMayor
-               && !fechasNoSolapadan;
+        return isMasDeDosGestionesActivas
+               && existeNombre
+               && fechasSonIguales
+               && fechasInicioEsMayor
+               && fechasNoSolapadan;
     }
 
 
@@ -40,7 +41,7 @@ public class GestionValidators
                          gestionDto.IdEmpresa == idEmpresa &&
                          gestion.Estado       == EstadosGestion.Abierto)
                      .ToListAsync();
-        if (gestionesActivas is null)
+        if (gestionesActivas.IsNullOrEmpty())
         {
             return false;
         }
@@ -53,12 +54,12 @@ public class GestionValidators
             gestionDto.Nombre == gestion.Nombre);
     }
 
-    public async Task<bool> FechasSonIguales(GestionDto gestionDto)
+    public static async Task<bool> FechasSonIguales(GestionDto gestionDto)
     {
         return await Task.Run(() => gestionDto.FechaInicio == gestionDto.FechaFin);
     }
 
-    public async Task<bool> FechasInicioEsMayor(GestionDto gestionDto)
+    public static async Task<bool> FechasInicioEsMayor(GestionDto gestionDto)
     {
         return await Task.Run(() => gestionDto.FechaInicio > gestionDto.FechaFin);
     }
