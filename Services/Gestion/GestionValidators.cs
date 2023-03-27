@@ -16,7 +16,7 @@ public class GestionValidators
     }
 
 
-    public async Task<bool> IsValid(GestionDto modeloDto, int idEmpresa)
+    public async Task<bool> EsValido(GestionDto modeloDto, int idEmpresa)
     {
         var multiplesGestiones  = await MasDeDosGestionesActivas(modeloDto, idEmpresa);
         var existeNombre        = await ExisteNombre(modeloDto);

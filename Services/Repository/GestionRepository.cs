@@ -44,7 +44,7 @@ public class GestionRepository : IGestionRepository
         var gestion = _mapper.Map<GestionDto, Gestion>(gestionDto);
         try
         {
-            if (await _gestionValidators.IsValid(gestionDto, idEmpresa))
+            if (await _gestionValidators.EsValido(gestionDto, idEmpresa))
 
             {
                 _applicationDbContext.Add(gestion);
