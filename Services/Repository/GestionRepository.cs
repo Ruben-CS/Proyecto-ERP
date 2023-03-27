@@ -4,6 +4,7 @@ using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
 using ModuloContabilidadApi.Repository.Interfaces;
+using ModuloContabilidadApi.Validations;
 
 namespace ModuloContabilidadApi.Repository;
 
@@ -11,9 +12,10 @@ public class GestionRepository : IGestionRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly IMapper              _mapper;
+    private readonly GestionValidators    _gestionValidators;
 
     public GestionRepository(ApplicationDbContext applicationDbContext,
-                             IMapper mapper)
+                             IMapper              mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
@@ -33,22 +35,15 @@ public class GestionRepository : IGestionRepository
         return _mapper.Map<GestionDto>(gestion);
     }
 
+    //TODO add update gestion?
     public async Task<GestionDto> CreateUpdateModelDto(GestionDto
-        gestionDto)
+                                                           gestionDto, int idEmpresa)
     {
         var gestion = _mapper.Map<GestionDto, Gestion>(gestionDto);
-        var existeGesion = await _applicationDbContext.Gestiones
-            .FirstOrDefaultAsync(e => e.IdGestion == gestion.IdGestion);
-
-        if (existeGesion is null)
-        {
-            _applicationDbContext.Update(gestion);
-        }
-        else
+        if (await _gestionValidators.IsValid(gestionDto, idEmpresa))
         {
             _applicationDbContext.Add(gestion);
         }
-
         await _applicationDbContext.SaveChangesAsync();
         return _mapper.Map<Gestion, GestionDto>(gestion);
     }

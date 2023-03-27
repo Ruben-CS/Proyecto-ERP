@@ -14,7 +14,7 @@ public class Gestion
     public DateTime       FechaFin    { get; set; }
     public EstadosGestion Estado      { get; set; } = EstadosGestion.Abierto;
 
-    public List<Periodo> Periodos { get; set; }
+    public List<Periodo>? Periodos { get; set; }
 
     [ForeignKey("Empresa")]
     public int IdEmpresa { get; set; }

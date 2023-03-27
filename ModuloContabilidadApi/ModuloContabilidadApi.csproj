@@ -24,6 +24,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Modelos\Modelos.csproj" />
+      <ProjectReference Include="..\Services\Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Validations" />
     </ItemGroup>
 
 </Project>

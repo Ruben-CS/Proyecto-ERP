@@ -18,7 +18,7 @@ public class GestionDto
     [JsonPropertyName("estado")]
     public EstadosGestion   Estado      { get; set; }
     [JsonPropertyName("periodos")]
-    public List<PeriodoDto> Periodos    { get; set; }
+    public List<PeriodoDto>? Periodos { get; set; }
 
     [ForeignKey("Empresa")]
     [JsonPropertyName("empresa")]
