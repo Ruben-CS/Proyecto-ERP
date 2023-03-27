@@ -3,6 +3,8 @@ using Modelos.ApplicationContexts;
 using ModuloContabilidadApi;
 using ModuloContabilidadApi.Repository;
 using ModuloContabilidadApi.Repository.Interfaces;
+using Services.Repository;
+using Services.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();

@@ -1,6 +1,6 @@
 using Modelos.Models.Dtos;
 
-namespace ModuloContabilidadApi.Repository.Interfaces;
+namespace Services.Repository.Interfaces;
 
 public interface IEmpresaRepository
 {

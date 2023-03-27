@@ -3,7 +3,7 @@ using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 
-namespace ModuloContabilidadApi.Validations;
+namespace Services.Gestion;
 
 public abstract class GestionValidators
 {
