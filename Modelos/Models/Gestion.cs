@@ -20,7 +20,7 @@ public class Gestion
     public int IdEmpresa { get; set; }
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     [InverseProperty("Gestiones")]
     public Usuario Usuario { get; set; }
