@@ -1,0 +1,128 @@
+@page "/inicio"
+@using BlazorFrontend.Pages.Empresa.Components
+@using BlazorFrontend.Pages.Empresa.Eliminar
+@using BlazorFrontend.Services
+@inject IDialogService DialogService
+@inject EmpresaService EmpresaService
+
+<MudContainer MaxWidth="MaxWidth.Small">
+    <MudPaper Class="d-flex pa-4 ma-5" Elevation="0">
+        I'm a flexbox container.
+    </MudPaper>
+    <MudPaper Class="d-flex pa-4" Elevation="0">
+        <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+                @onclick="@ShowMudCrearEmpresaModal" Label="Agregar Empresa"/>
+    </MudPaper>
+</MudContainer>
+
+<MudGrid Class="ma-2 pa-4">
+    <MudItem xs="12">
+        <MudSelect T="int" Label="Empresa" Variant="Variant.Filled"
+                   AnchorOrigin="Origin.BottomCenter"
+                   bind-Value="@SelectedEmpresaId"
+                   ValueChanged="LoadSelectedEmpresaAsync"
+                   HelperText="Seleccione una empresa">
+            @foreach (var empresa in _empresas)
+            {
+                @if (!empresa.IsDeleted)
+                {
+                    <MudSelectItem Value="@empresa.IdEmpresa">@empresa.Nombre</MudSelectItem>
+                }
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
+                Class="d-flex align-center
+        justify-center
+        mud-width-full py-8"
+                Label="Editar"
+                OnClick="Editar"/>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Eliminar"
+                @onclick="Eliminar"/>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Ingresar"
+                Href="/inicio/overview"/>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Inject]
+    ISnackbar Snackbar { get; set; } = null!;
+
+    private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
+
+    private int SelectedEmpresaId { get; set; }
+
+    private Task LoadSelectedEmpresaAsync(int selectedId)
+    {
+        SelectedEmpresaId = selectedId;
+        return Task.CompletedTask;
+    }
+
+    private void ShowMudCrearEmpresaModal()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        };
+        DialogService.ShowAsync<_MudCrearEmpresaModal>("Llene los datos de la empresa",
+            options);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _empresas = await EmpresaService.GetEmpresasAsync();
+    }
+
+    private async Task Editar(MouseEventArgs obj)
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+        };
+
+        var parameters = new DialogParameters
+        {
+            { "SelectedEmpresaId", SelectedEmpresaId }
+        };
+
+        await DialogService.ShowAsync<_MudEditarEmpresaModal>
+            ("Edite los datos de la empresa", parameters, options);
+    }
+
+    private async void Eliminar(MouseEventArgs obj)
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+        };
+
+        var parameters = new DialogParameters
+        {
+            { "SelectedEmpresaId", SelectedEmpresaId }
+        };
+
+        await DialogService.ShowAsync<_MudEliminarEmpresaModal>
+            ("Edite los datos de la empresa", parameters, options);
+    }
+
+}
