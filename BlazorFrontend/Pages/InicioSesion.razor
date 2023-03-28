@@ -3,16 +3,8 @@
 @inject NavigationManager NavigationManager
 @layout LoginLayout
 @using ModuloContabilidadApi.Models.Dtos
+@inject ISnackbar Snackbar
 
-
-@if (_showInvalidCredentials)
-{
-    <p class="text-danger">Credenciales inválidas. Intente nuevamente.</p>
-}
-else
-{
-    <Toasts class="p-3" Messages="messages" Placement="ToastsPlacement.TopRight"/>
-}
 <MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
     <EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
         <div class="form-group">
@@ -64,11 +56,12 @@ else
 
         if (response.IsSuccessStatusCode)
         {
-            var loginResponseDto = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+            Snackbar.Add($"Bienvenido {loginRequestDto.Nombre}!", Severity.Success);
             NavigationManager.NavigateTo("/Inicio");
         }
         else
         {
+            Snackbar.Add($"Credenciales incorrectas", Severity.Error);
             _showInvalidCredentials = true;
         }
     }

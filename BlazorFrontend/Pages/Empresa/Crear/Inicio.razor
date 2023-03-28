@@ -7,14 +7,13 @@
 @inject EmpresaService EmpresaService
 @inject NavigationManager NavigationManager
 
+
 <MudContainer MaxWidth="MaxWidth.Small">
-    <MudPaper Class="d-flex pa-4 ma-5" Elevation="0">
-        I'm a flexbox container.
-    </MudPaper>
-    <MudPaper Class="d-flex pa-4" Elevation="0">
+    <MudStack Row="true">
         <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
                 @onclick="@ShowMudCrearEmpresaModal" Label="Agregar Empresa"/>
-    </MudPaper>
+        <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.Logout" @onclick="CerrarSesion" Label="Cerrar Sesion"/>
+    </MudStack>
 </MudContainer>
 
 <MudGrid Class="ma-2 pa-4">
@@ -138,8 +137,14 @@
         }
         else
         {
-            Snackbar.Add("Please select an empresa.", Severity.Error);
+            Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
         }
+    }
+
+    private async Task CerrarSesion()
+    {
+        await Task.Delay(2500);
+        NavigationManager.NavigateTo("/");
     }
 
 }

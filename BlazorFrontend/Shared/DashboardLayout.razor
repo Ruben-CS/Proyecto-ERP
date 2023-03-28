@@ -15,13 +15,14 @@
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2" ClipMode="DrawerClipMode.Always"
                Breakpoint="Breakpoint.Md" Variant="DrawerVariant.Mini">
         <MudNavMenu>
-            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth" Href="">
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.CalendarMonth"
+                        Href="">
                 Gestion
             </MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.LockClock">
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LockClock">
                 Periodo
             </MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.AttachMoney">
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.AttachMoney">
                 Plan
                 de cuentas
             </MudNavLink>
@@ -40,9 +41,9 @@
 @code {
     bool _drawerOpen = true;
 
-    private async Task CambiarEmpresa()
+    public async Task CambiarEmpresa()
     {
-        await Task.Delay(3000);
+        await Task.Delay(2000);
         NavigationManager.NavigateTo("/inicio");
     }
 

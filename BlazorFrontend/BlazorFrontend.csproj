@@ -30,10 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="Pages\Components\_MudCrearEmpresaModal.razor" />
-    <AdditionalFiles Include="Pages\Components\_MudEditarEmpresaModal.razor" />
     <AdditionalFiles Include="Pages\Components\_MudFormEditarEmpresa.razor" />
-    <AdditionalFiles Include="Pages\Components\_MudFormEmpresa.razor" />
   </ItemGroup>
 
 </Project>

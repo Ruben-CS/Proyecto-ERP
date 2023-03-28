@@ -3,9 +3,11 @@
 @using Microsoft.AspNetCore.WebUtilities
 @using SortDirection = MudBlazor.SortDirection
 @using Size = MudBlazor.Size
+@using BlazorFrontend.Pages.Components
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
 @layout DashboardLayout
+@inject IDialogService DialogService
 
 <h3>Lista de gestiones activas</h3>
 <MudTable Striped="true" Bordered="true" Items="_gestiones.Take(2)" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="1">
@@ -54,6 +56,8 @@
         </MudTd>
     </RowTemplate>
 </MudTable>
+<MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+                @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
 
 @code {
     private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
@@ -69,7 +73,7 @@
             var query = QueryHelpers.ParseQuery(uri.Query);
             if (query.TryGetValue("id", out var idValue))
             {
-                Id = int.Parse(idValue);
+                Id = int.Parse(idValue!);
                 _gestiones = await GestionServices.GetGestionAsync(Id);
             }
             else
@@ -83,4 +87,19 @@
         }
     }
 
+    private void ShowMudCrearGestionModal()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "Id", Id }
+        };
+        DialogService.ShowAsync<_MudModalCrearGestion>("Llene los datos de la gestion",
+            parameters,options);
+    }
 }

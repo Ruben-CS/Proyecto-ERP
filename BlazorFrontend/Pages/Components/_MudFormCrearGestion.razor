@@ -1,5 +1,26 @@
-<h3>_MudFormCrearGestion</h3>
+@using Modelos.Models
+@using System.Globalization
+
+
+<MudForm Id="@Id" @ref="_mudForm" @bind-Isvalid="_isValid" Model="GestionDto">
+    <MudTextField bind-Value="GestionDto.Nombre" T="string" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+    <MudStack Row="true">
+
+        <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="GestionDto.FechaInicio" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de inicio" Required="true"/>
+
+        <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="GestionDto.FechaFin" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de finalizacion" Required="true"/>
+    </MudStack>
+    <MudFab StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid)" Class="ml-auto"/>
+</MudForm>
+
 
 @code {
-    
+    private MudForm _mudForm;
+    private bool _isValid;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public GestionDto GestionDto { get; set; } = new();
+
 }
