@@ -1,8 +1,10 @@
-@page "/inicio/overview"
+@page "/inicio/overview/{id?}"
 @using global::Services.Gestion
+@using Microsoft.AspNetCore.WebUtilities
 @using SortDirection = MudBlazor.SortDirection
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
+@inject NavigationManager NavigationManager
 @layout DashboardLayout
 
 <h3>Lista de gestiones activas</h3>
@@ -46,7 +48,7 @@
                     <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Lock" Size="Size.Small"/>
                 </MudTooltip>
                 <MudTooltip Text="??? todavia">
-                <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Note" Size="Size.Small"/>
+                    <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Note" Size="Size.Small"/>
                 </MudTooltip>
             </MudStack>
         </MudTd>
@@ -56,9 +58,29 @@
 @code {
     private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
 
+    [Parameter]
+    public int Id { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        _gestiones = await GestionServices.GetGestionAsync();
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var query = QueryHelpers.ParseQuery(uri.Query);
+            if (query.TryGetValue("id", out var idValue))
+            {
+                Id = int.Parse(idValue);
+                _gestiones = await GestionServices.GetGestionAsync(Id);
+            }
+            else
+            {
+                throw new KeyNotFoundException("The 'id' parameter was not found in the query string.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while initializing the component: {ex}");
+        }
     }
 
 }

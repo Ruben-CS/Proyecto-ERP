@@ -2,6 +2,7 @@
 @using BlazorFrontend.Pages.Components
 @using BlazorFrontend.Pages.Empresa.Eliminar
 @using BlazorFrontend.Services
+@using Microsoft.AspNetCore.Http.Extensions
 @inject IDialogService DialogService
 @inject EmpresaService EmpresaService
 @inject NavigationManager NavigationManager
@@ -54,7 +55,7 @@
                 justify-center
                 mud-width-full py-8"
                 Label="Ingresar"
-                Href="/inicio/overview"/>
+                OnClick="NavigateToPage"/>
     </MudItem>
 </MudGrid>
 
@@ -128,7 +129,17 @@
 
     private void NavigateToPage()
     {
-        NavigationManager.NavigateTo($"/newpage?id={SelectedEmpresaId}");
+        if (SelectedEmpresaId != default)
+        {
+            var uri = NavigationManager.ToAbsoluteUri($"inicio/overview");
+            var queryBuilder = new QueryBuilder { { "id", SelectedEmpresaId.ToString() } };
+            uri = new UriBuilder(uri) { Query = queryBuilder.ToString() }.Uri;
+            NavigationManager.NavigateTo(uri.ToString());
+        }
+        else
+        {
+            Snackbar.Add("Please select an empresa.", Severity.Error);
+        }
     }
 
 }
