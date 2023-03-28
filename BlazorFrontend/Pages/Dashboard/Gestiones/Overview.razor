@@ -1,16 +1,33 @@
 @page "/inicio/overview"
 @using global::Services.Gestion
+@using SortDirection = MudBlazor.SortDirection
 @inject GestionServices GestionServices
 @layout DashboardLayout
 
 @* Table goes here *@
 <h3>Lista de gestiones activas</h3>
-<MudTable Items="_gestiones.Take(2)" Hover="true" Breakpoint="Breakpoint.Sm">
+<MudTable Items="_gestiones.Take(2)" Hover="true" Breakpoint="Breakpoint.Sm" Striped="true" Bordered="true" Elevation="1">
     <HeaderContent>
-        <MudTh>Nombre</MudTh>
-        <MudTh>Fecha Inicio</MudTh>
-        <MudTh>Fecha Fin</MudTh>
-        <MudTh>Estado</MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<GestionDto, object>(x => x.Nombre)">
+                Nombre
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<GestionDto, object>(x => x.FechaInicio)" InitialDirection="SortDirection.Ascending">
+                Inicio de la gestion
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<GestionDto, object>(x => x.FechaFin)">
+                Fin de la gestion
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<GestionDto, object>(x => x.Estado)">
+                Estado actual
+            </MudTableSortLabel>
+        </MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
