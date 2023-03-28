@@ -10,9 +10,11 @@
 
 <MudContainer MaxWidth="MaxWidth.Small">
     <MudStack Row="true">
+        <MudTooltip Text="Cerrar sesion">
+            <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.Logout" @onclick="CerrarSesion"/>
+        </MudTooltip>
         <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
                 @onclick="@ShowMudCrearEmpresaModal" Label="Agregar Empresa"/>
-        <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.Logout" @onclick="CerrarSesion" Label="Cerrar Sesion"/>
     </MudStack>
 </MudContainer>
 
