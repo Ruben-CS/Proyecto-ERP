@@ -1,0 +1,56 @@
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                       Edge="Edge.Start" OnClick="@(_ => DrawerToggle())"/>
+        <MudSpacer/>
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End"/>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="2" ClipMode="DrawerClipMode.Always"
+               Breakpoint="Breakpoint.Md" Variant="DrawerVariant.Mini">
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.CalendarMonth"
+                        Href="">
+                Gestion
+            </MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LockClock">
+                Periodo
+            </MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.AttachMoney">
+                Plan
+                de cuentas
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.SwapVerticalCircle" OnClick="CambiarEmpresa">
+                Cambiar empresa
+            </MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent Class="pt-16 px-16">
+        <MudContainer Class="mt-6">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+
+    public async Task CambiarEmpresa()
+    {
+        await Task.Delay(2000);
+        NavigationManager.NavigateTo("/inicio");
+    }
+
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+}

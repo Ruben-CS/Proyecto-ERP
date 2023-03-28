@@ -1,7 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Modelos.ApplicationContexts;
 using Modelos.Models;
+using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Services.Repository.Interfaces;
 

@@ -1,0 +1,152 @@
+@page "/inicio"
+@using BlazorFrontend.Pages.Components
+@using BlazorFrontend.Pages.Empresa.Eliminar
+@using BlazorFrontend.Services
+@using Microsoft.AspNetCore.Http.Extensions
+@inject IDialogService DialogService
+@inject EmpresaService EmpresaService
+@inject NavigationManager NavigationManager
+
+
+<MudContainer MaxWidth="MaxWidth.Small">
+    <MudStack Row="true">
+        <MudTooltip Text="Cerrar sesion">
+            <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.Logout" @onclick="CerrarSesion"/>
+        </MudTooltip>
+        <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+                @onclick="@ShowMudCrearEmpresaModal" Label="Agregar Empresa"/>
+    </MudStack>
+</MudContainer>
+
+<MudGrid Class="ma-2 pa-4">
+    <MudItem xs="12">
+        <MudSelect T="int" Label="Empresa" Variant="Variant.Filled"
+                   AnchorOrigin="Origin.BottomCenter"
+                   bind-Value="@SelectedEmpresaId"
+                   ValueChanged="LoadSelectedEmpresaAsync"
+                   HelperText="Seleccione una empresa">
+            @foreach (var empresa in _empresas)
+            {
+                @if (!empresa.IsDeleted)
+                {
+                    <MudSelectItem Value="@empresa.IdEmpresa">@empresa.Nombre</MudSelectItem>
+                }
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
+                Class="d-flex align-center
+        justify-center
+        mud-width-full py-8"
+                Label="Editar"
+                OnClick="Editar"/>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Eliminar"
+                @onclick="Eliminar"/>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Ingresar"
+                OnClick="NavigateToPage"/>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Inject]
+    ISnackbar Snackbar { get; set; } = null!;
+
+    private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
+
+    private int SelectedEmpresaId { get; set; }
+
+    private Task LoadSelectedEmpresaAsync(int selectedId)
+    {
+        SelectedEmpresaId = selectedId;
+        return Task.CompletedTask;
+    }
+
+    private void ShowMudCrearEmpresaModal()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        };
+        DialogService.ShowAsync<_MudModalCrearEmpresa>("Llene los datos de la empresa",
+            options);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _empresas = await EmpresaService.GetEmpresasAsync();
+    }
+
+    private async Task Editar(MouseEventArgs obj)
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+        };
+
+        var parameters = new DialogParameters
+        {
+            { "SelectedEmpresaId", SelectedEmpresaId }
+        };
+
+        await DialogService.ShowAsync<_MudModalEditarEmpresa>
+            ("Edite los datos de la empresa", parameters, options);
+    }
+
+    private async void Eliminar(MouseEventArgs obj)
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+        };
+
+        var parameters = new DialogParameters
+        {
+            { "SelectedEmpresaId", SelectedEmpresaId }
+        };
+
+        await DialogService.ShowAsync<_MudEliminarEmpresaModal>
+            ("Edite los datos de la empresa", parameters, options);
+    }
+
+    private void NavigateToPage()
+    {
+        if (SelectedEmpresaId != default)
+        {
+            var uri = NavigationManager.ToAbsoluteUri($"inicio/overview");
+            var queryBuilder = new QueryBuilder { { "id", SelectedEmpresaId.ToString() } };
+            uri = new UriBuilder(uri) { Query = queryBuilder.ToString() }.Uri;
+            NavigationManager.NavigateTo(uri.ToString());
+        }
+        else
+        {
+            Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
+        }
+    }
+
+    private async Task CerrarSesion()
+    {
+        await Task.Delay(2500);
+        NavigationManager.NavigateTo("/");
+    }
+
+}
