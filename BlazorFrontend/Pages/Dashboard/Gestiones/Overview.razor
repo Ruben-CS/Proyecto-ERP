@@ -4,7 +4,7 @@
 @layout DashboardLayout
 
 @* Table goes here *@
-<h3>Overview</h3>
+<h3>Lista de gestiones activas</h3>
 <MudTable Items="_gestiones.Take(2)" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Nombre</MudTh>
@@ -14,8 +14,8 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
-        <MudTd DataLabel="Fecha Inicio">@context.FechaInicio</MudTd>
-        <MudTd DataLabel="Fecha Fin">@context.FechaFin</MudTd>
+        <MudTd DataLabel="Fecha Inicio">@context.FechaInicio.ToShortDateString()</MudTd>
+        <MudTd DataLabel="Fecha Fin">@context.FechaFin.ToShortDateString()</MudTd>
         <MudTd DataLabel="Estado">@context.Estado</MudTd>
     </RowTemplate>
 </MudTable>
