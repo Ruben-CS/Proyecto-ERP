@@ -1,4 +1,5 @@
 @inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider/>
 <MudDialogProvider/>
@@ -14,14 +15,18 @@
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2" ClipMode="DrawerClipMode.Always"
                Breakpoint="Breakpoint.Md" Variant="DrawerVariant.Mini">
         <MudNavMenu>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.CalendarMonth"
-                        Href="">
+            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth" Href="">
                 Gestion
             </MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LockClock">Periodo</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.AttachMoney">
+            <MudNavLink Icon="@Icons.Material.Filled.LockClock">
+                Periodo
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.AttachMoney">
                 Plan
                 de cuentas
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.SwapVerticalCircle" OnClick="CambiarEmpresa">
+                Cambiar empresa
             </MudNavLink>
         </MudNavMenu>
     </MudDrawer>
@@ -34,6 +39,13 @@
 
 @code {
     bool _drawerOpen = true;
+
+    private async Task CambiarEmpresa()
+    {
+        await Task.Delay(3000);
+        NavigationManager.NavigateTo("/inicio");
+    }
+
 
     void DrawerToggle()
     {
