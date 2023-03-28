@@ -1,13 +1,13 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
-using Modelos.Models;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using Services.Gestion;
 using Services.Repository.Interfaces;
 
-namespace ModuloContabilidadApi.Repository;
+namespace Services.Repository;
 
 public class GestionRepository : IGestionRepository
 {
@@ -23,25 +23,17 @@ public class GestionRepository : IGestionRepository
         _gestionValidators    = gestionValidators;
     }
 
-    public async Task<IEnumerable<GestionDto>> GetModelos()
+    public async Task<IEnumerable<GestionDto>> GetModelos(int modeloId)
     {
         var listaGestiones =
-            await _applicationDbContext.Gestiones.ToListAsync();
+            await _applicationDbContext.Gestiones.Where(id => id.IdGestion == modeloId).ToListAsync();
         return _mapper.Map<List<GestionDto>>(listaGestiones);
-    }
-
-    public async Task<GestionDto> GetModelo(int modeloId)
-    {
-        var gestion = await _applicationDbContext.Gestiones
-                                                 .Where(id => id.IdGestion == modeloId)
-                                                 .FirstOrDefaultAsync();
-        return _mapper.Map<GestionDto>(gestion);
     }
 
     public async Task<GestionDto> CreateUpdateModelDto(
         GestionDto gestionDto, int idEmpresa)
     {
-        var gestion = _mapper.Map<GestionDto, Gestion>(gestionDto);
+        var gestion = _mapper.Map<GestionDto, Modelos.Models.Gestion>(gestionDto);
         try
         {
             if (await _gestionValidators.EsValido(gestionDto, idEmpresa))
@@ -56,7 +48,7 @@ public class GestionRepository : IGestionRepository
             Console.WriteLine(e);
             throw;
         }
-        return _mapper.Map<Gestion, GestionDto>(gestion);
+        return _mapper.Map<Modelos.Models.Gestion, GestionDto>(gestion);
     }
 
     public async Task<bool> DeleteModel(int modeloId)

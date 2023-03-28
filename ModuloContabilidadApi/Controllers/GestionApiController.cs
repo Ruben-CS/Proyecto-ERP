@@ -17,33 +17,12 @@ public class GestionApiController : ControllerBase
         _gestionRepository = gestionRepository;
     }
 
-    [HttpGet("ListarGestion")]
-    public async Task<object> Get()
+    [HttpGet("ListarGestion/{id:int}")]
+    public async Task<object> Get([FromRoute] int id)
     {
         try
         {
-            var gestionDto = await _gestionRepository.GetModelos();
-            ResponseDto.Result = gestionDto;
-        }
-        catch (Exception e)
-        {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
-            {
-                e.ToString()
-            };
-        }
-
-        return ResponseDto;
-    }
-
-    [HttpGet]
-    [Route("{id}")]
-    public async Task<object> Get(int id)
-    {
-        try
-        {
-            var gestionDto = await _gestionRepository.GetModelo(id);
+            var gestionDto = await _gestionRepository.GetModelos(id);
             ResponseDto.Result = gestionDto;
         }
         catch (Exception e)
