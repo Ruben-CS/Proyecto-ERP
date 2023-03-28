@@ -13,9 +13,9 @@ public sealed class GestionServices
         _httpClient = httpClient;
     }
 
-    public async Task<List<GestionDto>> GetGestionAsync()
+    public async Task<List<GestionDto>> GetGestionAsync(int id)
     {
-        return await GetApiResponseAsync<List<GestionDto>>("https://localhost:44378/gestiones/ListarGestion");
+        return await GetApiResponseAsync<List<GestionDto>>($"https://localhost:44378/gestiones/ListarGestion/id={id}");
     }
 
     private async Task<T> GetApiResponseAsync<T>(string url)

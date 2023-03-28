@@ -17,7 +17,7 @@ public class GestionApiController : ControllerBase
         _gestionRepository = gestionRepository;
     }
 
-    [HttpGet("ListarGestion/{id:int}")]
+    [HttpGet("ListarGestion/id={id:int}")]
     public async Task<object> Get([FromRoute] int id)
     {
         try

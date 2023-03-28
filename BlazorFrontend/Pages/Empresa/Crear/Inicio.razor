@@ -4,6 +4,7 @@
 @using BlazorFrontend.Services
 @inject IDialogService DialogService
 @inject EmpresaService EmpresaService
+@inject NavigationManager NavigationManager
 
 <MudContainer MaxWidth="MaxWidth.Small">
     <MudPaper Class="d-flex pa-4 ma-5" Elevation="0">
@@ -125,6 +126,9 @@
             ("Edite los datos de la empresa", parameters, options);
     }
 
-}
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo($"/newpage?id={SelectedEmpresaId}");
+    }
 
 }
