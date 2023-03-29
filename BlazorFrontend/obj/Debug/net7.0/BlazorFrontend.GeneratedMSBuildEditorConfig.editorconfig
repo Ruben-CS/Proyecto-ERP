@@ -18,8 +18,6 @@ build_property._RazorSourceGeneratorDebug =
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudFormEditarEmpresa.razor]
 build_metadata.AdditionalFiles.TargetPath = 
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkRm9ybUVkaXRhckVtcHJlc2EucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/App.razor]
@@ -30,28 +28,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkRm9ybUNyZWFyR2VzdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudModalCrearEmpresa.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkTW9kYWxDcmVhckVtcHJlc2EucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudModalCrearGestion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkTW9kYWxDcmVhckdlc3Rpb24ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudModalEditarEmpresa.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkTW9kYWxFZGl0YXJFbXByZXNhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Dashboard/Gestiones/Overview.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXEdlc3Rpb25lc1xPdmVydmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Eliminar/_MudEliminarEmpresaModal.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxFbGltaW5hclxfTXVkRWxpbWluYXJFbXByZXNhTW9kYWwucmF6b3I=
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Crear/CrearEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhclxDcmVhckVtcHJlc2EucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Editar/EditarEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxFZGl0YXJcRWRpdGFyRW1wcmVzYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Eliminar/EliminarEmpresa.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxFbGltaW5hclxFbGltaW5hckVtcHJlc2EucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Shared/DashboardLayout.razor]
@@ -66,9 +60,9 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Crear/Inicio.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxDcmVhclxJbmljaW8ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-a8depir777
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Inicio.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxJbmljaW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-z5n1y5rgsb
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/InicioSesion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VzaW9uLnJhem9y

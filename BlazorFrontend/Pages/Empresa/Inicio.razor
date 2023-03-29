@@ -126,7 +126,7 @@
             { "SelectedEmpresaId", SelectedEmpresaId }
         };
 
-        await DialogService.ShowAsync<_MudEliminarEmpresaModal>
+        await DialogService.ShowAsync<EliminarEmpresa>
             ("Edite los datos de la empresa", parameters, options);
     }
 
