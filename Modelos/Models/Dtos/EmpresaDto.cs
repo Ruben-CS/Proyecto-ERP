@@ -7,9 +7,9 @@ namespace Modelos.Models.Dtos;
 
 public class EmpresaDto
 {
-    [Required(ErrorMessage = "Empresa requiere un nombre")]
     public int IdEmpresa { get; set; }
 
+    [Required(ErrorMessage = "Empresa requiere un nombre")]
     public string Nombre { get; set; }
 
     [Required(ErrorMessage = "Empresa requiere un NIT")]
@@ -22,16 +22,14 @@ public class EmpresaDto
 
     public string? Telefono { get; set; }
 
-    [EmailAddress(ErrorMessage = "Correo no valido")]
-
-    public string Correo { get; set; }
+    public string? Correo { get; set; }
 
 
     public string? Direccion { get; set; }
 
     [Required]
     [Range(3, 7, ErrorMessage = "Nivel no aceptale")]
-    public int Niveles { get; set; }
+    public int Niveles { get; set; } = 3;
 
 
     public bool IsDeleted { get; set; } = false;
