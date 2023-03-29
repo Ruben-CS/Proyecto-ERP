@@ -76,11 +76,8 @@
 
     [Inject]
     ISnackbar Snackbar { get; set; } = null!;
-
     private EmpresaDto Empresa { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
-    EmpresaValidators _empresaValidators = new();
-    private bool IsSucces { get; set; }
     private DialogReference _mudCrearEmpresaModal = null!;
 
     private async Task UpsertEmpresa()
@@ -108,10 +105,8 @@
         }
         else
         {
-            Snackbar.Add("Se ha producido un error", Severity.Error);
+            Snackbar.Add("Debe llenar los datos requeridos", Severity.Error);
         }
     }
 
 }
-
-@* TODO: Usar MudBlazor como el formulario, cuando sea posible. *@
