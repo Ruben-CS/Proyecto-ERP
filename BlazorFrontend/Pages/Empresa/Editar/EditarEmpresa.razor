@@ -6,7 +6,7 @@
 
 <MudDialog >
     <DialogContent>
-        <EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId" OnValidSubmit="EditarEmpresa">
+        <EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId" OnValidSubmit="EditarEmpresaAsync">
             <DataAnnotationsValidator/>
             <ValidationSummary/>
             <div class="row">
@@ -70,7 +70,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary" OnClick="Cancel">Cancelar</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="EditarEmpresa">Guardar Cambios</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="EditarEmpresaAsync">Guardar Cambios</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -94,7 +94,7 @@
         }
     }
 
-    private async Task EditarEmpresa()
+    private async Task EditarEmpresaAsync()
     {
         const string url = "https://localhost:44378/empresas";
 
