@@ -93,6 +93,7 @@
         await DialogService.ShowAsync<CrearEmpresa>("Llene los datos de la empresa", parameters ,options);
     }
 
+    //todo refactor this duplicate method
     private async Task OnEmpresaAddedHandler(EmpresaDto addedEmpresa)
     {
         _empresas = await EmpresaService.GetEmpresasAsync();
