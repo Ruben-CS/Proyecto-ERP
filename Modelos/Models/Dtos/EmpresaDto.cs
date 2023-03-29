@@ -22,6 +22,7 @@ public class EmpresaDto
 
     public string? Telefono { get; set; }
 
+    [EmailAddress(ErrorMessage = "Correo no valido")]
     public string? Correo { get; set; }
 
 
