@@ -1,5 +1,6 @@
 @using BlazorFrontend.Validators
 @using Severity = MudBlazor.Severity
+@using ButtonType = MudBlazor.ButtonType
 @inject IDialogService DialogService
 @inject HttpClient HttpClient
 
@@ -11,15 +12,15 @@
             <DataAnnotationsValidator/>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <MudTextField Label="Nombre" @bind-Value="@Empresa.Nombre" For="@(() => Empresa.Nombre)"/>
+                    <MudTextField Required="true" Label="Nombre" @bind-Value="@Empresa.Nombre" For="@(() => Empresa.Nombre)"/>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <MudTextField Label="NIT" @bind-Value="@Empresa.Nit" For="@(() => Empresa.Nit)"/>
+                    <MudTextField Required="true" Label="NIT" @bind-Value="@Empresa.Nit" For="@(() => Empresa.Nit)"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <MudTextField Label="Sigla" @bind-Value="@Empresa.Sigla" For="@(() => Empresa.Sigla)"/>
+                    <MudTextField Required="true" Label="Sigla" @bind-Value="@Empresa.Sigla" For="@(() => Empresa.Sigla)"/>
                 </div>
                 <div class="col-md-6 mb-4">
                     <MudTextField Label="Telefono" @bind-Value="@Empresa.Telefono" For="@(() => Empresa.Telefono)"/>
@@ -49,7 +50,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
