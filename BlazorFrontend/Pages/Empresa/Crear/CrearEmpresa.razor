@@ -1,13 +1,9 @@
-@using BlazorFrontend.Validators
 @using Severity = MudBlazor.Severity
 @using ButtonType = MudBlazor.ButtonType
-@inject IDialogService DialogService
 @inject HttpClient HttpClient
 
 <MudDialog >
     <DialogContent>
-
-        @* Form Start *@
         <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
             <div class="row">
@@ -45,12 +41,10 @@
             </div>
             <MudTextField Label="Correo" @bind-Value="@Empresa.Correo" For="@(() => Empresa.Correo)"/>
         </EditForm>
-        @* Form End *@
-
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="UpsertEmpresa">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -59,9 +53,16 @@
     [Inject]
     ISnackbar Snackbar { get; set; } = null!;
 
+    [Parameter]
+    public EventCallback<EmpresaDto> OnEmpresaAdded { get; set; }
+
+    [CascadingParameter]
+    MudDialogInstance? MudDialog { get; set; }
+
     private EmpresaDto Empresa { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
-    private DialogReference _mudCrearEmpresaModal = null!;
+
+    void Cancel() => MudDialog!.Cancel();
 
     private async Task UpsertEmpresa()
     {
@@ -85,16 +86,13 @@
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Empresa editada exitosamente", Severity.Success);
-            MudDialog.Close(DialogResult.Ok(response));
+            var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
+            await OnEmpresaAdded.InvokeAsync(addedEmpresa);
+            MudDialog!.Close(DialogResult.Ok(response));
         }
         else
         {
             Snackbar.Add("Se ha producido un error", Severity.Error);
         }
     }
-
-    [CascadingParameter]
-    MudDialogInstance MudDialog { get; set; }
-
-    void Cancel() => MudDialog.Cancel();
 }

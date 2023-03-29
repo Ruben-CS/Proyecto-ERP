@@ -1,5 +1,7 @@
 @page "/inicio"
 @using BlazorFrontend.Pages.Components
+@using BlazorFrontend.Pages.Empresa.Crear
+@using BlazorFrontend.Pages.Empresa.Editar
 @using BlazorFrontend.Pages.Empresa.Eliminar
 @using BlazorFrontend.Services
 @using Microsoft.AspNetCore.Http.Extensions
@@ -69,13 +71,13 @@
 
     private int SelectedEmpresaId { get; set; }
 
-    private Task LoadSelectedEmpresaAsync(int selectedId)
+    private async Task LoadSelectedEmpresaAsync(int selectedId)
     {
         SelectedEmpresaId = selectedId;
-        return Task.CompletedTask;
+        await InvokeAsync(StateHasChanged);
     }
 
-    private void ShowMudCrearEmpresaModal()
+    private async Task ShowMudCrearEmpresaModal()
     {
         var options = new DialogOptions
         {
@@ -83,13 +85,32 @@
             MaxWidth = MaxWidth.Small,
             FullWidth = true
         };
-        DialogService.ShowAsync<_MudModalCrearEmpresa>("Llene los datos de la empresa",
-            options);
+
+        var parameters = new DialogParameters
+        {
+            { "OnEmpresaAdded", EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaAddedHandler) }
+        };
+        await DialogService.ShowAsync<CrearEmpresa>("Llene los datos de la empresa", parameters ,options);
+    }
+
+    private async Task OnEmpresaAddedHandler(EmpresaDto addedEmpresa)
+    {
+        _empresas = await EmpresaService.GetEmpresasAsync();
+        SelectedEmpresaId = addedEmpresa.IdEmpresa;
+        await LoadSelectedEmpresaAsync(SelectedEmpresaId);
+    }
+
+    private async Task OnEmpresaDeletedHandler(EmpresaDto deletedEmpresa)
+    {
+        _empresas = await EmpresaService.GetEmpresasAsync();
+        SelectedEmpresaId = deletedEmpresa.IdEmpresa;
+        await LoadSelectedEmpresaAsync(SelectedEmpresaId);
     }
 
     protected override async Task OnInitializedAsync()
     {
         _empresas = await EmpresaService.GetEmpresasAsync();
+        StateHasChanged();
     }
 
     private async Task Editar(MouseEventArgs obj)
@@ -106,7 +127,7 @@
             { "SelectedEmpresaId", SelectedEmpresaId }
         };
 
-        await DialogService.ShowAsync<_MudModalEditarEmpresa>
+        await DialogService.ShowAsync<EditarEmpresa>
             ("Edite los datos de la empresa", parameters, options);
     }
 
@@ -121,10 +142,11 @@
 
         var parameters = new DialogParameters
         {
-            { "SelectedEmpresaId", SelectedEmpresaId }
+            { "SelectedEmpresaId", SelectedEmpresaId },
+            {"OnEmpresaDeleted" , EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaDeletedHandler)}
         };
 
-        await DialogService.ShowAsync<_MudEliminarEmpresaModal>
+        await DialogService.ShowAsync<EliminarEmpresa>
             ("Edite los datos de la empresa", parameters, options);
     }
 

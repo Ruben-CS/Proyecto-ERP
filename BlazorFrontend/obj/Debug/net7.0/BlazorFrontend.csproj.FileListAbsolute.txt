@@ -93,7 +93,6 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\ne
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\staticwebassets.development.json
-C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\Empresa\Crear\Inicio.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\InicioSesion.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\bundle\BlazorFrontend.styles.css
@@ -104,3 +103,4 @@ C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\ne
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\BlazorFrontend.pdb
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\BlazorFrontend.genruntimeconfig.cache
 C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\ref\BlazorFrontend.dll
+C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\Empresa\Inicio.razor.rz.scp.css
