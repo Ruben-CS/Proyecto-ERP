@@ -53,9 +53,16 @@
     [Inject]
     ISnackbar Snackbar { get; set; } = null!;
 
+    [Parameter]
+    public EventCallback<EmpresaDto> OnEmpresaAdded { get; set; }
+
+    [CascadingParameter]
+    MudDialogInstance? MudDialog { get; set; }
+
     private EmpresaDto Empresa { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
-    private DialogReference _mudCrearEmpresaModal = null!;
+
+    void Cancel() => MudDialog!.Cancel();
 
     private async Task UpsertEmpresa()
     {
@@ -79,16 +86,13 @@
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Empresa editada exitosamente", Severity.Success);
-            MudDialog.Close(DialogResult.Ok(response));
+            var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
+            await OnEmpresaAdded.InvokeAsync(addedEmpresa);
+            MudDialog!.Close(DialogResult.Ok(response));
         }
         else
         {
             Snackbar.Add("Se ha producido un error", Severity.Error);
         }
     }
-
-    [CascadingParameter]
-    MudDialogInstance MudDialog { get; set; }
-
-    void Cancel() => MudDialog.Cancel();
 }
