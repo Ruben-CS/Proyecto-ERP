@@ -1,0 +1,47 @@
+@using Modelos.Models
+@using System.Globalization
+@inject HttpClient HttpClient
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+
+<MudForm Id="@Id" @ref="_mudForm" @bind-Isvalid="_isValid" Model="GestionDto">
+    <MudTextField bind-Value="GestionDto.Nombre" T="string" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+    <MudStack Row="true">
+
+        <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="GestionDto.FechaInicio" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de inicio" Required="true"/>
+
+        <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="GestionDto.FechaFin" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de finalizacion" Required="true"/>
+    </MudStack>
+    <MudFab StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid)" Class="ma-2" OnClick="CrearGesion"/>
+</MudForm>
+
+
+@code {
+    private MudForm _mudForm;
+    private bool _isValid;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public GestionDto GestionDto { get; set; } = new();
+
+    private async Task CrearGesion()
+    {
+        var url = $"https://localhost:44378/gestiones/agregarGestion/{Id}";
+
+        var gestionDto = new GestionDto()
+        {
+            Nombre = GestionDto.Nombre,
+            FechaInicio = GestionDto.FechaInicio,
+            FechaFin = GestionDto.FechaFin
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url,gestionDto);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Gestion creada exitosamente", Severity.Success);
+        }
+    }
+
+}

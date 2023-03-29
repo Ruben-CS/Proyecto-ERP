@@ -1,0 +1,39 @@
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
+
+<MudDialog SelectedEmpresaId="@SelectedEmpresaId">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Desea elmininar esta empresa?
+        </MudText>
+    </TitleContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="DeleteServer">Eliminar</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<EmpresaDto> OnEmpresaDeleted { get; set; }
+
+    [Parameter] public int SelectedEmpresaId { get; set; }
+
+    private void Cancel() => MudDialog.Close();
+
+    private async void DeleteServer()
+    {
+        var url = $"https://localhost:44378/empresas?id={SelectedEmpresaId}";
+        var response = await HttpClient.DeleteAsync(url);
+
+        if (!response.IsSuccessStatusCode) return;
+        var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
+        await OnEmpresaDeleted.InvokeAsync(addedEmpresa);
+        Snackbar.Add("Empresa borrada exitosamente", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(response));
+    }
+}

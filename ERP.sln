@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuloContabilidadApi", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelos", "Modelos\Modelos.csproj", "{4DA9BCCD-3411-460D-A393-D736C08836BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NET7.BlazorServerApp", "NET7.BlazorServerApp\NET7.BlazorServerApp.csproj", "{57FE6160-3765-4F08-BAA4-943662137BD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorFrontend", "BlazorFrontend\BlazorFrontend.csproj", "{57FE6160-3765-4F08-BAA4-943662137BD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{C586EA53-3CA7-4EC9-AC8A-A327B8B35E2F}"
 EndProject

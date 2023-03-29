@@ -1,0 +1,98 @@
+@using Severity = MudBlazor.Severity
+@using ButtonType = MudBlazor.ButtonType
+@inject HttpClient HttpClient
+
+<MudDialog >
+    <DialogContent>
+        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
+            <DataAnnotationsValidator/>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <MudTextField Required="true" Label="Nombre" @bind-Value="@Empresa.Nombre" For="@(() => Empresa.Nombre)"/>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <MudTextField Required="true" Label="NIT" @bind-Value="@Empresa.Nit" For="@(() => Empresa.Nit)"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <MudTextField Required="true" Label="Sigla" @bind-Value="@Empresa.Sigla" For="@(() => Empresa.Sigla)"/>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <MudTextField Label="Telefono" @bind-Value="@Empresa.Telefono" For="@(() => Empresa.Telefono)"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <MudTextField Label="Direccion" @bind-Value="@Empresa.Direccion" For="@(() => Empresa.Direccion)"/>
+                </div>
+                <div class="col-md-6 md-4">
+                    <div class="form-outline">
+                        <label>Niveles</label>
+                        <InputSelect @bind-Value="Empresa.Niveles" class="form-select" aria-label="Default select example">
+                            @foreach (var item in _listaNiveles)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => Empresa.Niveles)"/>
+                    </div>
+                </div>
+            </div>
+            <MudTextField Label="Correo" @bind-Value="@Empresa.Correo" For="@(() => Empresa.Correo)"/>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="UpsertEmpresa">Crear</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [Inject]
+    ISnackbar Snackbar { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<EmpresaDto> OnEmpresaAdded { get; set; }
+
+    [CascadingParameter]
+    MudDialogInstance? MudDialog { get; set; }
+
+    private EmpresaDto Empresa { get; } = new();
+    private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
+
+    void Cancel() => MudDialog!.Cancel();
+
+    private async Task UpsertEmpresa()
+    {
+        const string url = "https://localhost:44378/empresas/agregarempresa";
+
+        var empresaDto = new EmpresaDto
+        {
+            Nombre = Empresa.Nombre,
+            Nit = Empresa.Nit,
+            Sigla = Empresa.Sigla,
+            Telefono = Empresa.Telefono,
+            Correo = Empresa.Correo,
+            Direccion = Empresa.Direccion,
+            Niveles = Empresa.Niveles,
+            IdUsuario = 1
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Empresa editada exitosamente", Severity.Success);
+            var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
+            await OnEmpresaAdded.InvokeAsync(addedEmpresa);
+            MudDialog!.Close(DialogResult.Ok(response));
+        }
+        else
+        {
+            Snackbar.Add("Se ha producido un error", Severity.Error);
+        }
+    }
+}

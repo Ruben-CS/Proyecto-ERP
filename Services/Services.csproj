@@ -7,11 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Empresa" />
+      <ProjectReference Include="..\Modelos\Modelos.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Modelos\Modelos.csproj" />
+      <PackageReference Include="FluentValidation" Version="11.5.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>
