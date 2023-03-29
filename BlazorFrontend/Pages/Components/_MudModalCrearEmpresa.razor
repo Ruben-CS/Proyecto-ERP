@@ -1,5 +1,6 @@
 @using BlazorFrontend.Validators
 @using Severity = MudBlazor.Severity
+@using ButtonType = MudBlazor.ButtonType
 @inject IDialogService DialogService
 @inject HttpClient HttpClient
 
@@ -7,49 +8,27 @@
     <DialogContent>
 
         @* Form Start *@
-        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa" On>
+        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
-            <ValidationSummary/>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Nombre</label>
-                        <InputText @bind-Value="Empresa.Nombre" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Nombre)"/>
-                    </div>
+                    <MudTextField Required="true" Label="Nombre" @bind-Value="@Empresa.Nombre" For="@(() => Empresa.Nombre)"/>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Nit</label>
-                        <InputText @bind-Value="Empresa.Nit" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Nit)"/>
-                    </div>
+                    <MudTextField Required="true" Label="NIT" @bind-Value="@Empresa.Nit" For="@(() => Empresa.Nit)"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Sigla</label>
-                        <InputText @bind-Value="Empresa.Sigla" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Sigla)"/>
-                    </div>
+                    <MudTextField Required="true" Label="Sigla" @bind-Value="@Empresa.Sigla" For="@(() => Empresa.Sigla)"/>
                 </div>
-
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Telefono</label>
-                        <InputText @bind-Value="Empresa.Telefono" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Telefono)"/>
-                    </div>
+                    <MudTextField Label="Telefono" @bind-Value="@Empresa.Telefono" For="@(() => Empresa.Telefono)"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Direccion</label>
-                        <InputText @bind-Value="Empresa.Direccion" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Empresa.Direccion)"/>
-                    </div>
+                    <MudTextField Label="Direccion" @bind-Value="@Empresa.Direccion" For="@(() => Empresa.Direccion)"/>
                 </div>
                 <div class="col-md-6 md-4">
                     <div class="form-outline">
@@ -64,16 +43,14 @@
                     </div>
                 </div>
             </div>
-            <label>Correo</label>
-            <InputText @bind-Value="Empresa.Correo" class="form-control"></InputText>
-            <ValidationMessage For="@(() => Empresa.Correo)"/>
+            <MudTextField Label="Correo" @bind-Value="@Empresa.Correo" For="@(() => Empresa.Correo)"/>
         </EditForm>
         @* Form End *@
 
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -118,5 +95,6 @@
 
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
+
     void Cancel() => MudDialog.Cancel();
 }
