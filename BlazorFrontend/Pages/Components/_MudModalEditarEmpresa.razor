@@ -1,18 +1,115 @@
+@using BlazorFrontend.Services
+@using ButtonType = MudBlazor.ButtonType
+@inject EmpresaService EmpresaService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
 <MudDialog >
     <DialogContent>
-        <_MudFormEditarEmpresa SelectedEmpresaId="@SelectedEmpresaId"/>
+        <EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId" OnValidSubmit="EditarEmpresa">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Nombre</label>
+                        <InputText @bind-Value="EmpresaDto.Nombre" class="form-control">@EmpresaDto.Nombre</InputText>
+                        <ValidationMessage For="@(() => EmpresaDto.Nombre)"/>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Nit</label>
+                        <InputText @bind-Value="EmpresaDto.Nit" class="form-control">@EmpresaDto.Nit</InputText>
+                        <ValidationMessage For="@(() => EmpresaDto.Nit)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Sigla</label>
+                        <InputText @bind-Value="EmpresaDto.Sigla" class="form-control">@EmpresaDto.Sigla</InputText>
+                        <ValidationMessage For="@(() => EmpresaDto.Sigla)"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Telefono</label>
+                        <InputText @bind-Value="EmpresaDto.Telefono" class="form-control">@EmpresaDto.Telefono</InputText>
+                        <ValidationMessage For="@(() => EmpresaDto.Telefono)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                        <label>Direccion</label>
+                        <InputText @bind-Value="EmpresaDto.Direccion" class="form-control">@EmpresaDto.Direccion</InputText>
+                        <ValidationMessage For="@(() => EmpresaDto.Direccion)"/>
+                    </div>
+                </div>
+                <div class="col-md-6 md-4">
+                    <div class="form-outline">
+                        <label>Niveles</label>
+                        <InputSelect @bind-Value="EmpresaDto.Niveles" class="form-select" aria-label="Default select example">
+                            @foreach (var item in _listaNiveles)
+                            {
+                                <option value="@item">@EmpresaDto.Niveles</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => EmpresaDto.Niveles)"/>
+                    </div>
+                </div>
+            </div>
+            <label>Correo</label>
+            <InputText @bind-Value="EmpresaDto.Correo" class="form-control">@EmpresaDto.Correo</InputText>
+            <ValidationMessage For="@(() => EmpresaDto.Correo)"/>
+        </EditForm>
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary" OnClick="Cancel">Cancelar</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="EditarEmpresa">Guardar Cambios</MudButton>
     </DialogActions>
 </MudDialog>
 
 @code {
+
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
 
     [Parameter]
     public int SelectedEmpresaId { get; set; }
+
+    private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
+
+    private EmpresaDto? EmpresaDto { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (EmpresaService != null && SelectedEmpresaId != 0)
+        {
+            EmpresaDto = await EmpresaService.GetEmpresaByIdAsync(SelectedEmpresaId);
+        }
+    }
+
+    private async Task EditarEmpresa()
+    {
+        const string url = "https://localhost:44378/empresas";
+
+        var response = await HttpClient.PutAsJsonAsync(url, EmpresaDto);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Empresa editada exitosamente", Severity.Success);
+            MudDialog.Close(DialogResult.Ok(response));
+        }
+        else
+        {
+            Snackbar.Add("Se ha producido un error", Severity.Error);
+        }
+    }
 
     void Cancel() => MudDialog.Cancel();
 }
