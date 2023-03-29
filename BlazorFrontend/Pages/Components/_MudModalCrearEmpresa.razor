@@ -5,6 +5,7 @@
 
 <MudDialog >
     <DialogContent>
+
         @* Form Start *@
         <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa" On>
             <DataAnnotationsValidator/>
@@ -67,15 +68,12 @@
             <InputText @bind-Value="Empresa.Correo" class="form-control"></InputText>
             <ValidationMessage For="@(() => Empresa.Correo)"/>
         </EditForm>
-        <FooterTemplate>
-            <Button Color="ButtonColor.Primary" @onclick="UpsertEmpresa">Crear</Button>
-        </FooterTemplate>
         @* Form End *@
 
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        <MudButton Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -86,8 +84,6 @@
 
     private EmpresaDto Empresa { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
-    EmpresaValidators _empresaValidators = new();
-    private bool IsSucces { get; set; }
     private DialogReference _mudCrearEmpresaModal = null!;
 
     private async Task UpsertEmpresa()
@@ -112,6 +108,7 @@
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Empresa editada exitosamente", Severity.Success);
+            MudDialog.Close(DialogResult.Ok(response));
         }
         else
         {
@@ -121,7 +118,5 @@
 
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
-
-    void Submit() => MudDialog.Close(DialogResult.Ok(true));
     void Cancel() => MudDialog.Cancel();
 }
