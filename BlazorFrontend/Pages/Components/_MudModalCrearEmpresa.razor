@@ -1,13 +1,9 @@
-@using BlazorFrontend.Validators
 @using Severity = MudBlazor.Severity
 @using ButtonType = MudBlazor.ButtonType
-@inject IDialogService DialogService
 @inject HttpClient HttpClient
 
 <MudDialog >
     <DialogContent>
-
-        @* Form Start *@
         <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
             <div class="row">
@@ -45,12 +41,10 @@
             </div>
             <MudTextField Label="Correo" @bind-Value="@Empresa.Correo" For="@(() => Empresa.Correo)"/>
         </EditForm>
-        @* Form End *@
-
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" OnClick="UpsertEmpresa">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="UpsertEmpresa">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
