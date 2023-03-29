@@ -100,11 +100,12 @@
         await LoadSelectedEmpresaAsync(SelectedEmpresaId);
     }
 
-    private async Task RefreshEmpresasListAsync()
+    private async Task OnEmpresaDeletedHandler(EmpresaDto deletedEmpresa)
     {
         _empresas = await EmpresaService.GetEmpresasAsync();
+        SelectedEmpresaId = deletedEmpresa.IdEmpresa;
+        await LoadSelectedEmpresaAsync(SelectedEmpresaId);
     }
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -142,6 +143,7 @@
         var parameters = new DialogParameters
         {
             { "SelectedEmpresaId", SelectedEmpresaId },
+            {"OnEmpresaDeleted" , EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaDeletedHandler)}
         };
 
         await DialogService.ShowAsync<EliminarEmpresa>
