@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "2fhI55F6km63nkrF8iu3dfl7lO5Vqsb4n8AE/uq5sA8=",
+  "Hash": "loR9RhvDsGyusPcp82lmMvepNmPC5ASeXuJIRYTd0/s=",
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
       "Version": 2,
       "Source": "ModuloContabilidadApi",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
@@ -22,7 +22,7 @@
     {
       "Name": "BlazorFrontend\\wwwroot",
       "Source": "BlazorFrontend",
-      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
       "BasePath": "_content/BlazorFrontend",
       "Pattern": "**"
     }
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\MudBlazor.min.js"
     },
     {
-      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlazorFrontend.styles.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlazorFrontend.styles.css",
       "SourceId": "BlazorFrontend",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/BlazorFrontend",
       "RelativePath": "BlazorFrontend.styles.css",
       "AssetKind": "All",
@@ -145,13 +145,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlazorFrontend.styles.css"
+      "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlazorFrontend.styles.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlazorFrontend.bundle.scp.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlazorFrontend.bundle.scp.css",
       "SourceId": "BlazorFrontend",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/BlazorFrontend",
       "RelativePath": "BlazorFrontend.bundle.scp.css",
       "AssetKind": "All",
@@ -162,13 +162,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlazorFrontend.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlazorFrontend.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\site.css",
       "SourceId": "BlazorFrontend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
       "BasePath": "_content/BlazorFrontend",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -182,10 +182,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\favicon.png",
       "SourceId": "BlazorFrontend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
       "BasePath": "_content/BlazorFrontend",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {}
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+    "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+        "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj",
         "projectName": "Modelos",
-        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+        "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj",
         "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\Proyecto-ERP\\Modelos\\obj\\",
+        "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
