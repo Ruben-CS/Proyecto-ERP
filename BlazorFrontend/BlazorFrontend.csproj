@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Gestiones" />
+    <Folder Include="Pages\Components" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,10 +27,6 @@
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="Pages\Components\_MudFormEditarEmpresa.razor" />
   </ItemGroup>
 
 </Project>

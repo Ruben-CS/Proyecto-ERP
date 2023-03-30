@@ -4,7 +4,7 @@
 
 <MudDialog >
     <DialogContent>
-        <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
+            <EditForm Model="@Empresa" OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
             <div class="row">
                 <div class="col-md-6 mb-4">
@@ -95,4 +95,5 @@
             Snackbar.Add("Se ha producido un error", Severity.Error);
         }
     }
+
 }
