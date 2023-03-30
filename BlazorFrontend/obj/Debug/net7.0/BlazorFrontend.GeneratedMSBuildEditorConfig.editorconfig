@@ -16,20 +16,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\ruben\OneDrive\Documents\Repos\Proyecto-ERP\BlazorFrontend
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudFormEditarEmpresa.razor]
-build_metadata.AdditionalFiles.TargetPath = 
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudFormCrearGestion.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkRm9ybUNyZWFyR2VzdGlvbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Components/_MudModalCrearGestion.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xfTXVkTW9kYWxDcmVhckdlc3Rpb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Dashboard/Gestiones/Overview.razor]
@@ -46,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Empresa/Eliminar/EliminarEmpresa.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wcmVzYVxFbGltaW5hclxFbGltaW5hckVtcHJlc2EucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Pages/Gestiones/CrearGestion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VzdGlvbmVzXENyZWFyR2VzdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/Proyecto-ERP/BlazorFrontend/Shared/DashboardLayout.razor]

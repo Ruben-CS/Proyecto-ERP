@@ -1,0 +1,53 @@
+@using System.Globalization
+@using ButtonType = MudBlazor.ButtonType
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="GestionDto" OnValidSubmit="@CrearGesion">
+            <DataAnnotationsValidator/>
+            <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+            <MudStack Row="true">
+                <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="@GestionDto.FechaInicio" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de inicio" Required="true"/>
+                <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="@GestionDto.FechaFin" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de finalizacion" Required="true"/>
+            </MudStack>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@CrearGesion">Crear</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public GestionDto GestionDto { get; set; } = new();
+
+    private async Task CrearGesion()
+    {
+        var url = $"https://localhost:44378/gestiones/agregarGestion/{Id}";
+
+        var gestionDto = new GestionDto()
+        {
+            Nombre = GestionDto.Nombre,
+            FechaInicio = GestionDto.FechaInicio,
+            FechaFin = GestionDto.FechaFin,
+            IdEmpresa = Id
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, gestionDto);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Gestion creada exitosamente", Severity.Success);
+            MudDialog.Close(DialogResult.Ok(response));
+        }
+    }
+    void Cancel() => MudDialog.Cancel();
+}

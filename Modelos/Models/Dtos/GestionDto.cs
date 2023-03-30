@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Modelos.Models.Enums;
@@ -7,15 +8,13 @@ namespace Modelos.Models.Dtos;
 
 public class GestionDto
 {
-    public int IdGestion { get; set; }
-
-    [JsonPropertyName("nombre")]
-
-    public string Nombre { get; set; }
-
+    [Key]
+    public int               IdGestion   { get; set; }
+    public string            Nombre      { get; set; }
     public DateTime          FechaInicio { get; set; }
     public DateTime          FechaFin    { get; set; }
     public EstadosGestion    Estado      { get; set; } = EstadosGestion.Abierto;
+
     public List<PeriodoDto>? Periodos    { get; set; }
 
     [ForeignKey("Empresa")]

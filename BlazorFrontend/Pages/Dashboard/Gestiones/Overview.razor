@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.WebUtilities
 @using SortDirection = MudBlazor.SortDirection
 @using Size = MudBlazor.Size
-@using BlazorFrontend.Pages.Components
+@using BlazorFrontend.Pages.Gestiones
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
 @layout DashboardLayout
@@ -99,7 +99,7 @@
         {
             { "Id", Id }
         };
-        DialogService.ShowAsync<_MudModalCrearGestion>("Llene los datos de la gestion",
+        DialogService.ShowAsync<CrearGestion>("Llene los datos de la gestion",
             parameters,options);
     }
 }
