@@ -60,7 +60,7 @@ public class GestionApiController : ControllerBase
     }
 
     [HttpPut("actualizarGestion/{idEmpresa:int}")]
-    public async Task<object> Put([FromBody] GestionDto gestionDto, int idEmpresa)
+    public async Task<object> Put([FromBody] GestionDto gestionDto,[FromRoute] int idEmpresa)
     {
         try
         {

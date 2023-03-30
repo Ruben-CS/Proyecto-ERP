@@ -24,11 +24,12 @@ public class GestionValidators
         var fechasInicioEsMayor = await FechasInicioEsMayor(modeloDto);
         var fechasNoSolapadan   = await FechasNoSolapadan(modeloDto);
 
-        return multiplesGestiones
-               && existeNombre
-               && fechasSonIguales
-               && fechasInicioEsMayor
-               && fechasNoSolapadan;
+
+        return !multiplesGestiones
+               && !existeNombre
+               && !fechasSonIguales
+               && !fechasInicioEsMayor
+               && !fechasNoSolapadan;
     }
 
 
