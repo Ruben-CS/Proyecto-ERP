@@ -37,9 +37,8 @@ public class GestionRepository : IGestionRepository
         var gestion = _mapper.Map<GestionDto, Modelos.Models.Gestion>(gestionDto);
         try
         {
-            List<string> errorMessages =
-                await _gestionValidators.EsValido(gestionDto, idEmpresa);
-            if (errorMessages.Count == 0)
+            var isValid = await _gestionValidators.EsValido(gestionDto, idEmpresa);
+            if (isValid)
             {
                 _applicationDbContext.Add(gestion);
                 await _applicationDbContext.SaveChangesAsync();
