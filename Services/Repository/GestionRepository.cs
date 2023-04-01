@@ -26,7 +26,8 @@ public class GestionRepository : IGestionRepository
     public async Task<IEnumerable<GestionDto>> GetModelos(int modeloId)
     {
         var listaGestiones =
-            await _applicationDbContext.Gestiones.Where(id => id.IdGestion == modeloId).ToListAsync();
+            await _applicationDbContext.Gestiones.Where(id => id.IdGestion == modeloId)
+                                       .ToListAsync();
         return _mapper.Map<List<GestionDto>>(listaGestiones);
     }
 
@@ -36,8 +37,8 @@ public class GestionRepository : IGestionRepository
         var gestion = _mapper.Map<GestionDto, Modelos.Models.Gestion>(gestionDto);
         try
         {
-            if (await _gestionValidators.EsValido(gestionDto, idEmpresa))
-
+            var isValid = await _gestionValidators.EsValido(gestionDto, idEmpresa);
+            if (isValid)
             {
                 _applicationDbContext.Add(gestion);
                 await _applicationDbContext.SaveChangesAsync();
@@ -48,6 +49,7 @@ public class GestionRepository : IGestionRepository
             Console.WriteLine(e);
             throw;
         }
+
         return _mapper.Map<Modelos.Models.Gestion, GestionDto>(gestion);
     }
 

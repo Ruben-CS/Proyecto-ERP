@@ -13,7 +13,7 @@ X
 (Services/Repository/GestionRepository.cs,c\6\c6940d778a309605a3482d2f9a87185f5504f16e
 i
 9ModuloContabilidadApi/Controllers/GestionApiController.cs,0\b\0be7be2e6d46b57c282392d76ea5eb39b7aad475
-U
-%Services/Gestion/GestionValidators.cs,a\8\a88898fc81c1c1e1cd0abaae20434e368cd874d0
 R
 "Services/Empresa/EmpresaService.cs,d\4\d48b160f0933640b17b926be442106976ebdd897
+U
+%Services/Gestion/GestionValidators.cs,a\8\a88898fc81c1c1e1cd0abaae20434e368cd874d0
