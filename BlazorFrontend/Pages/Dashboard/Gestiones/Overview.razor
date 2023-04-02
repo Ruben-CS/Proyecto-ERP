@@ -4,6 +4,8 @@
 @using SortDirection = MudBlazor.SortDirection
 @using Size = MudBlazor.Size
 @using BlazorFrontend.Pages.Gestiones
+@using MudBlazor.Extensions
+@using DialogOptions = MudBlazor.DialogOptions
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
 @layout DashboardLayout
@@ -38,8 +40,8 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
-        <MudTd DataLabel="Fecha Inicio">@context.FechaInicio.ToShortDateString()</MudTd>
-        <MudTd DataLabel="Fecha Fin">@context.FechaFin.ToShortDateString()</MudTd>
+        <MudTd DataLabel="Fecha Inicio">@context.FechaInicio.ToIsoDateString()</MudTd>
+        <MudTd DataLabel="Fecha Fin">@context.FechaFin.ToIsoDateString()</MudTd>
         <MudTd DataLabel="Estado">@context.Estado</MudTd>
         <MudTd DataLabel="Acciones">
             <MudStack Row="true" Spacing="3">

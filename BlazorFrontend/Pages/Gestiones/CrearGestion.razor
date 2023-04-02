@@ -9,8 +9,8 @@
             <DataAnnotationsValidator/>
             <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
             <MudStack Row="true">
-                <InputDate @bind-Value="GestionDto.FechaInicio"/>
-                <InputDate @bind-Value="GestionDto.FechaFin"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin"/>
             </MudStack>
         </EditForm>
     </DialogContent>
@@ -29,9 +29,6 @@
     public int Id { get; set; }
 
     public GestionDto GestionDto { get; set; } = new();
-
-    DateTime? fechaInicio = DateTime.Today;
-    DateTime? fechaFin = DateTime.Today;
 
     private async Task CrearGesion()
     {
