@@ -9,8 +9,8 @@
             <DataAnnotationsValidator/>
             <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
             <MudStack Row="true">
-                <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="@GestionDto.FechaInicio" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de inicio" Required="true"/>
-                <MudDatePicker Culture="@CultureInfo.GetCultureInfo("es-Bo")" bind-Date="@GestionDto.FechaFin" Label="dd-MM-yyyy" Editable="true" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="Fecha de finalizacion" Required="true"/>
+                <InputDate @bind-Value="GestionDto.FechaInicio"/>
+                <InputDate @bind-Value="GestionDto.FechaFin"/>
             </MudStack>
         </EditForm>
     </DialogContent>
@@ -29,6 +29,9 @@
     public int Id { get; set; }
 
     public GestionDto GestionDto { get; set; } = new();
+
+    DateTime? fechaInicio = DateTime.Today;
+    DateTime? fechaFin = DateTime.Today;
 
     private async Task CrearGesion()
     {
@@ -49,5 +52,6 @@
             MudDialog.Close(DialogResult.Ok(response));
         }
     }
+
     void Cancel() => MudDialog.Cancel();
 }

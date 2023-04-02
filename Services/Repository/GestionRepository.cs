@@ -38,11 +38,11 @@ public class GestionRepository : IGestionRepository
         try
         {
             var isValid = await _gestionValidators.EsValido(gestionDto, idEmpresa);
-            if (isValid)
-            {
+            // if (isValid)
+            // {
                 _applicationDbContext.Add(gestion);
                 await _applicationDbContext.SaveChangesAsync();
-            }
+            // }
         }
         catch (Exception e)
         {
