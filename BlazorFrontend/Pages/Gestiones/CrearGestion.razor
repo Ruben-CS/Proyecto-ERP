@@ -1,7 +1,4 @@
-@using System.Globalization
 @using global::Services.Gestion
-@using Microsoft.EntityFrameworkCore
-@using Microsoft.IdentityModel.Tokens
 @using Modelos.ApplicationContexts
 @using Modelos.Models.Enums
 @using ButtonType = MudBlazor.ButtonType
@@ -33,12 +30,10 @@
 
     private static ApplicationDbContext _dbContext = null!;
 
-
     [Parameter]
     public int Id { get; set; }
 
     public GestionDto GestionDto { get; } = new();
-
     private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
 
     protected override async Task OnInitializedAsync()
@@ -58,18 +53,21 @@
             FechaFin = GestionDto.FechaFin,
             IdEmpresa = Id
         };
-
-        if (!ValidateNumberOfActiveGestiones())
+        if (!await ValidateNumberOfActiveGestiones())
         {
             Snackbar.Add("Ya existen dos gestiones activas", Severity.Error);
         }
-        else if (!ValidateUniqueNombre())
+        else if (!await ValidateUniqueNombre())
         {
             Snackbar.Add("Ya existe una gestión con ese nombre", Severity.Error);
         }
-        else if (!ValidateFechaInicioAndFechaFin())
+        else if (!await ValidateFechaInicioAndFechaFin())
         {
             Snackbar.Add("Las fechas no son válidas", Severity.Error);
+        }
+        else if (await FechasNoSolapadan())
+        {
+            Snackbar.Add("Las fechas solapan!", Severity.Error);
         }
         else
         {
@@ -79,25 +77,41 @@
         }
     }
 
-    private bool ValidateNumberOfActiveGestiones()
+    private async Task<bool> ValidateNumberOfActiveGestiones()
     {
-        return _gestionDtos.Count(gestion =>
+        return await Task.FromResult(_gestionDtos.Count(gestion =>
             gestion.IdEmpresa == Id &&
-            gestion.Estado == EstadosGestion.Abierto) < 2;
+            gestion.Estado == EstadosGestion.Abierto) < 2);
     }
 
-    private bool ValidateUniqueNombre()
+    private async Task<bool> ValidateUniqueNombre()
     {
-        return !_gestionDtos.Any(gestion =>
+        return await Task.FromResult(!_gestionDtos.Any(gestion =>
             gestion.Nombre == GestionDto.Nombre &&
-            gestion.IdEmpresa == Id);
+            gestion.IdEmpresa == Id));
     }
 
-    private bool ValidateFechaInicioAndFechaFin()
+    private async Task<bool> ValidateFechaInicioAndFechaFin()
     {
-        return GestionDto.FechaInicio < GestionDto.FechaFin;
+        return await Task.FromResult(GestionDto.FechaInicio < GestionDto.FechaFin);
     }
 
+    public async Task<bool> FechasNoSolapadan()
+    {
+        var gestionActiva = _gestionDtos.Single(gestion =>
+            gestion.IdEmpresa == Id
+            && gestion.Estado == EstadosGestion.Abierto);
 
-    void Cancel() => MudDialog.Cancel();
+        if (GestionDto.FechaInicio >= gestionActiva.FechaInicio
+            && GestionDto.FechaInicio <= gestionActiva.FechaFin ||
+            GestionDto.FechaFin >= gestionActiva.FechaInicio
+            && GestionDto.FechaFin <= gestionActiva.FechaFin
+            )
+        {
+            return await Task.FromResult(true);
+        }
+        return await Task.FromResult(false);
+    }
+
+    void Cancel() => MudDialog!.Cancel();
 }
