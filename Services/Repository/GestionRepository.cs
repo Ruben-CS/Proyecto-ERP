@@ -13,14 +13,12 @@ public class GestionRepository : IGestionRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly IMapper              _mapper;
-    private readonly GestionValidators    _gestionValidators;
 
     public GestionRepository(ApplicationDbContext applicationDbContext,
-                             IMapper mapper, GestionValidators gestionValidators)
+                             IMapper              mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
-        _gestionValidators    = gestionValidators;
     }
 
     public async Task<IEnumerable<GestionDto>> GetModelos(int modeloId)
@@ -37,12 +35,8 @@ public class GestionRepository : IGestionRepository
         var gestion = _mapper.Map<GestionDto, Modelos.Models.Gestion>(gestionDto);
         try
         {
-            var isValid = await _gestionValidators.EsValido(gestionDto, idEmpresa);
-            // if (isValid)
-            // {
-                _applicationDbContext.Add(gestion);
-                await _applicationDbContext.SaveChangesAsync();
-            // }
+            _applicationDbContext.Add(gestion);
+            await _applicationDbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {

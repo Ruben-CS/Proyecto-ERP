@@ -23,8 +23,8 @@ public class Gestion
     public int IdUsuario { get; set; } = 1;
 
     [InverseProperty("Gestiones")]
-    public Usuario Usuario { get; set; }
+    public Usuario? Usuario { get; set; }
 
     [InverseProperty("Gestiones")]
-    public Empresa Empresa { get; set; }
+    public Empresa? EmpresaDto { get; set; }
 }

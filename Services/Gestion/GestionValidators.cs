@@ -1,46 +1,33 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 
 namespace Services.Gestion;
 
-public class GestionValidators
+public static class GestionValidators
 {
-    private readonly ApplicationDbContext _dbContext;
+    private static ApplicationDbContext _dbContext = null!;
 
-    public GestionValidators(ApplicationDbContext dbContext)
+
+    public static async Task<bool> MasDeDosGestionesActivas(int idEmpresa)
     {
-        _dbContext = dbContext;
-    }
-
-
-    public async Task<bool> EsValido(GestionDto modeloDto, int idEmpresa)
-    {
-        var validationResults = new List<bool>
+        try
         {
-            await MasDeDosGestionesActivas(idEmpresa),
-            await ExisteNombre(modeloDto, idEmpresa),
-            await FechasSonIguales(modeloDto),
-            await FechasInicioEsMayor(modeloDto),
-            await FechasNoSolapadan(modeloDto)
-        };
-        return !validationResults.Contains(true);
+            var gestionesActivas = await
+                _dbContext.Gestiones.Where(gestion =>
+                              gestion.IdEmpresa == idEmpresa &&
+                              gestion.Estado    == EstadosGestion.Abierto)
+                          .ToListAsync();
+            return gestionesActivas.Count >= 2;
+        }
+        catch (Exception e)
+        {
+            throw new NullReferenceException(e.Message);
+        }
     }
 
-
-    public async Task<bool> MasDeDosGestionesActivas(int idEmpresa)
-    {
-        var gestionesActivas = await
-            _dbContext.Gestiones.Where(gestion =>
-                          gestion.IdEmpresa == idEmpresa &&
-                          gestion.Estado    == EstadosGestion.Abierto)
-                      .ToListAsync();
-        return gestionesActivas.Count >= 2;
-    }
-
-    public async Task<bool> ExisteNombre(GestionDto gestionDto, int idEmpresa)
+    public static async Task<bool> ExisteNombre(GestionDto gestionDto, int idEmpresa)
     {
         return await _dbContext.Gestiones.AnyAsync(gestion =>
             gestionDto.Nombre == gestion.Nombre && gestion.IdEmpresa == idEmpresa);
@@ -48,25 +35,44 @@ public class GestionValidators
 
     public static async Task<bool> FechasSonIguales(GestionDto gestionDto)
     {
-        return await Task.Run(() => gestionDto.FechaInicio == gestionDto.FechaFin);
+        return await Task.FromResult(gestionDto.FechaInicio == gestionDto.FechaFin);
     }
 
     public static async Task<bool> FechasInicioEsMayor(GestionDto gestionDto)
     {
-        return await Task.Run(() => gestionDto.FechaInicio > gestionDto.FechaFin);
+        return await Task.FromResult(gestionDto.FechaInicio > gestionDto.FechaFin);
     }
 
 
-    public async Task<bool> FechasNoSolapadan(GestionDto gestionDto)
+    public static async Task<bool> FechasNoSolapadan(GestionDto gestionDto)
     {
-        var gestionesActivas = await _dbContext.Gestiones.Where(gestion =>
-            gestionDto.IdEmpresa == gestion.IdEmpresa).ToListAsync();
+        try
+        {
+            var gestionesActivas = await _dbContext.Gestiones.Where(gestion =>
+                gestionDto.IdEmpresa == gestion.IdEmpresa).ToListAsync();
+            if (gestionesActivas is null || gestionesActivas.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                var overlapping = gestionesActivas.Any(gestion =>
 
-        bool overlapping = gestionesActivas.Any(gestion =>
-            gestionDto.FechaInicio >= gestion.FechaInicio &&
-            gestionDto.FechaInicio <= gestion.FechaFin ||
-            gestionDto.FechaFin >= gestion.FechaInicio &&
-            gestionDto.FechaFin <= gestion.FechaFin);
-        return overlapping;
+                    gestionDto.FechaInicio >= gestion.FechaInicio &&
+
+                    gestionDto.FechaInicio <= gestion.FechaFin ||
+
+                    gestionDto.FechaFin >= gestion.FechaInicio &&
+
+                    gestionDto.FechaFin <= gestion.FechaFin);
+
+                return overlapping;
+
+            }
+        }
+        catch (Exception e)
+        {
+            throw new NullReferenceException(e.Message);
+        }
     }
 }
