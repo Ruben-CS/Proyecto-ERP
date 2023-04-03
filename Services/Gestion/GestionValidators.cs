@@ -9,7 +9,6 @@ public static class GestionValidators
 {
     private static ApplicationDbContext _dbContext = null!;
 
-
     public static async Task<bool> MasDeDosGestionesActivas(int idEmpresa)
     {
         try

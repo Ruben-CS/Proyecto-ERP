@@ -27,5 +27,5 @@ public class GestionDto
     public Usuario? Usuario { get; set; }
 
     [InverseProperty("Gestiones")]
-    public EmpresaDto? EmpresaDto { get; set; }
+    public Empresa? EmpresaDto { get; set; }
 }

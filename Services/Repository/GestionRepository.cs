@@ -24,7 +24,7 @@ public class GestionRepository : IGestionRepository
     public async Task<IEnumerable<GestionDto>> GetModelos(int modeloId)
     {
         var listaGestiones =
-            await _applicationDbContext.Gestiones.Where(id => id.IdGestion == modeloId)
+            await _applicationDbContext.Gestiones.Where(id => id.IdEmpresa == modeloId)
                                        .ToListAsync();
         return _mapper.Map<List<GestionDto>>(listaGestiones);
     }

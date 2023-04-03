@@ -1,8 +1,13 @@
 @using System.Globalization
 @using global::Services.Gestion
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.IdentityModel.Tokens
+@using Modelos.ApplicationContexts
+@using Modelos.Models.Enums
 @using ButtonType = MudBlazor.ButtonType
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
+@inject GestionServices GestionServices
 
 <MudDialog>
     <DialogContent>
@@ -10,8 +15,8 @@
             <DataAnnotationsValidator/>
             <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
             <MudStack Row="true">
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio"/>
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
             </MudStack>
         </EditForm>
     </DialogContent>
@@ -26,10 +31,21 @@
     [CascadingParameter]
     MudDialogInstance? MudDialog { get; set; }
 
+    private static ApplicationDbContext _dbContext = null!;
+
+
     [Parameter]
     public int Id { get; set; }
 
     public GestionDto GestionDto { get; } = new();
+
+    private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _gestionDtos = await GestionServices.GetGestionAsync(Id);
+        StateHasChanged();
+    }
 
     private async Task ValidateAndCreateGestion()
     {
@@ -43,14 +59,45 @@
             IdEmpresa = Id
         };
 
-        var response = await HttpClient.PostAsJsonAsync(url, gestionDto);
-        if (response.IsSuccessStatusCode)
+        if (!ValidateNumberOfActiveGestiones())
         {
-            Snackbar.Add("Gestion creada exitosamente", Severity.Success);
-            MudDialog.Close(DialogResult.Ok(response));
+            Snackbar.Add("Ya existen dos gestiones activas", Severity.Error);
         }
-
+        else if (!ValidateUniqueNombre())
+        {
+            Snackbar.Add("Ya existe una gestión con ese nombre", Severity.Error);
+        }
+        else if (!ValidateFechaInicioAndFechaFin())
+        {
+            Snackbar.Add("Las fechas no son válidas", Severity.Error);
+        }
+        else
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, gestionDto);
+            Snackbar.Add("Gestión creada exitosamente", Severity.Success);
+            MudDialog!.Close(DialogResult.Ok(response));
+        }
     }
+
+    private bool ValidateNumberOfActiveGestiones()
+    {
+        return _gestionDtos.Count(gestion =>
+            gestion.IdEmpresa == Id &&
+            gestion.Estado == EstadosGestion.Abierto) < 2;
+    }
+
+    private bool ValidateUniqueNombre()
+    {
+        return !_gestionDtos.Any(gestion =>
+            gestion.Nombre == GestionDto.Nombre &&
+            gestion.IdEmpresa == Id);
+    }
+
+    private bool ValidateFechaInicioAndFechaFin()
+    {
+        return GestionDto.FechaInicio < GestionDto.FechaFin;
+    }
+
 
     void Cancel() => MudDialog.Cancel();
 }
