@@ -1,5 +1,39 @@
-<h3>EditarGestion</h3>
+@using global::Services.Gestion
+@using ButtonType = MudBlazor.ButtonType
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject GestionServices GestionServices
 
-@code {
-    
+<h2>@Id</h2>
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="GestionDto" OnValidSubmit="@ValidateAndCreateGestion">
+            <DataAnnotationsValidator/>
+            <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+            <MudStack Row="true">
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+            </MudStack>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndCreateGestion">Crear</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code{
+
+    [CascadingParameter]
+    MudDialogInstance? MudDialog { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public GestionDto GestionDto { get; } = new();
+
+    private async Task ValidateAndCreateGestion(){}
+
+    void Cancel() => MudDialog!.Cancel();
+
 }
