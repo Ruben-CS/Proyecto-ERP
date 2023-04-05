@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PDc/ecSD3kEZTAkztqpielwI60KKHppuMzVsBH95v6g=",
+  "Hash": "PvfcA0ngdlgfDe5rzzCZ8dzgUCm6gRm29r4BhPXrIkA=",
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
@@ -11,10 +11,10 @@
       "Version": 2,
       "Source": "ModuloContabilidadApi",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],

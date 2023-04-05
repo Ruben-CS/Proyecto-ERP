@@ -2,19 +2,23 @@
 @using global::Services.Gestion
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorFrontend.Pages.Gestiones
-@using BlazorFrontend.Pages.Gestiones.Editar
-@using Microsoft.AspNetCore.Components
 @using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
-@using System.Runtime.InteropServices.JavaScript
-@using System.Globalization
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
 @layout DashboardLayout
 @inject IDialogService DialogService
 
 <h3>Lista de gestiones activas</h3>
-<MudDataGrid T="GestionDto" Items="@_gestiones.Take(2)" EditMode="DataGridEditMode.Form" StartedEditingItem="@StartEditingItem" EditTrigger="DataGridEditTrigger.Manual" Bordered="true">
+<MudDataGrid T="GestionDto"
+             Items="@_gestiones.Take(2)"
+             Readonly="@false"
+             EditMode="DataGridEditMode.Form"
+             StartedEditingItem="@StartedEditingItem"
+             CanceledEditingItem="@CanceledEditingItem"
+             CommittedItemChanges="@CommittedItemChanges"
+             Bordered="@true"
+             EditTrigger="DataGridEditTrigger.Manual">
     <Columns>
         <PropertyColumn Property="@(i => i.Nombre)"/>
         <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
@@ -23,7 +27,6 @@
         <TemplateColumn CellClass="d-flex justify-end">
             <CellTemplate>
                 <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItem"/>
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete"/>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -83,22 +86,19 @@
             parameters, options);
     }
 
-    private void StartEditingItem(GestionDto element)
+    private void StartedEditingItem(GestionDto element)
     {
-        var optionsEditarModal = new DialogOptions
-        {
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Small,
-            FullWidth = true,
-            DisableBackdropClick = true
-        };
+        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(element)}");
+    }
 
-        var parameters = new DialogParameters
-        {
-            { "SelectedGestionId", element.IdGestion }
-        };
-        DialogService.ShowAsync<EditarGestion>
-            ("Edite los campos deseados", parameters, optionsEditarModal);
+    void CanceledEditingItem(GestionDto item)
+    {
+        _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+    void CommittedItemChanges(GestionDto item)
+    {
+        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
     }
 
 }
