@@ -26,10 +26,16 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
-                <MudIconButton  Size="Size.Medium" Icon="@Icons.Material.Outlined.Edit"
-                                OnClick="() => EditarGestion(context.Item)"/>
-                <MudIconButton Size="Size.Medium" Icon="@Icons.Material.Outlined.Delete"
-                               OnClick="() => BorrarGestion(context.Item)"/>
+                <MudIconButton Class="pa-1"
+                        Color="Color.Warning"
+                        Size="Size.Small"
+                        Icon="@Icons.Material.Outlined.Edit"
+                        OnClick="() => EditarGestion(context.Item)"/>
+                <MudIconButton Class="pa-1"
+                        Color="Color.Error"
+                        Size="Size.Small"
+                        Icon="@Icons.Material.Outlined.Delete"
+                        OnClick="() => BorrarGestion(context.Item)"/>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -75,8 +81,6 @@
             Console.WriteLine($"An error occurred while initializing the component: {ex}");
         }
     }
-
-    // TODO implement delete option
 
     private void ShowMudCrearGestionModal()
     {
