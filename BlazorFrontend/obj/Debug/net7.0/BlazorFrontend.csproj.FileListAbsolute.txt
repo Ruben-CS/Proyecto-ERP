@@ -225,7 +225,6 @@ C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFronten
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Azure.Core.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Azure.Identity.dll
-C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\BlazorBootstrap.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll

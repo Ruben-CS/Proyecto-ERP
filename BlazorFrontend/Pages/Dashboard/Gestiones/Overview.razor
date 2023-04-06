@@ -2,6 +2,7 @@
 @using global::Services.Gestion
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorFrontend.Pages.Gestiones
+@using BlazorFrontend.Pages.Gestiones.Editar
 @using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
@@ -12,13 +13,13 @@
 <h3>Lista de gestiones activas</h3>
 <MudDataGrid T="GestionDto"
              Items="@_gestiones.Take(2)"
+             Hover="@true"
              Readonly="@false"
              EditMode="DataGridEditMode.Form"
-             StartedEditingItem="@StartedEditingItem"
-             CanceledEditingItem="@CanceledEditingItem"
-             CommittedItemChanges="@CommittedItemChanges"
              Bordered="@true"
-             EditTrigger="DataGridEditTrigger.Manual">
+             EditTrigger="DataGridEditTrigger.Manual"
+             EditDialogOptions="new DialogOptions{ CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true }"
+>
     <Columns>
         <PropertyColumn Property="@(i => i.Nombre)"/>
         <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
@@ -26,7 +27,8 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-end">
             <CellTemplate>
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItem"/>
+                <MudIconButton  Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit"
+                                OnClick="() => EditarGestion(context.Item)"/>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -38,8 +40,6 @@
 
 @code {
     private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
-
-    private List<string> _events = new();
 
     [Parameter]
     public int Id { get; set; }
@@ -80,25 +80,29 @@
         };
         var parameters = new DialogParameters
         {
-            { "Id", Id }
+            { "Id", Id },
         };
         DialogService.ShowAsync<CrearGestion>("Llene los datos de la gestion",
             parameters, options);
     }
 
-    private void StartedEditingItem(GestionDto element)
+    private void EditarGestion(GestionDto item)
     {
-        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(element)}");
-    }
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "Id", item.IdGestion },
+            {"GestionDto", item }
 
-    void CanceledEditingItem(GestionDto item)
-    {
-        _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-
-    void CommittedItemChanges(GestionDto item)
-    {
-        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+        };
+        DialogService.ShowAsync<EditarGestion>("Editar gestion",
+            parameters, options);
     }
 
 }

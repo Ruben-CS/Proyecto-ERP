@@ -4,12 +4,11 @@
 @inject ISnackbar Snackbar
 @inject GestionServices GestionServices
 
-<h2>@Id</h2>
 <MudDialog>
     <DialogContent>
-        <EditForm Model="GestionDto" OnValidSubmit="@ValidateAndCreateGestion">
+        <EditForm Model="@GestionDto" OnValidSubmit="@ValidateAndEditGestion">
             <DataAnnotationsValidator/>
-            <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+            <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido">@GestionDto.Nombre</MudTextField>
             <MudStack Row="true">
                 <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
                 <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
@@ -18,7 +17,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndCreateGestion">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditGestion">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -30,10 +29,29 @@
     [Parameter]
     public int Id { get; set; }
 
-    public GestionDto GestionDto { get; } = new();
+    [Parameter]
+    public GestionDto GestionDto { get; set; }
 
-    private async Task ValidateAndCreateGestion(){}
+    private async Task ValidateAndEditGestion()
+    {
+        var url = $"https://localhost:44378/gestiones/actualizarGestion/{Id}";
+
+        var editedGestion = new GestionDto
+        {
+            IdGestion = Id,
+            Nombre = GestionDto.Nombre,
+            FechaInicio = GestionDto.FechaInicio,
+            FechaFin = GestionDto.FechaFin,
+            IdEmpresa = GestionDto.IdEmpresa
+        };
+        var response = await HttpClient.PutAsJsonAsync(url, editedGestion);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Empresa editata correctamente", Severity.Success);
+            MudDialog!.Close(DialogResult.Ok(response));
+        }
+    }
 
     void Cancel() => MudDialog!.Cancel();
-
 }

@@ -5,6 +5,7 @@ using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using Services.Gestion;
+using Modelos.Models;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -45,6 +46,24 @@ public class GestionRepository : IGestionRepository
         }
 
         return _mapper.Map<Modelos.Models.Gestion, GestionDto>(gestion);
+    }
+
+    public async Task<GestionDto> UpdateModel(GestionDto modeloDto, int idModelo)
+    {
+        var gestion =
+            await _applicationDbContext.Gestiones.SingleAsync(e =>
+                e.IdGestion == idModelo);
+        if (gestion is null)
+        {
+            throw new NullReferenceException("Gestion no encontrada");
+        }
+
+        _mapper.Map(modeloDto, gestion);
+
+        _applicationDbContext.Entry(gestion).State = EntityState.Modified;
+
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(_mapper.Map<GestionDto>(gestion));
     }
 
     public async Task<bool> DeleteModel(int modeloId)
