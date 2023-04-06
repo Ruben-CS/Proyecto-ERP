@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorFrontend.Pages.Gestiones
 @using BlazorFrontend.Pages.Gestiones.Editar
+@using BlazorFrontend.Pages.Gestiones.Eliminar
 @using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
@@ -17,18 +18,18 @@
              Readonly="@false"
              EditMode="DataGridEditMode.Form"
              Bordered="@true"
-             EditTrigger="DataGridEditTrigger.Manual"
-             EditDialogOptions="new DialogOptions{ CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true }"
->
+             EditTrigger="DataGridEditTrigger.Manual">
     <Columns>
         <PropertyColumn Property="@(i => i.Nombre)"/>
         <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
         <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
         <PropertyColumn Property="@(i => i.Estado)"/>
-        <TemplateColumn CellClass="d-flex justify-end">
+        <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
-                <MudIconButton  Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit"
+                <MudIconButton  Size="Size.Medium" Icon="@Icons.Material.Outlined.Edit"
                                 OnClick="() => EditarGestion(context.Item)"/>
+                <MudIconButton Size="Size.Medium" Icon="@Icons.Material.Outlined.Delete"
+                               OnClick="() => BorrarGestion(context.Item)"/>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -43,6 +44,14 @@
 
     [Parameter]
     public int Id { get; set; }
+
+    private DialogOptions options = new()
+    {
+        CloseOnEscapeKey = true,
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        DisableBackdropClick = true
+    };
 
     protected override async Task OnInitializedAsync()
     {
@@ -88,21 +97,24 @@
 
     private void EditarGestion(GestionDto item)
     {
-        var options = new DialogOptions
-        {
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Small,
-            FullWidth = true,
-            DisableBackdropClick = true
-        };
+
         var parameters = new DialogParameters
         {
             { "Id", item.IdGestion },
-            {"GestionDto", item }
+            { "GestionDto", item }
 
         };
         DialogService.ShowAsync<EditarGestion>("Editar gestion",
             parameters, options);
     }
 
+    private async Task BorrarGestion(GestionDto item)
+    {
+        var parameters = new DialogParameters
+        {
+            { "Id", item.IdGestion }
+        };
+        await DialogService.ShowAsync<EliminarGestion>("Editar gestion",
+            parameters, options);
+    }
 }

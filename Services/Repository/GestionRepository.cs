@@ -80,7 +80,7 @@ public class GestionRepository : IGestionRepository
 
             gestion.Estado = EstadosGestion.Cerrado;
             await _applicationDbContext.SaveChangesAsync();
-            return true;
+            return await Task.FromResult(true);
         }
         catch (Exception e)
         {

@@ -81,7 +81,7 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpDelete("eliminarGestion")]
+    [HttpDelete("eliminarGestion/{id:int}")]
     public async Task<object> Delete(int id)
     {
         try
@@ -98,6 +98,6 @@ public class GestionApiController : ControllerBase
             };
         }
 
-        return ResponseDto;
+        return await Task.FromResult(ResponseDto);
     }
 }
