@@ -4,6 +4,7 @@
 @using BlazorFrontend.Pages.Gestiones
 @using BlazorFrontend.Pages.Gestiones.Editar
 @using BlazorFrontend.Pages.Gestiones.Eliminar
+@using Modelos.Models.Enums
 @using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
@@ -46,12 +47,13 @@
         @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
 
 @code {
-    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
+    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>()
+        .Where(x => x.Estado == EstadosGestion.Abierto);
 
     [Parameter]
     public int Id { get; set; }
 
-    private DialogOptions options = new()
+    private readonly DialogOptions _options = new()
     {
         CloseOnEscapeKey = true,
         MaxWidth = MaxWidth.Small,
@@ -109,7 +111,7 @@
 
         };
         DialogService.ShowAsync<EditarGestion>("Editar gestion",
-            parameters, options);
+            parameters, _options);
     }
 
     private async Task BorrarGestion(GestionDto item)
@@ -119,6 +121,6 @@
             { "Id", item.IdGestion }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion",
-            parameters, options);
+            parameters, _options);
     }
 }
