@@ -41,13 +41,13 @@
 @code {
     bool _drawerOpen = true;
 
+    public bool IsDark { get; set; } = true;
+
     public async Task CambiarEmpresa()
     {
         await Task.Delay(2000);
         NavigationManager.NavigateTo("/inicio");
     }
-
-
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
