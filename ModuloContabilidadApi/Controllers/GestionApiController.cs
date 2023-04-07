@@ -59,13 +59,14 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPut("actualizarGestion/{idEmpresa:int}")]
-    public async Task<object> Put([FromBody] GestionDto gestionDto,[FromRoute] int idEmpresa)
+    [HttpPut("actualizarGestion/{idGestion:int}")]
+    public async Task<object> Put([FromBody] GestionDto gestionDto,
+                                  [FromRoute] int idGestion)
     {
         try
         {
             var result =
-                await _gestionRepository.CreateUpdateModelDto(gestionDto, idEmpresa);
+                await _gestionRepository.UpdateModel(gestionDto, idGestion);
             ResponseDto.Result = result;
         }
         catch (Exception e)
@@ -80,7 +81,7 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpDelete("eliminarGestion")]
+    [HttpDelete("eliminarGestion/{id:int}")]
     public async Task<object> Delete(int id)
     {
         try
@@ -97,6 +98,6 @@ public class GestionApiController : ControllerBase
             };
         }
 
-        return ResponseDto;
+        return await Task.FromResult(ResponseDto);
     }
 }

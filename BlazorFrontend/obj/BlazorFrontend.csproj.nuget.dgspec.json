@@ -47,10 +47,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Blazor.Bootstrap": {
-              "target": "Package",
-              "version": "[1.6.0, )"
-            },
             "FluentValidation": {
               "target": "Package",
               "version": "[11.5.1, )"

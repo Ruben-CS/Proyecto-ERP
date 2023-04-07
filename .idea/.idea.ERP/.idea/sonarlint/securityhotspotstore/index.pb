@@ -17,3 +17,9 @@ R
 "Services/Empresa/EmpresaService.cs,d\4\d48b160f0933640b17b926be442106976ebdd897
 U
 %Services/Gestion/GestionValidators.cs,a\8\a88898fc81c1c1e1cd0abaae20434e368cd874d0
+a
+1BlazorFrontend/Pages/Gestiones/CrearGestion.razor,7\3\73fbb09485d6ab9441e2b0b9bba7607facf4a345
+g
+7BlazorFrontend/Pages/Dashboard/Gestiones/Overview.razor,7\1\7106eea0321f7f471d5a0812cb4fc8d0df00a4b6
+m
+=BlazorFrontend/Pages/Gestiones/Eliminar/EliminarGestion.razor,1\4\14f4198b3da903a779888c2ce9d20ad6f3395bb6

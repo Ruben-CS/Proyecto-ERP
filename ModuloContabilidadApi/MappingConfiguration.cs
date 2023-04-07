@@ -15,7 +15,8 @@ public static class MappingConfiguration
             config.CreateMap<EmpresaDto, Empresa>();
             config.CreateMap<Empresa, EmpresaDto>();
 
-            config.CreateMap<GestionDto, Gestion>();
+            config.CreateMap<GestionDto, Gestion>()
+                  .ForMember(dest=> dest.IdEmpresa, opt=>opt.Ignore());
             config.CreateMap<Gestion, GestionDto>();
 
             config.CreateMap<PeriodoDto, Periodo>();

@@ -75,24 +75,6 @@
           }
         }
       },
-      "Blazor.Bootstrap/1.6.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "6.0.11"
-        },
-        "compile": {
-          "lib/net6.0/BlazorBootstrap.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0/BlazorBootstrap.dll": {}
-        },
-        "build": {
-          "buildTransitive/Blazor.Bootstrap.props": {}
-        },
-        "buildMultiTargeting": {
-          "buildMultiTargeting/Blazor.Bootstrap.props": {}
-        }
-      },
       "FluentValidation/11.5.1": {
         "type": "package",
         "compile": {
@@ -1573,28 +1555,6 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
-      ]
-    },
-    "Blazor.Bootstrap/1.6.0": {
-      "sha512": "l9i6nil9DtKm7WLLc0ycJ5Ptk9Ut2wr3ALhHPalcxH71NwGV5cglO7UjRbm20KygZbJKRIS1+alB2DgU+Y1LXw==",
-      "type": "package",
-      "path": "blazor.bootstrap/1.6.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "128X128.png",
-        "README.md",
-        "blazor.bootstrap.1.6.0.nupkg.sha512",
-        "blazor.bootstrap.nuspec",
-        "build/Blazor.Bootstrap.props",
-        "build/Microsoft.AspNetCore.StaticWebAssets.props",
-        "buildMultiTargeting/Blazor.Bootstrap.props",
-        "buildTransitive/Blazor.Bootstrap.props",
-        "lib/net6.0/BlazorBootstrap.dll",
-        "staticwebassets/Blazor.Bootstrap.bundle.scp.css",
-        "staticwebassets/blazor.bootstrap.css",
-        "staticwebassets/blazor.bootstrap.js",
-        "staticwebassets/icon/128X128.png"
       ]
     },
     "FluentValidation/11.5.1": {
@@ -4383,7 +4343,6 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Blazor.Bootstrap >= 1.6.0",
       "FluentValidation >= 11.5.1",
       "Modelos >= 1.0.0",
       "ModuloContabilidadApi >= 1.0.0",
@@ -4437,10 +4396,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "Blazor.Bootstrap": {
-            "target": "Package",
-            "version": "[1.6.0, )"
-          },
           "FluentValidation": {
             "target": "Package",
             "version": "[11.5.1, )"

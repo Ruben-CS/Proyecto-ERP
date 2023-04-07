@@ -1,69 +1,65 @@
 @page "/inicio/overview/{id?}"
 @using global::Services.Gestion
 @using Microsoft.AspNetCore.WebUtilities
-@using SortDirection = MudBlazor.SortDirection
-@using Size = MudBlazor.Size
 @using BlazorFrontend.Pages.Gestiones
+@using BlazorFrontend.Pages.Gestiones.Editar
+@using BlazorFrontend.Pages.Gestiones.Eliminar
+@using Modelos.Models.Enums
+@using DialogOptions = MudBlazor.DialogOptions
+@using Size = MudBlazor.Size
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
 @layout DashboardLayout
 @inject IDialogService DialogService
 
 <h3>Lista de gestiones activas</h3>
-<MudTable Striped="true" Bordered="true" Items="_gestiones.Take(2)" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="1">
-    <HeaderContent>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<GestionDto, object>(x => x.Nombre)">
-                Nombre
-            </MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<GestionDto, object>(x => x.FechaInicio)" InitialDirection="SortDirection.Ascending">
-                Inicio de la gestion
-            </MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<GestionDto, object>(x => x.FechaFin)">
-                Fin de la gestion
-            </MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<GestionDto, object>(x => x.Estado)">
-                Estado actual
-            </MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            Acciones
-        </MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
-        <MudTd DataLabel="Fecha Inicio">@context.FechaInicio.ToShortDateString()</MudTd>
-        <MudTd DataLabel="Fecha Fin">@context.FechaFin.ToShortDateString()</MudTd>
-        <MudTd DataLabel="Estado">@context.Estado</MudTd>
-        <MudTd DataLabel="Acciones">
-            <MudStack Row="true" Spacing="3">
-                <MudTooltip Text="Editar">
-                    <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small"/>
-                </MudTooltip>
-                <MudTooltip Text="Cerrar gestion">
-                    <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Lock" Size="Size.Small"/>
-                </MudTooltip>
-                <MudTooltip Text="??? todavia">
-                    <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Note" Size="Size.Small"/>
-                </MudTooltip>
-            </MudStack>
-        </MudTd>
-    </RowTemplate>
-</MudTable>
+<MudDataGrid T="GestionDto"
+             Items="@_gestiones.Take(2)"
+             Hover="@true"
+             Readonly="@false"
+             EditMode="DataGridEditMode.Form"
+             Bordered="@true"
+             EditTrigger="DataGridEditTrigger.Manual">
+    <Columns>
+        <PropertyColumn Property="@(i => i.Nombre)"/>
+        <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
+        <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
+        <PropertyColumn Property="@(i => i.Estado)"/>
+        <TemplateColumn CellClass="d-flex justify-center">
+            <CellTemplate>
+                <MudIconButton Class="pa-1"
+                        Color="Color.Warning"
+                        Size="Size.Small"
+                        Icon="@Icons.Material.Outlined.Edit"
+                        OnClick="() => EditarGestion(context.Item)"/>
+                <MudIconButton Class="pa-1"
+                        Color="Color.Error"
+                        Size="Size.Small"
+                        Icon="@Icons.Material.Outlined.Delete"
+                        OnClick="() => BorrarGestion(context.Item)"/>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+
 <MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
-                @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
+        @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
 
 @code {
-    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
+    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>()
+        .Where(x => x.Estado == EstadosGestion.Abierto);
 
     [Parameter]
     public int Id { get; set; }
+
+    private readonly DialogOptions _options = new()
+    {
+        CloseOnEscapeKey = true,
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        DisableBackdropClick = true
+    };
 
     protected override async Task OnInitializedAsync()
     {
@@ -75,6 +71,7 @@
             {
                 Id = int.Parse(idValue!);
                 _gestiones = await GestionServices.GetGestionAsync(Id);
+                StateHasChanged();
             }
             else
             {
@@ -93,13 +90,37 @@
         {
             CloseOnEscapeKey = true,
             MaxWidth = MaxWidth.Small,
-            FullWidth = true
+            FullWidth = true,
+            DisableBackdropClick = true
         };
         var parameters = new DialogParameters
         {
-            { "Id", Id }
+            { "Id", Id },
         };
         DialogService.ShowAsync<CrearGestion>("Llene los datos de la gestion",
-            parameters,options);
+            parameters, options);
+    }
+
+    private void EditarGestion(GestionDto item)
+    {
+
+        var parameters = new DialogParameters
+        {
+            { "Id", item.IdGestion },
+            { "GestionDto", item }
+
+        };
+        DialogService.ShowAsync<EditarGestion>("Editar gestion",
+            parameters, _options);
+    }
+
+    private async Task BorrarGestion(GestionDto item)
+    {
+        var parameters = new DialogParameters
+        {
+            { "Id", item.IdGestion }
+        };
+        await DialogService.ShowAsync<EliminarGestion>("Editar gestion",
+            parameters, _options);
     }
 }

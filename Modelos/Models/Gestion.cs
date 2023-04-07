@@ -10,8 +10,8 @@ public class Gestion
     public int IdGestion { get; set; }
 
     public string         Nombre      { get; set; }
-    public DateTime       FechaInicio { get; set; }
-    public DateTime       FechaFin    { get; set; }
+    public DateTime?       FechaInicio { get; set; }
+    public DateTime?       FechaFin    { get; set; }
     public EstadosGestion Estado      { get; set; } = EstadosGestion.Abierto;
 
     public List<Periodo>? Periodos { get; set; }
@@ -23,8 +23,8 @@ public class Gestion
     public int IdUsuario { get; set; } = 1;
 
     [InverseProperty("Gestiones")]
-    public Usuario Usuario { get; set; }
+    public Usuario? Usuario { get; set; }
 
     [InverseProperty("Gestiones")]
-    public Empresa Empresa { get; set; }
+    public Empresa? EmpresaDto { get; set; }
 }

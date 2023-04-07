@@ -5,6 +5,7 @@ using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using Services.Gestion;
+using Modelos.Models;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -13,20 +14,18 @@ public class GestionRepository : IGestionRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
     private readonly IMapper              _mapper;
-    private readonly GestionValidators    _gestionValidators;
 
     public GestionRepository(ApplicationDbContext applicationDbContext,
-                             IMapper mapper, GestionValidators gestionValidators)
+                             IMapper              mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
-        _gestionValidators    = gestionValidators;
     }
 
     public async Task<IEnumerable<GestionDto>> GetModelos(int modeloId)
     {
         var listaGestiones =
-            await _applicationDbContext.Gestiones.Where(id => id.IdGestion == modeloId)
+            await _applicationDbContext.Gestiones.Where(id => id.IdEmpresa == modeloId)
                                        .ToListAsync();
         return _mapper.Map<List<GestionDto>>(listaGestiones);
     }
@@ -37,12 +36,8 @@ public class GestionRepository : IGestionRepository
         var gestion = _mapper.Map<GestionDto, Modelos.Models.Gestion>(gestionDto);
         try
         {
-            var isValid = await _gestionValidators.EsValido(gestionDto, idEmpresa);
-            if (isValid)
-            {
-                _applicationDbContext.Add(gestion);
-                await _applicationDbContext.SaveChangesAsync();
-            }
+            _applicationDbContext.Add(gestion);
+            await _applicationDbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -51,6 +46,24 @@ public class GestionRepository : IGestionRepository
         }
 
         return _mapper.Map<Modelos.Models.Gestion, GestionDto>(gestion);
+    }
+
+    public async Task<GestionDto> UpdateModel(GestionDto modeloDto, int idModelo)
+    {
+        var gestion =
+            await _applicationDbContext.Gestiones.SingleAsync(e =>
+                e.IdGestion == idModelo);
+        if (gestion is null)
+        {
+            throw new NullReferenceException("Gestion no encontrada");
+        }
+
+        _mapper.Map(modeloDto, gestion);
+
+        _applicationDbContext.Entry(gestion).State = EntityState.Modified;
+
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(_mapper.Map<GestionDto>(gestion));
     }
 
     public async Task<bool> DeleteModel(int modeloId)
@@ -67,7 +80,7 @@ public class GestionRepository : IGestionRepository
 
             gestion.Estado = EstadosGestion.Cerrado;
             await _applicationDbContext.SaveChangesAsync();
-            return true;
+            return await Task.FromResult(true);
         }
         catch (Exception e)
         {

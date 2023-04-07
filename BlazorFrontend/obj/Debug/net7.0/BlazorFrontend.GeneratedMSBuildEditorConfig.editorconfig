@@ -40,6 +40,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VzdGlvbmVzXENyZWFyR2VzdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Gestiones/Editar/EditarGestion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VzdGlvbmVzXEVkaXRhclxFZGl0YXJHZXN0aW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Gestiones/Eliminar/EliminarGestion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VzdGlvbmVzXEVsaW1pbmFyXEVsaW1pbmFyR2VzdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Shared/DashboardLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhc2hib2FyZExheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

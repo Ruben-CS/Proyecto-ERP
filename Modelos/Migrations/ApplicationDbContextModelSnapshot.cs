@@ -84,13 +84,16 @@ namespace ModuloContabilidadApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGestion"));
 
+                    b.Property<int?>("EmpresaDtoIdEmpresa")
+                        .HasColumnType("int");
+
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaFin")
+                    b.Property<DateTime?>("FechaFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaInicio")
+                    b.Property<DateTime?>("FechaInicio")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdEmpresa")
@@ -105,7 +108,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasKey("IdGestion");
 
-                    b.HasIndex("IdEmpresa");
+                    b.HasIndex("EmpresaDtoIdEmpresa");
 
                     b.HasIndex("IdUsuario");
 
@@ -184,11 +187,9 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
-                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                    b.HasOne("Modelos.Models.Empresa", "EmpresaDto")
                         .WithMany("Gestiones")
-                        .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmpresaDtoIdEmpresa");
 
                     b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Gestiones")
@@ -196,7 +197,7 @@ namespace ModuloContabilidadApi.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Empresa");
+                    b.Navigation("EmpresaDto");
 
                     b.Navigation("Usuario");
                 });

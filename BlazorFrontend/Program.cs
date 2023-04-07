@@ -1,4 +1,3 @@
-using BlazorBootstrap;
 using MudBlazor.Services;
 using BlazorFrontend.Services;
 using Services.Gestion;
@@ -7,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddBlazorBootstrap();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddMudServices();
 builder.Services.AddHttpClient();
