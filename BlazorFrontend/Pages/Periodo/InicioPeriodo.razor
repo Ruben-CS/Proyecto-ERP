@@ -1,8 +1,42 @@
-@page "/inicioperiodo"
+@page "/overview/inicioperiodo/{idgestion:int}"
+@using Microsoft.AspNetCore.WebUtilities
+@using global::Services.Gestion
 @layout PeriodoDashboard
+@inject GestionServices GestionServices
+@inject NavigationManager NavigationManager
+
 
 <h3>InicioPeriodo</h3>
+<p>@IdGestion</p>
 
 @code {
+
+    [Parameter]
+    public int IdGestion { get; set; }
+
+    public GestionDto GestionDto { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var query = QueryHelpers.ParseQuery(uri.Query);
+            if (query.TryGetValue("idgestion", out var idValue))
+            {
+                IdGestion = int.Parse(idValue!);
+                GestionDto = await GestionServices.GetGestionSingleAsync(IdGestion);
+                StateHasChanged();
+            }
+            else
+            {
+                throw new KeyNotFoundException("The 'id' parameter was not found in the query string.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while initializing the component: {ex}");
+        }
+    }
 
 }

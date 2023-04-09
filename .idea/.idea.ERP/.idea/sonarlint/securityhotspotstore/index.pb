@@ -23,3 +23,5 @@ g
 7BlazorFrontend/Pages/Dashboard/Gestiones/Overview.razor,7\1\7106eea0321f7f471d5a0812cb4fc8d0df00a4b6
 m
 =BlazorFrontend/Pages/Gestiones/Eliminar/EliminarGestion.razor,1\4\14f4198b3da903a779888c2ce9d20ad6f3395bb6
+S
+#Services/Gestion/GestionServices.cs,0\2\027add2f99060c1b259b6a0744d1f37a14ab8d65

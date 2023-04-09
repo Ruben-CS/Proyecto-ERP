@@ -4,6 +4,7 @@
 @using BlazorFrontend.Pages.Gestiones
 @using BlazorFrontend.Pages.Gestiones.Editar
 @using BlazorFrontend.Pages.Gestiones.Eliminar
+@using Microsoft.AspNetCore.Http.Extensions
 @using Modelos.Models.Enums
 @using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
@@ -33,10 +34,15 @@
                         Icon="@Icons.Material.Outlined.Edit"
                         OnClick="() => EditarGestion(context.Item)"/>
                 <MudIconButton Class="pa-1"
-                        Color="Color.Error"
-                        Size="Size.Small"
-                        Icon="@Icons.Material.Outlined.Delete"
-                        OnClick="() => BorrarGestion(context.Item)"/>
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               Icon="@Icons.Material.Outlined.Delete"
+                               OnClick="() => BorrarGestion(context.Item)"/>
+                <MudIconButton Class="pa-1"
+                               Color="Color.Info"
+                               Size="Size.Small"
+                               Icon="@Icons.Material.Outlined.Timelapse"
+                               OnClick="() => NavigateToPage(context.Item) "/>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -49,6 +55,9 @@
 @code {
     private IEnumerable<GestionDto> _gestiones = new List<GestionDto>()
         .Where(x => x.Estado == EstadosGestion.Abierto);
+
+    [Inject]
+    ISnackbar Snackbar { get; set; } = null!;
 
     [Parameter]
     public int Id { get; set; }
@@ -123,4 +132,18 @@
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion",
             parameters, _options);
     }
+    private void NavigateToPage(GestionDto gestion)
+    {
+        if (gestion.IdGestion is not 0)
+        {
+            var uri = $"/overview/inicioperiodo/{gestion.IdGestion}";
+            NavigationManager.NavigateTo(uri);
+        }
+        else
+        {
+            Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
+        }
+    }}
+    }
+
 }

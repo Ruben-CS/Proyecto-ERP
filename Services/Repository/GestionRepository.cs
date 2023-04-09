@@ -66,6 +66,13 @@ public class GestionRepository : IGestionRepository
         return await Task.FromResult(_mapper.Map<GestionDto>(gestion));
     }
 
+    public async Task<GestionDto> GetModelo(int modeloId)
+    {
+        var empresa = await _applicationDbContext.Gestiones.SingleAsync(id => id
+            .IdGestion == modeloId);
+        return await Task.FromResult(_mapper.Map<GestionDto>(empresa));
+    }
+
     public async Task<bool> DeleteModel(int modeloId)
     {
         try
