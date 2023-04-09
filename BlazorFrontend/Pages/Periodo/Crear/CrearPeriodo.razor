@@ -1,5 +1,49 @@
-<h3>CrearPeriodo</h3>
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="PeriodoDto" OnValidSubmit="@ValidateAndCreatePeriodo">
+            <DataAnnotationsValidator/>
+            <MudTextField @bind-Value="@PeriodoDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+            <MudStack Row="true">
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@PeriodoDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@PeriodoDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+            </MudStack>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndCreatePeriodo">Crear</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
-    
+    [CascadingParameter]
+    MudDialogInstance? MudDialog { get; set; }
+
+    [Parameter]
+    public int IdGestion { get; set; }
+
+    public PeriodoDto PeriodoDto { get; set; } = new();
+
+    void Cancel() => MudDialog!.Cancel();
+
+    private async Task ValidateAndCreatePeriodo()
+    {
+        var url = $"https://localhost:44378/periodos/crearperiodo/{IdGestion}";
+
+        var periodoDto = new PeriodoDto
+        {
+            Nombre = PeriodoDto.Nombre,
+            FechaInicio = PeriodoDto.FechaInicio,
+            FechaFin = PeriodoDto.FechaFin,
+            IdGestion = IdGestion
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, periodoDto);
+        Snackbar.Add("Periodo creado exitosamente", Severity.Success);
+        MudDialog!.Close(DialogResult.Ok(response));
+    }
+
 }

@@ -8,8 +8,8 @@ public class PeriodoDto
 {
     public int            IdPeriodo   { get; set; }
     public string         Nombre      { get; set; }
-    public DateTime       FechaInicio { get; set; }
-    public DateTime       FechaFin    { get; set; }
+    public DateTime?       FechaInicio { get; set; }
+    public DateTime?       FechaFin    { get; set; }
     public EstadosPeriodo Estado      { get; set; } = EstadosPeriodo.Abierto;
 
     [ForeignKey("Usuario")]

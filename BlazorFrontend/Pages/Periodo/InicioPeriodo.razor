@@ -1,6 +1,7 @@
 @page "/overview/inicioperiodo/{idgestion:int}"
 @using global::Services.Gestion
 @using global::Services.Periodo
+@using BlazorFrontend.Pages.Periodo.Crear
 @layout PeriodoDashboard
 @inject GestionServices GestionServices
 @inject PeriodoService PeriodoService
@@ -60,6 +61,14 @@
 
     private GestionDto _gestionDto = new();
 
+    private readonly DialogOptions _options = new()
+    {
+        CloseOnEscapeKey = true,
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        DisableBackdropClick = true
+    };
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -93,9 +102,15 @@
         throw new NotImplementedException();
     }
 
-    private Task ShowMudCrearPeriodonModal()
+    private async void ShowMudCrearPeriodonModal()
     {
-        throw new NotImplementedException();
+        var parameters = new DialogParameters()
+        {
+            { "IdGestion", IdGestion }
+        };
+
+        await DialogService.ShowAsync<CrearPeriodo>("Llene los datos del periodo",
+            parameters, _options);
     }
 
 }
