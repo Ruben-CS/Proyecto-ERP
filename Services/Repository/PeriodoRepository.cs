@@ -39,7 +39,7 @@ public class PeriodoRepository : IPeriodoRepository
     public async Task<PeriodoDto> CreateUpdateModelDto(
         PeriodoDto periodoDto, int idGestion)
     {
-        var periodo = _mapper.Map<PeriodoDto, Periodo>(periodoDto);
+        var periodo = _mapper.Map<PeriodoDto, Modelos.Models.Periodo>(periodoDto);
         try
         {
             await _applicationDbContext.AddAsync(periodo);
@@ -51,7 +51,7 @@ public class PeriodoRepository : IPeriodoRepository
             throw;
         }
 
-        return await Task.FromResult(_mapper.Map<Periodo, PeriodoDto>(periodo));
+        return await Task.FromResult(_mapper.Map<Modelos.Models.Periodo, PeriodoDto>(periodo));
     }
 
 
