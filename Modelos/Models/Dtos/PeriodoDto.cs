@@ -13,14 +13,14 @@ public class PeriodoDto
     public EstadosPeriodo Estado      { get; set; } = EstadosPeriodo.Abierto;
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     [ForeignKey("Gestion")]
     public int IdGestion { get; set; }
 
     [InverseProperty("Periodos")]
-    public Usuario Usuario { get; set; }
+    public Usuario? Usuario { get; set; }
 
     [InverseProperty("Periodos")]
-    public GestionDto GestionDto { get; set; }
+    public GestionDto? GestionDto { get; set; }
 }

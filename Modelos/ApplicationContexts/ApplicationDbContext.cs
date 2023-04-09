@@ -60,13 +60,17 @@ public class ApplicationDbContext : DbContext
             .OnDelete(DeleteBehavior.NoAction);
 
 
-        modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Usuario)
-            .WithMany(usuario => usuario.Periodos)
-            .HasForeignKey(periodo => periodo.IdGestion);
+        modelBuilder.Entity<Periodo>()
+                    .HasOne(p => p.Usuario)
+                    .WithMany(u => u.Periodos)
+                    .HasForeignKey(p => p.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Periodo>().HasOne(periodo => periodo.Gestion)
-            .WithMany(gestion => gestion.Periodos)
-            .HasForeignKey(periodo => periodo.IdUsuario);
+        modelBuilder.Entity<Periodo>()
+                    .HasOne(p => p.Gestion)
+                    .WithMany(g => g.Periodos)
+                    .HasForeignKey(p => p.IdGestion)
+                    .OnDelete(DeleteBehavior.Restrict);
 
         #endregion
     }

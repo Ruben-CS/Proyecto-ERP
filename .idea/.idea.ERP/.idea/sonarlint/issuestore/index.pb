@@ -25,3 +25,5 @@ g
 7BlazorFrontend/Pages/Dashboard/Gestiones/Overview.razor,7\1\7106eea0321f7f471d5a0812cb4fc8d0df00a4b6
 S
 #Services/Gestion/GestionServices.cs,0\2\027add2f99060c1b259b6a0744d1f37a14ab8d65
+]
+-ModuloContabilidadApi/MappingConfiguration.cs,8\b\8ba07e02e075236fe9bd57da8ec9e4f32c69b2ac

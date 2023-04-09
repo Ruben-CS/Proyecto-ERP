@@ -25,3 +25,5 @@ m
 =BlazorFrontend/Pages/Gestiones/Eliminar/EliminarGestion.razor,1\4\14f4198b3da903a779888c2ce9d20ad6f3395bb6
 S
 #Services/Gestion/GestionServices.cs,0\2\027add2f99060c1b259b6a0744d1f37a14ab8d65
+]
+-ModuloContabilidadApi/MappingConfiguration.cs,8\b\8ba07e02e075236fe9bd57da8ec9e4f32c69b2ac
