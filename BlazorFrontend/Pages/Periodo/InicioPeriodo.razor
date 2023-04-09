@@ -1,36 +1,40 @@
 @page "/overview/inicioperiodo/{idgestion:int}"
-@using Microsoft.AspNetCore.WebUtilities
 @using global::Services.Gestion
 @layout PeriodoDashboard
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
 
 
-<h3>InicioPeriodo</h3>
-<p>@IdGestion</p>
+<MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"/>
+        <MudSpacer/>
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End"/>
 
+        </MudAppBar>
+
+<h3>Administracion del preiodo de gestion - @_gestionDto.Nombre </h3>
+<p>@IdGestion</p>
 @code {
 
     [Parameter]
     public int IdGestion { get; set; }
 
-    public GestionDto GestionDto { get; set; }
+    private GestionDto _gestionDto = new();
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var uri = new Uri(NavigationManager.Uri);
-            var query = QueryHelpers.ParseQuery(uri.Query);
-            if (query.TryGetValue("idgestion", out var idValue))
+            var segments = uri.Segments;
+            var idValue = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
             {
-                IdGestion = int.Parse(idValue!);
-                GestionDto = await GestionServices.GetGestionSingleAsync(IdGestion);
-                StateHasChanged();
+                _gestionDto = await GestionServices.GetGestionSingleAsync(id);
             }
             else
             {
-                throw new KeyNotFoundException("The 'id' parameter was not found in the query string.");
+                throw new ArgumentException("The 'idgestion' parameter is missing or invalid.");
             }
         }
         catch (Exception ex)
