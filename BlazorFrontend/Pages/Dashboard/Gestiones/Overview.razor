@@ -4,7 +4,6 @@
 @using BlazorFrontend.Pages.Gestiones
 @using BlazorFrontend.Pages.Gestiones.Editar
 @using BlazorFrontend.Pages.Gestiones.Eliminar
-@using Microsoft.AspNetCore.Http.Extensions
 @using Modelos.Models.Enums
 @using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
@@ -132,6 +131,7 @@
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion",
             parameters, _options);
     }
+
     private void NavigateToPage(GestionDto gestion)
     {
         if (gestion.IdGestion is not 0)

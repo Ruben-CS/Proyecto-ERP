@@ -1,6 +1,9 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
+using Modelos.Models;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -16,23 +19,63 @@ public class PeriodoRepository : IPeriodoRepository
         _mapper               = mapper;
     }
 
-    public Task<IEnumerable<PeriodoDto>> GetModelos()
+    public async Task<IEnumerable<PeriodoDto>> GetModelos(int gestionId)
     {
-        throw new NotImplementedException();
+        var listaPeriodos =
+            await _applicationDbContext.Periodos.Where(periodo =>
+                periodo.IdPeriodo == gestionId).ToListAsync();
+
+        return _mapper.Map<List<PeriodoDto>>(listaPeriodos);
     }
 
-    public Task<PeriodoDto>              GetModelo(int modeloId)
+    public async Task<PeriodoDto> GetModelo(int modeloId)
     {
-        throw new NotImplementedException();
+        var periodo =
+            await _applicationDbContext.Periodos.SingleAsync(periodo =>
+                periodo.IdPeriodo == modeloId);
+        return await Task.FromResult(_mapper.Map<PeriodoDto>(periodo));
     }
 
-    public Task<PeriodoDto>              CreateUpdateModelDto(PeriodoDto periodoDto)
+    public async Task<PeriodoDto> CreateUpdateModelDto(
+        PeriodoDto periodoDto, int idGestion)
     {
-        throw new NotImplementedException();
+        var periodo = _mapper.Map<PeriodoDto, Periodo>(periodoDto);
+        try
+        {
+            await _applicationDbContext.AddAsync(periodo);
+            await _applicationDbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return await Task.FromResult(_mapper.Map<Periodo, PeriodoDto>(periodo));
     }
 
-    public Task<bool>                        DeleteModel(int modeloId)
+
+    public async Task<bool> DeleteModel(int modeloId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var periodo =
+                await _applicationDbContext.Periodos.FirstOrDefaultAsync(periodo =>
+                    periodo.IdPeriodo == modeloId);
+
+            if (periodo is null)
+            {
+                return await Task.FromResult(false);
+            }
+
+            periodo.Estado = EstadosPeriodo.Cerrado;
+            await _applicationDbContext.SaveChangesAsync();
+            return await Task.FromResult(true);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

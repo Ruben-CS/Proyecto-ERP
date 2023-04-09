@@ -4,8 +4,8 @@ namespace Services.Repository.Interfaces;
 
 public interface IPeriodoRepository
 {
-    public Task<IEnumerable<PeriodoDto>> GetModelos();
+    public Task<IEnumerable<PeriodoDto>> GetModelos(int gestionId);
     public Task<PeriodoDto> GetModelo(int modeloId);
-    public Task<PeriodoDto> CreateUpdateModelDto(PeriodoDto periodoDto);
+    public Task<PeriodoDto> CreateUpdateModelDto(PeriodoDto periodoDto, int idGestion);
     public Task<bool> DeleteModel(int modeloId);
 }

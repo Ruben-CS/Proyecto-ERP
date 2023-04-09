@@ -16,7 +16,7 @@ public class Periodo
     public EstadosPeriodo Estado      { get; set; } = EstadosPeriodo.Abierto;
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     [ForeignKey("Gestion")]
     public int IdGestion { get; set; }
