@@ -19,12 +19,12 @@ public class PeriodoApiController : ControllerBase
         this.ResponseDto   = new ResponseDto();
     }
 
-    [HttpGet("ListarPeriodo/{id:int}")]
-    public async Task<object> GetPeriodos([FromRoute] int id)
+    [HttpGet("ListarPeriodos/{idgestion:int}")]
+    public async Task<object> GetPeriodos([FromRoute] int idgestion)
     {
         try
         {
-            var periodoDto = await _periodoRepository.GetModelos(id);
+            var periodoDto = await _periodoRepository.GetModelos(idgestion);
             ResponseDto.Result = periodoDto;
         }
         catch (Exception e)

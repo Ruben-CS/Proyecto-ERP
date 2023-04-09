@@ -7,8 +7,6 @@ i
 9ModuloContabilidadApi/Controllers/EmpresaApiController.cs,2\3\236f913b8d5b88cfdd524564489978122143404c
 Q
 !Modelos/Models/Dtos/EmpresaDto.cs,b\a\babf10422a5a82b916d749fecd5b8e683d3cdd44
-c
-3Modelos/ApplicationContexts/ApplicationDbContext.cs,c\0\c0d5af8d3107275a0f1d1914c3e102e37a3c41d0
 i
 9ModuloContabilidadApi/Controllers/GestionApiController.cs,0\b\0be7be2e6d46b57c282392d76ea5eb39b7aad475
 X

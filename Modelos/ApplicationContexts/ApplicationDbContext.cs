@@ -28,13 +28,12 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique();
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique();
         modelBuilder.Entity<Empresa>().Property(i => i.IdUsuario)
-            .IsRequired(false);
+                    .IsRequired(false);
         modelBuilder.Entity<Empresa>().HasIndex(i => i.IdUsuario);
 
         #endregion
 
         #region Configuracion de Usuario
-
 
         #endregion
 
@@ -48,16 +47,17 @@ public class ApplicationDbContext : DbContext
 
         #region Configuracion de Relaciones
 
-        modelBuilder.Entity<Empresa>().HasOne(empresa => empresa.Usuario)
-            .WithMany(usuario => usuario.Empresas)
-            .HasForeignKey(empresa => empresa.IdUsuario);
+        modelBuilder.Entity<Empresa>()
+                    .HasOne(empresa => empresa.Usuario)
+                    .WithMany(usuario => usuario.Empresas)
+                    .HasForeignKey(empresa => empresa.IdUsuario);
 
 
-
-        modelBuilder.Entity<Gestion>().HasOne(gestion => gestion.Usuario)
-            .WithMany(usuario => usuario.Gestiones)
-            .HasForeignKey(gestion => gestion.IdUsuario)
-            .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<Gestion>()
+                    .HasOne(gestion => gestion.Usuario)
+                    .WithMany(usuario => usuario.Gestiones)
+                    .HasForeignKey(gestion => gestion.IdUsuario)
+                    .OnDelete(DeleteBehavior.NoAction);
 
 
         modelBuilder.Entity<Periodo>()

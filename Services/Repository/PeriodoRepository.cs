@@ -23,7 +23,7 @@ public class PeriodoRepository : IPeriodoRepository
     {
         var listaPeriodos =
             await _applicationDbContext.Periodos.Where(periodo =>
-                periodo.IdPeriodo == gestionId).ToListAsync();
+                periodo.IdGestion == gestionId).ToListAsync();
 
         return _mapper.Map<List<PeriodoDto>>(listaPeriodos);
     }
@@ -31,7 +31,7 @@ public class PeriodoRepository : IPeriodoRepository
     public async Task<PeriodoDto> GetModelo(int modeloId)
     {
         var periodo =
-            await _applicationDbContext.Periodos.SingleAsync(periodo =>
+            await _applicationDbContext.Periodos.SingleOrDefaultAsync(periodo =>
                 periodo.IdPeriodo == modeloId);
         return await Task.FromResult(_mapper.Map<PeriodoDto>(periodo));
     }
