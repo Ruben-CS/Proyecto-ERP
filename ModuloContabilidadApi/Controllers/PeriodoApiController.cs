@@ -80,12 +80,13 @@ public class PeriodoApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPut("actualizarperiodo/")]
-    public async Task<object> Put([FromBody]PeriodoDto periodoDto,[FromRoute] int idGestion)
+    [HttpPut("actualizarperiodo/{idGestion:int}/{idPeriodo:int}")]
+    public async Task<object> Put([FromBody]PeriodoDto periodoDto,[FromRoute]
+                                  int idGestion, int idPeriodo)
     {
         try
         {
-            var periodo = await _periodoRepository.CreateUpdateModelDto(periodoDto,idGestion);
+            var periodo = await _periodoRepository.UpdateModel(periodoDto,idGestion, idPeriodo);
             ResponseDto.Result = periodo;
         }
         catch (Exception e)

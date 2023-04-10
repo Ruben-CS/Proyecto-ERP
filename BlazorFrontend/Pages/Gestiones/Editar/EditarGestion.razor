@@ -1,8 +1,6 @@
-@using global::Services.Gestion
 @using ButtonType = MudBlazor.ButtonType
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
-@inject GestionServices GestionServices
 
 <MudDialog>
     <DialogContent>
@@ -17,7 +15,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditGestion">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditGestion">Editar</MudButton>
     </DialogActions>
 </MudDialog>
 

@@ -78,4 +78,19 @@ public class PeriodoRepository : IPeriodoRepository
             throw;
         }
     }
+
+    public async Task<PeriodoDto> UpdateModel(PeriodoDto periodoDto, int idGestion, int idPeriodo)
+    {
+        var periodo = await _applicationDbContext.Periodos.SingleAsync(periodo => periodo.IdPeriodo == idPeriodo && periodo.IdGestion == idGestion);
+
+        if (periodo is null)
+        {
+            throw new NullReferenceException("periodo no existe");
+        }
+
+        _mapper.Map(periodoDto, periodo);
+        _applicationDbContext.Entry(periodo).State = EntityState.Modified;
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(_mapper.Map<PeriodoDto>(periodo));
+    }
 }
