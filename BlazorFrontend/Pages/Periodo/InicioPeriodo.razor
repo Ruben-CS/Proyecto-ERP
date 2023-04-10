@@ -99,7 +99,8 @@
         var parameters = new DialogParameters()
         {
             {"IdPeriodo", periodoDto.IdPeriodo},
-            {"IdGestion", periodoDto.IdGestion}
+            {"IdGestion", periodoDto.IdGestion},
+            {"PeriodoDto",periodoDto}
         };
         await DialogService.ShowAsync<EditarPeriodo>(string.Empty, parameters, _options);
     }
