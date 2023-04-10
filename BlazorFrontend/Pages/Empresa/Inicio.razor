@@ -89,7 +89,10 @@
 
         var parameters = new DialogParameters
         {
-            { "OnEmpresaAdded", EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaAddedHandler) }
+            {
+                "OnEmpresaAdded",
+                EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaAddedHandler)
+            }
         };
         await DialogService.ShowAsync<CrearEmpresa>("Llene los datos de la empresa", parameters ,options);
     }
@@ -156,7 +159,7 @@
     {
         if (SelectedEmpresaId != default)
         {
-            var uri = NavigationManager.ToAbsoluteUri($"inicio/overview");
+            var uri = NavigationManager.ToAbsoluteUri("inicio/overview");
             var queryBuilder = new QueryBuilder { { "id", SelectedEmpresaId.ToString() } };
             uri = new UriBuilder(uri) { Query = queryBuilder.ToString() }.Uri;
             NavigationManager.NavigateTo(uri.ToString());

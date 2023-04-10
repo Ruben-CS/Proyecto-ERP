@@ -1,0 +1,35 @@
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Desea cerrar este periodo?
+        </MudText>
+    </TitleContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Error" OnClick="CerrarPeriodo">Eliminar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public int IdPeriodo { get; set; }
+
+    private void Cancel() => MudDialog.Close();
+
+    private async Task CerrarPeriodo()
+    {
+        var url = $"https://localhost:44378/periodos/eliminarperiodo/{IdPeriodo}";
+        var response = await HttpClient.DeleteAsync(url);
+        if (!response.IsSuccessStatusCode) return;
+        Snackbar.Add("Gestion cerrada exitosamente", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(response));
+    }
+}

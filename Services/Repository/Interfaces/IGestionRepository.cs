@@ -9,4 +9,6 @@ public interface IGestionRepository
     public Task<bool> DeleteModel(int modeloId);
 
     public Task<GestionDto> UpdateModel(GestionDto gestionDto, int idGestion);
+
+    public Task<GestionDto> GetModelo(int modeloId);
 }

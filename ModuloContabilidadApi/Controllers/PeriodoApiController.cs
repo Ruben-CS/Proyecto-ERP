@@ -19,12 +19,12 @@ public class PeriodoApiController : ControllerBase
         this.ResponseDto   = new ResponseDto();
     }
 
-    [HttpGet("ListarPeriodo")]
-    public async Task<object> Get()
+    [HttpGet("ListarPeriodos/{idgestion:int}")]
+    public async Task<object> GetPeriodos([FromRoute] int idgestion)
     {
         try
         {
-            var periodoDto = await _periodoRepository.GetModelos();
+            var periodoDto = await _periodoRepository.GetModelos(idgestion);
             ResponseDto.Result = periodoDto;
         }
         catch (Exception e)
@@ -60,12 +60,12 @@ public class PeriodoApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPost]
-    public async Task<object> Post(PeriodoDto periodoDto)
+    [HttpPost("crearperiodo/{idGestion:int}")]
+    public async Task<object> Post([FromBody]PeriodoDto periodoDto, [FromRoute] int idGestion)
     {
         try
         {
-            var periodo = await _periodoRepository.CreateUpdateModelDto(periodoDto);
+            var periodo = await _periodoRepository.CreateUpdateModelDto(periodoDto, idGestion);
             ResponseDto.Result = periodo;
         }
         catch (Exception e)
@@ -80,12 +80,13 @@ public class PeriodoApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPut]
-    public async Task<object> Put(PeriodoDto periodoDto)
+    [HttpPut("actualizarperiodo/{idGestion:int}/{idPeriodo:int}")]
+    public async Task<object> Put([FromBody]PeriodoDto periodoDto,[FromRoute]
+                                  int idGestion, int idPeriodo)
     {
         try
         {
-            var periodo = await _periodoRepository.CreateUpdateModelDto(periodoDto);
+            var periodo = await _periodoRepository.UpdateModel(periodoDto,idGestion, idPeriodo);
             ResponseDto.Result = periodo;
         }
         catch (Exception e)
@@ -100,8 +101,7 @@ public class PeriodoApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpDelete]
-    [Route("{id}")]
+    [HttpDelete("eliminarperiodo/{id:int}")]
     public async Task<object> Delete(int id)
     {
         try

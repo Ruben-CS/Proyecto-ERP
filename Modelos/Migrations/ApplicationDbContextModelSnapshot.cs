@@ -204,16 +204,16 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("Modelos.Models.Periodo", b =>
                 {
-                    b.HasOne("Modelos.Models.Usuario", "Usuario")
-                        .WithMany("Periodos")
-                        .HasForeignKey("IdGestion")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Modelos.Models.Gestion", "Gestion")
                         .WithMany("Periodos")
+                        .HasForeignKey("IdGestion")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
+                        .WithMany("Periodos")
                         .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Gestion");

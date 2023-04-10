@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Modelos.Models.Enums;
 
 namespace Modelos.Models;
@@ -16,7 +17,7 @@ public class Periodo
     public EstadosPeriodo Estado      { get; set; } = EstadosPeriodo.Abierto;
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     [ForeignKey("Gestion")]
     public int IdGestion { get; set; }
