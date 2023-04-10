@@ -1,5 +1,6 @@
 @using global::Services.Periodo
 @using global::Services.Gestion
+@using Microsoft.IdentityModel.Tokens
 @using Modelos.Models.Enums
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
@@ -66,18 +67,22 @@
         if (!await ValidateUniqueNombre())
         {
             Snackbar.Add("Ya existe un periodo con ese nombre", Severity.Error);
-        }else if (await FechaInicioEsMayor())
+        }
+        else if (await FechaInicioEsMayor())
         {
             Snackbar.Add("La fecha de inicio no puede ser mayor a la final", Severity.Error);
-        }else if (await FechasSonIguales())
+        }
+        else if (await FechasSonIguales())
         {
             Snackbar.Add("Las fechas no pueden ser iguales", Severity.Error);
-        }else if (await FechasDentroDelRangoDeGestion())
+        }
+        else if (await FechasDentroDelRangoDeGestion())
         {
             Snackbar.Add("La fecha debe estar dentro del rango de la gestion", Severity.Error);
-        }else if (await FechasNoSolapan())
+        }
+        else if (await FechasNoSolapan())
         {
-            Snackbar.Add("Las fechas solapan!",Severity.Error);
+            Snackbar.Add("Las fechas solapan!", Severity.Error);
         }
         else
         {
@@ -86,7 +91,6 @@
             Snackbar.Add("Periodo creado exitosamente", Severity.Success);
 
             MudDialog!.Close(DialogResult.Ok(response));
-
         }
     }
 
@@ -130,22 +134,21 @@
 
     private async Task<bool> FechasNoSolapan()
     {
-        var periodoActivo = _periodoDtos.SingleOrDefault(periodo =>
+        var periodoActivo = _periodoDtos.Where(periodo =>
             periodo.IdGestion == IdGestion && periodo.Estado == EstadosPeriodo.Abierto
-            );
-        if (periodoActivo is null)
+            ).ToList();
+
+        if (periodoActivo.IsNullOrEmpty())
         {
             return await Task.FromResult(false);
         }
-        if (PeriodoDto.FechaInicio >= periodoActivo.FechaInicio &&
-            PeriodoDto.FechaInicio <= periodoActivo.FechaFin ||
-            PeriodoDto.FechaFin >= periodoActivo.FechaInicio &&
-            PeriodoDto.FechaFin <= periodoActivo.FechaFin
-            )
-        {
-            return await Task.FromResult(true);
-        }
-        return await Task.FromResult(false);
+
+        return await Task.FromResult(periodoActivo.Any(periodo =>
+            PeriodoDto.FechaInicio >= periodo.FechaInicio &&
+            PeriodoDto.FechaInicio <= periodo.FechaFin ||
+            PeriodoDto.FechaFin >= periodo.FechaInicio &&
+            PeriodoDto.FechaFin <= periodo.FechaFin
+            ));
     }
 
 }
