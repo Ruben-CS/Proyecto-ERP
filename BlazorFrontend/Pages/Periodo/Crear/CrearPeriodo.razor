@@ -82,7 +82,7 @@
         }
         else if (await FechasNoSolapan())
         {
-            Snackbar.Add("Las fechas solapan!", Severity.Error);
+            Snackbar.Add("Las fechas solapan con un periodo existente", Severity.Error);
         }
         else
         {
@@ -150,5 +150,4 @@
             PeriodoDto.FechaFin <= periodo.FechaFin
             ));
     }
-
 }

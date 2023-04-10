@@ -2,6 +2,7 @@
 @using global::Services.Gestion
 @using global::Services.Periodo
 @using BlazorFrontend.Pages.Periodo.Crear
+@using BlazorFrontend.Pages.Periodo.Eliminar
 @layout PeriodoDashboard
 @inject GestionServices GestionServices
 @inject PeriodoService PeriodoService
@@ -97,9 +98,15 @@
         throw new NotImplementedException();
     }
 
-    private Task BorrarPeriodo(object contextItem)
+    private async Task BorrarPeriodo(PeriodoDto periodoDto)
     {
-        throw new NotImplementedException();
+        var parameters = new DialogParameters()
+        {
+            {"IdPeriodo", periodoDto.IdPeriodo}
+        };
+
+        await DialogService.ShowAsync<EliminarPeriodo>
+            (string.Empty,parameters, _options);
     }
 
     private async void ShowMudCrearPeriodonModal()

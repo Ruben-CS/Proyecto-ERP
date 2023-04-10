@@ -25,3 +25,7 @@ S
 #Services/Gestion/GestionServices.cs,0\2\027add2f99060c1b259b6a0744d1f37a14ab8d65
 ]
 -ModuloContabilidadApi/MappingConfiguration.cs,8\b\8ba07e02e075236fe9bd57da8ec9e4f32c69b2ac
+c
+3Modelos/ApplicationContexts/ApplicationDbContext.cs,c\0\c0d5af8d3107275a0f1d1914c3e102e37a3c41d0
+e
+5BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor,d\9\d9b36ec6851112c2e6a60851967f4973075d06c0
