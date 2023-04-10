@@ -106,7 +106,8 @@
     {
         var parameters = new DialogParameters()
         {
-            { "IdGestion", IdGestion }
+            { "IdGestion", IdGestion },
+            {"IdEmpresa", _gestionDto.IdEmpresa}
         };
 
         await DialogService.ShowAsync<CrearPeriodo>("Llene los datos del periodo",

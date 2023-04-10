@@ -1,5 +1,10 @@
+@using global::Services.Periodo
+@using global::Services.Gestion
+@using Modelos.Models.Enums
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
+@inject PeriodoService PeriodoService
+@inject GestionServices GestionServices
 
 <MudDialog>
     <DialogContent>
@@ -10,6 +15,7 @@
                 <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@PeriodoDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
                 <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@PeriodoDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
             </MudStack>
+            <p>@IdEmpresa</p>
         </EditForm>
     </DialogContent>
     <DialogActions>
@@ -19,15 +25,31 @@
 </MudDialog>
 
 @code {
+
     [CascadingParameter]
     MudDialogInstance? MudDialog { get; set; }
 
     [Parameter]
     public int IdGestion { get; set; }
 
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    private IEnumerable<PeriodoDto> _periodoDtos = new List<PeriodoDto>();
+
+    private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
+
+
     public PeriodoDto PeriodoDto { get; set; } = new();
 
     void Cancel() => MudDialog!.Cancel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _periodoDtos = await PeriodoService.GetPeriodosAsync(IdGestion);
+        _gestionDtos = await GestionServices.GetGestionAsync(IdEmpresa);
+        StateHasChanged();
+    }
 
     private async Task ValidateAndCreatePeriodo()
     {
@@ -41,9 +63,89 @@
             IdGestion = IdGestion
         };
 
-        var response = await HttpClient.PostAsJsonAsync(url, periodoDto);
-        Snackbar.Add("Periodo creado exitosamente", Severity.Success);
-        MudDialog!.Close(DialogResult.Ok(response));
+        if (!await ValidateUniqueNombre())
+        {
+            Snackbar.Add("Ya existe un periodo con ese nombre", Severity.Error);
+        }else if (await FechaInicioEsMayor())
+        {
+            Snackbar.Add("La fecha de inicio no puede ser mayor a la final", Severity.Error);
+        }else if (await FechasSonIguales())
+        {
+            Snackbar.Add("Las fechas no pueden ser iguales", Severity.Error);
+        }else if (await FechasDentroDelRangoDeGestion())
+        {
+            Snackbar.Add("La fecha debe estar dentro del rango de la gestion", Severity.Error);
+        }else if (await FechasNoSolapan())
+        {
+            Snackbar.Add("Las fechas solapan!",Severity.Error);
+        }
+        else
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, periodoDto);
+
+            Snackbar.Add("Periodo creado exitosamente", Severity.Success);
+
+            MudDialog!.Close(DialogResult.Ok(response));
+
+        }
+    }
+
+    private async Task<bool> ValidateUniqueNombre()
+    {
+        return await Task.FromResult(!_periodoDtos.Any(periodo =>
+            periodo.Nombre == PeriodoDto.Nombre &&
+            periodo.IdGestion == IdGestion
+            ));
+    }
+
+    private async Task<bool> FechasDentroDelRangoDeGestion()
+    {
+        var gestion = _gestionDtos.FirstOrDefault(gestion => gestion.IdGestion == IdGestion);
+
+        if (gestion is null)
+        {
+            throw new NullReferenceException("gestion no existe");
+        }
+
+        if (PeriodoDto.FechaInicio < gestion.FechaInicio ||
+            PeriodoDto.FechaInicio > gestion.FechaFin ||
+            PeriodoDto.FechaFin < gestion.FechaInicio ||
+            PeriodoDto.FechaFin > gestion.FechaFin
+            )
+        {
+            return await Task.FromResult(true);
+        }
+        return await Task.FromResult(false);
+    }
+
+    private async Task<bool> FechasSonIguales()
+    {
+        return await Task.FromResult(PeriodoDto.FechaInicio == PeriodoDto.FechaFin);
+    }
+
+    private async Task<bool> FechaInicioEsMayor()
+    {
+        return await Task.FromResult(PeriodoDto.FechaInicio > PeriodoDto.FechaFin);
+    }
+
+    private async Task<bool> FechasNoSolapan()
+    {
+        var periodoActivo = _periodoDtos.SingleOrDefault(periodo =>
+            periodo.IdGestion == IdGestion && periodo.Estado == EstadosPeriodo.Abierto
+            );
+        if (periodoActivo is null)
+        {
+            return await Task.FromResult(false);
+        }
+        if (PeriodoDto.FechaInicio >= periodoActivo.FechaInicio &&
+            PeriodoDto.FechaInicio <= periodoActivo.FechaFin ||
+            PeriodoDto.FechaFin >= periodoActivo.FechaInicio &&
+            PeriodoDto.FechaFin <= periodoActivo.FechaFin
+            )
+        {
+            return await Task.FromResult(true);
+        }
+        return await Task.FromResult(false);
     }
 
 }
