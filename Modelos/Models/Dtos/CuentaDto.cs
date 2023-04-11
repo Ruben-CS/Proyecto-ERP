@@ -20,7 +20,9 @@ public class CuentaDto
 
     public Empresa? Empresa { get; set; }
 
-    public virtual Cuenta? IdCuentaPadre { get; set; }
+    public int IdCuentaPadre { get; set; }
+
+    public virtual Cuenta? IdCuentaPadreNavigation { get; set; }
 
     public EstadoCuenta Estado { get; set; } = EstadoCuenta.Activo;
 
