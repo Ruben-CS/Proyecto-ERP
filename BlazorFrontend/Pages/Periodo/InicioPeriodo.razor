@@ -33,21 +33,24 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
-                <MudIconButton Class="pa-1"
-                        Color="Color.Warning"
-                        Size="Size.Small"
-                        Icon="@Icons.Material.Outlined.Edit"
-                        OnClick="() => EditarPeriodo(context.Item)"/>
-                <MudIconButton Class="pa-1"
-                               Color="Color.Error"
-                               Size="Size.Small"
-                               Icon="@Icons.Material.Outlined.Delete"
-                               OnClick="() => BorrarPeriodo(context.Item)"/>
+                <MudTooltip Text="Editar Periodo">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Warning"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Edit"
+                                   OnClick="() => EditarPeriodo(context.Item)"/>
+                </MudTooltip>
+                <MudTooltip Text="Cerrar Periodo">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Error"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.LockClock"
+                                   OnClick="() => BorrarPeriodo(context.Item)"/>
+                </MudTooltip>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
-</MudDataGrid>B
-
+</MudDataGrid>
 
 <MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
         @onclick="@ShowMudCrearPeriodonModal" Label="Agregar Periodo"/>

@@ -1,11 +1,5 @@
 @page "/inicio/overview/{id?}"
 @using global::Services.Gestion
-@using Microsoft.AspNetCore.WebUtilities
-@using BlazorFrontend.Pages.Gestiones
-@using BlazorFrontend.Pages.Gestiones.Editar
-@using BlazorFrontend.Pages.Gestiones.Eliminar
-@using Modelos.Models.Enums
-@using DialogOptions = MudBlazor.DialogOptions
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
@@ -27,27 +21,31 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
+                <MudTooltip Text="Editar Gestion">
                 <MudIconButton Class="pa-1"
-                        Color="Color.Warning"
-                        Size="Size.Small"
-                        Icon="@Icons.Material.Outlined.Edit"
-                        OnClick="() => EditarGestion(context.Item)"/>
-                <MudIconButton Class="pa-1"
-                               Color="Color.Error"
+                               Color="Color.Warning"
                                Size="Size.Small"
-                               Icon="@Icons.Material.Outlined.Delete"
-                               OnClick="() => BorrarGestion(context.Item)"/>
+                               Icon="@Icons.Material.Outlined.Edit"
+                               OnClick="() => EditarGestion(context.Item)"/>
+                </MudTooltip>
+                <MudTooltip Text="Eliminar Gestion">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Error"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Delete"
+                                   OnClick="() => BorrarGestion(context.Item)"/>
+                </MudTooltip>
+                <MudTooltip Text="Acceder a Periodos">
                 <MudIconButton Class="pa-1"
                                Color="Color.Info"
                                Size="Size.Small"
                                Icon="@Icons.Material.Outlined.Timelapse"
-                               OnClick="() => NavigateToPage(context.Item) "/>
+                               OnClick="() => NavigateToPage(context.Item)"/>
+                </MudTooltip>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
 </MudDataGrid>
 
-
 <MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
         @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
-
