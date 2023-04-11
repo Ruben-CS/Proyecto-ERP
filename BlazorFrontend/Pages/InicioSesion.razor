@@ -23,33 +23,3 @@
         </div>
     </EditForm>
 </MudStack>
-
-@code {
-    public LoginRequestDto RequestDto { get; } = new();
-    private bool _showInvalidCredentials;
-        public const string LoginUrl = "https://localhost:44378/Auth/login";
-
-
-    private async Task LoginAsync()
-    {
-        var loginRequestDto = new LoginRequestDto
-        {
-            Nombre = RequestDto.Nombre,
-            Password = RequestDto.Password
-        };
-
-        var response = await HttpClient.PostAsJsonAsync(LoginUrl, loginRequestDto);
-
-        if (response.IsSuccessStatusCode)
-        {
-            Snackbar.Add($"Bienvenido {loginRequestDto.Nombre}!", Severity.Success);
-            NavigationManager.NavigateTo("/Inicio");
-        }
-        else
-        {
-            Snackbar.Add($"Credenciales incorrectas", Severity.Error);
-            _showInvalidCredentials = true;
-        }
-    }
-
-}
