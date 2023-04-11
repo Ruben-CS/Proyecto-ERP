@@ -16,6 +16,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Periodo> Periodos  { get; set; }
     public DbSet<Usuario> Usuarios  { get; set; }
 
+    public DbSet<Cuenta> Cuentas { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

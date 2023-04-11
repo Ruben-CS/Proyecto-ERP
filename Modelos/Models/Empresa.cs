@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ModuloContabilidadApi.Models;
 
 namespace Modelos.Models;
 
@@ -32,6 +31,8 @@ public class Empresa
     public bool IsDeleted { get; set; } = false;
 
     public List<Gestion>? Gestiones { get; set; }
+
+    public List<Cuenta>? Cuentas { get; set; }
 
     [ForeignKey("Usuario")]
     public int? IdUsuario { get; set; }
