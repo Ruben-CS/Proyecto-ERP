@@ -1,114 +1,96 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.JSInterop;
-using BlazorFrontend;
-using BlazorFrontend.Shared;
 using MudBlazor;
-using System.Net.Http.Json;
 using Modelos.Models.Dtos;
-using global::Services.Gestion;
-using global::Services.Periodo;
 using BlazorFrontend.Pages.Periodo.Crear;
 using BlazorFrontend.Pages.Periodo.Editar;
 using BlazorFrontend.Pages.Periodo.Eliminar;
 
-namespace BlazorFrontend.Pages.Periodo
+namespace BlazorFrontend.Pages.Periodo;
+
+public partial class InicioPeriodo
 {
-    public partial class InicioPeriodo
+    [Parameter]
+    public int IdGestion { get; set; }
+
+    [Inject]
+    ISnackbar Snackbar { get; set; } = null !;
+    public  IEnumerable<PeriodoDto> Periodos    = new List<PeriodoDto>();
+    private GestionDto              _gestionDto = new();
+    private readonly DialogOptions _options = new()
     {
-        [Parameter]
-        public int IdGestion { get; set; }
-
-        [Inject]
-        ISnackbar Snackbar { get; set; } = null !;
-        public IEnumerable<PeriodoDto> Periodos = new List<PeriodoDto>();
-        private GestionDto _gestionDto = new();
-        private readonly DialogOptions _options = new()
+        CloseOnEscapeKey     = true,
+        MaxWidth             = MaxWidth.Small,
+        FullWidth            = true,
+        DisableBackdropClick = true
+    };
+    protected override async Task OnInitializedAsync()
+    {
+        try
         {
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Small,
-            FullWidth = true,
-            DisableBackdropClick = true
+            var uri      = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue  = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
+            {
+                _gestionDto = await GestionServices.GetGestionSingleAsync(id);
+                Periodos    = await PeriodoService.GetPeriodosAsync(IdGestion);
+            }
+            else
+            {
+                throw new ArgumentException("The 'idgestion' parameter is missing or invalid.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while initializing the component: {ex}");
+        }
+    }
+
+    private async Task EditarPeriodo(PeriodoDto periodoDto)
+    {
+        var parameters = new DialogParameters()
+        {
+            {
+                "IdPeriodo",
+                periodoDto.IdPeriodo
+            },
+            {
+                "IdGestion",
+                periodoDto.IdGestion
+            },
+            {
+                "PeriodoDto",
+                periodoDto
+            }
         };
-        protected override async Task OnInitializedAsync()
+        await DialogService.ShowAsync<EditarPeriodo>(string.Empty, parameters, _options);
+    }
+
+    private async Task BorrarPeriodo(PeriodoDto periodoDto)
+    {
+        var parameters = new DialogParameters()
         {
-            try
             {
-                var uri = new Uri(NavigationManager.Uri);
-                var segments = uri.Segments;
-                var idValue = segments[^1];
-                if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
-                {
-                    _gestionDto = await GestionServices.GetGestionSingleAsync(id);
-                    Periodos = await PeriodoService.GetPeriodosAsync(IdGestion);
-                }
-                else
-                {
-                    throw new ArgumentException("The 'idgestion' parameter is missing or invalid.");
-                }
+                "IdPeriodo",
+                periodoDto.IdPeriodo
             }
-            catch (Exception ex)
+        };
+        await DialogService.ShowAsync<EliminarPeriodo>(string.Empty, parameters, _options);
+    }
+
+    private async void ShowMudCrearPeriodonModal()
+    {
+        var parameters = new DialogParameters()
+        {
             {
-                Console.WriteLine($"An error occurred while initializing the component: {ex}");
+                "IdGestion",
+                IdGestion
+            },
+            {
+                "IdEmpresa",
+                _gestionDto.IdEmpresa
             }
-        }
-
-        private async Task EditarPeriodo(PeriodoDto periodoDto)
-        {
-            var parameters = new DialogParameters()
-            {
-                {
-                    "IdPeriodo",
-                    periodoDto.IdPeriodo
-                },
-                {
-                    "IdGestion",
-                    periodoDto.IdGestion
-                },
-                {
-                    "PeriodoDto",
-                    periodoDto
-                }
-            };
-            await DialogService.ShowAsync<EditarPeriodo>(string.Empty, parameters, _options);
-        }
-
-        private async Task BorrarPeriodo(PeriodoDto periodoDto)
-        {
-            var parameters = new DialogParameters()
-            {
-                {
-                    "IdPeriodo",
-                    periodoDto.IdPeriodo
-                }
-            };
-            await DialogService.ShowAsync<EliminarPeriodo>(string.Empty, parameters, _options);
-        }
-
-        private async void ShowMudCrearPeriodonModal()
-        {
-            var parameters = new DialogParameters()
-            {
-                {
-                    "IdGestion",
-                    IdGestion
-                },
-                {
-                    "IdEmpresa",
-                    _gestionDto.IdEmpresa
-                }
-            };
-            await DialogService.ShowAsync<CrearPeriodo>("Llene los datos del periodo", parameters, _options);
-        }
+        };
+        await DialogService.ShowAsync<CrearPeriodo>("Llene los datos del periodo", parameters, _options);
     }
 }
