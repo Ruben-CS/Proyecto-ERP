@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.5.1" />
+    <PackageReference Include="MudBlazor" Version="6.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modelos\Modelos.csproj" />
+    <ProjectReference Include="..\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudCrearEmpresaModal.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
+  </ItemGroup>
+
+</Project>

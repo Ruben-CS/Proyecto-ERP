@@ -1,0 +1,59 @@
+@page "/inicio"
+@using BlazorFrontend.Services
+@using Variant = MudBlazor.Variant
+@inject IDialogService DialogService
+@inject EmpresaService EmpresaService
+@inject NavigationManager NavigationManager
+
+
+<MudContainer MaxWidth="MaxWidth.Small">
+    <MudStack Row="true">
+        <MudTooltip Text="Cerrar sesion">
+            <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.Logout" @onclick="CerrarSesion"/>
+        </MudTooltip>
+        <MudFab Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+                @onclick="@ShowMudCrearEmpresaModal" Label="Agregar Empresa"/>
+    </MudStack>
+</MudContainer>
+
+<MudGrid Class="ma-2 pa-4">
+    <MudItem xs="12">
+        <MudSelect T="int" Label="Empresa" Variant="Variant.Filled"
+                   AnchorOrigin="Origin.BottomCenter"
+                   bind-Value="@SelectedEmpresaId"
+                   ValueChanged="LoadSelectedEmpresaAsync"
+                   HelperText="Seleccione una empresa">
+            @foreach (var empresa in _empresas)
+            {
+                @if (!empresa.IsDeleted)
+                {
+                    <MudSelectItem Value="@empresa.IdEmpresa">@empresa.Nombre</MudSelectItem>
+                }
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
+                Class="d-flex align-center
+        justify-center
+        mud-width-full py-8"
+                Label="Editar"
+                OnClick="Editar"/>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Eliminar"
+                @onclick="Eliminar"/>
+    </MudItem>
+    <MudItem xs="4">
+        <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Ingresar"
+                OnClick="NavigateToPage"/>
+    </MudItem>
+</MudGrid>

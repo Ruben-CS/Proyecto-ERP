@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ModuloContabilidadApi.Models;
-using ModuloContabilidadApi.Models.Dtos;
-using ModuloContabilidadApi.Repository;
-using ModuloContabilidadApi.Repository.Interfaces;
-using ResponseDto = ModuloContabilidadApi.Models.ResponseDto;
+using Modelos.Models.Dtos;
+using Services.Repository.Interfaces;
 
 namespace ModuloContabilidadApi.Controllers;
 
@@ -30,7 +27,7 @@ public class EmpresaApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -51,7 +48,7 @@ public class EmpresaApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -72,7 +69,7 @@ public class EmpresaApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -88,12 +85,12 @@ public class EmpresaApiController : ControllerBase
         try
         {
             var empresaDto =
-                await _empresaRepository.CreateUpdateModelDto(empresa);
+                await _empresaRepository.UpdateModelDto(empresa);
             ResponseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -113,7 +110,7 @@ public class EmpresaApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()

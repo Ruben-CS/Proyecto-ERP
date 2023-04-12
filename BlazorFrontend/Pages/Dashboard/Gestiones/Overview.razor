@@ -1,0 +1,51 @@
+@page "/inicio/overview/{id?}"
+@using global::Services.Gestion
+@using Size = MudBlazor.Size
+@inject GestionServices GestionServices
+@inject NavigationManager NavigationManager
+@layout DashboardLayout
+@inject IDialogService DialogService
+
+<h3>Lista de gestiones activas</h3>
+<MudDataGrid T="GestionDto"
+             Items="@_gestiones.Take(2)"
+             Hover="@true"
+             Readonly="@false"
+             EditMode="DataGridEditMode.Form"
+             Bordered="@true"
+             EditTrigger="DataGridEditTrigger.Manual">
+    <Columns>
+        <PropertyColumn Property="@(i => i.Nombre)"/>
+        <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
+        <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
+        <PropertyColumn Property="@(i => i.Estado)"/>
+        <TemplateColumn CellClass="d-flex justify-center">
+            <CellTemplate>
+                <MudTooltip Text="Editar Gestion">
+                <MudIconButton Class="pa-1"
+                               Color="Color.Warning"
+                               Size="Size.Small"
+                               Icon="@Icons.Material.Outlined.Edit"
+                               OnClick="() => EditarGestion(context.Item)"/>
+                </MudTooltip>
+                <MudTooltip Text="Eliminar Gestion">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Error"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Delete"
+                                   OnClick="() => BorrarGestion(context.Item)"/>
+                </MudTooltip>
+                <MudTooltip Text="Acceder a Periodos">
+                <MudIconButton Class="pa-1"
+                               Color="Color.Info"
+                               Size="Size.Small"
+                               Icon="@Icons.Material.Outlined.Timelapse"
+                               OnClick="() => NavigateToPage(context.Item)"/>
+                </MudTooltip>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+<MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+        @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>

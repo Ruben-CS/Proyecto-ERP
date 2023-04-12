@@ -1,0 +1,26 @@
+@using global::Services.Gestion
+@using ButtonType = MudBlazor.ButtonType
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject GestionServices GestionServices
+
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="GestionDto" OnValidSubmit="@ValidateAndCreateGestion">
+            <DataAnnotationsValidator/>
+            <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+            <MudStack Row="true">
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+            </MudStack>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   Variant="Variant.Filled"
+                   OnClick="@ValidateAndCreateGestion">Crear</MudButton>
+    </DialogActions>
+</MudDialog>

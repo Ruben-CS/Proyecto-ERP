@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ModuloContabilidadApi.Models.Dtos;
-using ModuloContabilidadApi.Repository.Interfaces;
+using Modelos.Models.Dtos;
+using Services.Repository.Interfaces;
 
 namespace ModuloContabilidadApi.Controllers;
 
@@ -17,29 +17,8 @@ public class GestionApiController : ControllerBase
         _gestionRepository = gestionRepository;
     }
 
-    [HttpGet("ListarGestion")]
-    public async Task<object> Get()
-    {
-        try
-        {
-            var gestionDto = await _gestionRepository.GetModelos();
-            ResponseDto.Result = gestionDto;
-        }
-        catch (Exception e)
-        {
-            ResponseDto.IsSucces = false;
-            ResponseDto.ErrorMessages = new List<string>()
-            {
-                e.ToString()
-            };
-        }
-
-        return ResponseDto;
-    }
-
-    [HttpGet]
-    [Route("{id}")]
-    public async Task<object> Get(int id)
+    [HttpGet("gestion/id={id:int}")]
+    public async Task<object> GetGestion([FromRoute] int id)
     {
         try
         {
@@ -48,7 +27,27 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
+            ResponseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+
+        return await Task.FromResult(ResponseDto);
+    }
+
+    [HttpGet("ListarGestion/id={id:int}")]
+    public async Task<object> Get([FromRoute] int id)
+    {
+        try
+        {
+            var gestionDto = await _gestionRepository.GetModelos(id);
+            ResponseDto.Result = gestionDto;
+        }
+        catch (Exception e)
+        {
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -58,18 +57,19 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPost("agregarGestion")]
-    public async Task<object> Post([FromBody] GestionDto gestionDto)
+    [HttpPost("agregarGestion/{idEmpresa:int}")]
+    public async Task<object> Post([FromBody]  GestionDto gestionDto,
+                                   [FromRoute] int        idEmpresa)
     {
         try
         {
             var result =
-                await _gestionRepository.CreateUpdateModelDto(gestionDto);
+                await _gestionRepository.CreateUpdateModelDto(gestionDto, idEmpresa);
             ResponseDto.Result = result;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -79,18 +79,19 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpPut("actualizarGestion")]
-    public async Task<object> Put([FromBody] GestionDto gestionDto)
+    [HttpPut("actualizarGestion/{idGestion:int}")]
+    public async Task<object> Put([FromBody] GestionDto gestionDto,
+                                  [FromRoute] int idGestion)
     {
         try
         {
             var result =
-                await _gestionRepository.CreateUpdateModelDto(gestionDto);
+                await _gestionRepository.UpdateModel(gestionDto, idGestion);
             ResponseDto.Result = result;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
@@ -100,7 +101,7 @@ public class GestionApiController : ControllerBase
         return ResponseDto;
     }
 
-    [HttpDelete("eliminarGestion")]
+    [HttpDelete("eliminarGestion/{id:int}")]
     public async Task<object> Delete(int id)
     {
         try
@@ -110,13 +111,13 @@ public class GestionApiController : ControllerBase
         }
         catch (Exception e)
         {
-            ResponseDto.IsSucces = false;
+            ResponseDto.IsSuccess = false;
             ResponseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
 
-        return ResponseDto;
+        return await Task.FromResult(ResponseDto);
     }
 }

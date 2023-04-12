@@ -1,0 +1,56 @@
+@page "/overview/inicioperiodo/{idgestion:int}"
+@using global::Services.Gestion
+@using global::Services.Periodo
+@layout PeriodoDashboard
+@inject GestionServices GestionServices
+@inject PeriodoService PeriodoService
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+
+<MudAppBar Elevation="1">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"/>
+    <MudSpacer/>
+    <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End"/>
+
+</MudAppBar>
+
+<h3>Administracion del preiodo de gestion - @_gestionDto.Nombre </h3>
+
+<MudDataGrid T="PeriodoDto"
+             Items="@Periodos"
+             Hover="@true"
+             Readonly="@false"
+             EditMode="DataGridEditMode.Form"
+             Bordered="@true"
+             EditTrigger="DataGridEditTrigger.Manual">
+    <Columns>
+        <PropertyColumn Property="@(i => i.Nombre)"/>
+        <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
+        <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
+        <PropertyColumn Property="@(i => i.Estado)"/>
+        <TemplateColumn CellClass="d-flex justify-center">
+            <CellTemplate>
+                <MudTooltip Text="Editar Periodo" ShowOnHover="@(EsActivo(context.Item))">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Warning"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Edit"
+                                   OnClick="() => EditarPeriodo(context.Item)"
+                                   Disabled="@(!EsActivo(context.Item))"/>
+                </MudTooltip>
+                <MudTooltip Text="Cerrar Periodo" ShowOnHover="@(EsActivo(context.Item))">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Error"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.LockClock"
+                                   OnClick="() => BorrarPeriodo(context.Item)"
+                                   Disabled="@(!EsActivo(context.Item))"
+                                   />
+                </MudTooltip>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+<MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+        @onclick="@ShowMudCrearPeriodonModal" Label="Agregar Periodo"/>
