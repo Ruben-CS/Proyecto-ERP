@@ -98,5 +98,6 @@ public partial class CrearGestion
 
         return await Task.FromResult(false);
     }
-    void Cancel() => MudDialog!.Cancel();
+
+    private void Cancel() => MudDialog!.Cancel();
 }

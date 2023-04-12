@@ -2,7 +2,6 @@ using BlazorFrontend.Pages.Gestiones.Crear;
 using BlazorFrontend.Pages.Gestiones.Editar;
 using BlazorFrontend.Pages.Gestiones.Eliminar;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.WebUtilities;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using MudBlazor;
@@ -19,7 +18,7 @@ public partial class GestionOverview
     ISnackbar Snackbar { get; set; } = null !;
 
     [Parameter]
-    public int Id { get; set; }
+    public int IdEmpresa { get; set; }
 
     private readonly DialogOptions _options = new()
     {
@@ -33,12 +32,13 @@ public partial class GestionOverview
     {
         try
         {
-            var uri   = new Uri(NavigationManager.Uri);
-            var query = QueryHelpers.ParseQuery(uri.Query);
-            if (query.TryGetValue("id", out var idValue))
+            var uri      = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue  = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
             {
-                Id         = int.Parse(idValue!);
-                _gestiones = await GestionServices.GetGestionAsync(Id);
+                IdEmpresa         = int.Parse(idValue!);
+                _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
                 StateHasChanged();
             }
             else
@@ -58,13 +58,13 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            { "Id", Id }
+            { "Id", IdEmpresa }
         };
         var result = await DialogService.ShowAsync<CrearGestion>
             ("Llene los datos de la gestion", parameters, _options);
 
         if (result.Result == null) return;
-        _gestiones = await GestionServices.GetGestionAsync(Id);
+        _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
         StateHasChanged();
     }
 

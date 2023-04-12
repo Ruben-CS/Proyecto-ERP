@@ -39,7 +39,8 @@ public partial class InicioPeriodo
             }
             else
             {
-                throw new ArgumentException("The 'idgestion' parameter is missing or invalid.");
+                throw new ArgumentException
+                    ("The 'idgestion' parameter is missing or invalid.");
             }
         }
         catch (Exception ex)
@@ -97,6 +98,6 @@ public partial class InicioPeriodo
             ("Llene los datos del periodo", parameters, _options);
     }
 
-    private bool EsActivo(PeriodoDto periodo) =>
+    private static bool EsActivo(PeriodoDto periodo) =>
         periodo.Estado is not EstadosPeriodo.Cerrado;
 }

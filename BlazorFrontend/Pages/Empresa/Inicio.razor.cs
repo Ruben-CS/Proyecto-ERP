@@ -107,7 +107,7 @@ public partial class Inicio
     {
         if (SelectedEmpresaId != default)
         {
-            var uri = NavigationManager.ToAbsoluteUri("inicio/overview");
+            var uri = NavigationManager.ToAbsoluteUri("inicio/mainpage");
             var queryBuilder = new QueryBuilder
             {
                 {

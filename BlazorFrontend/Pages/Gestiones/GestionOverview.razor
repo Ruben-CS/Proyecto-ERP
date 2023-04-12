@@ -1,5 +1,6 @@
-@page "/inicio/overview/{id?}"
+@page "/gestion/overview/{idempresa:int}"
 @using global::Services.Gestion
+@using Modelos.Models.Enums
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
@@ -8,7 +9,7 @@
 
 <h3>Lista de gestiones activas</h3>
 <MudDataGrid T="GestionDto"
-             Items="@_gestiones.Take(2)"
+             Items="@_gestiones.Where(g => g.Estado == EstadosGestion.Abierto).Take(2)"
              Hover="@true"
              Readonly="@false"
              EditMode="DataGridEditMode.Form"
