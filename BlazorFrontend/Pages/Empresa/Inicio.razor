@@ -27,7 +27,7 @@
                    bind-Value="@SelectedEmpresaId"
                    ValueChanged="LoadSelectedEmpresaAsync"
                    HelperText="Seleccione una empresa">
-            @foreach (var empresa in _empresas)
+            @foreach (var empresa in _empresas.Reverse())
             {
                 @if (!empresa.IsDeleted)
                 {
