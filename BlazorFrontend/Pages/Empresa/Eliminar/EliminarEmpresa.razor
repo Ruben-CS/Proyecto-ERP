@@ -9,10 +9,13 @@
         </MudText>
     </TitleContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Error" OnClick="DeleteServer">Eliminar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error"
+                   OnClick="DeleteServer">Eliminar</MudButton>
     </DialogActions>
 </MudDialog>
+
 @code {
 
     [CascadingParameter]
@@ -21,7 +24,8 @@
     [Parameter]
     public EventCallback<EmpresaDto> OnEmpresaDeleted { get; set; }
 
-    [Parameter] public int SelectedEmpresaId { get; set; }
+    [Parameter]
+    public int SelectedEmpresaId { get; set; }
 
     private void Cancel() => MudDialog.Close();
 
@@ -36,4 +40,5 @@
         Snackbar.Add("Empresa borrada exitosamente 🗑️", Severity.Success);
         MudDialog.Close(DialogResult.Ok(response));
     }
+
 }

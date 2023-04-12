@@ -58,16 +58,14 @@ public partial class Overview
     {
         var parameters = new DialogParameters
         {
-            { "Id", Id },
+            { "Id", Id }
         };
         var result = await DialogService.ShowAsync<CrearGestion>
             ("Llene los datos de la gestion", parameters, _options);
 
-        if (result.Result != null)
-        {
-            _gestiones = await GestionServices.GetGestionAsync(Id);
-            StateHasChanged();
-        }
+        if (result.Result == null) return;
+        _gestiones = await GestionServices.GetGestionAsync(Id);
+        StateHasChanged();
     }
 
 
