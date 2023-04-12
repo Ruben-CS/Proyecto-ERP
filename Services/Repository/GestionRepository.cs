@@ -1,11 +1,8 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
-using Services.Gestion;
-using Modelos.Models;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -34,6 +31,8 @@ public class GestionRepository : IGestionRepository
         GestionDto gestionDto, int idEmpresa)
     {
         var gestion = _mapper.Map<GestionDto, Modelos.Models.Gestion>(gestionDto);
+        //todo check why this is not inserting from the url
+        gestion.IdEmpresa = idEmpresa;
         try
         {
             _applicationDbContext.Add(gestion);
@@ -48,17 +47,17 @@ public class GestionRepository : IGestionRepository
         return _mapper.Map<Modelos.Models.Gestion, GestionDto>(gestion);
     }
 
-    public async Task<GestionDto> UpdateModel(GestionDto modeloDto, int idModelo)
+    public async Task<GestionDto> UpdateModel(GestionDto gestionDto, int idGestion)
     {
         var gestion =
             await _applicationDbContext.Gestiones.SingleAsync(e =>
-                e.IdGestion == idModelo);
+                e.IdGestion == idGestion);
         if (gestion is null)
         {
             throw new NullReferenceException("Gestion no encontrada");
         }
 
-        _mapper.Map(modeloDto, gestion);
+        _mapper.Map(gestionDto, gestion);
 
         _applicationDbContext.Entry(gestion).State = EntityState.Modified;
 
@@ -75,23 +74,15 @@ public class GestionRepository : IGestionRepository
 
     public async Task<bool> DeleteModel(int modeloId)
     {
-        try
-        {
-            var gestion = await _applicationDbContext.Gestiones
-                                                     .FirstOrDefaultAsync(e =>
-                                                         e.IdGestion == modeloId);
-            if (gestion is null)
-            {
-                return false;
-            }
-
-            gestion.Estado = EstadosGestion.Cerrado;
-            await _applicationDbContext.SaveChangesAsync();
-            return await Task.FromResult(true);
-        }
-        catch (Exception e)
+        var gestion = await _applicationDbContext
+                            .Gestiones
+                            .FirstOrDefaultAsync(e => e.IdGestion == modeloId);
+        if (gestion is null)
         {
             return false;
         }
+        gestion.Estado = EstadosGestion.Cerrado;
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(true);
     }
 }

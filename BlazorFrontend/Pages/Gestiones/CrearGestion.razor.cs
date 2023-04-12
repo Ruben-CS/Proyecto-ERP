@@ -1,24 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.JSInterop;
-using BlazorFrontend;
-using BlazorFrontend.Shared;
 using MudBlazor;
-using System.Net.Http.Json;
 using Modelos.Models.Dtos;
-using global::Services.Gestion;
 using Modelos.Models.Enums;
-using ButtonType =  MudBlazor . ButtonType ;
 
 namespace BlazorFrontend.Pages.Gestiones
 {
@@ -30,8 +13,9 @@ namespace BlazorFrontend.Pages.Gestiones
         [Parameter]
         public int Id { get; set; }
 
-        public GestionDto GestionDto { get; } = new();
+        public  GestionDto              GestionDto { get; } = new();
         private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
+
         protected override async Task OnInitializedAsync()
         {
             _gestionDtos = await GestionServices.GetGestionAsync(Id);
@@ -43,10 +27,10 @@ namespace BlazorFrontend.Pages.Gestiones
             var url = $"https://localhost:44378/gestiones/agregarGestion/{Id}";
             var gestionDto = new GestionDto
             {
-                Nombre = GestionDto.Nombre,
+                Nombre      = GestionDto.Nombre,
                 FechaInicio = GestionDto.FechaInicio,
-                FechaFin = GestionDto.FechaFin,
-                IdEmpresa = Id
+                FechaFin    = GestionDto.FechaFin,
+                IdEmpresa   = Id
             };
             if (!await ValidateNumberOfActiveGestiones())
             {
@@ -56,13 +40,17 @@ namespace BlazorFrontend.Pages.Gestiones
             {
                 Snackbar.Add("Ya existe una gestión con ese nombre", Severity.Error);
             }
-            else if (!await ValidateFechaInicioAndFechaFin())
+            else if (await ValidateFechaInicioAndFechaFin())
             {
-                Snackbar.Add("Las fechas no son válidas", Severity.Error);
+                Snackbar.Add("La fecha inicio no puede ser mayor a la fecha final",
+                    Severity.Error);
             }
             else if (await FechasNoSolapadan())
             {
                 Snackbar.Add("Las fechas solapan!", Severity.Error);
+            }else if (await ValidateEqualDates())
+            {
+                Snackbar.Add("Las fechas no pueden ser iguales", Severity.Error);
             }
             else
             {
@@ -72,32 +60,43 @@ namespace BlazorFrontend.Pages.Gestiones
             }
         }
 
-        private async Task<bool> ValidateNumberOfActiveGestiones()
-        {
-            return await Task.FromResult(_gestionDtos.Count(gestion => gestion.IdEmpresa == Id && gestion.Estado == EstadosGestion.Abierto) < 2);
-        }
+        private async Task<bool> ValidateNumberOfActiveGestiones() =>
+            await Task.FromResult(_gestionDtos.Count(gestion =>
+                gestion.IdEmpresa == GestionDto.IdEmpresa
+                & gestion.Estado == EstadosGestion.Abierto) < 2);
 
-        private async Task<bool> ValidateUniqueNombre()
-        {
-            return await Task.FromResult(!_gestionDtos.Any(gestion => gestion.Nombre == GestionDto.Nombre && gestion.IdEmpresa == Id));
-        }
+        private async Task<bool> ValidateUniqueNombre() =>
+            await Task.FromResult(!_gestionDtos.Any(gestion =>
+                gestion.Nombre       == GestionDto.Nombre
+                && gestion.IdEmpresa == GestionDto.IdEmpresa
+                && gestion.Estado    == EstadosGestion.Abierto
+                ));
 
-        private async Task<bool> ValidateFechaInicioAndFechaFin()
-        {
-            return await Task.FromResult(GestionDto.FechaInicio < GestionDto.FechaFin);
-        }
+        private async Task<bool> ValidateFechaInicioAndFechaFin() =>
+            await Task.FromResult(GestionDto.FechaInicio > GestionDto.FechaFin);
+
+        private async Task<bool> ValidateEqualDates() =>
+            await Task.FromResult(GestionDto.FechaInicio == GestionDto.FechaFin);
 
         public async Task<bool> FechasNoSolapadan()
         {
-            var gestionActiva = _gestionDtos.Single(gestion => gestion.IdEmpresa == Id && gestion.Estado == EstadosGestion.Abierto);
-            if (GestionDto.FechaInicio >= gestionActiva.FechaInicio && GestionDto.FechaInicio <= gestionActiva.FechaFin || GestionDto.FechaFin >= gestionActiva.FechaInicio && GestionDto.FechaFin <= gestionActiva.FechaFin)
+            var gestionActiva = _gestionDtos.SingleOrDefault(gestion =>
+                gestion.IdEmpresa == Id && gestion.Estado == EstadosGestion.Abierto);
+            if (gestionActiva is null)
+            {
+                return await Task.FromResult(false);
+            }
+
+            if (GestionDto.FechaInicio >= gestionActiva.FechaInicio &&
+                GestionDto.FechaInicio <= gestionActiva.FechaFin ||
+                GestionDto.FechaFin >= gestionActiva.FechaInicio &&
+                GestionDto.FechaFin <= gestionActiva.FechaFin)
             {
                 return await Task.FromResult(true);
             }
 
             return await Task.FromResult(false);
         }
-
         void Cancel() => MudDialog!.Cancel();
     }
 }
