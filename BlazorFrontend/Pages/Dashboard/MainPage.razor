@@ -1,0 +1,48 @@
+@page "/inicio/mainpage/{id?}"
+@layout MainPageLayout
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+
+<MudAppBar Elevation="1" Dense="false">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                   Edge="Edge.Start"
+                   OnClick="@ToggleDrawer"/>
+    <MudSpacer/>
+    <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                   Color="Color.Inherit"
+                   Link="https://github.com/MudBlazor/MudBlazor"
+                   Target="_blank"/>
+</MudAppBar>
+<MudDrawer @bind-Open="@_open"
+           ClipMode="DrawerClipMode.Always"
+           Elevation="1"
+           Variant="@DrawerVariant.Mini"
+           OpenMiniOnHover="true">
+    <MudNavMenu>
+        <MudNavGroup Icon="@Icons.Material.Filled.Business"
+                     Title="Contabilidad"
+                     @bind-Expanded=_isExpanded>
+
+            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
+                        OnClick="NavigateToGestiones">
+                Gestiones
+            </MudNavLink>
+
+            <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
+                        Href="/security"
+                        Disabled="true">
+                Plan de Cuentas
+            </MudNavLink>
+
+            <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
+                        Href="/security"
+                        OnClick="CambiarEmpresa">
+                Cambiar empresa
+            </MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudDrawer>
+
+<h1> This is the main body</h1>
+<p>@Id</p>

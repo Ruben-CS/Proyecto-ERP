@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
+using MudBlazor;
 
-namespace BlazorFrontend.Pages.Gestiones;
+namespace BlazorFrontend.Pages.Gestiones.Crear;
 
 public partial class CrearGestion
 {
@@ -95,8 +95,8 @@ public partial class CrearGestion
         {
             return await Task.FromResult(true);
         }
-
         return await Task.FromResult(false);
     }
-    void Cancel() => MudDialog!.Cancel();
+
+    private void Cancel() => MudDialog!.Cancel();
 }

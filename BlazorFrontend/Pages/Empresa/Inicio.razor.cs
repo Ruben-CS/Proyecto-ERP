@@ -39,7 +39,8 @@ public partial class Inicio
                 EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaAddedHandler)
             }
         };
-        await DialogService.ShowAsync<CrearEmpresa>("Llene los datos de la empresa", parameters, options);
+        await DialogService.ShowAsync<CrearEmpresa>
+            ("Llene los datos de la empresa", parameters, options);
     }
 
     //todo refactor this duplicate method
@@ -107,7 +108,7 @@ public partial class Inicio
     {
         if (SelectedEmpresaId != default)
         {
-            var uri = NavigationManager.ToAbsoluteUri("inicio/overview");
+            var uri = NavigationManager.ToAbsoluteUri("inicio/mainpage");
             var queryBuilder = new QueryBuilder
             {
                 {
