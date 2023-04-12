@@ -29,7 +29,8 @@ public partial class Inicio
         {
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
-            FullWidth        = true
+            FullWidth        = true,
+            DisableBackdropClick = true
         };
         var parameters = new DialogParameters
         {

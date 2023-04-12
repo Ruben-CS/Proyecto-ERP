@@ -56,7 +56,7 @@ public partial class CrearGestion
         {
             var response = await HttpClient.PostAsJsonAsync(url, gestionDto);
             Snackbar.Add("Gestión creada exitosamente", Severity.Success);
-            MudDialog!.Close(DialogResult.Ok(gestionDto));
+            MudDialog!.Close(DialogResult.Ok(response));
             StateHasChanged();
         }
     }
