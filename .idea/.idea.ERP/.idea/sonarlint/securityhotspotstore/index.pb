@@ -29,3 +29,5 @@ e
 5BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor,d\9\d9b36ec6851112c2e6a60851967f4973075d06c0
 P
  Services/Cuenta/CuentaUtility.cs,7\0\7097369ec68a8ed1fdef2524c95b1d32353fceb1
+X
+(Services/Repository/GestionRepository.cs,c\6\c6940d778a309605a3482d2f9a87185f5504f16e
