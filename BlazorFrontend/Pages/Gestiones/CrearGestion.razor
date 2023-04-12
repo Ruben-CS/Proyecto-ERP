@@ -1,5 +1,4 @@
 @using global::Services.Gestion
-@using Modelos.Models.Enums
 @using ButtonType = MudBlazor.ButtonType
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
@@ -21,4 +20,3 @@
         <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndCreateGestion">Crear</MudButton>
     </DialogActions>
 </MudDialog>
-
