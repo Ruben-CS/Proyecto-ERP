@@ -39,7 +39,8 @@ public partial class Inicio
                 EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaAddedHandler)
             }
         };
-        await DialogService.ShowAsync<CrearEmpresa>("Llene los datos de la empresa", parameters, options);
+        await DialogService.ShowAsync<CrearEmpresa>
+            ("Llene los datos de la empresa", parameters, options);
     }
 
     //todo refactor this duplicate method

@@ -11,14 +11,20 @@ namespace BlazorFrontend.Pages.Gestiones;
 
 public partial class GestionOverview
 {
-    private IEnumerable<GestionDto> _gestiones =
-        new List<GestionDto>().Where(x => x.Estado == EstadosGestion.Abierto);
+    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
 
     [Inject]
     ISnackbar Snackbar { get; set; } = null !;
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private bool _open;
+
+    private protected bool IsExpanded { get; private set; }
+
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    private void ToggleDrawer()   => _open = !_open;
 
     private readonly DialogOptions _options = new()
     {
@@ -37,7 +43,7 @@ public partial class GestionOverview
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
             {
-                IdEmpresa         = int.Parse(idValue!);
+                IdEmpresa  = int.Parse(idValue!);
                 _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
                 StateHasChanged();
             }
@@ -73,14 +79,8 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            {
-                "Id",
-                item.IdGestion
-            },
-            {
-                "GestionDto",
-                item
-            }
+            { "Id", item.IdGestion },
+            { "GestionDto", item }
         };
         DialogService.ShowAsync<EditarGestion>("Editar gestion", parameters,
             _options);
@@ -90,10 +90,7 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            {
-                "Id",
-                item.IdGestion
-            }
+            { "Id", item.IdGestion }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion", parameters,
             _options);

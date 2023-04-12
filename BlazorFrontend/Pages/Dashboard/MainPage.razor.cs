@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using MudBlazor;
-using Services.Gestion;
-
 namespace BlazorFrontend.Pages.Dashboard;
 
 public partial class MainPage
@@ -37,12 +35,9 @@ public partial class MainPage
         }
     }
 
-    void ToggleDrawer() => _open = !_open;
+    private void ToggleDrawer() => _open = !_open;
 
-    private async Task CambiarEmpresa()
-    {
-        NavigationManager.NavigateTo("/inicio");
-    }
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
     private void NavigateToGestiones()
     {
