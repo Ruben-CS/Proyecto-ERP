@@ -13,9 +13,7 @@ internal static class CuentaUtility
         if (idCuentaPadre is null or 0)
         {
             var cuentasPadre = await ApplicationDbContext.Cuentas.Where(c =>
-                c.IdCuentaPadre == null &&
-                c.IdEmpresa     == idEmpresa
-            ).ToListAsync();
+                c.IdCuentaPadre == null && c.IdEmpresa == idEmpresa).ToListAsync();
 
             var siguienteNumeroPadre = cuentasPadre.Count > 0
                 ? cuentasPadre.Max(c => int.Parse(c.Codigo.Split('.')[0])) + 1

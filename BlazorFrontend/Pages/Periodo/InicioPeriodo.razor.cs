@@ -4,6 +4,8 @@ using Modelos.Models.Dtos;
 using BlazorFrontend.Pages.Periodo.Crear;
 using BlazorFrontend.Pages.Periodo.Editar;
 using BlazorFrontend.Pages.Periodo.Eliminar;
+using Modelos.Models.Enums;
+using MudBlazor.Extensions;
 
 namespace BlazorFrontend.Pages.Periodo;
 
@@ -91,6 +93,10 @@ public partial class InicioPeriodo
                 _gestionDto.IdEmpresa
             }
         };
-        await DialogService.ShowAsync<CrearPeriodo>("Llene los datos del periodo", parameters, _options);
+        await DialogService.ShowAsync<CrearPeriodo>
+            ("Llene los datos del periodo", parameters, _options);
     }
+
+    private bool EsActivo(PeriodoDto periodo) =>
+        periodo.Estado is not EstadosPeriodo.Cerrado;
 }

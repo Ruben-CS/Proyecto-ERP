@@ -29,3 +29,5 @@ c
 3Modelos/ApplicationContexts/ApplicationDbContext.cs,c\0\c0d5af8d3107275a0f1d1914c3e102e37a3c41d0
 e
 5BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor,d\9\d9b36ec6851112c2e6a60851967f4973075d06c0
+P
+ Services/Cuenta/CuentaUtility.cs,7\0\7097369ec68a8ed1fdef2524c95b1d32353fceb1

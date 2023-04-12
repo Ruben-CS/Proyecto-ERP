@@ -17,7 +17,7 @@
 <h3>Administracion del preiodo de gestion - @_gestionDto.Nombre </h3>
 
 <MudDataGrid T="PeriodoDto"
-             Items="@Periodos.Take(2)"
+             Items="@Periodos"
              Hover="@true"
              Readonly="@false"
              EditMode="DataGridEditMode.Form"
@@ -30,19 +30,22 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
-                <MudTooltip Text="Editar Periodo">
+                <MudTooltip Text="Editar Periodo" ShowOnHover="@(EsActivo(context.Item))">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Warning"
                                    Size="Size.Small"
                                    Icon="@Icons.Material.Outlined.Edit"
-                                   OnClick="() => EditarPeriodo(context.Item)"/>
+                                   OnClick="() => EditarPeriodo(context.Item)"
+                                   Disabled="@(!EsActivo(context.Item))"/>
                 </MudTooltip>
-                <MudTooltip Text="Cerrar Periodo">
+                <MudTooltip Text="Cerrar Periodo" ShowOnHover="@(EsActivo(context.Item))">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Error"
                                    Size="Size.Small"
                                    Icon="@Icons.Material.Outlined.LockClock"
-                                   OnClick="() => BorrarPeriodo(context.Item)"/>
+                                   OnClick="() => BorrarPeriodo(context.Item)"
+                                   Disabled="@(!EsActivo(context.Item))"
+                                   />
                 </MudTooltip>
             </CellTemplate>
         </TemplateColumn>
