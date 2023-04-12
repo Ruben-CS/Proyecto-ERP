@@ -14,14 +14,14 @@
                     <div class="form-outline">
                         <label>Nombre</label>
                         <InputText @bind-Value="EmpresaDto.Nombre" class="form-control">@EmpresaDto.Nombre</InputText>
-                        <ValidationMessage For="@(() => EmpresaDto.Nombre)"/>
+                        <ValidationMessage For="@(() => EmpresaDto!.Nombre)"/>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         <label>Nit</label>
                         <InputText @bind-Value="EmpresaDto.Nit" class="form-control">@EmpresaDto.Nit</InputText>
-                        <ValidationMessage For="@(() => EmpresaDto.Nit)"/>
+                        <ValidationMessage For="@(() => EmpresaDto!.Nit)"/>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="form-outline">
                         <label>Sigla</label>
                         <InputText @bind-Value="EmpresaDto.Sigla" class="form-control">@EmpresaDto.Sigla</InputText>
-                        <ValidationMessage For="@(() => EmpresaDto.Sigla)"/>
+                        <ValidationMessage For="@(() => EmpresaDto!.Sigla)"/>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                         <InputSelect @bind-Value="EmpresaDto.Niveles" class="form-select" aria-label="Default select example">
                             @foreach (var item in _listaNiveles)
                             {
-                                <option value="@item">@EmpresaDto.Niveles</option>
+                                <option value="@item">@item</option>
                             }
                         </InputSelect>
                         <ValidationMessage For="@(() => EmpresaDto.Niveles)"/>
@@ -69,8 +69,11 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Color="Color.Primary" OnClick="Cancel">Cancelar</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="EditarEmpresaAsync">Guardar Cambios</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark" OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Warning"
+                   OnClick="EditarEmpresaAsync">Guardar</MudButton>
     </DialogActions>
 </MudDialog>
 

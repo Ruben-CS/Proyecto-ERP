@@ -7,8 +7,6 @@ Q
 !Modelos/Models/Dtos/EmpresaDto.cs,b\a\babf10422a5a82b916d749fecd5b8e683d3cdd44
 I
 Modelos/Models/Empresa.cs,f\7\f7ed9e345efc33046bec56d65038b460497b6a2d
-X
-(Services/Repository/GestionRepository.cs,c\6\c6940d778a309605a3482d2f9a87185f5504f16e
 i
 9ModuloContabilidadApi/Controllers/GestionApiController.cs,0\b\0be7be2e6d46b57c282392d76ea5eb39b7aad475
 R
@@ -29,3 +27,7 @@ c
 3Modelos/ApplicationContexts/ApplicationDbContext.cs,c\0\c0d5af8d3107275a0f1d1914c3e102e37a3c41d0
 e
 5BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor,d\9\d9b36ec6851112c2e6a60851967f4973075d06c0
+P
+ Services/Cuenta/CuentaUtility.cs,7\0\7097369ec68a8ed1fdef2524c95b1d32353fceb1
+X
+(Services/Repository/GestionRepository.cs,c\6\c6940d778a309605a3482d2f9a87185f5504f16e

@@ -22,6 +22,9 @@ public static class MappingConfiguration
 
             config.CreateMap<UsuarioDto, Usuario>();
             config.CreateMap<Usuario, UsuarioDto>();
+
+            config.CreateMap<CuentaDto, Cuenta>();
+            config.CreateMap<Cuenta, CuentaDto>();
         });
         return mappingConfig;
     }

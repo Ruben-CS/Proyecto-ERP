@@ -3,7 +3,6 @@ using Modelos.ApplicationContexts;
 using ModuloContabilidadApi;
 using ModuloContabilidadApi.Repository;
 using ModuloContabilidadApi.Repository.Interfaces;
-using Services.Gestion;
 using Services.Repository;
 using Services.Repository.Interfaces;
 
@@ -23,7 +22,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Modelos"));
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("Modelos"));
 });
 
 
@@ -33,6 +33,7 @@ builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 builder.Services.AddScoped<IGestionRepository, GestionRepository>();
 builder.Services.AddScoped<IPeriodoRepository, PeriodoRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<ICuentaRepository, CuentaRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

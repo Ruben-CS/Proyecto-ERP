@@ -14,8 +14,13 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditGestion">Editar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton ButtonType="ButtonType.Submit"
+                   Color="Color.Warning"
+                   Variant="Variant.Filled"
+                   OnClick="@ValidateAndEditGestion">Editar</MudButton>
     </DialogActions>
 </MudDialog>
 

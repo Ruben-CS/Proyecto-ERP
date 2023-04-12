@@ -22,6 +22,48 @@ namespace ModuloContabilidadApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.Property<int>("IdCuenta")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCuenta"));
+
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdCuentaPadreIdCuenta")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Nivel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoCuenta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdCuenta");
+
+                    b.HasIndex("IdCuentaPadreIdCuenta");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Cuentas");
+                });
+
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.Property<int>("IdEmpresa")
@@ -176,6 +218,23 @@ namespace ModuloContabilidadApi.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.HasOne("Modelos.Models.Cuenta", "IdCuentaPadre")
+                        .WithMany("CuentasHijas")
+                        .HasForeignKey("IdCuentaPadreIdCuenta");
+
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Cuentas")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("IdCuentaPadre");
+                });
+
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.HasOne("Modelos.Models.Usuario", "Usuario")
@@ -221,8 +280,15 @@ namespace ModuloContabilidadApi.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.Navigation("CuentasHijas");
+                });
+
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
+                    b.Navigation("Cuentas");
+
                     b.Navigation("Gestiones");
                 });
 
