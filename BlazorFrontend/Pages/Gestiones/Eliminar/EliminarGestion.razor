@@ -9,15 +9,18 @@
         </MudText>
     </TitleContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Error" OnClick="CerrarGestion">Eliminar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error"
+                   OnClick="CerrarGestion">Eliminar</MudButton>
     </DialogActions>
 </MudDialog>
 
 @code {
+
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; } = null!;
-    
+
     [Parameter]
     public int Id { get; set; }
 

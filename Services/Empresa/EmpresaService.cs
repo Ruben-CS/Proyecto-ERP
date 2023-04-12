@@ -11,15 +11,13 @@ public sealed class EmpresaService
         _httpClient = httpClient;
     }
 
-    public async Task<List<EmpresaDto>> GetEmpresasAsync()
-    {
-        return await GetApiResponseAsync<List<EmpresaDto>>("https://localhost:44378/empresas/ListarEmpresa");
-    }
+    public async Task<List<EmpresaDto>> GetEmpresasAsync() =>
+        await GetApiResponseAsync<List<EmpresaDto>>
+            ("https://localhost:44378/empresas/ListarEmpresa");
 
-    public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id)
-    {
-        return await GetApiResponseAsync<EmpresaDto>($"https://localhost:44378/empresas/{id}");
-    }
+    public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id) =>
+        await GetApiResponseAsync<EmpresaDto>
+            ($"https://localhost:44378/empresas/{id}");
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {

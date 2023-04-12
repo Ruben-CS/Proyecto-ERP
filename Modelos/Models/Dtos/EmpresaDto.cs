@@ -38,6 +38,9 @@ public class EmpresaDto
 
     public List<Gestion>? Gestiones { get; set; }
 
+    public List<Cuenta>? Cuentas { get; set; }
+
+
     [ForeignKey("Usuario")]
     public int IdUsuario { get; set; }
 

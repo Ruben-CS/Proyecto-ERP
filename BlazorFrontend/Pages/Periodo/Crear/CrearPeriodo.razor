@@ -11,17 +11,32 @@
     <DialogContent>
         <EditForm Model="PeriodoDto" OnValidSubmit="@ValidateAndCreatePeriodo">
             <DataAnnotationsValidator/>
-            <MudTextField @bind-Value="@PeriodoDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
+            <MudTextField @bind-Value="@PeriodoDto.Nombre"
+                          Label="Nombre"
+                          Required="true"
+                          RequiredError="Nombre es requerido"/>
             <MudStack Row="true">
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@PeriodoDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@PeriodoDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Label="Fecha de inicio"
+                               @bind-Date="@PeriodoDto.FechaInicio"
+                               Required="true"
+                               RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Label="Fecha de cierre"
+                               @bind-Date="@PeriodoDto.FechaFin"
+                               Required="true"
+                               RequiredError="Fecha de cierre requerida"/>
             </MudStack>
-            <p>@IdEmpresa</p>
         </EditForm>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancelar</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndCreatePeriodo">Crear</MudButton>
+        <MudButton ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   OnClick="@ValidateAndCreatePeriodo">Crear</MudButton>
     </DialogActions>
 </MudDialog>
-
