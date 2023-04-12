@@ -1,11 +1,6 @@
 @page "/inicio"
-@using BlazorFrontend.Pages.Empresa.Crear
-@using BlazorFrontend.Pages.Empresa.Editar
-@using BlazorFrontend.Pages.Empresa.Eliminar
 @using BlazorFrontend.Services
-@using Microsoft.AspNetCore.Http.Extensions
 @using Variant = MudBlazor.Variant
-@using DialogOptions = MudBlazor.DialogOptions
 @inject IDialogService DialogService
 @inject EmpresaService EmpresaService
 @inject NavigationManager NavigationManager
@@ -62,4 +57,3 @@
                 OnClick="NavigateToPage"/>
     </MudItem>
 </MudGrid>
-

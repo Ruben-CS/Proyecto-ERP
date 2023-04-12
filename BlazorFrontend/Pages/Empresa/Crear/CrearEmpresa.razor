@@ -8,18 +8,28 @@
             <DataAnnotationsValidator/>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <MudTextField Required="true" Label="Nombre" @bind-Value="@Empresa.Nombre" For="@(() => Empresa.Nombre)"/>
+                    <MudTextField Required="true"
+                                  Label="Nombre"
+                                  @bind-Value="@Empresa.Nombre"
+                                  For="@(() => Empresa.Nombre)"/>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <MudTextField Required="true" Label="NIT" @bind-Value="@Empresa.Nit" For="@(() => Empresa.Nit)"/>
+                    <MudTextField Required="true" Label="NIT"
+                                  @bind-Value="@Empresa.Nit"
+                                  For="@(() => Empresa.Nit)"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <MudTextField Required="true" Label="Sigla" @bind-Value="@Empresa.Sigla" For="@(() => Empresa.Sigla)"/>
+                    <MudTextField Required="true"
+                                  Label="Sigla"
+                                  @bind-Value="@Empresa.Sigla"
+                                  For="@(() => Empresa.Sigla)"/>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <MudTextField Label="Telefono" @bind-Value="@Empresa.Telefono" For="@(() => Empresa.Telefono)"/>
+                    <MudTextField Label="Telefono"
+                                  @bind-Value="@Empresa.Telefono"
+                                  For="@(() => Empresa.Telefono)"/>
                 </div>
             </div>
             <div class="row">
@@ -43,8 +53,12 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Dark" OnClick="Cancel">Cancelar</MudButton>
-        <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="UpsertEmpresa">Crear</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   OnClick="UpsertEmpresa">Crear</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -95,5 +109,4 @@
             Snackbar.Add("Se ha producido un error", Severity.Error);
         }
     }
-
 }
