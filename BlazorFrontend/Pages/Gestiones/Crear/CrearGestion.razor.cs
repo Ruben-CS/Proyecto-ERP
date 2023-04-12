@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
+using MudBlazor;
 
-namespace BlazorFrontend.Pages.Gestiones;
+namespace BlazorFrontend.Pages.Gestiones.Crear;
 
 public partial class CrearGestion
 {

@@ -1,16 +1,16 @@
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using Modelos.Models.Dtos;
-using Microsoft.AspNetCore.WebUtilities;
-using BlazorFrontend.Pages.Gestiones;
+using BlazorFrontend.Pages.Gestiones.Crear;
 using BlazorFrontend.Pages.Gestiones.Editar;
 using BlazorFrontend.Pages.Gestiones.Eliminar;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
+using MudBlazor;
 using DialogOptions = MudBlazor.DialogOptions;
 
-namespace BlazorFrontend.Pages.Dashboard.Gestiones;
+namespace BlazorFrontend.Pages.Gestiones;
 
-public partial class Overview
+public partial class GestionOverview
 {
     private IEnumerable<GestionDto> _gestiones =
         new List<GestionDto>().Where(x => x.Estado == EstadosGestion.Abierto);
