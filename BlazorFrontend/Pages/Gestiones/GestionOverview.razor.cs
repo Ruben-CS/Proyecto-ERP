@@ -1,25 +1,30 @@
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using Modelos.Models.Dtos;
-using Microsoft.AspNetCore.WebUtilities;
-using BlazorFrontend.Pages.Gestiones;
+using BlazorFrontend.Pages.Gestiones.Crear;
 using BlazorFrontend.Pages.Gestiones.Editar;
 using BlazorFrontend.Pages.Gestiones.Eliminar;
+using Microsoft.AspNetCore.Components;
+using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
+using MudBlazor;
 using DialogOptions = MudBlazor.DialogOptions;
 
-namespace BlazorFrontend.Pages.Dashboard.Gestiones;
+namespace BlazorFrontend.Pages.Gestiones;
 
-public partial class Overview
+public partial class GestionOverview
 {
-    private IEnumerable<GestionDto> _gestiones =
-        new List<GestionDto>().Where(x => x.Estado == EstadosGestion.Abierto);
+    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
 
     [Inject]
     ISnackbar Snackbar { get; set; } = null !;
 
     [Parameter]
-    public int Id { get; set; }
+    public int IdEmpresa { get; set; }
+
+    private bool _open;
+
+    private protected bool IsExpanded { get; private set; }
+
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    private void ToggleDrawer()   => _open = !_open;
 
     private readonly DialogOptions _options = new()
     {
@@ -33,12 +38,13 @@ public partial class Overview
     {
         try
         {
-            var uri   = new Uri(NavigationManager.Uri);
-            var query = QueryHelpers.ParseQuery(uri.Query);
-            if (query.TryGetValue("id", out var idValue))
+            var uri      = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue  = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
             {
-                Id         = int.Parse(idValue!);
-                _gestiones = await GestionServices.GetGestionAsync(Id);
+                IdEmpresa  = int.Parse(idValue!);
+                _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
                 StateHasChanged();
             }
             else
@@ -58,13 +64,13 @@ public partial class Overview
     {
         var parameters = new DialogParameters
         {
-            { "Id", Id }
+            { "Id", IdEmpresa }
         };
         var result = await DialogService.ShowAsync<CrearGestion>
             ("Llene los datos de la gestion", parameters, _options);
 
         if (result.Result == null) return;
-        _gestiones = await GestionServices.GetGestionAsync(Id);
+        _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
         StateHasChanged();
     }
 
@@ -73,14 +79,8 @@ public partial class Overview
     {
         var parameters = new DialogParameters
         {
-            {
-                "Id",
-                item.IdGestion
-            },
-            {
-                "GestionDto",
-                item
-            }
+            { "Id", item.IdGestion },
+            { "GestionDto", item }
         };
         DialogService.ShowAsync<EditarGestion>("Editar gestion", parameters,
             _options);
@@ -90,10 +90,7 @@ public partial class Overview
     {
         var parameters = new DialogParameters
         {
-            {
-                "Id",
-                item.IdGestion
-            }
+            { "Id", item.IdGestion }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion", parameters,
             _options);
