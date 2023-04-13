@@ -1,23 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.JSInterop;
-using BlazorFrontend;
-using BlazorFrontend.Shared;
 using MudBlazor;
-using System.Net.Http.Json;
 using Modelos.Models.Dtos;
-using ButtonType =  MudBlazor . ButtonType ;
-using global::Services.Periodo;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BlazorFrontend.Pages.Periodo.Editar
@@ -25,10 +8,10 @@ namespace BlazorFrontend.Pages.Periodo.Editar
     public partial class EditarPeriodo
     {
         [CascadingParameter]
-        MudDialogInstance? MudDialog { get; set; }
+        private MudDialogInstance? MudDialog { get; set; }
 
         [Parameter]
-        public PeriodoDto PeriodoDto { get; set; }
+        public PeriodoDto PeriodoDto { get; set; } = null!;
 
         [Parameter]
         public int IdGestion { get; set; }
@@ -36,7 +19,7 @@ namespace BlazorFrontend.Pages.Periodo.Editar
         [Parameter]
         public int IdPeriodo { get; set; }
 
-        void Cancel() => MudDialog!.Cancel();
+        private void                    Cancel() => MudDialog!.Cancel();
         private IEnumerable<PeriodoDto> _periodoDtos = new List<PeriodoDto>();
         private async Task ValidateAndEditPeriodo()
         {

@@ -45,7 +45,7 @@
 
         if (gestionConPeriodo.Count > 0)
         {
-            Snackbar.Add("No se puede eliminar la gestion con periodos activos",
+            Snackbar.Add("No se puede eliminar la gestion por que tiene periodos activos",
                 Severity.Error);
         }
         else
@@ -56,7 +56,7 @@
 
             if (!response.IsSuccessStatusCode) return;
 
-            Snackbar.Add("Gestion cerrada exitosamente", Severity.Success);
+            Snackbar.Add("Gestion eliminada exitosamente", Severity.Success);
 
             MudDialog.Close(DialogResult.Ok(response));
         }

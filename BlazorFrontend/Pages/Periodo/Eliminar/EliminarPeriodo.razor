@@ -33,7 +33,7 @@
         var url = $"https://localhost:44378/periodos/eliminarperiodo/{IdPeriodo}";
         var response = await HttpClient.DeleteAsync(url);
         if (!response.IsSuccessStatusCode) return;
-        Snackbar.Add("Gestion cerrada exitosamente", Severity.Success);
+        Snackbar.Add("Periodo eliminado exitosamente", Severity.Success);
         MudDialog.Close(DialogResult.Ok(response));
     }
 }
