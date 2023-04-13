@@ -81,7 +81,7 @@ public class GestionRepository : IGestionRepository
         {
             return false;
         }
-        gestion.Estado = EstadosGestion.Cerrado;
+        _applicationDbContext.Remove(gestion);
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(true);
     }

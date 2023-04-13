@@ -1,7 +1,5 @@
 @using global::Services.Periodo
 @using global::Services.Gestion
-@using Microsoft.IdentityModel.Tokens
-@using Modelos.Models.Enums
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
 @inject PeriodoService PeriodoService
@@ -34,8 +32,11 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Filled"
+                   Color="Color.Dark">Cancelar</MudButton>
         <MudButton ButtonType="ButtonType.Submit"
+                   Variant="Variant.Filled"
                    Color="Color.Success"
                    OnClick="@ValidateAndCreatePeriodo">Crear</MudButton>
     </DialogActions>

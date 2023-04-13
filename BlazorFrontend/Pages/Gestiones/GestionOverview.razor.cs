@@ -19,9 +19,21 @@ public partial class GestionOverview
     [Parameter]
     public int IdEmpresa { get; set; }
 
+
+    private bool VerifyGestiones()
+    {
+        var count = _gestiones.Count(gestion =>
+            gestion.IdEmpresa == IdEmpresa
+            && gestion.Estado == EstadosGestion.Abierto);
+        return count == 2;
+    }
+
     private bool _open;
 
-    private protected bool IsExpanded { get; private set; }
+    private const bool Click = false;
+    private const bool Focus = false;
+
+    private bool IsExpanded { get; set; }
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
     private void ToggleDrawer()   => _open = !_open;
@@ -41,9 +53,9 @@ public partial class GestionOverview
             var uri      = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
             var idValue  = segments[^1];
-            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa  = int.Parse(idValue!);
+                IdEmpresa  = int.Parse(idValue);
                 _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
                 StateHasChanged();
             }

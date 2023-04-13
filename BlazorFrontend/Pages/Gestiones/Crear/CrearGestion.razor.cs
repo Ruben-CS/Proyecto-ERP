@@ -32,13 +32,13 @@ public partial class CrearGestion
             FechaFin    = GestionDto.FechaFin,
             IdEmpresa   = Id
         };
-        if (!await ValidateNumberOfActiveGestiones())
+        if (await ValidateNumberOfActiveGestiones(gestionDto))
         {
             Snackbar.Add("Ya existen dos gestiones activas", Severity.Error);
         }
-        else if (!await ValidateUniqueNombre())
+        else if (await ValidateUniqueNombre(gestionDto))
         {
-            Snackbar.Add("Ya existe una gestión con ese nombre", Severity.Error);
+            Snackbar.Add("Ya existe una gestion con ese nombre", Severity.Error);
         }
         else if (await ValidateFechaInicioAndFechaFin())
         {
@@ -47,30 +47,33 @@ public partial class CrearGestion
         }
         else if (await FechasNoSolapadan())
         {
-            Snackbar.Add("Las fechas solapan!", Severity.Error);
-        }else if (await ValidateEqualDates())
+            Snackbar.Add("Las fechas solapan con una gestion activa", Severity.Error);
+        }
+        else if (await ValidateEqualDates())
         {
             Snackbar.Add("Las fechas no pueden ser iguales", Severity.Error);
         }
         else
         {
             var response = await HttpClient.PostAsJsonAsync(url, gestionDto);
-            Snackbar.Add("Gestión creada exitosamente", Severity.Success);
+            Snackbar.Add("Gestion creada exitosamente", Severity.Success);
             MudDialog!.Close(DialogResult.Ok(response));
             StateHasChanged();
         }
     }
 
-    private async Task<bool> ValidateNumberOfActiveGestiones() =>
-        await Task.FromResult(_gestionDtos.Count(gestion =>
-            gestion.IdEmpresa == GestionDto.IdEmpresa
-            & gestion.Estado  == EstadosGestion.Abierto) < 2);
+    private async Task<bool> ValidateNumberOfActiveGestiones(GestionDto gestionDto)
+    {
+        return await Task.FromResult(_gestionDtos.Count(gestion =>
+            gestion.IdEmpresa == gestionDto.IdEmpresa
+            && gestion.Estado == EstadosGestion.Abierto) == 2);
+    }
 
-    private async Task<bool> ValidateUniqueNombre() =>
-        await Task.FromResult(!_gestionDtos.Any(gestion =>
-            gestion.Nombre       == GestionDto.Nombre
-            && gestion.IdEmpresa == GestionDto.IdEmpresa
-            && gestion.Estado    == EstadosGestion.Abierto
+
+    private async Task<bool> ValidateUniqueNombre(GestionDto gestionDto) =>
+        await Task.FromResult(_gestionDtos.Any(gestion =>
+            gestion.Nombre       == gestionDto.Nombre
+            && gestion.IdEmpresa == gestionDto.IdEmpresa
         ));
 
     private async Task<bool> ValidateFechaInicioAndFechaFin() =>
@@ -97,6 +100,5 @@ public partial class CrearGestion
         }
         return await Task.FromResult(false);
     }
-
     private void Cancel() => MudDialog!.Cancel();
 }
