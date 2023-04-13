@@ -1,5 +1,7 @@
+@using global::Services.Periodo
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
+@inject PeriodoService PeriodoService
 
 <MudDialog>
     <TitleContent>
@@ -10,9 +12,13 @@
     </TitleContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled" Color="Color.Dark"
-                   OnClick="Cancel">Cancelar</MudButton>
+                   OnClick="Cancel">
+            Cancelar
+        </MudButton>
         <MudButton Variant="Variant.Filled" Color="Color.Error"
-                   OnClick="CerrarGestion">Eliminar</MudButton>
+                   OnClick="BorrarGestion">
+            Eliminar
+        </MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -21,18 +27,37 @@
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; } = null!;
 
+
     [Parameter]
     public int Id { get; set; }
 
+    private IEnumerable<PeriodoDto> _periodosPorGestion = new List<PeriodoDto>();
+
     private void Cancel() => MudDialog.Close();
 
-    private async Task CerrarGestion()
-    {
-        var url = $"https://localhost:44378/gestiones/eliminarGestion/{Id}";
-        var response = await HttpClient.DeleteAsync(url);
-        if (!response.IsSuccessStatusCode) return;
-        Snackbar.Add("Gestion cerrada exitosamente", Severity.Success);
-        MudDialog.Close(DialogResult.Ok(response));
-    }
+    protected override async Task OnInitializedAsync() =>
+        _periodosPorGestion = await PeriodoService.GetPeriodosAsync(Id);
 
+    private async Task BorrarGestion()
+    {
+        var gestionConPeriodo = _periodosPorGestion.Where(periodo => periodo.IdGestion
+                                                                     == Id).ToList();
+
+        if (gestionConPeriodo.Count > 0)
+        {
+            Snackbar.Add("Elimine los periodos primero", Severity.Error);
+        }
+        else
+        {
+            var url = $"https://localhost:44378/gestiones/eliminarGestion/{Id}";
+
+            var response = await HttpClient.DeleteAsync(url);
+
+            if (!response.IsSuccessStatusCode) return;
+
+            Snackbar.Add("Gestion cerrada exitosamente", Severity.Success);
+
+            MudDialog.Close(DialogResult.Ok(response));
+        }
+    }
 }

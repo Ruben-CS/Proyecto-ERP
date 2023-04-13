@@ -90,7 +90,7 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            { "Id", item.IdGestion }
+            {"Id", item.IdGestion }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion", parameters,
             _options);

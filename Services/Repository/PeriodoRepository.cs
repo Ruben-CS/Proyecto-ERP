@@ -68,7 +68,7 @@ public class PeriodoRepository : IPeriodoRepository
                 return await Task.FromResult(false);
             }
 
-            periodo.Estado = EstadosPeriodo.Cerrado;
+            _applicationDbContext.Remove(periodo);
             await _applicationDbContext.SaveChangesAsync();
             return await Task.FromResult(true);
         }
@@ -81,7 +81,8 @@ public class PeriodoRepository : IPeriodoRepository
 
     public async Task<PeriodoDto> UpdateModel(PeriodoDto periodoDto, int idGestion, int idPeriodo)
     {
-        var periodo = await _applicationDbContext.Periodos.SingleAsync(periodo => periodo.IdPeriodo == idPeriodo && periodo.IdGestion == idGestion);
+        var periodo = await _applicationDbContext.Periodos.SingleAsync(periodo =>
+            periodo.IdPeriodo == idPeriodo && periodo.IdGestion == idGestion);
 
         if (periodo is null)
         {
