@@ -89,10 +89,10 @@
     </Columns>
 </MudDataGrid>
 
-<MudTooltip
-            Text="Borre una gestion para agregar una nueva"
->
-<MudFab
+<MudTooltip Text="Borre una gestion para agregar una nueva"
+            ShowOnHover="@(VerifyGestiones())"
+            ShowOnFocus="@(VerifyGestiones())">
+<MudFab Disabled="@(VerifyGestiones())"
         Class="ma-4" Color="Color.Success"
         StartIcon="@Icons.Material.Filled.Add"
         @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>

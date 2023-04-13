@@ -18,9 +18,19 @@ public partial class GestionOverview
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+
+    private bool VerifyGestiones()
+    {
+        var count = _gestiones.Count(gestion =>
+            gestion.IdEmpresa == IdEmpresa
+            && gestion.Estado == EstadosGestion.Abierto);
+        return count == 2;
+    }
+
     private bool _open;
 
-    private protected bool IsExpanded { get; private set; }
+    private bool IsExpanded { get; set; }
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
     private void ToggleDrawer()   => _open = !_open;
@@ -89,7 +99,7 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            {"Id", item.IdGestion }
+            { "Id", item.IdGestion }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion", parameters,
             _options);
