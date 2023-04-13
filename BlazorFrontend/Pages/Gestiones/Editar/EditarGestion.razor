@@ -1,60 +1,63 @@
 @using ButtonType = MudBlazor.ButtonType
+@using global::Services.Gestion
+@using global::Services.Periodo
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
+@inject GestionServices GestionServices
+@inject PeriodoService PeriodoService
 
 <MudDialog>
     <DialogContent>
         <EditForm Model="@GestionDto" OnValidSubmit="@ValidateAndEditGestion">
             <DataAnnotationsValidator/>
-            <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido">@GestionDto.Nombre</MudTextField>
-            <MudStack Row="true">
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+            <MudTextField @bind-Value="@GestionDto.Nombre"
+                          Label="Nombre"
+                          Required="true"
+                          RequiredError="Nombre es requerido">
+                @GestionDto.Nombre
+            </MudTextField>
+            <MudStack Row="true" Class="mx-auto pa-6">
+                <MudTooltip Text="No se puede editar la fecha por que la gestion tiene periodos"
+                            ShowOnHover="@(ValidateEmptyPeriodoInGestion())"
+                            ShowOnClick="_click"
+                            ShowOnFocus="_focus">
+                    <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                                   DateFormat="dd/MM/yyyy"
+                                   Editable="true"
+                                   Label="Fecha de inicio"
+                                   @bind-Date="@GestionDto.FechaInicio"
+                                   Required="true"
+                                   RequiredError="Fecha inicial requerida"
+                                   Disabled="@(ValidateEmptyPeriodoInGestion())"/>
+                </MudTooltip>
+                <MudTooltip Text="No se puede editar la fecha por que la gestion tiene periodos"
+                            ShowOnHover="@(ValidateEmptyPeriodoInGestion())"
+                            ShowOnClick="_click"
+                            ShowOnFocus="_focus">
+                    <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                                   DateFormat="dd/MM/yyyy"
+                                   Editable="true"
+                                   Label="Fecha de cierre"
+                                   @bind-Date="@GestionDto.FechaFin"
+                                   Required="true"
+                                   RequiredError="Fecha de cierre requerida"
+                                   Disabled="@(ValidateEmptyPeriodoInGestion())"/>
+                </MudTooltip>
             </MudStack>
         </EditForm>
     </DialogContent>
     <DialogActions>
+        <MudDivider DividerType="DividerType.Middle"/>
         <MudButton Variant="Variant.Filled"
                    Color="Color.Dark"
-                   OnClick="Cancel">Cancelar</MudButton>
+                   OnClick="Cancel">
+            Cancelar
+        </MudButton>
         <MudButton ButtonType="ButtonType.Submit"
                    Color="Color.Warning"
                    Variant="Variant.Filled"
-                   OnClick="@ValidateAndEditGestion">Editar</MudButton>
+                   OnClick="@ValidateAndEditGestion">
+            Editar
+        </MudButton>
     </DialogActions>
 </MudDialog>
-
-@code{
-
-    [CascadingParameter]
-    MudDialogInstance? MudDialog { get; set; }
-
-    [Parameter]
-    public int Id { get; set; }
-
-    [Parameter]
-    public GestionDto GestionDto { get; set; }
-
-    private async Task ValidateAndEditGestion()
-    {
-        var url = $"https://localhost:44378/gestiones/actualizarGestion/{Id}";
-
-        var editedGestion = new GestionDto
-        {
-            IdGestion = Id,
-            Nombre = GestionDto.Nombre,
-            FechaInicio = GestionDto.FechaInicio,
-            FechaFin = GestionDto.FechaFin,
-            IdEmpresa = GestionDto.IdEmpresa
-        };
-        var response = await HttpClient.PutAsJsonAsync(url, editedGestion);
-
-        if (response.IsSuccessStatusCode)
-        {
-            Snackbar.Add("Empresa editata correctamente", Severity.Success);
-            MudDialog!.Close(DialogResult.Ok(response));
-        }
-    }
-
-    void Cancel() => MudDialog!.Cancel();
-}

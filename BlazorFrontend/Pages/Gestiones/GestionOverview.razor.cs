@@ -30,6 +30,9 @@ public partial class GestionOverview
 
     private bool _open;
 
+    private readonly bool _click = false;
+    private          bool _focus = false;
+
     private bool IsExpanded { get; set; }
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");

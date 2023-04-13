@@ -63,26 +63,28 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
-                <MudTooltip Text="Editar Gestion">
-                <MudIconButton Class="pa-1"
-                               Color="Color.Warning"
-                               Size="Size.Small"
-                               Icon="@Icons.Material.Outlined.Edit"
-                               OnClick="() => EditarGestion(context.Item)"/>
+                <MudTooltip Text="Editar Gestion" ShowOnClick="_click"
+                            ShowOnFocus="_focus">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Warning"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Edit"
+                                   OnClick="() => EditarGestion(context.Item)"/>
                 </MudTooltip>
-                <MudTooltip Text="Eliminar Gestion">
+                <MudTooltip Text="Eliminar Gestion" ShowOnClick="@false">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Error"
                                    Size="Size.Small"
                                    Icon="@Icons.Material.Outlined.Delete"
                                    OnClick="() => BorrarGestion(context.Item)"/>
                 </MudTooltip>
-                <MudTooltip Text="Acceder a Periodos">
-                <MudIconButton Class="pa-1"
-                               Color="Color.Info"
-                               Size="Size.Small"
-                               Icon="@Icons.Material.Outlined.Timelapse"
-                               OnClick="() => NavigateToPage(context.Item)"/>
+                <MudTooltip Text="Acceder a Periodos" ShowOnClick="_click"
+                            ShowOnFocus="_focus">
+                    <MudIconButton Class="pa-1"
+                                   Color="Color.Info"
+                                   Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Timelapse"
+                                   OnClick="() => NavigateToPage(context.Item)"/>
                 </MudTooltip>
             </CellTemplate>
         </TemplateColumn>
@@ -92,8 +94,8 @@
 <MudTooltip Text="Borre una gestion para agregar una nueva"
             ShowOnHover="@(VerifyGestiones())"
             ShowOnFocus="@(VerifyGestiones())">
-<MudFab Disabled="@(VerifyGestiones())"
-        Class="ma-4" Color="Color.Success"
-        StartIcon="@Icons.Material.Filled.Add"
-        @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
+    <MudFab Disabled="@(VerifyGestiones())"
+            Class="ma-4" Color="Color.Success"
+            StartIcon="@Icons.Material.Filled.Add"
+            @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
 </MudTooltip>

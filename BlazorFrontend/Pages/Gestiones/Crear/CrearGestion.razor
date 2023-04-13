@@ -10,8 +10,20 @@
             <DataAnnotationsValidator/>
             <MudTextField @bind-Value="@GestionDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido"/>
             <MudStack Row="true">
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@GestionDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@GestionDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Label="Fecha de inicio"
+                               @bind-Date="@GestionDto.FechaInicio"
+                               Required="true"
+                               RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Label="Fecha de cierre"
+                               @bind-Date="@GestionDto.FechaFin"
+                               Required="true"
+                               RequiredError="Fecha de cierre requerida"/>
             </MudStack>
         </EditForm>
     </DialogContent>
