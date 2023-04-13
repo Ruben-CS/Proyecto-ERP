@@ -30,8 +30,8 @@ public partial class GestionOverview
 
     private bool _open;
 
-    private readonly bool _click = false;
-    private          bool _focus = false;
+    private const bool Click = false;
+    private const bool Focus = false;
 
     private bool IsExpanded { get; set; }
 
@@ -53,9 +53,9 @@ public partial class GestionOverview
             var uri      = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
             var idValue  = segments[^1];
-            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa  = int.Parse(idValue!);
+                IdEmpresa  = int.Parse(idValue);
                 _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
                 StateHasChanged();
             }

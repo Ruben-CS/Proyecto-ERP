@@ -1,6 +1,5 @@
 @page "/gestion/overview/{idempresa:int}"
 @using global::Services.Gestion
-@using Modelos.Models.Enums
 @using Size = MudBlazor.Size
 @inject GestionServices GestionServices
 @inject NavigationManager NavigationManager
@@ -50,7 +49,7 @@
 
 <h3>Lista de gestiones activas</h3>
 <MudDataGrid T="GestionDto"
-             Items="@_gestiones.Where(g => g.Estado == EstadosGestion.Abierto).Take(2)"
+             Items="@_gestiones"
              Hover="@true"
              Readonly="@false"
              EditMode="DataGridEditMode.Form"
@@ -63,8 +62,8 @@
         <PropertyColumn Property="@(i => i.Estado)"/>
         <TemplateColumn CellClass="d-flex justify-center">
             <CellTemplate>
-                <MudTooltip Text="Editar Gestion" ShowOnClick="_click"
-                            ShowOnFocus="_focus">
+                <MudTooltip Text="Editar Gestion" ShowOnClick="Click"
+                            ShowOnFocus="Focus">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Warning"
                                    Size="Size.Small"
@@ -78,8 +77,8 @@
                                    Icon="@Icons.Material.Outlined.Delete"
                                    OnClick="() => BorrarGestion(context.Item)"/>
                 </MudTooltip>
-                <MudTooltip Text="Acceder a Periodos" ShowOnClick="_click"
-                            ShowOnFocus="_focus">
+                <MudTooltip Text="Acceder a Periodos" ShowOnClick="Click"
+                            ShowOnFocus="Focus">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Info"
                                    Size="Size.Small"
