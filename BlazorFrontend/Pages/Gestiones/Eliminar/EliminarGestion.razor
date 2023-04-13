@@ -7,7 +7,7 @@
     <TitleContent>
         <MudText Typo="Typo.h6">
             <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
-            Desea cerrar esta gestion?
+            Desea eliminar esta gestion?
         </MudText>
     </TitleContent>
     <DialogActions>
@@ -45,7 +45,8 @@
 
         if (gestionConPeriodo.Count > 0)
         {
-            Snackbar.Add("Elimine los periodos primero", Severity.Error);
+            Snackbar.Add("No se puede eliminar la gestion con periodos activos",
+                Severity.Error);
         }
         else
         {

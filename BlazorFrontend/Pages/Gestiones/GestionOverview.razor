@@ -89,5 +89,11 @@
     </Columns>
 </MudDataGrid>
 
-<MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
+<MudTooltip
+            Text="Borre una gestion para agregar una nueva"
+>
+<MudFab
+        Class="ma-4" Color="Color.Success"
+        StartIcon="@Icons.Material.Filled.Add"
         @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
+</MudTooltip>

@@ -18,7 +18,6 @@ public partial class GestionOverview
 
     [Parameter]
     public int IdEmpresa { get; set; }
-
     private bool _open;
 
     private protected bool IsExpanded { get; private set; }
