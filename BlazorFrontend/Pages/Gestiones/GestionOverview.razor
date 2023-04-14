@@ -18,9 +18,11 @@
 </MudAppBar>
 
 <MudDrawer @bind-Open="@_open"
-           ClipMode="DrawerClipMode.Always"
+           ClipMode="DrawerClipMode.Docked"
            Elevation="1"
-           Variant="@DrawerVariant.Mini"
+           Variant="@DrawerVariant.Responsive"
+           PreserveOpenState="true"
+           Breakpoint="Breakpoint.Md"
            OpenMiniOnHover="true">
     <MudNavMenu>
         <MudNavGroup Icon="@Icons.Material.Filled.Business"

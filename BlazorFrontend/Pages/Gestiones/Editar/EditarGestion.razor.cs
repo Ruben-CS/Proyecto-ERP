@@ -124,7 +124,8 @@ public partial class EditarGestion
     private async Task<bool> ValidateUniqueNombre(GestionDto gestionDto)
     {
         return await Task.FromResult(_gestionDtos.Any(gestion =>
-            string.Equals(gestion.Nombre, gestionDto.Nombre, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(gestion.Nombre, gestionDto.Nombre,
+                StringComparison.OrdinalIgnoreCase) &&
             gestion.IdGestion != gestionDto.IdGestion &&
             gestion.IdEmpresa == gestionDto.IdEmpresa
             ));

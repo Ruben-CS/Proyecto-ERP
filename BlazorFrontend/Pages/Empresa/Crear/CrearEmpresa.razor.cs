@@ -62,7 +62,7 @@ public partial class CrearEmpresa
         else
         {
             var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
-            Snackbar.Add("Empresa editada exitosamente", Severity.Success);
+            Snackbar.Add("Empresa creada exitosamente", Severity.Success);
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
             await OnEmpresaAdded.InvokeAsync(addedEmpresa);
             MudDialog!.Close(DialogResult.Ok(response));
