@@ -3,7 +3,6 @@
 @inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 
-
 <MudAppBar Elevation="1" Dense="false">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                    Edge="Edge.Start"
@@ -14,15 +13,18 @@
                    Link="https://github.com/MudBlazor/MudBlazor"
                    Target="_blank"/>
 </MudAppBar>
+
 <MudDrawer @bind-Open="@_open"
-           ClipMode="DrawerClipMode.Always"
+           ClipMode="DrawerClipMode.Docked"
            Elevation="1"
-           Variant="@DrawerVariant.Mini"
+           Variant="@DrawerVariant.Responsive"
+           PreserveOpenState="true"
+           Breakpoint="Breakpoint.Md"
            OpenMiniOnHover="true">
     <MudNavMenu>
         <MudNavGroup Icon="@Icons.Material.Filled.Business"
                      Title="Contabilidad"
-                     @bind-Expanded=_isExpanded>
+                     @bind-Expanded=IsExpanded>
 
             <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
                         OnClick="NavigateToGestiones">
@@ -43,6 +45,3 @@
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
-
-<h1> This is the main body</h1>
-<p>@Id</p>

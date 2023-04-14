@@ -8,8 +8,9 @@ public partial class MainPage
     [Parameter]
     public int Id { get; set; }
 
+    private bool IsExpanded { get; set; }
+
     bool _open;
-    bool _isExpanded;
 
     protected override async Task OnInitializedAsync()
     {
