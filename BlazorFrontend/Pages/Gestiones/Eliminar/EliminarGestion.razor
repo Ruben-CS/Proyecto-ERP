@@ -35,7 +35,7 @@
     public GestionDto gestionDto { get; set; }
 
     [Parameter]
-    public EventCallback<GestionDto> OnGestionDeleted { get; set; }
+    public EventCallback<GestionDto> OnDataGridChange { get; set; }
 
     private IEnumerable<PeriodoDto> _periodosPorGestion = new List<PeriodoDto>();
 
@@ -60,7 +60,7 @@
             var response = await HttpClient.DeleteAsync(url);
             if (!response.IsSuccessStatusCode) return;
             Snackbar.Add("Gestion eliminada exitosamente", Severity.Success);
-            await OnGestionDeleted.InvokeAsync(gestionDto);
+            await OnDataGridChange.InvokeAsync(gestionDto);
             MudDialog.Close(DialogResult.Ok(response));
         }
     }

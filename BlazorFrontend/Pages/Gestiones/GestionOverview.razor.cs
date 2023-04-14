@@ -78,8 +78,8 @@ public partial class GestionOverview
         {
             { "Id", IdEmpresa },
             {
-                "OnGestionAdded",
-                EventCallback.Factory.Create<GestionDto>(this, OnGestionAdded)
+                "OnDataGridChange",
+                EventCallback.Factory.Create<GestionDto>(this, OnDataGridChange)
             }
         };
 
@@ -96,7 +96,11 @@ public partial class GestionOverview
         var parameters = new DialogParameters
         {
             { "Id", item.IdGestion },
-            { "GestionDto", item }
+            { "GestionDto", item },
+            {
+                "OnDataGridChange",
+                EventCallback.Factory.Create<GestionDto>(this, OnDataGridChange)
+            }
         };
         DialogService.ShowAsync<EditarGestion>("Editar gestion", parameters,
             _options);
@@ -108,8 +112,8 @@ public partial class GestionOverview
         {
             { "Id", item.IdGestion },
             {
-                "OnGestionDeleted",
-                EventCallback.Factory.Create<GestionDto>(this, OnGestionDeleted)
+                "OnDataGridChange",
+                EventCallback.Factory.Create<GestionDto>(this, OnDataGridChange)
             }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion", parameters,
@@ -135,7 +139,7 @@ public partial class GestionOverview
         await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 
-    private async Task OnGestionDeleted(GestionDto newGestion)
+    private async Task OnDataGridChange(GestionDto gestionDto)
     {
         _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
         await Task.FromResult(InvokeAsync(StateHasChanged));
