@@ -5,8 +5,7 @@ namespace BlazorFrontend.Pages;
 
 public partial class InicioSesion
 {
-    public  LoginRequestDto RequestDto { get; } = new();
-    private bool            _showInvalidCredentials;
+    private LoginRequestDto RequestDto { get; } = new();
     private async Task LoginAsync()
     {
         const string loginUrl = "https://localhost:44378/Auth/login";
@@ -24,7 +23,6 @@ public partial class InicioSesion
         else
         {
             Snackbar.Add($"Credenciales incorrectas", Severity.Error);
-            _showInvalidCredentials = true;
         }
     }
 }
