@@ -39,13 +39,11 @@
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        Href="/security"
                         Disabled="true">
                 Plan de Cuentas
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        Href="/security"
                         OnClick="CambiarEmpresa">
                 Cambiar empresa
             </MudNavLink>
@@ -53,8 +51,19 @@
     </MudNavMenu>
 </MudDrawer>
 
-<h3>Administracion del preiodo de gestion - @_gestionDto.Nombre </h3>
-
+<MudStack Row="true">
+    <MudText Typo="Typo.h5" Align="Align.Center">
+        Administracion del periodo de la gestion - @_gestionDto.Nombre
+    </MudText>
+    <MudChip Size="Size.Small"
+             Icon="@Icons.Material.Filled.ArrowBack"
+             Color="Color.Info"
+             OnClick="@(GoBack)"
+             Class="d-flex justify-end">
+        Volver
+    </MudChip>
+</MudStack>
+<MudDivider />
 <MudDataGrid T="PeriodoDto"
              Items="@_periodos"
              Hover="@true"

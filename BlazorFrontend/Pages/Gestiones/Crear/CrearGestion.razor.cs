@@ -13,6 +13,9 @@ public partial class CrearGestion
     [Parameter]
     public int Id { get; set; }
 
+    [Parameter]
+    public EventCallback<GestionDto> OnGestionAdded { get; set; }
+
     public  GestionDto              GestionDto { get; } = new();
     private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
 
@@ -57,8 +60,8 @@ public partial class CrearGestion
         {
             var response = await HttpClient.PostAsJsonAsync(url, gestionDto);
             Snackbar.Add("Gestion creada exitosamente", Severity.Success);
+            await OnGestionAdded.InvokeAsync(gestionDto);
             MudDialog!.Close(DialogResult.Ok(response));
-            StateHasChanged();
         }
     }
 

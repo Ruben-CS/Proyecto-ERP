@@ -11,7 +11,7 @@ namespace BlazorFrontend.Pages.Gestiones;
 
 public partial class GestionOverview
 {
-    private IEnumerable<GestionDto> _gestiones = new List<GestionDto>();
+    private List<GestionDto> _gestiones = new List<GestionDto>();
 
     [Inject]
     ISnackbar Snackbar { get; set; } = null !;
@@ -57,7 +57,7 @@ public partial class GestionOverview
             {
                 IdEmpresa  = int.Parse(idValue);
                 _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
-                StateHasChanged();
+                await InvokeAsync(StateHasChanged);
             }
             else
             {
@@ -76,14 +76,18 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            { "Id", IdEmpresa }
+            { "Id", IdEmpresa },
+            {
+                "OnGestionAdded",
+                EventCallback.Factory.Create<GestionDto>(this, OnGestionAdded)
+            }
         };
+
         var result = await DialogService.ShowAsync<CrearGestion>
             ("Llene los datos de la gestion", parameters, _options);
 
         if (result.Result == null) return;
         _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
-        StateHasChanged();
     }
 
 
@@ -102,7 +106,11 @@ public partial class GestionOverview
     {
         var parameters = new DialogParameters
         {
-            { "Id", item.IdGestion }
+            { "Id", item.IdGestion },
+            {
+                "OnGestionDeleted",
+                EventCallback.Factory.Create<GestionDto>(this, OnGestionDeleted)
+            }
         };
         await DialogService.ShowAsync<EliminarGestion>("Editar gestion", parameters,
             _options);
@@ -119,5 +127,17 @@ public partial class GestionOverview
         {
             Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
         }
+    }
+
+    private async Task OnGestionAdded(GestionDto newGestion)
+    {
+        _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
+        await Task.FromResult(InvokeAsync(StateHasChanged));
+    }
+
+    private async Task OnGestionDeleted(GestionDto newGestion)
+    {
+        _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
+        await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 }
