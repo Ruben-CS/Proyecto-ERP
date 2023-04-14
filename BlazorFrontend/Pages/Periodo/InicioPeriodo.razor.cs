@@ -18,7 +18,6 @@ public partial class InicioPeriodo
 
     private bool _open;
 
-    private string gestionUri { get; set; }
 
     private void ToggleDrawer() => _open = !_open;
 
@@ -37,8 +36,7 @@ public partial class InicioPeriodo
     {
         try
         {
-            var uri      = new Uri(NavigationManager.Uri);
-            gestionUri = uri.ToString();
+            var uri = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
@@ -61,20 +59,28 @@ public partial class InicioPeriodo
 
     private async Task EditarPeriodo(PeriodoDto periodoDto)
     {
-        var parameters = new DialogParameters()
+        var parameters = new DialogParameters
         {
             { "IdPeriodo", periodoDto.IdPeriodo },
             { "IdGestion", periodoDto.IdGestion },
-            { "PeriodoDto", periodoDto }
+            { "PeriodoDto", periodoDto },
+            {
+                "OnPeriodoDataGridChange",
+                EventCallback.Factory.Create<PeriodoDto>(this, OnPeriodoDataGridChange)
+            }
         };
         await DialogService.ShowAsync<EditarPeriodo>(string.Empty, parameters, _options);
     }
 
     private async Task BorrarPeriodo(PeriodoDto periodoDto)
     {
-        var parameters = new DialogParameters()
+        var parameters = new DialogParameters
         {
-            { "IdPeriodo", periodoDto.IdPeriodo }
+            { "IdPeriodo", periodoDto.IdPeriodo },
+            {
+                "OnPeriodoDataGridChange",
+                EventCallback.Factory.Create<PeriodoDto>(this, OnPeriodoDataGridChange)
+            }
         };
         await DialogService.ShowAsync<EliminarPeriodo>(string.Empty, parameters,
             _options);
@@ -82,10 +88,14 @@ public partial class InicioPeriodo
 
     private async void ShowMudCrearPeriodonModal()
     {
-        var parameters = new DialogParameters()
+        var parameters = new DialogParameters
         {
             { "IdGestion", IdGestion },
-            { "IdEmpresa", _gestionDto.IdEmpresa }
+            { "IdEmpresa", _gestionDto.IdEmpresa },
+            {
+                "OnPeriodoDataGridChange",
+                EventCallback.Factory.Create<PeriodoDto>(this, OnPeriodoDataGridChange)
+            }
         };
         await DialogService.ShowAsync<CrearPeriodo>
             ("Llene los datos del periodo", parameters, _options);
@@ -99,6 +109,11 @@ public partial class InicioPeriodo
     private static bool EsActivo(PeriodoDto periodo) =>
         periodo.Estado is not EstadosPeriodo.Cerrado;
 
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    private async Task OnPeriodoDataGridChange(PeriodoDto periodoDto)
+    {
+        _periodos = await PeriodoService.GetPeriodosAsync(IdGestion);
+        await InvokeAsync(StateHasChanged);
+    }
 
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 }

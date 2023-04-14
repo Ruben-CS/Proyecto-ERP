@@ -19,6 +19,9 @@ namespace BlazorFrontend.Pages.Periodo.Editar
         [Parameter]
         public int IdPeriodo { get; set; }
 
+        [Parameter]
+        public EventCallback<PeriodoDto> OnPeriodoDataGridChange { get; set; }
+
         private void                    Cancel() => MudDialog!.Cancel();
         private IEnumerable<PeriodoDto> _periodoDtos = new List<PeriodoDto>();
         private async Task ValidateAndEditPeriodo()
@@ -44,6 +47,7 @@ namespace BlazorFrontend.Pages.Periodo.Editar
             {
                 var response = await HttpClient.PutAsJsonAsync(url, editedPeriodo);
                 Snackbar.Add("Empresa editata correctamente", Severity.Success);
+                await OnPeriodoDataGridChange.InvokeAsync(PeriodoDto);
                 MudDialog!.Close(DialogResult.Ok(response));
             }
         }
