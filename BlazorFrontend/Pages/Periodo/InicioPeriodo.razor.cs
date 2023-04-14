@@ -4,6 +4,7 @@ using Modelos.Models.Dtos;
 using BlazorFrontend.Pages.Periodo.Crear;
 using BlazorFrontend.Pages.Periodo.Editar;
 using BlazorFrontend.Pages.Periodo.Eliminar;
+using Microsoft.JSInterop;
 using Modelos.Models.Enums;
 
 namespace BlazorFrontend.Pages.Periodo;
@@ -12,6 +13,14 @@ public partial class InicioPeriodo
 {
     [Parameter]
     public int IdGestion { get; set; }
+
+    private bool IsExpanded { get; set; }
+
+    private bool _open;
+
+    private string gestionUri { get; set; }
+
+    private void ToggleDrawer() => _open = !_open;
 
     private IEnumerable<PeriodoDto> _periodos   = new List<PeriodoDto>();
     private GestionDto              _gestionDto = new();
@@ -29,6 +38,7 @@ public partial class InicioPeriodo
         try
         {
             var uri      = new Uri(NavigationManager.Uri);
+            gestionUri = uri.ToString();
             var segments = uri.Segments;
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
@@ -81,6 +91,14 @@ public partial class InicioPeriodo
             ("Llene los datos del periodo", parameters, _options);
     }
 
+    private async Task GoBack()
+    {
+        await JSRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack");
+    }
+
     private static bool EsActivo(PeriodoDto periodo) =>
         periodo.Estado is not EstadosPeriodo.Cerrado;
+
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+
 }

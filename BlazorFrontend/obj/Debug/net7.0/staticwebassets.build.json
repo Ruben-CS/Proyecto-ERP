@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "I9P5RZ4cof/5h2HkNP/LYAhxN0KxrZbaAQlQddDonxM=",
+  "Hash": "lSKc5CsMsye+Qbzef8AibVSMfTvnIBi23S6CDWM9IZQ=",
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
@@ -129,6 +129,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\js\\interop.js",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "js/interop.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\interop.js"
     }
   ]
 }
