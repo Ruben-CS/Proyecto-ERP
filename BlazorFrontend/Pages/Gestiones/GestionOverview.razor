@@ -35,68 +35,68 @@
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        Href="/security"
                         Disabled="true">
                 Plan de Cuentas
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        Href="/security"
                         OnClick="CambiarEmpresa">
                 Cambiar empresa
             </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
+<CrearGestion OnGestionCreated="@OnGestionAdded">
+    <h3>Lista de gestiones activas</h3>
+    <MudDataGrid T="GestionDto"
+                 Items="@_gestiones"
+                 Hover="@true"
+                 Readonly="@false"
+                 EditMode="DataGridEditMode.Form"
+                 Bordered="@true"
+                 EditTrigger="DataGridEditTrigger.Manual">
+        <Columns>
+            <PropertyColumn Property="@(i => i.Nombre)"/>
+            <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
+            <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
+            <PropertyColumn Property="@(i => i.Estado)"/>
+            <TemplateColumn CellClass="d-flex justify-center" Sortable="false">
+                <CellTemplate>
+                    <MudTooltip Text="Editar Gestion" ShowOnClick="Click"
+                                ShowOnFocus="Focus">
+                        <MudIconButton Class="pa-1"
+                                       Color="Color.Warning"
+                                       Size="Size.Small"
+                                       Icon="@Icons.Material.Outlined.Edit"
+                                       OnClick="() => EditarGestion(context.Item)"/>
+                    </MudTooltip>
+                    <MudTooltip Text="Eliminar Gestion" ShowOnClick="@false"
+                                ShowOnFocus="Focus">
+                        <MudIconButton Class="pa-1"
+                                       Color="Color.Error"
+                                       Size="Size.Small"
+                                       Icon="@Icons.Material.Outlined.Delete"
+                                       OnClick="() => BorrarGestion(context.Item)"/>
+                    </MudTooltip>
+                    <MudTooltip Text="Acceder a Periodos" ShowOnClick="Click"
+                                ShowOnFocus="Focus">
+                        <MudIconButton Class="pa-1"
+                                       Color="Color.Secondary"
+                                       Size="Size.Small"
+                                       Icon="@Icons.Material.Outlined.AccessTime"
+                                       OnClick="() => NavigateToPage(context.Item)"/>
+                    </MudTooltip>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
 
-<h3>Lista de gestiones activas</h3>
-<MudDataGrid T="GestionDto"
-             Items="@_gestiones"
-             Hover="@true"
-             Readonly="@false"
-             EditMode="DataGridEditMode.Form"
-             Bordered="@true"
-             EditTrigger="DataGridEditTrigger.Manual">
-    <Columns>
-        <PropertyColumn Property="@(i => i.Nombre)"/>
-        <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
-        <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
-        <PropertyColumn Property="@(i => i.Estado)"/>
-        <TemplateColumn CellClass="d-flex justify-center">
-            <CellTemplate>
-                <MudTooltip Text="Editar Gestion" ShowOnClick="Click"
-                            ShowOnFocus="Focus">
-                    <MudIconButton Class="pa-1"
-                                   Color="Color.Warning"
-                                   Size="Size.Small"
-                                   Icon="@Icons.Material.Outlined.Edit"
-                                   OnClick="() => EditarGestion(context.Item)"/>
-                </MudTooltip>
-                <MudTooltip Text="Eliminar Gestion" ShowOnClick="@false">
-                    <MudIconButton Class="pa-1"
-                                   Color="Color.Error"
-                                   Size="Size.Small"
-                                   Icon="@Icons.Material.Outlined.Delete"
-                                   OnClick="() => BorrarGestion(context.Item)"/>
-                </MudTooltip>
-                <MudTooltip Text="Acceder a Periodos" ShowOnClick="Click"
-                            ShowOnFocus="Focus">
-                    <MudIconButton Class="pa-1"
-                                   Color="Color.Info"
-                                   Size="Size.Small"
-                                   Icon="@Icons.Material.Outlined.Timelapse"
-                                   OnClick="() => NavigateToPage(context.Item)"/>
-                </MudTooltip>
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-</MudDataGrid>
-
-<MudTooltip Text="Borre una gestion para agregar una nueva"
-            ShowOnHover="@(VerifyGestiones())"
-            ShowOnFocus="@(VerifyGestiones())">
-    <MudFab Disabled="@(VerifyGestiones())"
-            Class="ma-4" Color="Color.Success"
-            StartIcon="@Icons.Material.Filled.Add"
-            @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
-</MudTooltip>
+    <MudTooltip Text="Borre una gestion para agregar una nueva"
+                ShowOnHover="@(VerifyGestiones())"
+                ShowOnFocus="@(VerifyGestiones())">
+        <MudFab Disabled="@(VerifyGestiones())"
+                Class="ma-4" Color="Color.Success"
+                StartIcon="@Icons.Material.Filled.Add"
+                @onclick="@ShowMudCrearGestionModal" Label="Agregar Gestion"/>
+    </MudTooltip>
+</CrearGestion>

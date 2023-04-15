@@ -10,7 +10,7 @@ using Modelos.ApplicationContexts;
 
 namespace ModuloContabilidadApi.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(_applicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -36,7 +36,10 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdCuentaPadreIdCuenta")
+                    b.Property<int?>("IdCuentaPadre")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdCuentaPadreNavigationIdCuenta")
                         .HasColumnType("int");
 
                     b.Property<int>("IdEmpresa")
@@ -57,7 +60,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasKey("IdCuenta");
 
-                    b.HasIndex("IdCuentaPadreIdCuenta");
+                    b.HasIndex("IdCuentaPadreNavigationIdCuenta");
 
                     b.HasIndex("IdUsuario");
 
@@ -220,9 +223,9 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("Modelos.Models.Cuenta", b =>
                 {
-                    b.HasOne("Modelos.Models.Cuenta", "IdCuentaPadre")
+                    b.HasOne("Modelos.Models.Cuenta", "IdCuentaPadreNavigation")
                         .WithMany("CuentasHijas")
-                        .HasForeignKey("IdCuentaPadreIdCuenta");
+                        .HasForeignKey("IdCuentaPadreNavigationIdCuenta");
 
                     b.HasOne("Modelos.Models.Empresa", "Empresa")
                         .WithMany("Cuentas")
@@ -232,7 +235,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.Navigation("Empresa");
 
-                    b.Navigation("IdCuentaPadre");
+                    b.Navigation("IdCuentaPadreNavigation");
                 });
 
             modelBuilder.Entity("Modelos.Models.Empresa", b =>

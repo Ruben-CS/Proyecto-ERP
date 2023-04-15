@@ -4,9 +4,9 @@ using ModuloContabilidadApi.Models;
 
 namespace Modelos.ApplicationContexts;
 
-public class ApplicationDbContext : DbContext
+public class _applicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext>
+    public _applicationDbContext(DbContextOptions<_applicationDbContext>
                                     options) : base(options)
     {
     }

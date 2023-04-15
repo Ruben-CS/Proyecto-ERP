@@ -1,3 +1,4 @@
+@using System.Runtime.Serialization
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 
@@ -24,6 +25,11 @@
     MudDialogInstance MudDialog { get; set; } = null!;
 
     [Parameter]
+    public EventCallback<PeriodoDto> OnPeriodoDataGridChange { get; set; }
+
+    public PeriodoDto? PeriodoDto { get; set; }
+
+    [Parameter]
     public int IdPeriodo { get; set; }
 
     private void Cancel() => MudDialog.Close();
@@ -34,6 +40,7 @@
         var response = await HttpClient.DeleteAsync(url);
         if (!response.IsSuccessStatusCode) return;
         Snackbar.Add("Periodo eliminado exitosamente", Severity.Success);
+        await OnPeriodoDataGridChange.InvokeAsync(PeriodoDto);
         MudDialog.Close(DialogResult.Ok(response));
     }
 }

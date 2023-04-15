@@ -12,8 +12,8 @@ using Modelos.ApplicationContexts;
 namespace Modelos.Migrations
 {
     [DbContext(typeof(_applicationDbContext))]
-    [Migration("20230318044735_editadoempresas")]
-    partial class editadoempresas
+    [Migration("20230415200326_EditedEssentialFieldToCuenta")]
+    partial class EditedEssentialFieldToCuenta
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,52 @@ namespace Modelos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.Property<int>("IdCuenta")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCuenta"));
+
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdCuentaPadre")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdCuentaPadreNavigationIdCuenta")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Nivel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoCuenta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdCuenta");
+
+                    b.HasIndex("IdCuentaPadreNavigationIdCuenta");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Cuentas");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.Property<int>("IdEmpresa")
                         .ValueGeneratedOnAdd()
@@ -34,7 +79,6 @@ namespace Modelos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEmpresa"));
 
                     b.Property<string>("Correo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Direccion")
@@ -80,7 +124,7 @@ namespace Modelos.Migrations
                     b.ToTable("Empresas");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
+            modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
                     b.Property<int>("IdGestion")
                         .ValueGeneratedOnAdd()
@@ -88,13 +132,16 @@ namespace Modelos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGestion"));
 
+                    b.Property<int?>("EmpresaDtoIdEmpresa")
+                        .HasColumnType("int");
+
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaFin")
+                    b.Property<DateTime?>("FechaFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaInicio")
+                    b.Property<DateTime?>("FechaInicio")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdEmpresa")
@@ -109,14 +156,14 @@ namespace Modelos.Migrations
 
                     b.HasKey("IdGestion");
 
-                    b.HasIndex("IdEmpresa");
+                    b.HasIndex("EmpresaDtoIdEmpresa");
 
                     b.HasIndex("IdUsuario");
 
                     b.ToTable("Gestiones");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Periodo", b =>
+            modelBuilder.Entity("Modelos.Models.Periodo", b =>
                 {
                     b.Property<int>("IdPeriodo")
                         .ValueGeneratedOnAdd()
@@ -152,7 +199,7 @@ namespace Modelos.Migrations
                     b.ToTable("Periodos");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Usuario", b =>
+            modelBuilder.Entity("Modelos.Models.Usuario", b =>
                 {
                     b.Property<int>("IdUsuario")
                         .ValueGeneratedOnAdd()
@@ -177,46 +224,61 @@ namespace Modelos.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
+                    b.HasOne("Modelos.Models.Cuenta", "IdCuentaPadreNavigation")
+                        .WithMany("CuentasHijas")
+                        .HasForeignKey("IdCuentaPadreNavigationIdCuenta");
+
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Cuentas")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("IdCuentaPadreNavigation");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Empresa", b =>
+                {
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Empresas")
                         .HasForeignKey("IdUsuario");
 
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
+            modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Empresa", "Empresa")
+                    b.HasOne("Modelos.Models.Empresa", "EmpresaDto")
                         .WithMany("Gestiones")
-                        .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmpresaDtoIdEmpresa");
 
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Gestiones")
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Empresa");
+                    b.Navigation("EmpresaDto");
 
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Periodo", b =>
+            modelBuilder.Entity("Modelos.Models.Periodo", b =>
                 {
-                    b.HasOne("ModuloContabilidadApi.Models.Usuario", "Usuario")
+                    b.HasOne("Modelos.Models.Gestion", "Gestion")
                         .WithMany("Periodos")
                         .HasForeignKey("IdGestion")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ModuloContabilidadApi.Models.Gestion", "Gestion")
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Periodos")
                         .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Gestion");
@@ -224,17 +286,24 @@ namespace Modelos.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Empresa", b =>
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
                 {
+                    b.Navigation("CuentasHijas");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Empresa", b =>
+                {
+                    b.Navigation("Cuentas");
+
                     b.Navigation("Gestiones");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Gestion", b =>
+            modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
                     b.Navigation("Periodos");
                 });
 
-            modelBuilder.Entity("ModuloContabilidadApi.Models.Usuario", b =>
+            modelBuilder.Entity("Modelos.Models.Usuario", b =>
                 {
                     b.Navigation("Empresas");
 

@@ -7,7 +7,7 @@ namespace Services.Gestion;
 
 public static class GestionValidators
 {
-    private static ApplicationDbContext _dbContext = null!;
+    private static _applicationDbContext _dbContext = null!;
     public static async Task<bool> ExisteNombre(GestionDto gestionDto, int idEmpresa)
     {
         return await _dbContext.Gestiones.AnyAsync(gestion =>

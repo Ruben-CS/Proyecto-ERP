@@ -12,7 +12,7 @@ public partial class MainPage
 
     bool _open;
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
         try
         {
@@ -34,6 +34,8 @@ public partial class MainPage
             Console.WriteLine(
                 $"An error occurred while initializing the component: {ex}");
         }
+
+        return Task.CompletedTask;
     }
 
     private void ToggleDrawer() => _open = !_open;

@@ -7,7 +7,7 @@ namespace BlazorFrontend.Pages.Gestiones.Editar;
 public partial class EditarGestion
 {
      [CascadingParameter]
-    MudDialogInstance? MudDialog { get; set; }
+     private MudDialogInstance? MudDialog { get; set; }
 
     private readonly bool _click = false;
     private          bool _focus = false;
@@ -17,6 +17,9 @@ public partial class EditarGestion
 
     [Parameter]
     public GestionDto GestionDto { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<GestionDto> OnDataGridChange { get; set; }
 
     private IEnumerable<GestionDto> _gestionDtos = new List<GestionDto>();
 
@@ -85,6 +88,7 @@ public partial class EditarGestion
     {
         var response = await HttpClient.PutAsJsonAsync(url, editedGestion);
         Snackbar.Add("Empresa editata correctamente", Severity.Success);
+        await OnDataGridChange.InvokeAsync(GestionDto);
         MudDialog!.Close(DialogResult.Ok(response));
     }
 

@@ -35,12 +35,15 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <MudTextField Label="Direccion" @bind-Value="@EmpresaDto.Direccion" For="@(() => EmpresaDto.Direccion)"/>
+                    <MudTextField Label="Direccion" @bind-Value="@EmpresaDto.Direccion"
+                                  For="@(() => EmpresaDto.Direccion)"/>
                 </div>
                 <div class="col-md-6 md-4">
                     <div class="form-outline">
                         <label>Niveles</label>
-                        <InputSelect @bind-Value="EmpresaDto.Niveles" class="form-select" aria-label="Default select example">
+                        <InputSelect @bind-Value="EmpresaDto.Niveles"
+                                     class="form-select"
+                                     aria-label="Default select example">
                             @foreach (var item in _listaNiveles)
                             {
                                 <option value="@item">@item</option>
