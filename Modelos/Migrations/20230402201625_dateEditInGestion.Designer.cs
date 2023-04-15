@@ -11,7 +11,7 @@ using Modelos.ApplicationContexts;
 
 namespace Modelos.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(_applicationDbContext))]
     [Migration("20230402201625_dateEditInGestion")]
     partial class dateEditInGestion
     {

@@ -11,7 +11,7 @@ using Modelos.ApplicationContexts;
 
 namespace Modelos.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(_applicationDbContext))]
     [Migration("20230409163451_tryFixConstraints")]
     partial class tryFixConstraints
     {

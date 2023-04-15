@@ -4,7 +4,7 @@ namespace Services.Repository.Interfaces;
 
 public interface ICuentaRepository
 {
-    public Task<CuentaDto> CreateCuenta(CuentaDto cuenta);
+    public Task<CuentaDto> CreateCuenta(CuentaDto cuentaDto);
 
     public Task<bool> DeleteCuenta(int id);
 

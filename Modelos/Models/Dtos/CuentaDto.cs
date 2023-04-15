@@ -14,13 +14,13 @@ public class CuentaDto
 
     public string? TipoCuenta { get; set; }
 
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     public int IdEmpresa { get; set; }
 
     public Empresa? Empresa { get; set; }
 
-    public int IdCuentaPadre { get; set; }
+    public int? IdCuentaPadre { get; set; }
 
     public virtual Cuenta? IdCuentaPadreNavigation { get; set; }
 

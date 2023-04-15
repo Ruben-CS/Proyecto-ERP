@@ -8,7 +8,7 @@ namespace BlazorFrontend.Pages.Gestiones.Crear;
 public partial class CrearGestion
 {
     [CascadingParameter]
-    MudDialogInstance? MudDialog { get; set; }
+    private MudDialogInstance? MudDialog { get; set; }
 
     [Parameter]
     public int Id { get; set; }

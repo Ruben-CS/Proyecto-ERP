@@ -10,10 +10,10 @@ namespace Services.Repository;
 
 public class PeriodoRepository : IPeriodoRepository
 {
-    private readonly ApplicationDbContext _applicationDbContext;
+    private readonly _applicationDbContext _applicationDbContext;
     private readonly IMapper              _mapper;
 
-    public PeriodoRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+    public PeriodoRepository(_applicationDbContext applicationDbContext, IMapper mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
