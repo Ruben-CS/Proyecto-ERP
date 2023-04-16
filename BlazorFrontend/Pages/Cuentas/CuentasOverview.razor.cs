@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using Modelos.Models.Dtos;
 
 namespace BlazorFrontend.Pages.Cuentas;
 
@@ -8,6 +9,8 @@ public partial class CuentasOverview
     private bool IsExpanded { get; set; }
 
     private bool _open;
+
+    private List<CuentaDto> _cuentas = new();
 
     [Parameter]
     public int IdEmpresa { get; set; }
@@ -21,7 +24,8 @@ public partial class CuentasOverview
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa  = int.Parse(idValue);
+                IdEmpresa = int.Parse(idValue);
+                _cuentas  = await CuentaService.GetCuentasAsync(IdEmpresa);
                 await InvokeAsync(StateHasChanged);
             }
             else

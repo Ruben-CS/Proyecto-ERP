@@ -21,9 +21,12 @@ internal static class CuentaUtility
     private static async Task<string> GenerateTopLevelCode(
         ApplicationDbContext dbContext, int idEmpresa, int numeroNiveles)
     {
-        var cuentasPadre = await dbContext.Cuentas.Where(c =>
-            c.IdCuentaPadre == null &&
-            c.IdEmpresa     == idEmpresa).ToListAsync();
+        var cuentasPadre = await dbContext
+                                 .Cuentas
+                                 .Where(c =>
+                                     c.IdCuentaPadre == null &&
+                                     c.IdEmpresa     == idEmpresa)
+                                 .ToListAsync();
 
         var siguienteNumeroPadre = cuentasPadre.Count > 0
             ? cuentasPadre.Max(c => int.Parse(c.Codigo.Split('.')[0])) + 1
