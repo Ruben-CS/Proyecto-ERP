@@ -95,11 +95,16 @@ public partial class EditarGestion
     //todo fix the null check
     private async Task<bool> FechasNoSolapadan(GestionDto gestionDto)
     {
-        var gestionActiva = _gestionDtos.Single(gestion =>
+        var gestionActiva = _gestionDtos.SingleOrDefault(gestion =>
             gestion.IdEmpresa == gestionDto.IdEmpresa
             && gestion.Estado == EstadosGestion.Abierto
             && gestion.IdGestion != gestionDto.IdGestion
             );
+
+        if (gestionActiva is null)
+        {
+            return await Task.FromResult(false);
+        }
 
         if (
             gestionDto.FechaInicio >= gestionActiva.FechaInicio &&
@@ -113,7 +118,7 @@ public partial class EditarGestion
         return await Task.FromResult(false);
     }
 
-    private async Task<bool> ValidateClosedGestion(GestionDto gestionDto)
+    private static async Task<bool> ValidateClosedGestion(GestionDto gestionDto)
     {
         return await Task.FromResult(gestionDto.Estado is EstadosGestion.Cerrado);
     }
