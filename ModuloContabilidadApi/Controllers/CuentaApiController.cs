@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Services.Repository.Interfaces;
 using Services.Validators;
@@ -6,12 +8,11 @@ using Services.Validators;
 namespace ModuloContabilidadApi.Controllers;
 
 [ApiController]
-[Route("cuentas")]
+[Microsoft.AspNetCore.Mvc.Route("cuentas")]
 public class CuentaApiController : ControllerBase
 {
-    private readonly ResponseDto       ResponseDto;
-    private readonly ICuentaRepository _cuentaRepository;
-
+    private readonly ResponseDto          ResponseDto;
+    private readonly ICuentaRepository    _cuentaRepository;
     public CuentaApiController(ICuentaRepository cuentaRepository)
     {
         _cuentaRepository = cuentaRepository;
@@ -23,15 +24,8 @@ public class CuentaApiController : ControllerBase
     {
         try
         {
-            if (await CuentaValidations.ExisteParentAccountAsync(cuenta))
-            {
-                ResponseDto.IsSuccess = false;
-            }
-            else
-            {
-                var cuentaDto = await _cuentaRepository.CreateCuenta(cuenta);
-                await Task.FromResult(ResponseDto.Result = cuentaDto);
-            }
+            var cuentaDto = await _cuentaRepository.CreateCuenta(cuenta);
+            await Task.FromResult(ResponseDto.Result = cuentaDto);
         }
         catch (Exception e)
         {
@@ -41,6 +35,7 @@ public class CuentaApiController : ControllerBase
                 e.ToString()
             };
         }
+
         return await Task.FromResult(ResponseDto);
     }
 }

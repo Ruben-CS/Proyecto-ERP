@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Modelos.Models;
-using ModuloContabilidadApi.Models;
 
 namespace Modelos.ApplicationContexts;
 
@@ -76,7 +75,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Cuenta>().HasOne(cuenta => cuenta.Empresa)
                     .WithMany(empresa => empresa.Cuentas)
-                    .HasForeignKey(cuenta => cuenta.IdCuentaPadre);
+                    .HasForeignKey(cuenta => cuenta.IdEmpresa);
 
         modelBuilder.Entity<Cuenta>().HasOne(cuenta => cuenta.IdCuentaPadreNavigation)
                     .WithMany(cuenta => cuenta.CuentasHijas)
