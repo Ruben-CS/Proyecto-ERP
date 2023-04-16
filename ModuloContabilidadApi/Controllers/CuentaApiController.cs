@@ -1,22 +1,19 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Services.Repository.Interfaces;
-using Services.Validators;
 
 namespace ModuloContabilidadApi.Controllers;
 
 [ApiController]
-[Microsoft.AspNetCore.Mvc.Route("cuentas")]
+[Route("cuentas")]
 public class CuentaApiController : ControllerBase
 {
-    private readonly ResponseDto          ResponseDto;
+    private readonly ResponseDto          _responseDto;
     private readonly ICuentaRepository    _cuentaRepository;
     public CuentaApiController(ICuentaRepository cuentaRepository)
     {
         _cuentaRepository = cuentaRepository;
-        ResponseDto       = new ResponseDto();
+        _responseDto       = new ResponseDto();
     }
 
     [HttpPost("agregarcuenta")]
@@ -25,18 +22,18 @@ public class CuentaApiController : ControllerBase
         try
         {
             var cuentaDto = await _cuentaRepository.CreateCuenta(cuenta);
-            await Task.FromResult(ResponseDto.Result = cuentaDto);
+            await Task.FromResult(_responseDto.Result = cuentaDto);
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
 
-        return await Task.FromResult(ResponseDto);
+        return await Task.FromResult(_responseDto);
     }
 
     [HttpPut("actualizarcuenta/{id:int}")]
@@ -45,16 +42,35 @@ public class CuentaApiController : ControllerBase
         try
         {
             var cuentaDto = await _cuentaRepository.EditCuenta(cuenta, id);
-            await Task.FromResult(ResponseDto.Result = cuentaDto);
+            await Task.FromResult(_responseDto.Result = cuentaDto);
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
-        return await Task.FromResult(ResponseDto);
+        return await Task.FromResult(_responseDto);
+    }
+
+    [HttpDelete("eliminarcuenta/{id:int}")]
+    public async Task<object> DeleteCuenta([FromBody] CuentaDto cuenta, int id)
+    {
+        try
+        {
+            var cuentaDto = await _cuentaRepository.DeleteCuenta(cuenta, id);
+            await Task.FromResult(_responseDto.Result = cuentaDto);
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+        return await Task.FromResult(_responseDto);
     }
 }
