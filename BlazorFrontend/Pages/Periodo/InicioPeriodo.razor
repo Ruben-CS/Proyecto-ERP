@@ -57,48 +57,58 @@
     </MudText>
     <MudChip Size="Size.Small"
              Icon="@Icons.Material.Filled.ArrowBack"
-             Color="Color.Info"
+             Color="Color.Dark"
              OnClick="@(GoBack)"
              Class="d-flex justify-end">
         Volver
     </MudChip>
 </MudStack>
 <MudDivider />
-<MudDataGrid T="PeriodoDto"
-             Items="@_periodos"
-             Hover="@true"
-             Readonly="@false"
-             EditMode="DataGridEditMode.Form"
-             Bordered="@true"
-             EditTrigger="DataGridEditTrigger.Manual">
-    <Columns>
-        <PropertyColumn Property="@(i => i.Nombre)"/>
-        <PropertyColumn Property="@(i => i.FechaInicio)" Title="Fecha de inicio"/>
-        <PropertyColumn Property="@(i => i.FechaFin)" Title="Fecha de cierre"/>
-        <PropertyColumn Property="@(i => i.Estado)"/>
-        <TemplateColumn CellClass="d-flex justify-center">
-            <CellTemplate>
-                <MudTooltip Text="Editar Periodo" ShowOnHover="@(EsActivo(context.Item))">
+<MudTable Items="@_periodos" Hover="true" Breakpoint="Breakpoint.Sm" Bordered="true"
+          Striped="true">
+    <HeaderContent>
+        <MudTh> Nombre</MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<PeriodoDto, object>(x => x.FechaInicio)"
+                               InitialDirection="SortDirection.Ascending">
+                Fecha de inicio
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>Fecha de cierre</MudTh>
+        <MudTh>Estado</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+        <MudTd DataLabel="Fecha de inicio">@context.FechaInicio?.ToString("d")</MudTd>
+        <MudTd DataLabel="Fecha de cierre">@context.FechaFin?.ToString("d")</MudTd>
+        <MudTd DataLabel="Estado">
+            <MudChip Icon="@Icons.Material.Filled.EventAvailable" Color="Color.Info">
+                @context.Estado
+            </MudChip>
+        </MudTd>
+        <MudTd DataLabel="Acciones">
+            <MudStack Row="true">
+                <MudTooltip Text="Editar Gestion" ShowOnClick="Click"
+                            ShowOnFocus="Focus">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Warning"
                                    Size="Size.Small"
                                    Icon="@Icons.Material.Outlined.Edit"
-                                   OnClick="() => EditarPeriodo(context.Item)"
-                                   Disabled="@(!EsActivo(context.Item))"/>
+                                   OnClick="() => EditarPeriodo(context)"/>
                 </MudTooltip>
-                <MudTooltip Text="Eliminar Periodo" ShowOnHover="@(EsActivo(context.Item))">
+                <MudTooltip Text="Eliminar Gestion" ShowOnClick="@false"
+                            ShowOnFocus="Focus">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Error"
                                    Size="Size.Small"
-                                   Icon="@Icons.Material.Outlined.LockClock"
-                                   OnClick="() => BorrarPeriodo(context.Item)"
-                                   Disabled="@(!EsActivo(context.Item))"
-                                   />
+                                   Icon="@Icons.Material.Outlined.Delete"
+                                   OnClick="() => BorrarPeriodo(context)"/>
                 </MudTooltip>
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-</MudDataGrid>
+            </MudStack>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
 
 <MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
         @onclick="@ShowMudCrearPeriodonModal" Label="Agregar Periodo"/>

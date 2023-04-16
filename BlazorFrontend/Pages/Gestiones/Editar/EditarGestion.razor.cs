@@ -87,7 +87,7 @@ public partial class EditarGestion
     private async Task Edit(GestionDto editedGestion, string url)
     {
         var response = await HttpClient.PutAsJsonAsync(url, editedGestion);
-        Snackbar.Add("Empresa editata correctamente", Severity.Success);
+        Snackbar.Add("Gestion editata correctamente", Severity.Success);
         await OnDataGridChange.InvokeAsync(GestionDto);
         MudDialog!.Close(DialogResult.Ok(response));
     }
