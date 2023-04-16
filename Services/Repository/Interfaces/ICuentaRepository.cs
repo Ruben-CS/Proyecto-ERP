@@ -11,5 +11,5 @@ public interface ICuentaRepository
     //todo check valid method
     public Task<CuentaDto> EditCuenta(CuentaDto cuentaDto, int id);
 
-    public Task<IEnumerable<CuentaDto>> GetAllCuentas();
+    public Task<IEnumerable<CuentaDto>> GetAllCuentas(int idempresa);
 }

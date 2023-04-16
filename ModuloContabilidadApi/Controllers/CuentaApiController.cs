@@ -37,7 +37,8 @@ public class CuentaApiController : ControllerBase
     }
 
     [HttpPut("actualizarcuenta/{id:int}")]
-    public async Task<object> PutCuenta([FromBody] CuentaDto cuenta, int id)
+    public async Task<object> PutCuenta([FromBody] CuentaDto cuenta,
+                                        [FromRoute] int id)
     {
         try
         {
@@ -56,11 +57,31 @@ public class CuentaApiController : ControllerBase
     }
 
     [HttpDelete("eliminarcuenta/{id:int}")]
-    public async Task<object> DeleteCuenta([FromBody] CuentaDto cuenta, int id)
+    public async Task<object> DeleteCuenta([FromBody] CuentaDto cuenta,
+                                           [FromRoute] int id)
     {
         try
         {
             var cuentaDto = await _cuentaRepository.DeleteCuenta(cuenta, id);
+            await Task.FromResult(_responseDto.Result = cuentaDto);
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+        return await Task.FromResult(_responseDto);
+    }
+
+    [HttpGet("getcuentas/{idempresa:int}")]
+    public async Task<object> GetAllCuentas([FromRoute] int idempresa)
+    {
+        try
+        {
+            var cuentaDto = await _cuentaRepository.GetAllCuentas(idempresa);
             await Task.FromResult(_responseDto.Result = cuentaDto);
         }
         catch (Exception e)

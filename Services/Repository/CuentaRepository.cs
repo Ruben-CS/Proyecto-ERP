@@ -69,9 +69,12 @@ public class CuentaRepository : ICuentaRepository
         return await Task.FromResult(_mapper.Map<CuentaDto>(cuenta));
     }
 
-    public Task<IEnumerable<CuentaDto>> GetAllCuentas()
+    public async Task<IEnumerable<CuentaDto>> GetAllCuentas(int idempresa)
     {
-        throw new NotImplementedException();
+        var listaGestiones =
+            await _applicationDbContext.Cuentas.Where(id => id.IdEmpresa == idempresa)
+                                       .ToListAsync();
+        return _mapper.Map<List<CuentaDto>>(listaGestiones);
     }
 
 }
