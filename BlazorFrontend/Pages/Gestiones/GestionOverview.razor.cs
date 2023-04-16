@@ -11,7 +11,7 @@ namespace BlazorFrontend.Pages.Gestiones;
 
 public partial class GestionOverview
 {
-    private List<GestionDto> _gestiones = new List<GestionDto>();
+    private List<GestionDto> _gestiones = new();
 
     [Inject]
     ISnackbar Snackbar { get; set; } = null !;

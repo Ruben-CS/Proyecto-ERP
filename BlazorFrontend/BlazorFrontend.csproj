@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Cuenta\" />
+    <Folder Include="Pages\Cuentas\Crear\" />
+    <Folder Include="Pages\Cuentas\Editar\" />
+    <Folder Include="Pages\Cuentas\Eliminar\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
-@page "/inicio/mainpage/{id?}"
-@layout MainPageLayout
+@page "/plandecuentas/overview/{idempresa:int}"
 @inject NavigationManager NavigationManager
+@layout CuentasOverviewLayout
+
 
 <MudAppBar Elevation="1" Dense="false">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
@@ -12,6 +13,7 @@
                    Link="https://github.com/MudBlazor/MudBlazor"
                    Target="_blank"/>
 </MudAppBar>
+
 
 <MudDrawer @bind-Open="@_open"
            ClipMode="DrawerClipMode.Docked"
@@ -26,20 +28,21 @@
                      @bind-Expanded=IsExpanded>
 
             <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
-                        OnClick="NavigateToGestiones">
+            >
                 Gestiones
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        OnClick="NavigateToCuentas">
+                        Disabled="true">
                 Plan de Cuentas
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        Href="/security"
                         OnClick="CambiarEmpresa">
                 Cambiar empresa
             </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
+
+<h1>@IdEmpresa</h1>
