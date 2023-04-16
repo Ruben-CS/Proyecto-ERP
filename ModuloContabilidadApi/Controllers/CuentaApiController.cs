@@ -38,4 +38,23 @@ public class CuentaApiController : ControllerBase
 
         return await Task.FromResult(ResponseDto);
     }
+
+    [HttpPut("actualizarcuenta/{id:int}")]
+    public async Task<object> PutCuenta([FromBody] CuentaDto cuenta, int id)
+    {
+        try
+        {
+            var cuentaDto = await _cuentaRepository.EditCuenta(cuenta, id);
+            await Task.FromResult(ResponseDto.Result = cuentaDto);
+        }
+        catch (Exception e)
+        {
+            ResponseDto.IsSuccess = false;
+            ResponseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+        return await Task.FromResult(ResponseDto);
+    }
 }

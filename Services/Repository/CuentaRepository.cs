@@ -44,9 +44,20 @@ public class CuentaRepository : ICuentaRepository
         throw new NotImplementedException();
     }
 
-    public Task<CuentaDto> EditCuenta(CuentaDto cuentaDto)
+    public async Task<CuentaDto> EditCuenta(CuentaDto cuentaDto, int id)
     {
-        throw new NotImplementedException();
+        var cuenta = await _applicationDbContext.Cuentas.SingleAsync(c => c.IdCuenta ==
+            id);
+        if (cuenta is null)
+        {
+            throw new NullReferenceException("Cuenta no encontrada");
+        }
+
+        _mapper.Map(cuentaDto, cuenta);
+
+        _applicationDbContext.Entry(cuenta).State = EntityState.Modified;
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(_mapper.Map<CuentaDto>(cuenta));
     }
 
     public Task<IEnumerable<CuentaDto>> GetAllCuentas()
