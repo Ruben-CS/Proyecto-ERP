@@ -15,12 +15,12 @@ namespace ModuloContabilidadApi.Repository;
 
 public class AuthRepository : IAuthRepository
 {
-    private readonly _applicationDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
     private readonly IConfiguration       _configuration;
     private readonly IMapper              _mapper;
     private          string               _secretKey;
 
-    public AuthRepository(_applicationDbContext dbContext, IMapper mapper,
+    public AuthRepository(ApplicationDbContext dbContext, IMapper mapper,
                           IConfiguration configuration)
     {
         _dbContext     = dbContext;

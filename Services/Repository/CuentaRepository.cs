@@ -10,11 +10,11 @@ namespace Services.Repository;
 
 public class CuentaRepository : ICuentaRepository
 {
-    private readonly _applicationDbContext _applicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     private readonly IMapper _mapper;
 
-    public CuentaRepository(_applicationDbContext applicationDbContext, IMapper mapper)
+    public CuentaRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;

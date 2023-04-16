@@ -4,9 +4,9 @@ using ModuloContabilidadApi.Models;
 
 namespace Modelos.ApplicationContexts;
 
-public class _applicationDbContext : DbContext
+public class ApplicationDbContext : DbContext
 {
-    public _applicationDbContext(DbContextOptions<_applicationDbContext>
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext>
                                     options) : base(options)
     {
     }
@@ -73,6 +73,15 @@ public class _applicationDbContext : DbContext
                     .WithMany(g => g.Periodos)
                     .HasForeignKey(p => p.IdGestion)
                     .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Cuenta>().HasOne(cuenta => cuenta.Empresa)
+                    .WithMany(empresa => empresa.Cuentas)
+                    .HasForeignKey(cuenta => cuenta.IdCuentaPadre);
+
+        modelBuilder.Entity<Cuenta>().HasOne(cuenta => cuenta.IdCuentaPadreNavigation)
+                    .WithMany(cuenta => cuenta.CuentasHijas)
+                    .HasForeignKey(cuenta => cuenta.IdCuentaPadre)
+                    .OnDelete(DeleteBehavior.NoAction);
 
         #endregion
     }

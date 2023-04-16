@@ -7,7 +7,7 @@ namespace Services.Validators;
 public static class CuentaValidations
 {
 
-    private static readonly _applicationDbContext ApplicationDbContext = null!;
+    private static readonly ApplicationDbContext ApplicationDbContext = null!;
 
     public static async Task<bool> ValidateUniqueNameAsync(CuentaDto cuentaDto)
     {

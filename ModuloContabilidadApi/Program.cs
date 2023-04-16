@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 //configuracion del usuario
 
 
-builder.Services.AddDbContext<_applicationDbContext>(o =>
+builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
