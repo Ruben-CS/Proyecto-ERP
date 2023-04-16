@@ -5,16 +5,17 @@ using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Services.Cuenta;
 using Services.Repository.Interfaces;
+using Services.Validators;
 
 namespace Services.Repository;
 
 public class CuentaRepository : ICuentaRepository
 {
-    private readonly _applicationDbContext _applicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     private readonly IMapper _mapper;
 
-    public CuentaRepository(_applicationDbContext applicationDbContext, IMapper mapper)
+    public CuentaRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
@@ -22,6 +23,7 @@ public class CuentaRepository : ICuentaRepository
 
     public async Task<CuentaDto> CreateCuenta(CuentaDto cuentaDto)
     {
+
         var selectedEmpresa =
             await _applicationDbContext.Empresas.FirstOrDefaultAsync(e =>
                 e.IdEmpresa == cuentaDto.IdEmpresa);
@@ -29,7 +31,8 @@ public class CuentaRepository : ICuentaRepository
         var levelsPerEmpresa = Convert.ToInt32(selectedEmpresa!.Niveles);
 
         cuentaDto.Codigo = await CuentaUtility.GenerarCodigo
-            (_applicationDbContext, cuentaDto.IdCuentaPadre, cuentaDto.IdEmpresa, levelsPerEmpresa);
+            (_applicationDbContext, cuentaDto.IdCuentaPadre,
+                cuentaDto.IdEmpresa, levelsPerEmpresa);
         var cuenta = _mapper.Map<CuentaDto, Modelos.Models.Cuenta>(cuentaDto);
         await _applicationDbContext.AddAsync(cuenta);
         await _applicationDbContext.SaveChangesAsync();

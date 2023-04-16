@@ -12,8 +12,8 @@ using Modelos.ApplicationContexts;
 namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230327052240_EditadoPropiedadesGestion")]
-    partial class EditadoPropiedadesGestion
+    [Migration("20230416015903_possibleFix")]
+    partial class possibleFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,48 @@ namespace Modelos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.Property<int>("IdCuenta")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCuenta"));
+
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdCuentaPadre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Nivel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoCuenta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdCuenta");
+
+                    b.HasIndex("IdCuentaPadre");
+
+                    b.HasIndex("IdEmpresa");
+
+                    b.ToTable("Cuentas");
+                });
+
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.Property<int>("IdEmpresa")
@@ -34,7 +76,6 @@ namespace Modelos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEmpresa"));
 
                     b.Property<string>("Correo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Direccion")
@@ -88,13 +129,16 @@ namespace Modelos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGestion"));
 
+                    b.Property<int?>("EmpresaDtoIdEmpresa")
+                        .HasColumnType("int");
+
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaFin")
+                    b.Property<DateTime?>("FechaFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaInicio")
+                    b.Property<DateTime?>("FechaInicio")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdEmpresa")
@@ -109,7 +153,7 @@ namespace Modelos.Migrations
 
                     b.HasKey("IdGestion");
 
-                    b.HasIndex("IdEmpresa");
+                    b.HasIndex("EmpresaDtoIdEmpresa");
 
                     b.HasIndex("IdUsuario");
 
@@ -177,6 +221,24 @@ namespace Modelos.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.HasOne("Modelos.Models.Cuenta", "IdCuentaPadreNavigation")
+                        .WithMany("CuentasHijas")
+                        .HasForeignKey("IdCuentaPadre")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Cuentas")
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("IdCuentaPadreNavigation");
+                });
+
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
                     b.HasOne("Modelos.Models.Usuario", "Usuario")
@@ -188,11 +250,9 @@ namespace Modelos.Migrations
 
             modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
-                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                    b.HasOne("Modelos.Models.Empresa", "EmpresaDto")
                         .WithMany("Gestiones")
-                        .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmpresaDtoIdEmpresa");
 
                     b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Gestiones")
@@ -200,23 +260,23 @@ namespace Modelos.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Empresa");
+                    b.Navigation("EmpresaDto");
 
                     b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Modelos.Models.Periodo", b =>
                 {
-                    b.HasOne("Modelos.Models.Usuario", "Usuario")
-                        .WithMany("Periodos")
-                        .HasForeignKey("IdGestion")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Modelos.Models.Gestion", "Gestion")
                         .WithMany("Periodos")
+                        .HasForeignKey("IdGestion")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
+                        .WithMany("Periodos")
                         .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Gestion");
@@ -224,8 +284,15 @@ namespace Modelos.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Cuenta", b =>
+                {
+                    b.Navigation("CuentasHijas");
+                });
+
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
+                    b.Navigation("Cuentas");
+
                     b.Navigation("Gestiones");
                 });
 
