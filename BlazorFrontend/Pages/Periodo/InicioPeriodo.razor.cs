@@ -18,6 +18,9 @@ public partial class InicioPeriodo
 
     private bool _open;
 
+    private const bool Click = false;
+    private const bool Focus = false;
+
 
     private void ToggleDrawer() => _open = !_open;
 
