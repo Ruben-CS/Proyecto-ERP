@@ -1,0 +1,17 @@
+@inherits MudTreeViewItem<CuentasOverview.TreeItemData>
+
+@if (Value != null)
+{
+    <MudTreeViewItem Value="@Value" Icon="@Icons.Material.Filled.Folder"
+    LoadingIconColor="Color.Info"
+    CanExpand="true" Text="@($"{Value.Codigo} - {Value.Nombre}")" EndTextTypo="@Typo.caption">
+        @if (Value.CuentasHijas != null && Value.CuentasHijas.Count > 0)
+        {
+            <MudTreeView Items="@Value.CuentasHijas">
+                <ItemTemplate>
+                    <TreeItem Value="@context" />
+                </ItemTemplate>
+            </MudTreeView>
+        }
+    </MudTreeViewItem>
+}

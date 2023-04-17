@@ -14,6 +14,74 @@ public partial class CuentasOverview
     [Parameter]
     public int IdEmpresa { get; set; }
 
+    private HashSet<TreeItemData> TreeItems { get; set; } = new HashSet<TreeItemData>();
+
+    public class TreeItemData
+    {
+        public int                   IdCuenta      { get; set; }
+        public string                Codigo        { get; set; }
+        public string                Nombre        { get; set; }
+        public HashSet<TreeItemData> CuentasHijas  { get; set; }
+
+        public TreeItemData(CuentaDto cuenta)
+        {
+            IdCuenta     = cuenta.IdCuenta;
+            Codigo       = cuenta.Codigo;
+            Nombre       = cuenta.Nombre;
+            CuentasHijas = new HashSet<TreeItemData>();
+        }
+    }
+
+    private TreeItemData CreateTree(CuentaDto cuenta, List<CuentaDto> allCuentas)
+    {
+        var treeItemData = new TreeItemData(cuenta);
+        var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == cuenta.IdCuenta).ToList();
+
+        foreach (var childCuenta in childCuentas)
+        {
+            treeItemData.CuentasHijas.Add(CreateTree(childCuenta, allCuentas));
+        }
+
+        return treeItemData;
+    }
+
+
+    private HashSet<TreeItemData> BuildTreeItems(List<CuentaDto> cuentas)
+    {
+        // Find root-level "Cuentas" (those with IdCuentaPadre == null)
+        var rootCuentas = cuentas.Where(c => c.IdCuentaPadre == null).ToList();
+
+        // Convert root-level "Cuentas" to TreeItemData objects and build the tree structure
+        var treeItems = new HashSet<TreeItemData>(rootCuentas.Select(c => new TreeItemData(c)
+        {
+            CuentasHijas = BuildTreeItemChildren(c, cuentas)
+        }));
+
+        return treeItems;
+    }
+
+    private HashSet<TreeItemData> BuildTreeItemChildren(CuentaDto parentCuenta, List<CuentaDto> cuentas)
+    {
+        // Find child "Cuentas" for the given parent "Cuenta"
+        var childCuentas = cuentas.Where(c => c.IdCuentaPadre == parentCuenta.IdCuenta).ToList();
+
+        // Convert child "Cuentas" to TreeItemData objects and build the tree structure
+        var treeItemChildren = new HashSet<TreeItemData>(childCuentas.Select(c => new TreeItemData(c) { CuentasHijas = BuildTreeItemChildren(c, cuentas) }));
+
+        return treeItemChildren;
+    }
+
+    private async Task LoadCuentas()
+    {
+        var cuentas    = await CuentaService.GetCuentasAsync(IdEmpresa);
+        var rootCuenta = cuentas.FirstOrDefault(c => c.IdCuentaPadre == null);
+        if (rootCuenta != null)
+        {
+            var treeRoot = CreateTree(rootCuenta, cuentas);
+            TreeItems = new HashSet<TreeItemData> { treeRoot };
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -25,6 +93,8 @@ public partial class CuentasOverview
             {
                 IdEmpresa = int.Parse(idValue);
                 _cuentas  = await CuentaService.GetCuentasAsync(IdEmpresa);
+                TreeItems = BuildTreeItems(_cuentas);
+                await LoadCuentas();
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -44,4 +114,10 @@ public partial class CuentasOverview
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
+    private void NavigateToGestiones()
+    {
+        if (IdEmpresa is 0) return;
+        var uri = $"/gestion/overview/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
 }

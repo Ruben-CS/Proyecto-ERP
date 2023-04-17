@@ -30,7 +30,7 @@
                      @bind-Expanded=IsExpanded>
 
             <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
-            >
+                        OnClick="NavigateToGestiones">
                 Gestiones
             </MudNavLink>
 
@@ -46,5 +46,10 @@
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
-
-<h1>@IdEmpresa</h1>
+<MudPaper Width="300px" Elevation="0">
+    <MudTreeView Items="TreeItems">
+        <ItemTemplate>
+            <TreeItem Value="@context" />
+        </ItemTemplate>
+    </MudTreeView>
+</MudPaper>

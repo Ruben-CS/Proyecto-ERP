@@ -24,6 +24,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VlbnRhc1xDdWVudGFzT3ZlcnZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/BlazorFrontend/Pages/Cuentas/TreeItem.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VlbnRhc1xUcmVlSXRlbS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/Documents/ERP-REPO/Proyecto-ERP/BlazorFrontend/Pages/Dashboard/MainPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXE1haW5QYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
