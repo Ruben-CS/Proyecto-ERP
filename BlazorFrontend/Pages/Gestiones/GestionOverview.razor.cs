@@ -144,4 +144,11 @@ public partial class GestionOverview
         _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
         await Task.FromResult(InvokeAsync(StateHasChanged));
     }
+
+    private void NavigateToCuentas()
+    {
+        if(IdEmpresa is 0) return;
+        var uri = $"/plandecuentas/overview/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
 }

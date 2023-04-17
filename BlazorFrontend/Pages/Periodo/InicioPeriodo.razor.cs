@@ -115,4 +115,11 @@ public partial class InicioPeriodo
     }
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+
+    private void NavigateToCuentas()
+    {
+        if(_gestionDto.IdEmpresa is 0) return;
+        var uri = $"/plandecuentas/overview/{_gestionDto.IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
 }

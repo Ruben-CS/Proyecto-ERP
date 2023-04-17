@@ -46,7 +46,7 @@ namespace BlazorFrontend.Pages.Periodo.Editar
             else
             {
                 var response = await HttpClient.PutAsJsonAsync(url, editedPeriodo);
-                Snackbar.Add("Empresa editata correctamente", Severity.Success);
+                Snackbar.Add("Periodo editado correctamente", Severity.Success);
                 await OnPeriodoDataGridChange.InvokeAsync(PeriodoDto);
                 MudDialog!.Close(DialogResult.Ok(response));
             }

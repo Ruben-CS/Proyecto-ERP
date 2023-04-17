@@ -33,13 +33,12 @@
                      @bind-Expanded=IsExpanded>
 
             <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
-                        OnClick="@(GoBack)"
-                        >
+                        OnClick="@(GoBack)">
                 Gestiones
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        Disabled="true">
+                        OnClick="NavigateToCuentas">
                 Plan de Cuentas
             </MudNavLink>
 
