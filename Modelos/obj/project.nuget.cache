@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YXPJ2dR2/HdL0wTJuz8FCQYzQcUvUtRBxLQpExIA9PThDRpYqig8s7kAzPKHNTNvX04iuCEEZvwv6Axs0aQGTQ==",
+  "dgSpecHash": "ONdmixSsfnwmNpknWR58S70BI+VJoxDUH3nxrNARexDlIht9+TV852cVrlAyPNQwUqOYhA/kT+B311pHwBWXZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
