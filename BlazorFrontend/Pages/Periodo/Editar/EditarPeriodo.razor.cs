@@ -70,7 +70,10 @@ namespace BlazorFrontend.Pages.Periodo.Editar
 
         private async Task<bool> FechasNoSolapan()
         {
-            var periodoActivo = _periodoDtos.Where(periodo => periodo.IdGestion == IdGestion && periodo.IdPeriodo != IdPeriodo).ToList();
+            var periodoActivo = _periodoDtos.
+                                Where(periodo => periodo.IdGestion == IdGestion &&
+                                                 periodo.IdPeriodo != IdPeriodo).
+                                ToList();
             if (periodoActivo.IsNullOrEmpty())
             {
                 return await Task.FromResult(false);
