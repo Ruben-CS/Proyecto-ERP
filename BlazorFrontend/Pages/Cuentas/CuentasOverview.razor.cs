@@ -131,8 +131,4 @@ public partial class CuentasOverview
 
     private TreeItemData SelectedValue { get; set; }
 
-    private void OnItemClick(TreeItemData value)
-    {
-        SelectedValue = value;
-    }
 }

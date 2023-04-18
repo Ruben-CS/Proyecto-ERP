@@ -50,7 +50,7 @@
 <MudPaper Width="300px" Elevation="0">
     <MudTreeView T="TreeItemData" Hover="true" @bind-SelectedValue="SelectedValue">
         <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
-                          Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
+                         Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
             <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
                          Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)"
                          @bind-Expanded="@_folderOneExpanded">
