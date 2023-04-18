@@ -128,4 +128,11 @@ public partial class CuentasOverview
         var uri = $"/gestion/overview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
+
+    private TreeItemData SelectedValue { get; set; }
+
+    private void OnItemClick(TreeItemData value)
+    {
+        SelectedValue = value;
+    }
 }
