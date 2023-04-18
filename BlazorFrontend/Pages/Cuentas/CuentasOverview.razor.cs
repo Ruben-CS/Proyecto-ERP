@@ -9,19 +9,21 @@ public partial class CuentasOverview
 
     private bool _open;
 
+    private bool _folderOneExpanded;
+
     private List<CuentaDto> _cuentas = new();
 
     [Parameter]
     public int IdEmpresa { get; set; }
 
-    private HashSet<TreeItemData> TreeItems { get; set; } = new HashSet<TreeItemData>();
+    private HashSet<TreeItemData> TreeItems { get; set; } = new();
 
     public class TreeItemData
     {
-        public int                   IdCuenta      { get; set; }
-        public string                Codigo        { get; set; }
-        public string                Nombre        { get; set; }
-        public HashSet<TreeItemData> CuentasHijas  { get; set; }
+        public int                   IdCuenta     { get; set; }
+        public string                Codigo       { get; set; }
+        public string                Nombre       { get; set; }
+        public HashSet<TreeItemData> CuentasHijas { get; set; }
 
         public TreeItemData(CuentaDto cuenta)
         {
@@ -32,10 +34,12 @@ public partial class CuentasOverview
         }
     }
 
-    private TreeItemData CreateTree(CuentaDto cuenta, List<CuentaDto> allCuentas)
+    private static TreeItemData CreateTree(CuentaDto cuenta,
+                                           IEnumerable<CuentaDto> allCuentas)
     {
         var treeItemData = new TreeItemData(cuenta);
-        var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == cuenta.IdCuenta).ToList();
+        var childCuentas =
+            allCuentas.Where(c => c.IdCuentaPadre == cuenta.IdCuenta).ToList();
 
         foreach (var childCuenta in childCuentas)
         {
@@ -52,21 +56,25 @@ public partial class CuentasOverview
         var rootCuentas = cuentas.Where(c => c.IdCuentaPadre == null).ToList();
 
         // Convert root-level "Cuentas" to TreeItemData objects and build the tree structure
-        var treeItems = new HashSet<TreeItemData>(rootCuentas.Select(c => new TreeItemData(c)
-        {
-            CuentasHijas = BuildTreeItemChildren(c, cuentas)
-        }));
+        var treeItems = new HashSet<TreeItemData>(rootCuentas.Select(c =>
+            new TreeItemData(c)
+            {
+                CuentasHijas = BuildTreeItemChildren(c, cuentas)
+            }));
 
         return treeItems;
     }
 
-    private HashSet<TreeItemData> BuildTreeItemChildren(CuentaDto parentCuenta, List<CuentaDto> cuentas)
+    private static HashSet<TreeItemData> BuildTreeItemChildren(
+        CuentaDto parentCuenta, IEnumerable<CuentaDto> cuentas)
     {
         // Find child "Cuentas" for the given parent "Cuenta"
-        var childCuentas = cuentas.Where(c => c.IdCuentaPadre == parentCuenta.IdCuenta).ToList();
+        var childCuentas = cuentas.Where(c => c.IdCuentaPadre == parentCuenta.IdCuenta)
+                                  .ToList();
 
         // Convert child "Cuentas" to TreeItemData objects and build the tree structure
-        var treeItemChildren = new HashSet<TreeItemData>(childCuentas.Select(c => new TreeItemData(c) { CuentasHijas = BuildTreeItemChildren(c, cuentas) }));
+        var treeItemChildren = new HashSet<TreeItemData>(childCuentas.Select(c =>
+            new TreeItemData(c) { CuentasHijas = BuildTreeItemChildren(c, cuentas) }));
 
         return treeItemChildren;
     }

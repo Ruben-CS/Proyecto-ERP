@@ -46,10 +46,15 @@
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
+
 <MudPaper Width="300px" Elevation="0">
-    <MudTreeView Items="TreeItems">
+    <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
+                 Icon="@(_folderOneExpanded ?
+                           Icons.Custom.Uncategorized.FolderOpen :
+                           Icons.Custom.Uncategorized.Folder)"
+                  @bind-Expanded="@_folderOneExpanded">
         <ItemTemplate>
-            <TreeItem Value="@context" />
+            <TreeItem Value="@context"/>
         </ItemTemplate>
     </MudTreeView>
 </MudPaper>

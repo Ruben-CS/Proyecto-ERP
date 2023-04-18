@@ -2,9 +2,13 @@
 
 @if (Value != null)
 {
-    <MudTreeViewItem Value="@Value" Icon="@Icons.Material.Filled.Folder"
-    LoadingIconColor="Color.Info"
-    CanExpand="true" Text="@($"{Value.Codigo} - {Value.Nombre}")" EndTextTypo="@Typo.caption">
+    <MudTreeViewItem Value="@Value"
+                     LoadingIconColor="Color.Info"
+                     CanExpand="true" Text="@($"{Value.Codigo} - {Value.Nombre}")"
+                     EndTextTypo="@Typo.caption"
+                     Icon="@(_folderTwoExpanded ? Icons.Custom.Uncategorized.FolderOpen :
+                               Icons.Custom.Uncategorized.Folder)"
+                     @bind-Expanded="@_folderTwoExpanded">
         @if (Value.CuentasHijas != null && Value.CuentasHijas.Count > 0)
         {
             <MudTreeView Items="@Value.CuentasHijas">
