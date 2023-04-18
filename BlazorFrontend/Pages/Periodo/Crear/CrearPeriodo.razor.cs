@@ -77,8 +77,8 @@ namespace BlazorFrontend.Pages.Periodo.Crear
         private async Task<bool> ValidateUniqueNombre()
         {
             return await Task.FromResult(!_periodoDtos.Any(periodo =>
-                periodo.Nombre == PeriodoDto.Nombre &&
-                periodo.IdGestion == IdGestion));
+                string.Equals(periodo.Nombre,
+                    PeriodoDto.Nombre, StringComparison.OrdinalIgnoreCase)));
         }
 
         private async Task<bool> FechasDentroDelRangoDeGestion()
