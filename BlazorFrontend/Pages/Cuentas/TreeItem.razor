@@ -8,7 +8,8 @@
                      EndTextTypo="@Typo.caption"
                      Icon="@(_folderTwoExpanded ? Icons.Custom.Uncategorized.FolderOpen :
                                Icons.Custom.Uncategorized.Folder)"
-                     @bind-Expanded="@_folderTwoExpanded">
+                     @bind-Expanded="@_folderTwoExpanded"
+                     OnClick="@(() => OnItemClick(Value))">
         @if (Value.CuentasHijas != null && Value.CuentasHijas.Count > 0)
         {
             <MudTreeView Items="@Value.CuentasHijas">
@@ -18,4 +19,12 @@
             </MudTreeView>
         }
     </MudTreeViewItem>
+
+
+}
+
+@if (SelectedValue is not null)
+{
+    <MudText>@($"Selected folder: {SelectedValue.Nombre} - Id: {SelectedValue.IdCuenta}")
+    </MudText>
 }
