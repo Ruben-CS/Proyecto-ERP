@@ -7,6 +7,8 @@ public partial class CuentasOverview
 {
     private bool IsExpanded { get; set; }
 
+    private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
+
     private bool _open;
 
     private bool _folderOneExpanded;
@@ -34,23 +36,40 @@ public partial class CuentasOverview
         }
     }
 
-    private static TreeItemData CreateTree(CuentaDto cuenta,
+    private static TreeItemData CreateTree(TreeItemData           treeItemData,
                                            IEnumerable<CuentaDto> allCuentas)
     {
-        var treeItemData = new TreeItemData(cuenta);
-        var childCuentas =
-            allCuentas.Where(c => c.IdCuentaPadre == cuenta.IdCuenta).ToList();
+        var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == treeItemData.IdCuenta)
+                                     .ToList();
 
         foreach (var childCuenta in childCuentas)
         {
-            treeItemData.CuentasHijas.Add(CreateTree(childCuenta, allCuentas));
+            treeItemData.CuentasHijas.Add(CreateTree(new TreeItemData(childCuenta),
+                allCuentas));
         }
 
         return treeItemData;
     }
 
+    private static Dictionary<TreeItemData, HashSet<TreeItemData>> CreateRootItems(
+        List<CuentaDto> cuentas)
+    {
+        var rootItems = new Dictionary<TreeItemData, HashSet<TreeItemData>>();
 
-    private HashSet<TreeItemData> BuildTreeItems(List<CuentaDto> cuentas)
+        foreach (var cuenta in cuentas)
+        {
+            if (cuenta.IdCuentaPadre != null) continue;
+            var rootItem = new TreeItemData(cuenta);
+            var children = CreateTree(rootItem, cuentas);
+            rootItems.Add(rootItem, new HashSet<TreeItemData> { children });
+        }
+
+        return rootItems;
+    }
+
+
+    private static HashSet<TreeItemData> BuildTreeItems(
+        IReadOnlyCollection<CuentaDto> cuentas)
     {
         var rootCuentas = cuentas.Where(c => c.IdCuentaPadre == null).ToList();
         var treeItems = new HashSet<TreeItemData>(rootCuentas.Select(c =>
@@ -75,12 +94,15 @@ public partial class CuentasOverview
 
     private async Task LoadCuentas()
     {
-        var cuentas    = await CuentaService.GetCuentasAsync(IdEmpresa);
-        var rootCuenta = cuentas.FirstOrDefault(c => c.IdCuentaPadre == null);
-        if (rootCuenta != null)
+        var cuentas = await CuentaService.GetCuentasAsync(IdEmpresa);
+
+        if (cuentas != null && cuentas.Any())
         {
-            var treeRoot = CreateTree(rootCuenta, cuentas);
-            TreeItems = new HashSet<TreeItemData> { treeRoot };
+            RootItems = CreateRootItems(cuentas);
+        }
+        else
+        {
+            RootItems = new Dictionary<TreeItemData, HashSet<TreeItemData>>();
         }
     }
 
@@ -124,5 +146,4 @@ public partial class CuentasOverview
     }
 
     private TreeItemData SelectedValue { get; set; }
-
 }
