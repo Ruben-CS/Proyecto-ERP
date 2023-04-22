@@ -10,7 +10,7 @@
                                Icons.Custom.Uncategorized.Folder)"
                      @bind-Expanded="@_folderTwoExpanded"
                      OnClick="@(() => OnItemClick(Value))">
-        @if (Value.CuentasHijas != null && Value.CuentasHijas.Count > 0)
+        @if (Value.CuentasHijas.Count > 0)
         {
             <MudTreeView Items="@Value.CuentasHijas">
                 <ItemTemplate>

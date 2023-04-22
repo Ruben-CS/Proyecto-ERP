@@ -47,17 +47,34 @@
     </MudNavMenu>
 </MudDrawer>
 
-<MudPaper Width="300px" Elevation="0">
-    <MudTreeView T="TreeItemData" Hover="true" @bind-SelectedValue="SelectedValue">
-        <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
-                         Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
-            <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
-                         Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)"
-                         @bind-Expanded="@_folderOneExpanded">
-                <ItemTemplate>
-                    <TreeItem Value="@context"/>
-                </ItemTemplate>
-            </MudTreeView>
-        </MudTreeViewItem>
-    </MudTreeView>
-</MudPaper>
+<MudStack Row="true">
+    <MudPaper Elevation="1">
+        <MudTreeView T="TreeItemData" Hover="true" @bind-SelectedValue="SelectedValue"
+                     Width="500px">
+            <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
+                             Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
+                <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
+                             Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)"
+                             @bind-Expanded="@_folderOneExpanded">
+                    <ItemTemplate>
+                        <TreeItem Value="@context"/>
+                    </ItemTemplate>
+                </MudTreeView>
+            </MudTreeViewItem>
+        </MudTreeView>
+    </MudPaper>
+    <MudPaper Elevation="0">
+        <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
+                   Variant="Variant.Filled" Color="Color.Success">
+            Agregar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
+                   Variant="Variant.Filled" Color="Color.Warning">
+            Editar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
+                   Variant="Variant.Filled" Color="Color.Error">
+            Eliminar
+        </MudButton>
+    </MudPaper>
+</MudStack>
