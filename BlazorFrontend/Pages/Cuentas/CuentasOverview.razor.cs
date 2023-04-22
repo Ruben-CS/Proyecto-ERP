@@ -23,7 +23,7 @@ public partial class CuentasOverview
     public class TreeItemData
     {
         public int                   IdCuenta     { get; set; }
-        public string                Codigo       { get; set; }
+        public string?               Codigo       { get; set; }
         public string                Nombre       { get; set; }
         public HashSet<TreeItemData> CuentasHijas { get; set; }
 
@@ -58,7 +58,7 @@ public partial class CuentasOverview
 
         foreach (var cuenta in cuentas)
         {
-            if (cuenta.IdCuentaPadre != null) continue;
+            if (cuenta.IdCuentaPadre is not null) continue;
             var rootItem = new TreeItemData(cuenta);
             var children = CreateTree(rootItem, cuentas);
             rootItems.Add(rootItem, new HashSet<TreeItemData> { children });
@@ -96,14 +96,9 @@ public partial class CuentasOverview
     {
         var cuentas = await CuentaService.GetCuentasAsync(IdEmpresa);
 
-        if (cuentas != null && cuentas.Any())
-        {
-            RootItems = CreateRootItems(cuentas);
-        }
-        else
-        {
-            RootItems = new Dictionary<TreeItemData, HashSet<TreeItemData>>();
-        }
+        RootItems = cuentas.Any()
+            ? CreateRootItems(cuentas)
+            : new Dictionary<TreeItemData, HashSet<TreeItemData>>();
     }
 
     protected override async Task OnInitializedAsync()
