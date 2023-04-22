@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject CuentaService CuentaService
 @layout CuentasOverviewLayout
+@inject IDialogService DialogService
 
 
 <MudAppBar Elevation="5" Dense="false">
@@ -52,9 +53,13 @@
         <MudTreeView T="TreeItemData" Hover="true" @bind-SelectedValue="SelectedValue"
                      Width="500px">
             <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
-                             Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
+                             Icon="@(_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.FolderOpen :
+                                       Icons.Custom.Uncategorized.Folder)">
                 <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
-                             Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)"
+                             Icon="@(_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.FolderOpen :
+                                       Icons.Custom.Uncategorized.Folder)"
                              @bind-Expanded="@_folderOneExpanded">
                     <ItemTemplate>
                         <TreeItem Value="@context"/>
@@ -65,7 +70,8 @@
     </MudPaper>
     <MudPaper Elevation="0">
         <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
-                   Variant="Variant.Filled" Color="Color.Success">
+                   Variant="Variant.Filled" Color="Color.Success"
+                   OnClick="ShowCrearCuenta">
             Agregar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"

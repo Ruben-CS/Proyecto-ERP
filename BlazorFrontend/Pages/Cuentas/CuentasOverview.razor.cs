@@ -1,5 +1,7 @@
+using BlazorFrontend.Pages.Cuentas.Crear;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
+using MudBlazor;
 
 namespace BlazorFrontend.Pages.Cuentas;
 
@@ -127,6 +129,25 @@ public partial class CuentasOverview
             Console.WriteLine(
                 $"An error occurred while initializing the component: {ex}");
         }
+    }
+
+    private async Task ShowCrearCuenta()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.Small,
+            FullWidth            = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            {
+                "SelectedValue" , SelectedValue
+            }
+        };
+
+        await DialogService.ShowAsync<CrearCuenta>("Escriba el nombre de la cuenta",parameters,options);
     }
 
     private void ToggleDrawer() => _open = !_open;
