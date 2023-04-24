@@ -144,6 +144,9 @@ public partial class CuentasOverview
         {
             {
                 "SelectedValue" , SelectedValue
+            },
+            {
+                "IdEmpresa", IdEmpresa
             }
         };
 

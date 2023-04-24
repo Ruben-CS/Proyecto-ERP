@@ -12,12 +12,27 @@ public partial class CrearCuenta
     public CuentasOverview.TreeItemData? SelectedValue { get; set; }
 
     [CascadingParameter]
-    MudDialogInstance? MudDialog { get; set; }
+    private MudDialogInstance? MudDialog { get; set; }
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
 
     private void Cancel() => MudDialog!.Cancel();
 
     private async Task CreateCuenta()
     {
+        const string url = "https://localhost:44378/cuentas/agregarcuenta";
 
+        var cuentaDto = new CuentaDto
+        {
+            Nombre        = CuentaDto.Nombre,
+            TipoCuenta    = "Global",
+            IdCuentaPadre = SelectedValue?.IdCuenta,
+            IdEmpresa     = IdEmpresa
+        };
+        //todo add validations and event triggers
+        var response = await HttpClient.PostAsJsonAsync(url, cuentaDto);
+        Snackbar.Add("Cuenta creada exitosamente", Severity.Success);
+        MudDialog!.Close(DialogResult.Ok(response));
     }
 }

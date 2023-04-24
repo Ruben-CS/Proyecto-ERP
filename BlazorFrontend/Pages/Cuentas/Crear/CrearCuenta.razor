@@ -1,6 +1,8 @@
 @using ButtonType = MudBlazor.ButtonType
 @using BlazorFrontend.Services
 @inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
 
 <MudDialog>
     <DialogContent>
@@ -9,9 +11,6 @@
                           Label="Nombre"
                           @bind-Value="@CuentaDto.Nombre"/>
         </EditForm>
-
-            <h1>@SelectedValue.IdCuenta</h1>
-
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled"
@@ -29,7 +28,3 @@
         </MudButton>
     </DialogActions>
 </MudDialog>
-
-@code {
-
-}
