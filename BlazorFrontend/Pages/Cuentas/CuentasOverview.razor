@@ -1,0 +1,86 @@
+@page "/plandecuentas/overview/{idempresa:int}"
+@using global::Services.Cuenta
+@inject NavigationManager NavigationManager
+@inject CuentaService CuentaService
+@layout CuentasOverviewLayout
+@inject IDialogService DialogService
+
+
+<MudAppBar Elevation="5" Dense="false">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                   Edge="Edge.Start"
+                   OnClick="@ToggleDrawer"/>
+    <MudSpacer/>
+    <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                   Color="Color.Inherit"
+                   Link="https://github.com/MudBlazor/MudBlazor"
+                   Target="_blank"/>
+</MudAppBar>
+
+
+<MudDrawer @bind-Open="@_open"
+           ClipMode="DrawerClipMode.Docked"
+           Elevation="1"
+           Variant="@DrawerVariant.Responsive"
+           PreserveOpenState="true"
+           Breakpoint="Breakpoint.Md"
+           OpenMiniOnHover="true">
+    <MudNavMenu>
+        <MudNavGroup Icon="@Icons.Material.Filled.Business"
+                     Title="Contabilidad"
+                     @bind-Expanded=IsExpanded>
+
+            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
+                        OnClick="NavigateToGestiones">
+                Gestiones
+            </MudNavLink>
+
+            <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
+                        Disabled="true">
+                Plan de Cuentas
+            </MudNavLink>
+
+            <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
+                        OnClick="CambiarEmpresa">
+                Cambiar empresa
+            </MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudDrawer>
+
+<MudStack Row="true">
+    <MudPaper Elevation="1">
+        <MudTreeView T="TreeItemData" Hover="true" @bind-SelectedValue="SelectedValue"
+                     Width="500px">
+            <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
+                             Icon="@(_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.FolderOpen :
+                                       Icons.Custom.Uncategorized.Folder)">
+                <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
+                             Icon="@(_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.FolderOpen :
+                                       Icons.Custom.Uncategorized.Folder)"
+                             @bind-Expanded="@_folderOneExpanded">
+                    <ItemTemplate>
+                        <TreeItem Value="@context"/>
+                    </ItemTemplate>
+                </MudTreeView>
+            </MudTreeViewItem>
+        </MudTreeView>
+    </MudPaper>
+    <MudPaper Elevation="0">
+        <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
+                   Variant="Variant.Filled" Color="Color.Success"
+                   OnClick="ShowCrearCuenta">
+            Agregar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
+                   Variant="Variant.Filled" Color="Color.Warning">
+            Editar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
+                   Variant="Variant.Filled" Color="Color.Error">
+            Eliminar
+        </MudButton>
+    </MudPaper>
+</MudStack>

@@ -1,6 +1,5 @@
 @using ButtonType = MudBlazor.ButtonType
 @using global::Services.Periodo
-@using Microsoft.IdentityModel.Tokens
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
 @inject PeriodoService PeriodoService
@@ -17,8 +16,7 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditPeriodo">Editar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark" OnClick="Cancel">Cancel</MudButton>
+        <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditPeriodo">Editar</MudButton>
     </DialogActions>
 </MudDialog>
-

@@ -1,7 +1,6 @@
 @page "/inicio/mainpage/{id?}"
 @layout MainPageLayout
 @inject NavigationManager NavigationManager
-@inject ISnackbar Snackbar
 
 <MudAppBar Elevation="1" Dense="false">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
@@ -32,8 +31,7 @@
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        Href="/security"
-                        Disabled="true">
+                        OnClick="NavigateToCuentas">
                 Plan de Cuentas
             </MudNavLink>
 

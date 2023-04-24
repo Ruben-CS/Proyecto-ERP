@@ -1,0 +1,22 @@
+@inherits MudTreeViewItem<CuentasOverview.TreeItemData>
+
+@if (Value != null)
+{
+    <MudTreeViewItem Value="@Value"
+                     LoadingIconColor="Color.Info"
+                     CanExpand="true" Text="@($"{Value.Codigo} - {Value.Nombre}")"
+                     EndTextTypo="@Typo.caption"
+                     Icon="@(_folderTwoExpanded ? Icons.Custom.Uncategorized.FolderOpen :
+                               Icons.Custom.Uncategorized.Folder)"
+                     @bind-Expanded="@_folderTwoExpanded"
+                     OnClick="@(() => OnItemClick(Value))">
+        @if (Value.CuentasHijas.Count > 0)
+        {
+            <MudTreeView Items="@Value.CuentasHijas">
+                <ItemTemplate>
+                    <TreeItem Value="@context" />
+                </ItemTemplate>
+            </MudTreeView>
+        }
+    </MudTreeViewItem>
+}

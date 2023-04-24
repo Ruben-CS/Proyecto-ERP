@@ -12,7 +12,7 @@ var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
 
 
 // Add services to the container.
-
+//TODO fix the json response based on the DTO chat suggested
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;

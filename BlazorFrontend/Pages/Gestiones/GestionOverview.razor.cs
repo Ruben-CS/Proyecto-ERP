@@ -11,7 +11,7 @@ namespace BlazorFrontend.Pages.Gestiones;
 
 public partial class GestionOverview
 {
-    private List<GestionDto> _gestiones = new List<GestionDto>();
+    private List<GestionDto> _gestiones = new();
 
     [Inject]
     ISnackbar Snackbar { get; set; } = null !;
@@ -143,5 +143,12 @@ public partial class GestionOverview
     {
         _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
         await Task.FromResult(InvokeAsync(StateHasChanged));
+    }
+
+    private void NavigateToCuentas()
+    {
+        if(IdEmpresa is 0) return;
+        var uri = $"/plandecuentas/overview/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
     }
 }

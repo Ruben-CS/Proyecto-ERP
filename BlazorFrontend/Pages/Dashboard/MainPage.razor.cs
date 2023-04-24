@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
-using MudBlazor;
 namespace BlazorFrontend.Pages.Dashboard;
 
 public partial class MainPage
@@ -44,14 +43,15 @@ public partial class MainPage
 
     private void NavigateToGestiones()
     {
-        if (Id is not 0)
-        {
-            var uri = $"/gestion/overview/{Id}";
-            NavigationManager.NavigateTo(uri);
-        }
-        else
-        {
-            Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
-        }
+        if (Id is 0) return;
+        var uri = $"/gestion/overview/{Id}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private void NavigateToCuentas()
+    {
+        if(Id is 0) return;
+        var uri = $"/plandecuentas/overview/{Id}";
+        NavigationManager.NavigateTo(uri);
     }
 }

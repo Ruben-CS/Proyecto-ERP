@@ -5,7 +5,6 @@ using BlazorFrontend.Pages.Periodo.Crear;
 using BlazorFrontend.Pages.Periodo.Editar;
 using BlazorFrontend.Pages.Periodo.Eliminar;
 using Microsoft.JSInterop;
-using Modelos.Models.Enums;
 
 namespace BlazorFrontend.Pages.Periodo;
 
@@ -17,6 +16,9 @@ public partial class InicioPeriodo
     private bool IsExpanded { get; set; }
 
     private bool _open;
+
+    private const bool Click = false;
+    private const bool Focus = false;
 
 
     private void ToggleDrawer() => _open = !_open;
@@ -103,11 +105,8 @@ public partial class InicioPeriodo
 
     private async Task GoBack()
     {
-        await JSRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack");
+        await Task.FromResult(JSRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
     }
-
-    private static bool EsActivo(PeriodoDto periodo) =>
-        periodo.Estado is not EstadosPeriodo.Cerrado;
 
     private async Task OnPeriodoDataGridChange(PeriodoDto periodoDto)
     {
@@ -116,4 +115,11 @@ public partial class InicioPeriodo
     }
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+
+    private void NavigateToCuentas()
+    {
+        if(_gestionDto.IdEmpresa is 0) return;
+        var uri = $"/plandecuentas/overview/{_gestionDto.IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
 }

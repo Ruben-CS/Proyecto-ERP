@@ -29,3 +29,5 @@ X
 (Services/Repository/GestionRepository.cs,c\6\c6940d778a309605a3482d2f9a87185f5504f16e
 i
 9BlazorFrontend/Pages/Gestiones/Editar/EditarGestion.razor,2\e\2e22c88620d426dd54c4c22c16b0af1b4b0dee5f
+h
+8BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor.cs,6\f\6f2938af0c1b8535381bd6403625b1cee3d75fc0

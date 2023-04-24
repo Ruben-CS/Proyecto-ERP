@@ -24,16 +24,18 @@ namespace BlazorFrontend.Pages.Periodo.Editar
 
         private void                    Cancel() => MudDialog!.Cancel();
         private IEnumerable<PeriodoDto> _periodoDtos = new List<PeriodoDto>();
+
         private async Task ValidateAndEditPeriodo()
         {
-            var url = $"https://localhost:44378/periodos/actualizarperiodo/{IdGestion}/{IdPeriodo}";
+            var url =
+                $"https://localhost:44378/periodos/actualizarperiodo/{IdGestion}/{IdPeriodo}";
             var editedPeriodo = new PeriodoDto
             {
-                IdPeriodo = IdPeriodo,
-                Nombre = PeriodoDto.Nombre,
+                IdPeriodo   = IdPeriodo,
+                Nombre      = PeriodoDto.Nombre,
                 FechaInicio = PeriodoDto.FechaInicio,
-                FechaFin = PeriodoDto.FechaFin,
-                IdGestion = IdGestion
+                FechaFin    = PeriodoDto.FechaFin,
+                IdGestion   = IdGestion
             };
             if (await ValidateUniqueNombre())
             {
@@ -46,7 +48,7 @@ namespace BlazorFrontend.Pages.Periodo.Editar
             else
             {
                 var response = await HttpClient.PutAsJsonAsync(url, editedPeriodo);
-                Snackbar.Add("Empresa editata correctamente", Severity.Success);
+                Snackbar.Add("Periodo editado correctamente", Severity.Success);
                 await OnPeriodoDataGridChange.InvokeAsync(PeriodoDto);
                 MudDialog!.Close(DialogResult.Ok(response));
             }
@@ -60,7 +62,8 @@ namespace BlazorFrontend.Pages.Periodo.Editar
 
         private async Task<bool> ValidateUniqueNombre()
         {
-            if (_periodoDtos.Any(periodo => periodo.Nombre == PeriodoDto.Nombre))
+            if (_periodoDtos.Any(periodo => string.Equals(periodo.Nombre,
+                    PeriodoDto.Nombre, StringComparison.OrdinalIgnoreCase)))
             {
                 return await Task.FromResult(true);
             }
@@ -70,13 +73,19 @@ namespace BlazorFrontend.Pages.Periodo.Editar
 
         private async Task<bool> FechasNoSolapan()
         {
-            var periodoActivo = _periodoDtos.Where(periodo => periodo.IdGestion == IdGestion && periodo.IdPeriodo != IdPeriodo).ToList();
+            var periodoActivo = _periodoDtos.Where(periodo =>
+                periodo.IdGestion == IdGestion &&
+                periodo.IdPeriodo != IdPeriodo).ToList();
             if (periodoActivo.IsNullOrEmpty())
             {
                 return await Task.FromResult(false);
             }
 
-            return await Task.FromResult(periodoActivo.Any(periodo => PeriodoDto.FechaInicio >= periodo.FechaInicio && PeriodoDto.FechaInicio <= periodo.FechaFin || PeriodoDto.FechaFin >= periodo.FechaInicio && PeriodoDto.FechaFin <= periodo.FechaFin));
+            return await Task.FromResult(periodoActivo.Any(periodo =>
+                PeriodoDto.FechaInicio >= periodo.FechaInicio &&
+                PeriodoDto.FechaInicio <= periodo.FechaFin ||
+                PeriodoDto.FechaFin >= periodo.FechaInicio &&
+                PeriodoDto.FechaFin <= periodo.FechaFin));
         }
     }
 }

@@ -39,19 +39,42 @@ public class CuentaRepository : ICuentaRepository
         return _mapper.Map<Modelos.Models.Cuenta, CuentaDto>(cuenta);
     }
 
-    public Task<bool> DeleteCuenta(int id)
+    public async Task<bool> DeleteCuenta(CuentaDto cuentaDto, int id)
     {
-        throw new NotImplementedException();
+        var cuenta = await _applicationDbContext.Cuentas.FirstOrDefaultAsync(c => c
+            .IdCuenta == id);
+        if (cuenta is null)
+        {
+            return await Task.FromResult(false);
+        }
+
+        _applicationDbContext.Remove(cuenta);
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(true);
     }
 
-    public Task<CuentaDto> EditCuenta(CuentaDto cuentaDto)
+    public async Task<CuentaDto> EditCuenta(CuentaDto cuentaDto, int id)
     {
-        throw new NotImplementedException();
+        var cuenta = await _applicationDbContext.Cuentas.SingleAsync(c => c.IdCuenta ==
+            id);
+        if (cuenta is null)
+        {
+            throw new NullReferenceException("Cuenta no encontrada");
+        }
+
+        _mapper.Map(cuentaDto, cuenta);
+
+        _applicationDbContext.Entry(cuenta).State = EntityState.Modified;
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(_mapper.Map<CuentaDto>(cuenta));
     }
 
-    public Task<IEnumerable<CuentaDto>> GetAllCuentas()
+    public async Task<IEnumerable<CuentaDto>> GetAllCuentas(int idempresa)
     {
-        throw new NotImplementedException();
+        var listaGestiones =
+            await _applicationDbContext.Cuentas.Where(id => id.IdEmpresa == idempresa)
+                                       .ToListAsync();
+        return _mapper.Map<List<CuentaDto>>(listaGestiones);
     }
 
 }
