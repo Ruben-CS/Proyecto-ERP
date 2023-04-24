@@ -11,6 +11,8 @@ public partial class CuentasOverview
 
     private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
 
+    private TreeItemData SelectedValue { get; set; }
+
     private bool _open;
 
     private bool _folderOneExpanded;
@@ -147,10 +149,15 @@ public partial class CuentasOverview
             },
             {
                 "IdEmpresa", IdEmpresa
+            },
+            {
+                "OnTreeViewChange",
+                EventCallback.Factory.Create<CuentaDto>(this, OnTreeViewChange)
             }
         };
 
-        await DialogService.ShowAsync<CrearCuenta>("Escriba el nombre de la cuenta",parameters,options);
+        await DialogService.ShowAsync<CrearCuenta>
+            ("Escriba el nombre de la cuenta",parameters,options);
     }
 
     private void ToggleDrawer() => _open = !_open;
@@ -164,5 +171,11 @@ public partial class CuentasOverview
         NavigationManager.NavigateTo(uri);
     }
 
-    private TreeItemData SelectedValue { get; set; }
+    private async Task OnTreeViewChange(CuentaDto cuentaDto)
+    {
+        _cuentas  = await CuentaService.GetCuentasAsync(IdEmpresa);
+        TreeItems = BuildTreeItems(_cuentas);
+        await LoadCuentas();
+        await Task.FromResult(InvokeAsync(StateHasChanged));
+    }
 }

@@ -8,8 +8,13 @@ public partial class CrearCuenta
 {
     public CuentaDto CuentaDto { get; set; } = new();
 
+    private List<CuentaDto> _cuentas = new();
+
     [Parameter]
     public CuentasOverview.TreeItemData? SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<CuentaDto> OnTreeViewChange { get; set; }
 
     [CascadingParameter]
     private MudDialogInstance? MudDialog { get; set; }
@@ -18,6 +23,11 @@ public partial class CrearCuenta
     public int IdEmpresa { get; set; }
 
     private void Cancel() => MudDialog!.Cancel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _cuentas = await CuentaService.GetCuentasAsync(IdEmpresa);
+    }
 
     private async Task CreateCuenta()
     {
@@ -31,8 +41,23 @@ public partial class CrearCuenta
             IdEmpresa     = IdEmpresa
         };
         //todo add validations and event triggers
-        var response = await HttpClient.PostAsJsonAsync(url, cuentaDto);
-        Snackbar.Add("Cuenta creada exitosamente", Severity.Success);
-        MudDialog!.Close(DialogResult.Ok(response));
+        if (await ValidateName(cuentaDto))
+        {
+            Snackbar.Add("Este nombre ya existe", Severity.Error);
+        }
+        else
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, cuentaDto);
+            Snackbar.Add("Cuenta creada exitosamente", Severity.Success);
+            await OnTreeViewChange.InvokeAsync(cuentaDto);
+            MudDialog!.Close(DialogResult.Ok(response));
+        }
+    }
+
+    private async Task<bool> ValidateName(CuentaDto cuentaDto)
+    {
+        return await Task.FromResult(_cuentas.Any(c =>
+            c.Nombre    == cuentaDto.Nombre &&
+            c.IdEmpresa == cuentaDto.IdEmpresa));
     }
 }
