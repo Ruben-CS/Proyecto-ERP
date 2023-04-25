@@ -55,12 +55,14 @@ public class CuentaRepository : ICuentaRepository
 
     public async Task<CuentaDto> EditCuenta(CuentaDto cuentaDto, int id)
     {
-        var cuenta = await _applicationDbContext.Cuentas.SingleAsync(c => c.IdCuenta ==
-            id);
+        var cuenta = await _applicationDbContext.Cuentas.SingleAsync(
+            c => c.IdCuenta == id);
         if (cuenta is null)
         {
             throw new NullReferenceException("Cuenta no encontrada");
         }
+
+        cuentaDto.IdEmpresa = cuenta.IdEmpresa;
 
         _mapper.Map(cuentaDto, cuenta);
 

@@ -1,4 +1,5 @@
 using BlazorFrontend.Pages.Cuentas.Crear;
+using BlazorFrontend.Pages.Cuentas.Editar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -24,19 +25,32 @@ public partial class CuentasOverview
 
     private HashSet<TreeItemData> TreeItems { get; set; } = new();
 
+    private bool IsSelected() => SelectedValue is null;
+
+    private void ToggleDrawer() => _open = !_open;
+
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+
+
     public class TreeItemData
     {
-        public int                   IdCuenta     { get; set; }
-        public string?               Codigo       { get; set; }
-        public string                Nombre       { get; set; }
-        public HashSet<TreeItemData> CuentasHijas { get; set; }
+        public int     IdCuenta { get; set; }
+        public string? Codigo   { get; set; }
+        public string  Nombre   { get; set; }
+
+        public string? TipoCuenta { get; set; }
+
+        public int?                  IdCuentaPadre { get; set; }
+        public HashSet<TreeItemData> CuentasHijas  { get; set; }
 
         public TreeItemData(CuentaDto cuenta)
         {
-            IdCuenta     = cuenta.IdCuenta;
-            Codigo       = cuenta.Codigo;
-            Nombre       = cuenta.Nombre;
-            CuentasHijas = new HashSet<TreeItemData>();
+            IdCuenta      = cuenta.IdCuenta;
+            Codigo        = cuenta.Codigo;
+            Nombre        = cuenta.Nombre;
+            IdCuentaPadre = cuenta.IdCuentaPadre;
+            TipoCuenta    = cuenta.TipoCuenta;
+            CuentasHijas  = new HashSet<TreeItemData>();
         }
     }
 
@@ -145,7 +159,7 @@ public partial class CuentasOverview
         var parameters = new DialogParameters
         {
             {
-                "SelectedValue" , SelectedValue
+                "SelectedValue", SelectedValue
             },
             {
                 "IdEmpresa", IdEmpresa
@@ -157,12 +171,35 @@ public partial class CuentasOverview
         };
 
         await DialogService.ShowAsync<CrearCuenta>
-            ("Escriba el nombre de la cuenta",parameters,options);
+            ("Escriba el nombre de la cuenta", parameters, options);
     }
 
-    private void ToggleDrawer() => _open = !_open;
+    private async Task ShowEditarCuenta()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.Small,
+            FullWidth            = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            {
+                "SelectedValue", SelectedValue
+            },
+            {
+                "IdEmpresa", IdEmpresa
+            },
+            {
+                "OnTreeViewChange",
+                EventCallback.Factory.Create<CuentaDto>(this, OnTreeViewChange)
+            }
+        };
 
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+        await DialogService.ShowAsync<EditarCuenta>
+            ("Edite el nombre", parameters, options);
+    }
 
     private void NavigateToGestiones()
     {
