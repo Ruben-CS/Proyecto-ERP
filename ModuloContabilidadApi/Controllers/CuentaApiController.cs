@@ -8,12 +8,13 @@ namespace ModuloContabilidadApi.Controllers;
 [Route("cuentas")]
 public class CuentaApiController : ControllerBase
 {
-    private readonly ResponseDto          _responseDto;
-    private readonly ICuentaRepository    _cuentaRepository;
+    private readonly ResponseDto       _responseDto;
+    private readonly ICuentaRepository _cuentaRepository;
+
     public CuentaApiController(ICuentaRepository cuentaRepository)
     {
         _cuentaRepository = cuentaRepository;
-        _responseDto       = new ResponseDto();
+        _responseDto      = new ResponseDto();
     }
 
     [HttpPost("agregarcuenta")]
@@ -37,8 +38,8 @@ public class CuentaApiController : ControllerBase
     }
 
     [HttpPut("actualizarcuenta/{id:int}")]
-    public async Task<object> PutCuenta([FromBody] CuentaDto cuenta,
-                                        [FromRoute] int id)
+    public async Task<object> PutCuenta([FromBody]  CuentaDto cuenta,
+                                        [FromRoute] int       id)
     {
         try
         {
@@ -53,16 +54,16 @@ public class CuentaApiController : ControllerBase
                 e.ToString()
             };
         }
+
         return await Task.FromResult(_responseDto);
     }
 
     [HttpDelete("eliminarcuenta/{id:int}")]
-    public async Task<object> DeleteCuenta([FromBody] CuentaDto cuenta,
-                                           [FromRoute] int id)
+    public async Task<object> DeleteCuenta([FromRoute] int id)
     {
         try
         {
-            var cuentaDto = await _cuentaRepository.DeleteCuenta(cuenta, id);
+            var cuentaDto = await _cuentaRepository.DeleteCuenta(id);
             await Task.FromResult(_responseDto.Result = cuentaDto);
         }
         catch (Exception e)
@@ -73,6 +74,7 @@ public class CuentaApiController : ControllerBase
                 e.ToString()
             };
         }
+
         return await Task.FromResult(_responseDto);
     }
 
@@ -92,6 +94,7 @@ public class CuentaApiController : ControllerBase
                 e.ToString()
             };
         }
+
         return await Task.FromResult(_responseDto);
     }
 }

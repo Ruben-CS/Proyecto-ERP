@@ -1,5 +1,6 @@
 using BlazorFrontend.Pages.Cuentas.Crear;
 using BlazorFrontend.Pages.Cuentas.Editar;
+using BlazorFrontend.Pages.Cuentas.Eliminar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -53,6 +54,10 @@ public partial class CuentasOverview
             CuentasHijas  = new HashSet<TreeItemData>();
         }
     }
+
+    private async Task<bool> HasChildren(TreeItemData selectedValue) =>
+        await Task.FromResult(_cuentas.Any(cuenta =>
+            cuenta.IdCuentaPadre == selectedValue.IdCuenta));
 
     private static TreeItemData CreateTree(TreeItemData           treeItemData,
                                            IEnumerable<CuentaDto> allCuentas)
@@ -200,6 +205,37 @@ public partial class CuentasOverview
         await DialogService.ShowAsync<EditarCuenta>
             ("Edite el nombre", parameters, options);
     }
+
+    private async Task ShowEliminarCuenta()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.ExtraSmall,
+            FullWidth            = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            {
+                "SelectedValue", SelectedValue
+            },
+            {
+                "OnTreeViewChange",
+                EventCallback.Factory.Create<CuentaDto>(this, OnTreeViewChange)
+            }
+        };
+        if (await HasChildren(SelectedValue))
+        {
+            Snackbar.Add("No puede eliminar una cuenta no vacia", Severity.Error);
+        }
+        else
+        {
+            await DialogService.ShowAsync<EliminarCuenta>
+                ("Esta seguro?", parameters, options);
+        }
+    }
+
 
     private void NavigateToGestiones()
     {

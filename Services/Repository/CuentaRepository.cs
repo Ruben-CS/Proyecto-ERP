@@ -39,7 +39,7 @@ public class CuentaRepository : ICuentaRepository
         return _mapper.Map<Modelos.Models.Cuenta, CuentaDto>(cuenta);
     }
 
-    public async Task<bool> DeleteCuenta(CuentaDto cuentaDto, int id)
+    public async Task<bool> DeleteCuenta(int id)
     {
         var cuenta = await _applicationDbContext.Cuentas.FirstOrDefaultAsync(c => c
             .IdCuenta == id);
