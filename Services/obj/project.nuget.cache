@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "g+sbgrVF9RkTNmx13Hy1q+etzfLyh07MlC8rgOGLQFkjE3eUUZW/O712nODD4pzTcMa74uf3x3AFCXAMrKZfFg==",
+  "dgSpecHash": "3ZneoDR5CRmNTGssp4n32aGniTLK4Ad2baHooFaMBHE15gjdbCUFosQxUUUIJJ/470btdy+3QR6aDRqBWExVfg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
