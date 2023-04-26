@@ -418,3 +418,8 @@ C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\r
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\BlazorFrontend.pdb
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\BlazorFrontend.genruntimeconfig.cache
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\ref\BlazorFrontend.dll
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\MonedaComprobanteApi.deps.json
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\MonedaComprobanteApi.runtimeconfig.json
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\MonedaComprobanteApi.exe
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\MonedaComprobanteApi.dll
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\MonedaComprobanteApi.pdb
