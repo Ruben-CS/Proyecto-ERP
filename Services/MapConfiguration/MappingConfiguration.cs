@@ -32,6 +32,12 @@ public static class MappingConfiguration
 
             config.CreateMap<EmpresaMonedaDto, EmpresaMoneda>();
             config.CreateMap<EmpresaMoneda, EmpresaMonedaDto>();
+
+            config.CreateMap<ComprobanteDto, Comprobante>();
+            config.CreateMap<Comprobante, ComprobanteDto>();
+
+            config.CreateMap<DetalleComprobante, DetalleComprobanteDto>();
+            config.CreateMap<DetalleComprobanteDto, DetalleComprobante>();
         });
         return mappingConfig;
     }
