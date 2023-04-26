@@ -11,7 +11,7 @@ using Modelos.ApplicationContexts;
 
 namespace Modelos.Migrations
 {
-    [DbContext(typeof(_applicationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230329180801_MinorEmpresaChange")]
     partial class MinorEmpresaChange
     {

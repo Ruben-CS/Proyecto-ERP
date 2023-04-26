@@ -408,7 +408,6 @@ C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\s
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\staticwebassets.development.json
-C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\Empresa\Inicio.razor.rz.scp.css
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\InicioSesion.razor.rz.scp.css
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
 C:\Users\ruben\Documents\ERP-REPO\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\bundle\BlazorFrontend.styles.css

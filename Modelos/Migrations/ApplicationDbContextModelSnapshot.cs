@@ -10,7 +10,7 @@ using Modelos.ApplicationContexts;
 
 namespace ModuloContabilidadApi.Migrations
 {
-    [DbContext(typeof(_applicationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -39,9 +39,6 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int?>("IdCuentaPadre")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdCuentaPadreNavigationIdCuenta")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdEmpresa")
                         .HasColumnType("int");
 
@@ -60,9 +57,9 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasKey("IdCuenta");
 
-                    b.HasIndex("IdCuentaPadreNavigationIdCuenta");
+                    b.HasIndex("IdCuentaPadre");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("IdEmpresa");
 
                     b.ToTable("Cuentas");
                 });
@@ -225,11 +222,12 @@ namespace ModuloContabilidadApi.Migrations
                 {
                     b.HasOne("Modelos.Models.Cuenta", "IdCuentaPadreNavigation")
                         .WithMany("CuentasHijas")
-                        .HasForeignKey("IdCuentaPadreNavigationIdCuenta");
+                        .HasForeignKey("IdCuentaPadre")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Modelos.Models.Empresa", "Empresa")
                         .WithMany("Cuentas")
-                        .HasForeignKey("IdUsuario")
+                        .HasForeignKey("IdEmpresa")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

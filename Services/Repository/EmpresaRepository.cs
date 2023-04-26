@@ -9,11 +9,11 @@ namespace Services.Repository;
 
 public class EmpresaRepository : IEmpresaRepository
 {
-    private readonly _applicationDbContext _applicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     private readonly IMapper _mapper;
 
-    public EmpresaRepository(_applicationDbContext applicationDbContext,
+    public EmpresaRepository(ApplicationDbContext applicationDbContext,
                              IMapper mapper)
     {
         _applicationDbContext = applicationDbContext;

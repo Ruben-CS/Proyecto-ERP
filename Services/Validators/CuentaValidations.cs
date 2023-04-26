@@ -6,23 +6,22 @@ namespace Services.Validators;
 
 public static class CuentaValidations
 {
-
-    private static readonly _applicationDbContext ApplicationDbContext = null!;
-
-    public static async Task<bool> ValidateUniqueNameAsync(CuentaDto cuentaDto)
+    public static async Task<bool> ValidateUniqueNameAsync(
+        ApplicationDbContext dbContext, CuentaDto cuentaDto)
     {
         return await await Task.FromResult(
-            ApplicationDbContext.Cuentas.AnyAsync(c =>
+            dbContext.Cuentas.AnyAsync(c =>
                 string.Equals(c.Nombre, cuentaDto.Nombre,
                     StringComparison.OrdinalIgnoreCase)));
     }
 
-    public static async Task<bool> ExisteParentAccountAsync(CuentaDto cuentaDto)
+    public static async Task<bool> ExisteParentAccountAsync(
+        ApplicationDbContext dbContext, CuentaDto cuentaDto)
     {
         if (cuentaDto.IdCuentaPadre is null or 0)
             return await Task.FromResult(false);
         var cuentaPadre =
-            await ApplicationDbContext.Cuentas.FindAsync(cuentaDto.IdCuentaPadre.Value);
+            await dbContext.Cuentas.FindAsync(cuentaDto.IdCuentaPadre.Value);
         if (cuentaPadre is not null)
             return await Task.FromResult(true);
 

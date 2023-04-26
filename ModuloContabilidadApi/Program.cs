@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using ModuloContabilidadApi;
@@ -11,15 +12,19 @@ var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
 
 
 // Add services to the container.
+//TODO fix the json response based on the DTO chat suggested
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 
-builder.Services.AddControllers();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //configuracion del usuario
 
 
-builder.Services.AddDbContext<_applicationDbContext>(o =>
+builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),

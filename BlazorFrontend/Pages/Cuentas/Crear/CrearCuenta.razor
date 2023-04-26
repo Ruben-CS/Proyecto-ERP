@@ -1,0 +1,31 @@
+@using ButtonType = MudBlazor.ButtonType
+@using BlazorFrontend.Services
+@using global::Services.Cuenta
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject CuentaService CuentaService
+
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="CuentaDto" OnValidSubmit="CreateCuenta">
+            <MudTextField Required="true"
+                          Label="Nombre"
+                          @bind-Value="@CuentaDto.Nombre"/>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Dark"
+                   OnClick="Cancel">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   OnClick="CreateCuenta">
+            Crear
+        </MudButton>
+    </DialogActions>
+</MudDialog>

@@ -9,10 +9,10 @@ namespace Services.Repository;
 
 public class GestionRepository : IGestionRepository
 {
-    private readonly _applicationDbContext _applicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
     private readonly IMapper              _mapper;
 
-    public GestionRepository(_applicationDbContext applicationDbContext,
+    public GestionRepository(ApplicationDbContext applicationDbContext,
                              IMapper              mapper)
     {
         _applicationDbContext = applicationDbContext;

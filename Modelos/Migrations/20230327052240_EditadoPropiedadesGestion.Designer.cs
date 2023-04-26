@@ -11,7 +11,7 @@ using Modelos.ApplicationContexts;
 
 namespace Modelos.Migrations
 {
-    [DbContext(typeof(_applicationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230327052240_EditadoPropiedadesGestion")]
     partial class EditadoPropiedadesGestion
     {

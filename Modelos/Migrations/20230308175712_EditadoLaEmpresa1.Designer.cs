@@ -11,7 +11,7 @@ using Modelos.ApplicationContexts;
 
 namespace ModuloContabilidadApi.Migrations
 {
-    [DbContext(typeof(_applicationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230308175712_EditadoLaEmpresa1")]
     partial class EditadoLaEmpresa1
     {

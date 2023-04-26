@@ -1,0 +1,48 @@
+@using ButtonType = MudBlazor.ButtonType
+@using BlazorFrontend.Services
+@using global::Services.Cuenta
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject CuentaService CuentaService
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Desea elmininar esta cuenta?
+        </MudText>
+    </TitleContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error"
+                   OnClick="DeleteServer">Eliminar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code{
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<CuentaDto> OnTreeViewChange { get; set; }
+
+    public CuentaDto CuentaDto { get; set; } = new();
+
+    [Parameter]
+    public CuentasOverview.TreeItemData? SelectedValue { get; set; }
+
+    private void Cancel() => MudDialog.Close();
+
+    private async void DeleteServer()
+    {
+        var url = $"https://localhost:44378/cuentas/eliminarcuenta/{SelectedValue?.IdCuenta}";
+        var response = await HttpClient.DeleteAsync(url);
+
+        await OnTreeViewChange.InvokeAsync(CuentaDto);
+        Snackbar.Add("Cuenta borrada exitosamente 🗑️", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(response));
+    }
+
+}
