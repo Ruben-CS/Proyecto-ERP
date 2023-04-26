@@ -18,6 +18,10 @@ public class EmpresaMoneda
     [ForeignKey("Empresa")]
     public int IdEmpresa { get; set; }
 
+    [ForeignKey("Usuario")]
+    public int IdUsuario { get; set; }
+
+
     [InverseProperty("EmpresaMonedas")]
     public Usuario? Usuario { get; set; }
 
