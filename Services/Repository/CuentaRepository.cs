@@ -74,7 +74,8 @@ public class CuentaRepository : ICuentaRepository
     public async Task<IEnumerable<CuentaDto>> GetAllCuentas(int idempresa)
     {
         var listaGestiones =
-            await _applicationDbContext.Cuentas.Where(id => id.IdEmpresa == idempresa)
+            await _applicationDbContext.Cuentas
+                                       .Where(id => id.IdEmpresa == idempresa)
                                        .ToListAsync();
         return _mapper.Map<List<CuentaDto>>(listaGestiones);
     }

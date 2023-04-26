@@ -2,6 +2,7 @@ using BlazorFrontend.Pages.Cuentas.Crear;
 using BlazorFrontend.Pages.Cuentas.Editar;
 using BlazorFrontend.Pages.Cuentas.Eliminar;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using MudBlazor;
 
@@ -13,7 +14,10 @@ public partial class CuentasOverview
 
     private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
 
-    private TreeItemData SelectedValue { get; set; }
+    private TreeItemData? SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<TreeItemData> OnItemClicked { get; set; }
 
     private bool _open;
 
@@ -26,9 +30,9 @@ public partial class CuentasOverview
 
     private HashSet<TreeItemData> TreeItems { get; set; } = new();
 
-    private bool IsSelected() => SelectedValue is null;
-
     private void ToggleDrawer() => _open = !_open;
+
+    private bool IsCuentaSelected { get; set; } = false;
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
@@ -58,6 +62,8 @@ public partial class CuentasOverview
     private async Task<bool> HasChildren(TreeItemData selectedValue) =>
         await Task.FromResult(_cuentas.Any(cuenta =>
             cuenta.IdCuentaPadre == selectedValue.IdCuenta));
+
+    private void CuentaSelected() => IsCuentaSelected = true;
 
     private static TreeItemData CreateTree(TreeItemData           treeItemData,
                                            IEnumerable<CuentaDto> allCuentas)

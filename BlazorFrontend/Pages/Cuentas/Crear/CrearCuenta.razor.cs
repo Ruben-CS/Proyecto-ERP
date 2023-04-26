@@ -40,7 +40,6 @@ public partial class CrearCuenta
             IdCuentaPadre = SelectedValue?.IdCuenta,
             IdEmpresa     = IdEmpresa
         };
-        //todo add validations and event triggers
         if (await ValidateName(cuentaDto))
         {
             Snackbar.Add("Este nombre ya existe", Severity.Error);
