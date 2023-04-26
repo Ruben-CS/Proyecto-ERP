@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Modelos\Modelos.csproj" />
     <ProjectReference Include="..\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
+    <ProjectReference Include="..\MonedaComprobanteApi\MonedaComprobanteApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -26,6 +26,12 @@ public static class MappingConfiguration
             config.CreateMap<CuentaDto, Modelos.Models.Cuenta>()
                   .ForMember(dest => dest.IdCuenta, opt => opt.Ignore());
             config.CreateMap<Modelos.Models.Cuenta, CuentaDto>();
+
+            config.CreateMap<MonedaDto, Moneda>();
+            config.CreateMap<Moneda, MonedaDto>();
+
+            config.CreateMap<EmpresaMonedaDto, EmpresaMoneda>();
+            config.CreateMap<EmpresaMoneda, EmpresaMonedaDto>();
         });
         return mappingConfig;
     }
