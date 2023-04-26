@@ -1,16 +1,11 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+namespace Modelos.Models.Dtos;
 
-namespace Modelos.Models;
-
-public class Comprobante
+public sealed class ComprobanteDto
 {
-    [Key]
     public int IdComprobante { get; set; }
 
     public string Serie { get; set; }
     public string Glosa { get; set; }
-    [Required]
     public DateTime Fecha { get;         set; }
     public string TC              { get; set; }
     public bool   Estado          { get; set; }
@@ -18,13 +13,10 @@ public class Comprobante
 
     public List<DetalleComprobante>? DetalleComprobantes { get; set; }
 
-    [ForeignKey("Usuario")]
     public int IdUsuario { get; set; }
 
     public Usuario? Usuario { get; set; }
 
-    [ForeignKey("Moneda")]
     public int IdMoneda { get;   set; }
     public Moneda? Moneda { get; set;}
-
 }
