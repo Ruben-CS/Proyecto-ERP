@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Services.MapConfiguration;
+using Services.Repository;
+using Services.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
@@ -18,6 +20,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IMonedaRepository, MonedaRepository>();
 
 
 var app = builder.Build();
