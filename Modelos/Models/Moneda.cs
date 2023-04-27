@@ -21,6 +21,4 @@ public class Moneda
     public int IdUsuario { get; set; }
 
     public Usuario? Usuario { get; set; }
-
-
 }
