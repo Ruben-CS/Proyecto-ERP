@@ -13,8 +13,8 @@ public class MonedaRepository : IMonedaRepository
 
     public MonedaRepository(ApplicationDbContext dbContext, IMapper mapper)
     {
-        _dbContext   = dbContext;
-        _mapper = mapper;
+        _dbContext = dbContext;
+        _mapper    = mapper;
     }
 
     public async Task<IEnumerable<MonedaDto>> GetAllMonedas()
@@ -23,22 +23,22 @@ public class MonedaRepository : IMonedaRepository
         return _mapper.Map<List<MonedaDto>>(listaEmpresas);
     }
 
-    public Task<MonedaDto>                    GetMoneda(int          idMoneda)
+    public async Task<MonedaDto> GetMoneda(int idMoneda)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool>                         DeleteMoneda(int       idMoneda)
+    public async Task<bool> DeleteMoneda(int idMoneda)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MonedaDto>                    CreateMoneda(MonedaDto monedaDto, int idEmpresa)
+    public async Task<MonedaDto> CreateMoneda(MonedaDto monedaDto, int idEmpresa)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MonedaDto>                             UpdateMoneda(MonedaDto monedaDto, int idMoneda)
+    public async Task<MonedaDto> UpdateMoneda(MonedaDto monedaDto, int idMoneda)
     {
         throw new NotImplementedException();
     }

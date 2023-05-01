@@ -1,11 +1,13 @@
 @using ButtonType = MudBlazor.ButtonType
 @using BlazorFrontend.Services
+@using global::Services.Moneda
 @inject HttpClient HttpClient
 @inject EmpresaService EmpresaService
+@inject MonedaService MonedaService
 
 <MudDialog >
     <DialogContent>
-            <EditForm Model="@EmpresaDto" OnValidSubmit="UpsertEmpresa">
+        <EditForm Model="@EmpresaDto" OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
             <div class="row">
                 <div class="col-md-6 mb-4">
@@ -53,15 +55,30 @@
                     </div>
                 </div>
             </div>
-            <MudTextField Label="Correo" @bind-Value="@EmpresaDto.Correo" For="@(() => EmpresaDto.Correo)"/>
+            <MudSelect T="string" Label="Moneda"
+                       AnchorOrigin="Origin.BottomCenter"
+                       @bind-Value="@SelectedMoneda"
+                       HelperText="Seleccione una moneda"
+                       Variant="Variant.Text">
+                @foreach (var moneda in _monedas)
+                {
+                    <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
+                }
+            </MudSelect>
+            <MudTextField Label="Correo" @bind-Value="@EmpresaDto.Correo"
+                          For="@(() => EmpresaDto.Correo)"/>
         </EditForm>
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled"
                    Color="Color.Dark"
-                   OnClick="Cancel">Cancelar</MudButton>
+                   OnClick="Cancel">
+            Cancelar
+        </MudButton>
         <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"
                    Color="Color.Success"
-                   OnClick="UpsertEmpresa">Crear</MudButton>
+                   OnClick="UpsertEmpresa">
+            Crear
+        </MudButton>
     </DialogActions>
 </MudDialog>
