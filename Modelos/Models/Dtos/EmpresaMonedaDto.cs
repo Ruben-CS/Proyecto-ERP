@@ -3,8 +3,12 @@ using Modelos.Models.Enums;
 
 namespace Modelos.Models.Dtos;
 
-public class EmpresaMonedaDto
+public sealed class EmpresaMonedaDto
 {
+    public EmpresaMonedaDto()
+    {
+        FechaRegistro = DateTime.UtcNow;
+    }
     public int IdEmpresaMoneda { get; set; }
 
     public float? Cambio { get; set; }
@@ -23,9 +27,9 @@ public class EmpresaMonedaDto
 
     public int? IdMonedaAlternativa { get; set; }
 
-    public virtual Moneda? MonedaPrincipal { get; set; }
+    public Moneda? MonedaPrincipal { get; set; }
 
-    public virtual Moneda? MonedaAlternativa { get; set; }
+    public Moneda? MonedaAlternativa { get; set; }
 
     public IEnumerable<Moneda>? Monedas { get; set; }
 }

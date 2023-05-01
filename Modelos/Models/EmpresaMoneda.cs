@@ -4,8 +4,13 @@ using Modelos.Models.Enums;
 
 namespace Modelos.Models;
 
-public class EmpresaMoneda
+public sealed class EmpresaMoneda
 {
+    public EmpresaMoneda()
+    {
+        FechaRegistro = DateTime.UtcNow;
+    }
+
     [Key]
     public int IdEmpresaMoneda { get; set; }
 
@@ -19,7 +24,7 @@ public class EmpresaMoneda
     public int IdEmpresa { get; set; }
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
 
     [InverseProperty("EmpresaMonedas")]
@@ -34,9 +39,9 @@ public class EmpresaMoneda
     [ForeignKey("MonedaAlternativa")]
     public int? IdMonedaAlternativa { get; set; }
 
-    public virtual Moneda? MonedaPrincipal { get; set; }
+    public Moneda? MonedaPrincipal { get; set; }
 
-    public virtual Moneda? MonedaAlternativa { get; set; }
+    public Moneda? MonedaAlternativa { get; set; }
 
     public IEnumerable<Moneda>? Monedas { get; set; }
 }

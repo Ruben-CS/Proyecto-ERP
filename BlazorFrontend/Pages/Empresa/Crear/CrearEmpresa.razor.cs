@@ -82,6 +82,20 @@ public partial class CrearEmpresa
         }
     }
 
+    private async Task CreateEmpresaMoneda()
+    {
+        const string url = "https://localhost:44378/empresas/agregarempresamoneda";
+
+        var empresaMonedaDto = new EmpresaMonedaDto
+        {
+            IdEmpresa         = EmpresaDto.IdEmpresa,
+            IdMonedaPrincipal = MonedaDto.IdMoneda
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
+        var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaMonedaDto>();
+    }
+
     private async Task<bool> ValidateUniqueNombre() =>
         await Task.FromResult(!_empresaDtos.Any(empresa =>
             empresa.Nombre    == EmpresaDto.Nombre &&
