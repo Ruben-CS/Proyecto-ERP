@@ -8,13 +8,13 @@ namespace ModuloContabilidadApi.Controllers;
 [Route("empresas")]
 public class EmpresaApiController : ControllerBase
 {
-    protected readonly ResponseDto        ResponseDto;
+    private readonly ResponseDto        _responseDto;
     private readonly   IEmpresaRepository _empresaRepository;
 
     public EmpresaApiController(IEmpresaRepository empresaRepository)
     {
         _empresaRepository = empresaRepository;
-        ResponseDto        = new ResponseDto();
+        _responseDto        = new ResponseDto();
     }
 
     [HttpGet("ListarEmpresa")]
@@ -23,18 +23,18 @@ public class EmpresaApiController : ControllerBase
         try
         {
             var empresaDto = await _empresaRepository.GetModelos();
-            ResponseDto.Result = empresaDto;
+            _responseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
 
-        return ResponseDto;
+        return _responseDto;
     }
 
     [HttpGet]
@@ -44,18 +44,18 @@ public class EmpresaApiController : ControllerBase
         try
         {
             var empresaDto = await _empresaRepository.GetModelo(id);
-            ResponseDto.Result = empresaDto;
+            _responseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
 
-        return ResponseDto;
+        return _responseDto;
     }
 
     [HttpPost("agregarEmpresa")]
@@ -65,18 +65,18 @@ public class EmpresaApiController : ControllerBase
         {
             var empresaDto =
                 await _empresaRepository.CreateUpdateModelDto(empresa);
-            ResponseDto.Result = empresaDto;
+            _responseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
 
-        return ResponseDto;
+        return _responseDto;
     }
 
     [HttpPut]
@@ -86,18 +86,18 @@ public class EmpresaApiController : ControllerBase
         {
             var empresaDto =
                 await _empresaRepository.UpdateModelDto(empresa);
-            ResponseDto.Result = empresaDto;
+            _responseDto.Result = empresaDto;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
         }
 
-        return ResponseDto;
+        return _responseDto;
     }
 
     [HttpDelete]
@@ -106,18 +106,18 @@ public class EmpresaApiController : ControllerBase
         try
         {
             var isSucces = await _empresaRepository.DeleteModel(id);
-            ResponseDto.Result = isSucces;
+            _responseDto.Result = isSucces;
         }
         catch (Exception e)
         {
-            ResponseDto.IsSuccess = false;
-            ResponseDto.ErrorMessages = new List<string>()
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
             {
                 e.ToString()
             };
             throw;
         }
 
-        return ResponseDto;
+        return _responseDto;
     }
 }
