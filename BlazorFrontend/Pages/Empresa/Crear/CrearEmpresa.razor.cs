@@ -78,22 +78,26 @@ public partial class CrearEmpresa
             Snackbar.Add("Empresa creada exitosamente", Severity.Success);
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
             await OnEmpresaAdded.InvokeAsync(addedEmpresa);
+            await CreateEmpresaMoneda(empresaDto);
             MudDialog!.Close(DialogResult.Ok(response));
         }
     }
 
-    private async Task CreateEmpresaMoneda()
+    private async Task CreateEmpresaMoneda(EmpresaDto newEmpresaDto)
     {
-        const string url = "https://localhost:44378/empresas/agregarempresamoneda";
-
+        const string url = "https://localhost:44352/empresaMonedas";
+        var empresas = await EmpresaService.GetEmpresasAsync();
+        var newEmpresa = empresas.Single(empresa => empresa.Nit == newEmpresaDto.Nit);
+        MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
         var empresaMonedaDto = new EmpresaMonedaDto
         {
-            IdEmpresa         = EmpresaDto.IdEmpresa,
-            IdMonedaPrincipal = MonedaDto.IdMoneda
+            Cambio              = null,
+            IdEmpresa           = newEmpresa.IdEmpresa,
+            IdMonedaPrincipal   = MonedaDto.IdMoneda,
+            IdMonedaAlternativa = null,
+            IdUsuario           = 1
         };
-
-        var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
-        var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaMonedaDto>();
+        await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
     }
 
     private async Task<bool> ValidateUniqueNombre() =>

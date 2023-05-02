@@ -22,6 +22,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IMonedaRepository, MonedaRepository>();
+builder.Services.AddScoped<IEmpresaMonedaRepository, EmpresaMonedaRepository>();
 
 
 var app = builder.Build();

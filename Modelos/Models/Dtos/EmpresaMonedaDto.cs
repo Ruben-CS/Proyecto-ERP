@@ -19,6 +19,8 @@ public sealed class EmpresaMonedaDto
 
     public int IdEmpresa { get; set; }
 
+    public int IdUsuario { get; set; } = 1;
+
     public Usuario? Usuario { get; set; }
 
     public Empresa? Empresa { get; set; }
