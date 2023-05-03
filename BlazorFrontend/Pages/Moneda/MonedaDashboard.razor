@@ -1,10 +1,33 @@
-@page "/inicio/monedaDashboard/{id:int}"
+@page "/inicio/configuracion/monedaDashboard/{idempresa:int}"
+@using global::Services.EmpresaMoneda
+@using global::Services.Moneda
 @layout MonedaDashBoardLayout
 @inject NavigationManager NavigationManager
-@layout DashboardLayout
-@inject IDialogService DialogService
+@inject EmpresaMonedaService EmpresaMonedaService
+@inject MonedaService MonedaService
 
 <AppNavComponent IdEmpresa="@IdEmpresa"/>
+
+<MudTable Items="@_empresaMonedas"
+          Hover="true"
+          Breakpoint="Breakpoint.Sm"
+          Bordered="true"
+          Striped="true">
+    <HeaderContent>
+        <MudTh>Fecha y hora</MudTh>
+        <MudTh>Moneda Principal</MudTh>
+        <MudTh>Moneda Alternativa</MudTh>
+        <MudTh>Cambio</MudTh>
+        <MudTh>Estado</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
+        <MudTd DataLabel="MonedaPrincipal">@context.MonedaPrincipal</MudTd>
+        <MudTd DataLabel="MonedaAlternativa">@context.MonedaAlternativa</MudTd>
+        <MudTd DataLabel="Cambio">@context.Cambio</MudTd>
+        <MudTd DataLabel="Estado">@context.Estado</MudTd>
+    </RowTemplate>
+</MudTable>
 
 
 @code {
@@ -12,16 +35,23 @@
     [Parameter]
     public int IdEmpresa { get; set; }
 
+    private List<EmpresaMonedaDto> _empresaMonedas = new();
+
+    private List<MonedaDto> _monedas = new();
+
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var uri      = new Uri(NavigationManager.Uri);
+            var uri = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
-            var idValue  = segments[^1];
+            var idValue = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa  = int.Parse(idValue);
+                IdEmpresa = int.Parse(idValue);
+                _empresaMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+                _monedas = (await MonedaService.GetMonedasAsync())!;
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -36,4 +66,5 @@
                 $"An error occurred while initializing the component: {ex}");
         }
     }
+
 }

@@ -1,6 +1,7 @@
 using MudBlazor.Services;
 using BlazorFrontend.Services;
 using Services.Cuenta;
+using Services.EmpresaMoneda;
 using Services.Gestion;
 using Services.Moneda;
 using Services.Periodo;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<GestionServices>();
 builder.Services.AddScoped<PeriodoService>();
 builder.Services.AddScoped<CuentaService>();
 builder.Services.AddScoped<MonedaService>();
+builder.Services.AddScoped<EmpresaMonedaService>();
 var app = builder.Build();
 
 
