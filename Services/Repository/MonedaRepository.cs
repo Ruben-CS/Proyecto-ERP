@@ -25,7 +25,9 @@ public class MonedaRepository : IMonedaRepository
 
     public async Task<MonedaDto> GetMoneda(int idMoneda)
     {
-        throw new NotImplementedException();
+        var moneda = await _dbContext.Monedas.Where(moneda => moneda.IdMoneda == idMoneda)
+                                     .FirstOrDefaultAsync();
+        return _mapper.Map<MonedaDto>(moneda);
     }
 
     public async Task<bool> DeleteMoneda(int idMoneda)

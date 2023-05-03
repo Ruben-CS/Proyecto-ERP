@@ -18,8 +18,27 @@ public class MonedaApiController : ControllerBase
     }
 
 
+    [HttpGet("getMonedaById/{id:int}")]
+    public async Task<object> Get(int id)
+    {
+        try
+        {
+            var moneda = await _monedaRepository.GetMoneda(id);
+            _responseDto.Result = moneda;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+        return _responseDto;
+    }
+
     [HttpGet("getMonedas")]
-    public async Task<object> GetEmpresas()
+    public async Task<object> Get()
     {
         try
         {

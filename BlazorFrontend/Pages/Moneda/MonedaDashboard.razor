@@ -1,6 +1,6 @@
 @page "/inicio/configuracion/monedaDashboard/{idempresa:int}"
-@using global::Services.EmpresaMoneda
 @using global::Services.Moneda
+@using global::Services.EmpresaMonedaService
 @layout MonedaDashBoardLayout
 @inject NavigationManager NavigationManager
 @inject EmpresaMonedaService EmpresaMonedaService
@@ -70,7 +70,6 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
-                <MudTd DataLabel="MonedaPrincipal">@(NombreMoneda(context))</MudTd>
                 <MudTd DataLabel="MonedaAlternativa">@context.MonedaAlternativa</MudTd>
                 <MudTd DataLabel="Cambio">@context.Cambio</MudTd>
                 <MudTd DataLabel="Estado">@context.Estado</MudTd>
@@ -78,76 +77,3 @@
         </MudTable>
     </MudMainContent>
 </MudLayout>
-
-@code {
-
-    [Parameter]
-    public int IdEmpresa { get; set; }
-
-    private List<EmpresaMonedaDto> _empresaMonedas = new();
-
-    private List<MonedaDto> _monedas = new();
-
-    private bool IsExpanded { get; set; }
-
-    private bool _open;
-
-    private void ToggleDrawer() => _open = !_open;
-
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-
-    private string NombreMoneda(EmpresaMonedaDto empresaMonedaDto)
-    {
-        var moneda = _monedas.Single(m => m.IdMoneda == empresaMonedaDto.IdMonedaPrincipal);
-        return moneda.Nombre;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            var uri = new Uri(NavigationManager.Uri);
-            var segments = uri.Segments;
-            var idValue = segments[^1];
-            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
-            {
-                IdEmpresa = int.Parse(idValue);
-                _empresaMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
-                _monedas = (await MonedaService.GetMonedasAsync())!;
-                await InvokeAsync(StateHasChanged);
-            }
-            else
-            {
-                throw new KeyNotFoundException(
-                    "The 'id' parameter was not found in the query string.");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(
-                $"An error occurred while initializing the component: {ex}");
-        }
-    }
-
-    private void NavigateToCuentas()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/plandecuentas/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-    private void NavigateToGestiones()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-    private void NavigateToMonedas()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-}

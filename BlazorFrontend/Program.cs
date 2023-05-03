@@ -1,7 +1,7 @@
 using MudBlazor.Services;
 using BlazorFrontend.Services;
 using Services.Cuenta;
-using Services.EmpresaMoneda;
+using Services.EmpresaMonedaService;
 using Services.Gestion;
 using Services.Moneda;
 using Services.Periodo;

@@ -17,7 +17,7 @@ public class EmpresaMonedaApi : ControllerBase
         _responseDto             = new ResponseDto();
     }
 
-    [HttpGet("getEmpresasByIdEmpresa/{id:int}")]
+    [HttpGet("getEmpresasMonedaByIdEmpresa/{id:int}")]
     public async Task<object> Get(int id)
     {
         try

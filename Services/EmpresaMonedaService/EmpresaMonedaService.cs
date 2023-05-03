@@ -1,7 +1,7 @@
 using Modelos.Models.Dtos;
 using Newtonsoft.Json;
 
-namespace Services.EmpresaMoneda;
+namespace Services.EmpresaMonedaService;
 
 public sealed class EmpresaMonedaService
 {
@@ -14,7 +14,7 @@ public sealed class EmpresaMonedaService
 
     public async Task<List<EmpresaMonedaDto>> GetEmpresasMonedaAsync(int idEmpresa) =>
         await GetApiResponseAsync<List<EmpresaMonedaDto>>
-            ($"https://localhost:44352/empresaMonedas/getEmpresasByIdEmpresa/{idEmpresa}");
+            ($"https://localhost:44352/empresaMonedas/getEmpresasMonedaByIdEmpresa/{idEmpresa}");
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {
