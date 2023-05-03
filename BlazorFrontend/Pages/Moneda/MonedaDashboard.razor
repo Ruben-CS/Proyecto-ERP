@@ -56,6 +56,16 @@
             </MudNavMenu>
         </MudDrawer>
 
+        <MudStack Row="true">
+            <EditForm Model="EmpresaMonedaDto" OnValidSubmit="AddMonedaAlternativa">
+                <DataAnnotationsValidator/>
+                <MudTextField Required="true"
+                              Label="Moneda Principal"
+                              Value="MonedaPrincipalName"
+                              Disabled="true"/>
+            </EditForm>
+        </MudStack>
+
         <MudTable Items="@_empresaMonedas"
                   Hover="true"
                   Breakpoint="Breakpoint.Sm"
@@ -70,6 +80,7 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
+                <MudTd DataLabel="MonedaAlternativa">@MonedaPrincipal.Nombre</MudTd>
                 <MudTd DataLabel="MonedaAlternativa">@context.MonedaAlternativa</MudTd>
                 <MudTd DataLabel="Cambio">@context.Cambio</MudTd>
                 <MudTd DataLabel="Estado">@context.Estado</MudTd>

@@ -11,12 +11,14 @@ public partial class MonedaDashboard
     private List<EmpresaMonedaDto> _empresaMonedas = new();
     private List<MonedaDto>        _monedas        = new();
 
-    public  MonedaDto    MonedaPrincipal          { get; set; }
-    private bool IsExpanded { get; set; }
+    private EmpresaMonedaDto EmpresaMonedaDto { get; set; } = new();
+    private MonedaDto        MonedaPrincipal  { get; set; } = null!;
+    private bool             IsExpanded       { get; set; }
 
-    private bool _open;
-    private void ToggleDrawer()   => _open = !_open;
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    public  string MonedaPrincipalName { get; set; }
+    private bool   _open;
+    private void   ToggleDrawer()   => _open = !_open;
+    private void   CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,7 +33,7 @@ public partial class MonedaDashboard
                 _empresaMonedas =
                     await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
-                MonedaPrincipal = await GetMonedaPrincipal();
+                MonedaPrincipal = (await GetMonedaPrincipal())!;
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -51,10 +53,18 @@ public partial class MonedaDashboard
     {
         var empresaMonedaDto = _empresaMonedas.Find(em => em.IdEmpresa == IdEmpresa);
 
-        var monedaPrincipal = await MonedaService.
-            GetMonedaByIdAsync(empresaMonedaDto.IdMonedaPrincipal) ?? default;
+        var monedaPrincipal =
+            await MonedaService.GetMonedaByIdAsync(empresaMonedaDto.IdMonedaPrincipal) ??
+            default;
+        MonedaPrincipalName = monedaPrincipal.Nombre;
         return monedaPrincipal;
     }
+
+    private async void AddMonedaAlternativa()
+    {
+    }
+
+    private string GetMonedaPrincipalName() => MonedaPrincipal.Nombre;
 
 
     private void NavigateToCuentas()
