@@ -1,9 +1,10 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
-using Modelos.Models;
 using Modelos.Models.Dtos;
+using Services.Repository.Interfaces;
 
-namespace Services.Repository.Interfaces;
+namespace Services.Repository;
 
 public class EmpresaMonedaRepository : IEmpresaMonedaRepository
 {
@@ -17,9 +18,12 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
         _mapper               = mapper;
     }
 
-    public Task<List<EmpresaMonedaDto>> GetEmpresasMonedas()
+    public async Task<List<EmpresaMonedaDto>> GetEmpresasMonedas(int idEmpresa)
     {
-        throw new NotImplementedException();
+        var listaEmpresaMoneda =
+            await _applicationDbContext.EmpresaMonedas.Where(em =>
+                em.IdEmpresa == idEmpresa).ToListAsync();
+        return _mapper.Map<List<EmpresaMonedaDto>>(listaEmpresaMoneda);
     }
 
     public Task<EmpresaMonedaDto> GetEmpresaMoneda(int id)
@@ -31,10 +35,10 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
         EmpresaMonedaDto empresaMonedaDto)
     {
         var empresaMonedaDb =
-            _mapper.Map<EmpresaMonedaDto, EmpresaMoneda>(empresaMonedaDto);
+            _mapper.Map<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>(empresaMonedaDto);
         _applicationDbContext.EmpresaMonedas.Add(empresaMonedaDb);
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(
-            _mapper.Map<EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));
+            _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));
     }
 }

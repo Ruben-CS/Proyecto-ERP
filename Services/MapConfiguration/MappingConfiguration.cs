@@ -30,8 +30,8 @@ public static class MappingConfiguration
             config.CreateMap<MonedaDto, Modelos.Models.Moneda>();
             config.CreateMap<Modelos.Models.Moneda, MonedaDto>();
 
-            config.CreateMap<EmpresaMonedaDto, EmpresaMoneda>();
-            config.CreateMap<EmpresaMoneda, EmpresaMonedaDto>();
+            config.CreateMap<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>();
+            config.CreateMap<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>();
 
             config.CreateMap<ComprobanteDto, Comprobante>();
             config.CreateMap<Comprobante, ComprobanteDto>();

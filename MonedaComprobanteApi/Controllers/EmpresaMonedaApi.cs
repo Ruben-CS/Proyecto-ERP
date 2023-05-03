@@ -17,6 +17,26 @@ public class EmpresaMonedaApi : ControllerBase
         _responseDto             = new ResponseDto();
     }
 
+    [HttpGet("getEmpresasByIdEmpresa/{id:int}")]
+    public async Task<object> Get(int id)
+    {
+        try
+        {
+            var result = await _empresaMonedaRepository.GetEmpresasMonedas(id);
+            _responseDto.Result = result;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+            throw;
+        }
+        return _responseDto;
+    }
+
     [HttpPost]
     public async Task<object> Post([FromBody] EmpresaMonedaDto empresaMonedaDto)
     {

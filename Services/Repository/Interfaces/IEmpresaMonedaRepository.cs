@@ -4,7 +4,7 @@ namespace Services.Repository.Interfaces;
 
 public interface IEmpresaMonedaRepository
 {
-    public Task<List<EmpresaMonedaDto>> GetEmpresasMonedas();
+    public Task<List<EmpresaMonedaDto>> GetEmpresasMonedas(int idEmpresa);
 
     public Task<EmpresaMonedaDto> GetEmpresaMoneda(int id);
 
