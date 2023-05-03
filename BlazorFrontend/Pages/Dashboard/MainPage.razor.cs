@@ -54,4 +54,11 @@ public partial class MainPage
         var uri = $"/plandecuentas/overview/{Id}";
         NavigationManager.NavigateTo(uri);
     }
+
+    private void NavigateToMonedas()
+    {
+        if (Id is 0) return;
+        var uri = $"/inicio/configuracion/monedaDashboard/{Id}";
+        NavigationManager.NavigateTo(uri);
+    }
 }

@@ -1,11 +1,9 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
 using Services.Cuenta;
 using Services.Repository.Interfaces;
-using Services.Validators;
 
 namespace Services.Repository;
 

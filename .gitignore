@@ -1,0 +1,4 @@
+#ignore .vs .vscode and .idea
+.idea/
+.vs/
+.vscode/

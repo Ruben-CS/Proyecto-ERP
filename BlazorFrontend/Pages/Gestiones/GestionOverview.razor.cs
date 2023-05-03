@@ -133,12 +133,6 @@ public partial class GestionOverview
         }
     }
 
-    private async Task OnGestionAdded(GestionDto newGestion)
-    {
-        _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
-        await Task.FromResult(InvokeAsync(StateHasChanged));
-    }
-
     private async Task OnDataGridChange(GestionDto gestionDto)
     {
         _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);

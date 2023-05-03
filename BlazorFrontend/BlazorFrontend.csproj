@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Modelos\Modelos.csproj" />
     <ProjectReference Include="..\ModuloContabilidadApi\ModuloContabilidadApi.csproj" />
+    <ProjectReference Include="..\MonedaComprobanteApi\MonedaComprobanteApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,10 @@
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Moneda\Components\" />
   </ItemGroup>
 
 </Project>

@@ -32,6 +32,8 @@ public class Empresa
 
     public List<Gestion>? Gestiones { get; set; }
 
+    public List<EmpresaMoneda>? EmpresaMonedas { get; set; }
+
     public List<Cuenta>? Cuentas { get; set; }
 
     [ForeignKey("Usuario")]

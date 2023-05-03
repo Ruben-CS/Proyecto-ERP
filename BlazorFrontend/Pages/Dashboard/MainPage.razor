@@ -36,9 +36,15 @@
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        Href="/security"
                         OnClick="CambiarEmpresa">
                 Cambiar empresa
+            </MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Icon="@Icons.Material.Filled.Settings"
+                     Title="Configuracion">
+            <MudNavLink Icon="@Icons.Material.Filled.CurrencyExchange"
+                        OnClick="NavigateToMonedas">
+                Monedas
             </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>

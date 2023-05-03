@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "BOf3I02ydkzfi6VQZAY2mSXGIwnM9vP2GYTxKZYbr+g=",
+  "Source": "MonedaComprobanteApi",
+  "BasePath": "_content/MonedaComprobanteApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
