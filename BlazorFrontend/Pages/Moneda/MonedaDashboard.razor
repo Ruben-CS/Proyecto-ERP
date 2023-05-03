@@ -70,7 +70,7 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
-                <MudTd DataLabel="MonedaPrincipal">@context.MonedaPrincipal</MudTd>
+                <MudTd DataLabel="MonedaPrincipal">@(NombreMoneda(context))</MudTd>
                 <MudTd DataLabel="MonedaAlternativa">@context.MonedaAlternativa</MudTd>
                 <MudTd DataLabel="Cambio">@context.Cambio</MudTd>
                 <MudTd DataLabel="Estado">@context.Estado</MudTd>
@@ -96,25 +96,10 @@
 
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
-    private void NavigateToCuentas()
+    private string NombreMoneda(EmpresaMonedaDto empresaMonedaDto)
     {
-        if (IdEmpresa is 0) return;
-        var uri = $"/plandecuentas/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-    private void NavigateToGestiones()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-    private void NavigateToMonedas()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
+        var moneda = _monedas.Single(m => m.IdMoneda == empresaMonedaDto.IdMonedaPrincipal);
+        return moneda.Nombre;
     }
 
     protected override async Task OnInitializedAsync()
@@ -142,6 +127,27 @@
             Console.WriteLine(
                 $"An error occurred while initializing the component: {ex}");
         }
+    }
+
+    private void NavigateToCuentas()
+    {
+        if (IdEmpresa is 0) return;
+        var uri = $"/plandecuentas/overview/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private void NavigateToGestiones()
+    {
+        if (IdEmpresa is 0) return;
+        var uri = $"/gestion/overview/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private void NavigateToMonedas()
+    {
+        if (IdEmpresa is 0) return;
+        var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
     }
 
 }
