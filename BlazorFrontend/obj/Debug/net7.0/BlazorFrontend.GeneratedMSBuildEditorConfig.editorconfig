@@ -80,6 +80,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9uZWRhXENvbXBvbmVudHNcQXBwTmF2Q29tcG9uZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Moneda/Components/Sample.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9uZWRhXENvbXBvbmVudHNcU2FtcGxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Moneda/MonedaDashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9uZWRhXE1vbmVkYURhc2hib2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -98,6 +102,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Periodo/InicioPeriodo.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyaW9kb1xJbmljaW9QZXJpb2RvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Shared/AppNavComponentLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFwcE5hdkNvbXBvbmVudExheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Shared/CuentasOverviewLayout.razor]
