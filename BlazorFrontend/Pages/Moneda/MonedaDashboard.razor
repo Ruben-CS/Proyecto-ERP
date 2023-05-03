@@ -56,15 +56,23 @@
             </MudNavMenu>
         </MudDrawer>
 
-        <MudStack Row="true">
-            <EditForm Model="EmpresaMonedaDto" OnValidSubmit="AddMonedaAlternativa">
-                <DataAnnotationsValidator/>
-                <MudTextField Required="true"
-                              Label="Moneda Principal"
-                              Value="MonedaPrincipalName"
-                              Disabled="true"/>
-            </EditForm>
-        </MudStack>
+        <EditForm Model="EmpresaMonedaDto" OnValidSubmit="AddMonedaAlternativa">
+            <DataAnnotationsValidator/>
+            <MudTextField Required="true"
+                          Label="Moneda Principal"
+                          Value="MonedaPrincipalName"
+                          Disabled="true"/>
+            <MudSelect T="string" Label="Moneda Alternativa"
+                       AnchorOrigin="Origin.BottomCenter"
+                       @bind-Value="@SelectedMoneda"
+                       HelperText="Seleccione una moneda alternativa"
+                       Variant="Variant.Text">
+                @foreach (var moneda in _monedas.Where(m => m.IdMoneda != MonedaPrincipal.IdMoneda))
+                {
+                    <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
+                }
+            </MudSelect>
+        </EditForm>
 
         <MudTable Items="@_empresaMonedas"
                   Hover="true"

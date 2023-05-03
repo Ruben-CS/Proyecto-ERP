@@ -13,9 +13,17 @@ public partial class MonedaDashboard
 
     private EmpresaMonedaDto EmpresaMonedaDto { get; set; } = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
-    private bool             IsExpanded       { get; set; }
+
+    public  MonedaDto MonedaDto  { get; set; } = new();
+    private bool      IsExpanded { get; set; }
+
+    private string? _previousSelectedMoneda;
+
 
     public  string MonedaPrincipalName { get; set; }
+
+    public string? SelectedMoneda { get; set; }
+
     private bool   _open;
     private void   ToggleDrawer()   => _open = !_open;
     private void   CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
@@ -49,6 +57,13 @@ public partial class MonedaDashboard
         }
     }
 
+    protected override void OnParametersSet()
+    {
+        if (SelectedMoneda == _previousSelectedMoneda) return;
+        _previousSelectedMoneda = SelectedMoneda;
+        SelectedMoneda = _monedas.FirstOrDefault(m => m.Nombre == SelectedMoneda)?.Nombre;
+        MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
+    }
     private async Task<MonedaDto?> GetMonedaPrincipal()
     {
         var empresaMonedaDto = _empresaMonedas.Find(em => em.IdEmpresa == IdEmpresa);
