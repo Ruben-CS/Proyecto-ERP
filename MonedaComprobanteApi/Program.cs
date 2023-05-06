@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
+using Newtonsoft.Json.Serialization;
 using Services.MapConfiguration;
 using Services.Repository;
 using Services.Repository.Interfaces;
@@ -7,7 +8,7 @@ using Services.Repository.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -23,6 +24,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IMonedaRepository, MonedaRepository>();
 builder.Services.AddScoped<IEmpresaMonedaRepository, EmpresaMonedaRepository>();
+builder.Services.AddSwaggerGenNewtonsoftSupport();
 
 
 var app = builder.Build();

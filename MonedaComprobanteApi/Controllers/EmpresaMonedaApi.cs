@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Modelos.Models.Dtos;
 using Services.Repository.Interfaces;
@@ -34,6 +35,7 @@ public class EmpresaMonedaApi : ControllerBase
             };
             throw;
         }
+
         return _responseDto;
     }
 
@@ -49,12 +51,33 @@ public class EmpresaMonedaApi : ControllerBase
         catch (Exception e)
         {
             _responseDto.IsSuccess = false;
-            _responseDto.ErrorMessages = new List<string>()
+            _responseDto.ErrorMessages = new List<string>
             {
                 e.ToString()
             };
         }
 
+        return _responseDto;
+    }
+
+    [HttpPatch("{id:int}")]
+    public async Task<object> PatchEmpresaMoneda(
+        int id, [FromBody] JsonPatchDocument<EmpresaMonedaDto> patchDoc)
+    {
+        try
+        {
+            var updatedEmpresaMoneda =
+                await _empresaMonedaRepository.UpdateMoneda(patchDoc, id);
+            _responseDto.Result = updatedEmpresaMoneda!;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
         return _responseDto;
     }
 }

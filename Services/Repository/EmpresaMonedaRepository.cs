@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
@@ -40,5 +41,21 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(
             _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));
+    }
+
+    public async Task<EmpresaMonedaDto> UpdateMoneda(
+        JsonPatchDocument<EmpresaMonedaDto> patchDoc, int id)
+    {
+        var empresaMonedaDb = await _applicationDbContext.EmpresaMonedas.FindAsync(id);
+
+        var empresaMonedaDto =
+            _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb);
+        patchDoc.ApplyTo(empresaMonedaDto);
+
+        _mapper.Map(empresaMonedaDto, empresaMonedaDb);
+        await _applicationDbContext.SaveChangesAsync();
+
+        return _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(
+            empresaMonedaDb);
     }
 }

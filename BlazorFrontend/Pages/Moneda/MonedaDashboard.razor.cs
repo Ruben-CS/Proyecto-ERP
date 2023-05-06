@@ -75,8 +75,9 @@ public partial class MonedaDashboard
         return monedaPrincipal;
     }
 
-    private async void AddMonedaAlternativa()
+    private async Task AddMonedaAlternativa()
     {
+
     }
 
     private string GetMonedaPrincipalName() => MonedaPrincipal.Nombre;
