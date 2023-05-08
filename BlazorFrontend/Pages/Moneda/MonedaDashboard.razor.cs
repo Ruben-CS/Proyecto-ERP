@@ -14,13 +14,12 @@ public partial class MonedaDashboard
     private List<EmpresaMonedaDto> _empresaMonedas = new();
     private List<MonedaDto>        _monedas        = new();
 
-    private EmpresaMonedaDto EmpresaMonedaDto { get; set; } = new();
+    private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
 
-    public  MonedaDto MonedaDto  { get; set; } = new();
     private bool      IsExpanded { get; set; }
 
-    public float? Cambio { get; set; } = new();
+    private float? Cambio { get; set; } = new();
 
     private string? _previousSelectedMoneda;
 
@@ -67,7 +66,7 @@ public partial class MonedaDashboard
         if (SelectedMoneda == _previousSelectedMoneda) return;
         _previousSelectedMoneda = SelectedMoneda;
         SelectedMoneda = _monedas.FirstOrDefault(m => m.Nombre == SelectedMoneda)?.Nombre;
-        MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
+        _monedas.Single(m => m.Nombre == SelectedMoneda);
     }
 
     private async Task<MonedaDto?> GetMonedaPrincipal()
@@ -75,7 +74,7 @@ public partial class MonedaDashboard
         var empresaMonedaDto = _empresaMonedas.Find(em => em.IdEmpresa == IdEmpresa);
 
         var monedaPrincipal =
-            await MonedaService.GetMonedaByIdAsync(empresaMonedaDto.IdMonedaPrincipal) ??
+            await MonedaService.GetMonedaByIdAsync(empresaMonedaDto!.IdMonedaPrincipal) ??
             default;
         MonedaPrincipalName = monedaPrincipal.Nombre;
         return monedaPrincipal;
@@ -85,24 +84,21 @@ public partial class MonedaDashboard
     {
         var selectedMonedaAlternativa =
             _monedas.FirstOrDefault(ma => ma.Nombre == SelectedMoneda);
-        var idMonedaAlternativa = selectedMonedaAlternativa!.IdMoneda;
-        //Todo check why cambio is null
-        // var cambio               = EmpresaMonedaDto.Cambio;
-        float? cambio               = Cambio;
-        var    currentEmpresaMoneda = _empresaMonedas[0];
-        //TODO Retrieve the primary key of the current empresa moneda
+        var idMonedaAlternativa  = selectedMonedaAlternativa!.IdMoneda;
+        var cambio               = Cambio;
+        var currentEmpresaMoneda = _empresaMonedas[0];
         var url =
             $"https://localhost:44352/empresaMonedas/{currentEmpresaMoneda.IdEmpresaMoneda}";
 
         var patchOperations = new List<Dictionary<string, object>>
         {
-            new Dictionary<string, object>
+            new()
             {
                 { "op", "replace" },
                 { "path", "/cambio" },
                 { "value", cambio }
             },
-            new Dictionary<string, object>
+            new()
             {
                 { "op", "replace" },
                 { "path", "/idMonedaAlternativa" },
@@ -116,11 +112,15 @@ public partial class MonedaDashboard
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("EmpresaMoneda actualizada exitosamente", Severity.Success);
-            // Perform any additional actions required after a successful update
         }
     }
 
-    private string GetMonedaPrincipalName() => MonedaPrincipal.Nombre;
+    private string GetMonedaAlternativaName()
+    {
+        var monedaAlterna = _monedas.Single(ma =>
+            ma.IdMoneda == _empresaMonedas[0].IdMonedaAlternativa);
+        return monedaAlterna.Nombre;
+    }
 
 
     private void NavigateToCuentas()

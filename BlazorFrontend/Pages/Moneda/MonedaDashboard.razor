@@ -103,9 +103,11 @@
             <RowTemplate>
                 <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
                 <MudTd DataLabel="MonedaAlternativa">@MonedaPrincipal.Nombre</MudTd>
-                <MudTd DataLabel="MonedaAlternativa">@context.MonedaAlternativa</MudTd>
+                <MudTd DataLabel="MonedaAlternativa">@GetMonedaAlternativaName()</MudTd>
                 <MudTd DataLabel="Cambio">@context.Cambio</MudTd>
-                <MudTd DataLabel="Estado">@context.Estado</MudTd>
+                <MudTd DataLabel="Estado">
+                    <MudChip Color="Color.Info">@context.Estado</MudChip>
+                </MudTd>
             </RowTemplate>
         </MudTable>
     </MudMainContent>

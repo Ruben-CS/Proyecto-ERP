@@ -16,7 +16,7 @@ public sealed class MonedaService
                 "https://localhost:44352/monedas/getMonedas"));
     }
 
-    public async Task<MonedaDto?> GetMonedaByIdAsync(int id)
+    public async Task<MonedaDto?> GetMonedaByIdAsync(int? id)
     {
         return await Task.FromResult(
             await GetApiResponseAsync<MonedaDto>(
