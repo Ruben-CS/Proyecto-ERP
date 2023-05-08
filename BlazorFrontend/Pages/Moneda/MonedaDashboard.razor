@@ -89,16 +89,16 @@
                                   Variant="Variant.Outlined"
                                   HelperText="Ingrese el tipo de cambio"/>
                     <MudFab Color="Color.Success"
-                                ButtonType="ButtonType.Submit"
-                                Variant="Variant.Filled"
-                                OnClick="AddMonedaAlternativa"
-                                DisableElevation="true"
-                                Icon="@Icons.Material.Filled.AddCircleOutline"
-                                Size="Size.Small"
-                                Style="align-self: center"
-                                Label="Agregar">
-                            Agregar Moneda Alterna
-                        </MudFab>
+                            ButtonType="ButtonType.Submit"
+                            Variant="Variant.Filled"
+                            OnClick="AddMonedaAlternativa"
+                            DisableElevation="true"
+                            Icon="@Icons.Material.Filled.AddCircleOutline"
+                            Size="Size.Small"
+                            Style="align-self: center"
+                            Label="Agregar">
+                        Agregar Moneda Alterna
+                    </MudFab>
                 </MudStack>
             </EditForm>
         </MudStack>
@@ -109,7 +109,8 @@
                   Striped="true"
                   Loading="@IsLoading"
                   Elevation="5"
-                  Class="mt-1">
+                  Class="mt-1"
+                  RowsPerPage="4">
             <HeaderContent>
                 <MudTh>
                     <MudTableSortLabel
@@ -149,6 +150,12 @@
                     }
                 </MudTd>
             </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new[] {3,5,6,7,8}"
+                               HorizontalAlignment="HorizontalAlignment.Left"
+                               HidePageNumber="true"
+                               HideRowsPerPage="true"/>
+            </PagerContent>
         </MudTable>
     </MudMainContent>
 </MudLayout>
