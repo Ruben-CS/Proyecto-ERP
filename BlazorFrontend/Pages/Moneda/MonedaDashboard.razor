@@ -123,11 +123,17 @@
                 <MudTd DataLabel="Estado" Style="align-content: center">
                     @if (context.Estado == EstadoEmpresaMoneda.Activo)
                     {
-                        <MudChip Color="Color.Info">@context.Estado</MudChip>
+                        <MudChip Color="Color.Info"
+                                 Icon="@Icons.Material.Filled.GppGood">
+                            @context.Estado
+                        </MudChip>
                     }
                     else
                     {
-                        <MudChip Color="Color.Error">@context.Estado</MudChip>
+                        <MudChip Color="Color.Error"
+                                 Icon="@Icons.Material.Filled.GppBad">
+                            @context.Estado
+                        </MudChip>
                     }
                 </MudTd>
             </RowTemplate>
