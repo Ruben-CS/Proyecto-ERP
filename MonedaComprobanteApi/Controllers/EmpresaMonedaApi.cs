@@ -39,13 +39,16 @@ public class EmpresaMonedaApi : ControllerBase
         return _responseDto;
     }
 
-    [HttpPost]
-    public async Task<object> Post([FromBody] EmpresaMonedaDto empresaMonedaDto)
+    [HttpPost("agregarempresamoneda/{idEmpresa:int}/{idMoneda:int}")]
+    public async Task<object> Post([FromBody]  EmpresaMonedaDto empresaMonedaDto,
+                                   [FromRoute] int idEmpresa,
+                                   [FromRoute] int idMoneda)
     {
         try
         {
             var result =
-                await _empresaMonedaRepository.CreateEmpresaMoneda(empresaMonedaDto);
+                await _empresaMonedaRepository.CreateEmpresaMoneda(empresaMonedaDto,
+                    idEmpresa, idMoneda);
             _responseDto.Result = result;
         }
         catch (Exception e)
@@ -78,6 +81,7 @@ public class EmpresaMonedaApi : ControllerBase
                 e.ToString()
             };
         }
+
         return _responseDto;
     }
 }

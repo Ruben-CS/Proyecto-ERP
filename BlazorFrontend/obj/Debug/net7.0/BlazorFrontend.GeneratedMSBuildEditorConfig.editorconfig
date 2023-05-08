@@ -76,10 +76,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VzdGlvbmVzXEdlc3Rpb25PdmVydmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Moneda/MonedaDashboard.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9uZWRhXE1vbmVkYURhc2hib2FyZC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyaW9kb1xDcmVhclxDcmVhclBlcmlvZG8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -127,6 +123,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/InicioSesion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VzaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-kgl40t5nz2
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Moneda/MonedaDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9uZWRhXE1vbmVkYURhc2hib2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-8epzq18ccp
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=

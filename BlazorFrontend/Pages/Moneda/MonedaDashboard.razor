@@ -58,7 +58,7 @@
             </MudNavMenu>
         </MudDrawer>
 
-        <EditForm Model="EmpresaMonedaDto" OnValidSubmit="AddMonedaAlternativa">
+        <EditForm Model="EmpresaMonedaDto">
             <DataAnnotationsValidator/>
             <MudTextField Required="true"
                           Label="Moneda Principal"
@@ -79,7 +79,8 @@
                           @bind-Value="Cambio"
                           Label="Cambio"
                           Placeholder="0.00"
-                          Style="text-align: right;"/>
+                          Class="mud-text-field"/>
+
             <MudButton Color="Color.Success"
                        ButtonType="ButtonType.Submit"
                        Variant="Variant.Filled"
@@ -88,7 +89,7 @@
             </MudButton>
         </EditForm>
 
-        <MudTable Items="@_empresaMonedas"
+        <MudTable Items="@_empresaMonedas.Where(em => em.IdMonedaAlternativa != null)"
                   Hover="true"
                   Breakpoint="Breakpoint.Sm"
                   Bordered="true"
@@ -103,8 +104,12 @@
             <RowTemplate>
                 <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
                 <MudTd DataLabel="MonedaAlternativa">@MonedaPrincipal.Nombre</MudTd>
-                <MudTd DataLabel="MonedaAlternativa">@GetMonedaAlternativaName()</MudTd>
-                <MudTd DataLabel="Cambio">@context.Cambio</MudTd>
+                <MudTd DataLabel="MonedaAlternativa">
+                    @GetMonedaAlternativaName(context.IdMonedaAlternativa)
+                </MudTd>
+                <MudTd DataLabel="Cambio" Style="text-align: right">
+                    @context.Cambio
+                </MudTd>
                 <MudTd DataLabel="Estado">
                     <MudChip Color="Color.Info">@context.Estado</MudChip>
                 </MudTd>
@@ -112,3 +117,9 @@
         </MudTable>
     </MudMainContent>
 </MudLayout>
+
+<style>
+   .mud-text-field .mud-input input {
+        text-align: right;
+    }
+</style>

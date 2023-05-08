@@ -33,11 +33,13 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
     }
 
     public async Task<EmpresaMonedaDto> CreateEmpresaMoneda(
-        EmpresaMonedaDto empresaMonedaDto)
+        EmpresaMonedaDto empresaMonedaDto, int idEmpresa, int idMoneda)
     {
         var empresaMonedaDb =
             _mapper.Map<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>(empresaMonedaDto);
-        _applicationDbContext.EmpresaMonedas.Add(empresaMonedaDb);
+        empresaMonedaDb.IdEmpresa         = idEmpresa;
+        empresaMonedaDb.IdMonedaPrincipal = idMoneda;
+        await _applicationDbContext.EmpresaMonedas.AddAsync(empresaMonedaDb);
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(
             _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));

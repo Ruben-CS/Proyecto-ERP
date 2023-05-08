@@ -1,8 +1,6 @@
-using System.Text;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
-using Newtonsoft.Json;
 
 namespace BlazorFrontend.Pages.Moneda;
 
@@ -19,7 +17,7 @@ public partial class MonedaDashboard
 
     private bool      IsExpanded { get; set; }
 
-    private float? Cambio { get; set; } = new();
+    private float? Cambio { get; set; }
 
     private string? _previousSelectedMoneda;
 
@@ -46,7 +44,7 @@ public partial class MonedaDashboard
                     await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
                 MonedaPrincipal = (await GetMonedaPrincipal())!;
-                await InvokeAsync(StateHasChanged);
+               await InvokeAsync(StateHasChanged);
             }
             else
             {
@@ -71,7 +69,7 @@ public partial class MonedaDashboard
 
     private async Task<MonedaDto?> GetMonedaPrincipal()
     {
-        var empresaMonedaDto = _empresaMonedas.Find(em => em.IdEmpresa == IdEmpresa);
+        var empresaMonedaDto = _empresaMonedas.First();
 
         var monedaPrincipal =
             await MonedaService.GetMonedaByIdAsync(empresaMonedaDto!.IdMonedaPrincipal) ??
@@ -86,28 +84,19 @@ public partial class MonedaDashboard
             _monedas.FirstOrDefault(ma => ma.Nombre == SelectedMoneda);
         var idMonedaAlternativa  = selectedMonedaAlternativa!.IdMoneda;
         var cambio               = Cambio;
-        var currentEmpresaMoneda = _empresaMonedas[0];
         var url =
-            $"https://localhost:44352/empresaMonedas/{currentEmpresaMoneda.IdEmpresaMoneda}";
+            $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{IdEmpresa}/{idMonedaAlternativa}";
 
-        var patchOperations = new List<Dictionary<string, object>>
+
+        var empresaMonedaDto = new EmpresaMonedaDto
         {
-            new()
-            {
-                { "op", "replace" },
-                { "path", "/cambio" },
-                { "value", cambio }
-            },
-            new()
-            {
-                { "op", "replace" },
-                { "path", "/idMonedaAlternativa" },
-                { "value", idMonedaAlternativa }
-            }
+            Cambio              = cambio,
+            IdEmpresa           = IdEmpresa,
+            IdMonedaPrincipal   = MonedaPrincipal.IdMoneda,
+            IdMonedaAlternativa = idMonedaAlternativa,
+            IdUsuario           = 1
         };
-        var content = new StringContent(JsonConvert.SerializeObject(patchOperations),
-            Encoding.UTF8, "application/json");
-        var response = await HttpClient.PatchAsync(url, content);
+        var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
 
         if (response.IsSuccessStatusCode)
         {
@@ -115,11 +104,11 @@ public partial class MonedaDashboard
         }
     }
 
-    private string GetMonedaAlternativaName()
+    private string GetMonedaAlternativaName(int? idMonedaAlternativa)
     {
-        var monedaAlterna = _monedas.Single(ma =>
-            ma.IdMoneda == _empresaMonedas[0].IdMonedaAlternativa);
-        return monedaAlterna.Nombre;
+        var monedaAlterna = _monedas.SingleOrDefault(ma =>
+            ma.IdMoneda == idMonedaAlternativa);
+        return monedaAlterna?.Nombre ?? string.Empty;
     }
 
 

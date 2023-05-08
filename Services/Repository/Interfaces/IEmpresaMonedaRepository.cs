@@ -9,7 +9,8 @@ public interface IEmpresaMonedaRepository
 
     public Task<EmpresaMonedaDto> GetEmpresaMoneda(int id);
 
-    public Task<EmpresaMonedaDto> CreateEmpresaMoneda(EmpresaMonedaDto empresaMonedaDto);
+    public Task<EmpresaMonedaDto> CreateEmpresaMoneda(EmpresaMonedaDto empresaMonedaDto,
+                                                      int idEmpresa, int idMoneda);
 
     public Task<EmpresaMonedaDto?> UpdateMoneda(
         JsonPatchDocument<EmpresaMonedaDto> patchDocument, int id);

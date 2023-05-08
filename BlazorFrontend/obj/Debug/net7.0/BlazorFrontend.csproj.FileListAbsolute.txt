@@ -627,3 +627,4 @@ C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFronten
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Swashbuckle.AspNetCore.Newtonsoft.dll
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\Moneda\MonedaDashboard.razor.rz.scp.css
