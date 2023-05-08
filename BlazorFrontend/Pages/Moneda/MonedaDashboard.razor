@@ -98,7 +98,13 @@
                   Bordered="true"
                   Striped="true">
             <HeaderContent>
-                <MudTh>Fecha y hora</MudTh>
+                <MudTh>
+                    <MudTableSortLabel
+                        SortBy="new Func<EmpresaMonedaDto, object>(x => x.FechaRegistro)"
+                        InitialDirection="SortDirection.Descending">
+                        Fecha de registro
+                    </MudTableSortLabel>
+                </MudTh>
                 <MudTh>Moneda Principal</MudTh>
                 <MudTh>Moneda Alternativa</MudTh>
                 <MudTh>Cambio</MudTh>
@@ -113,7 +119,7 @@
                 <MudTd DataLabel="Cambio" Style="text-align: right">
                     @context.Cambio
                 </MudTd>
-                <MudTd DataLabel="Estado">
+                <MudTd DataLabel="Estado" Style="align-content: center">
                     @if (context.Estado == EstadoEmpresaMoneda.Activo)
                     {
                         <MudChip Color="Color.Info">@context.Estado</MudChip>
