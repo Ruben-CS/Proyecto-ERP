@@ -17,7 +17,7 @@ public partial class MonedaDashboard
 
     private bool      IsExpanded { get; set; }
 
-    private float? Cambio { get; set; }
+    private float? Cambio => AppState.Cambio;
 
     private string? _previousSelectedMoneda;
 

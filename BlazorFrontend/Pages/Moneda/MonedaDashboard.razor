@@ -1,12 +1,14 @@
 @page "/inicio/configuracion/monedaDashboard/{idempresa:int}"
 @using global::Services.Moneda
 @using global::Services.EmpresaMonedaService
+@using BlazorFrontend.Utility_Class
 @layout MonedaDashBoardLayout
 @inject NavigationManager NavigationManager
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
+@inject AppStateService AppState
 
 <MudLayout>
     <MudMainContent>
@@ -76,7 +78,7 @@
                 }
             </MudSelect>
             <MudTextField T="float?"
-                          @bind-Value="Cambio"
+                          @bind-Value="AppState.Cambio"
                           Label="Cambio"
                           Placeholder="0.00"
                           Class="mud-text-field"/>
