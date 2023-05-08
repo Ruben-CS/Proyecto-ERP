@@ -5,6 +5,8 @@
 @inject NavigationManager NavigationManager
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
 
 <MudLayout>
     <MudMainContent>
@@ -67,16 +69,17 @@
                        @bind-Value="@SelectedMoneda"
                        HelperText="Seleccione una moneda alternativa"
                        Variant="Variant.Text">
-                @foreach (var moneda in _monedas.Where(m => m.IdMoneda != MonedaPrincipal.IdMoneda))
+                @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
+                                                            MonedaPrincipal.IdMoneda))
                 {
                     <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
                 }
             </MudSelect>
             <MudTextField T="float?"
-                          Value="EmpresaMonedaDto.Cambio"
+                          @bind-Value="Cambio"
                           Label="Cambio"
                           Placeholder="0.00"
-            />
+                          Style="text-align: right;"/>
             <MudButton Color="Color.Success"
                        ButtonType="ButtonType.Submit"
                        Variant="Variant.Filled"
