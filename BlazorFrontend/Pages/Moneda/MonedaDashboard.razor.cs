@@ -11,19 +11,17 @@ public partial class MonedaDashboard
 
     private List<EmpresaMonedaDto> _empresaMonedas = new();
     private List<MonedaDto>        _monedas        = new();
-    public  bool                   IsLoading { get; set; } = true;
+    private bool                   IsLoading { get; set; } = true;
 
     private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
 
-    private bool      IsExpanded { get; set; }
+    private bool IsExpanded { get; set; }
 
     private float? Cambio => AppState.Cambio;
 
     private string? _previousSelectedMoneda;
-
-
-    private string MonedaPrincipalName { get; set; }
+    private string?                   MonedaPrincipalName { get; set; }
 
     private string? SelectedMoneda { get; set; }
 
@@ -46,7 +44,7 @@ public partial class MonedaDashboard
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
                 MonedaPrincipal = (await GetMonedaPrincipal())!;
                 IsLoading       = false;
-               await InvokeAsync(StateHasChanged);
+                await InvokeAsync(StateHasChanged);
             }
             else
             {
@@ -66,7 +64,6 @@ public partial class MonedaDashboard
         if (SelectedMoneda == _previousSelectedMoneda) return;
         _previousSelectedMoneda = SelectedMoneda;
         SelectedMoneda = _monedas.FirstOrDefault(m => m.Nombre == SelectedMoneda)?.Nombre;
-        _monedas.Single(m => m.Nombre == SelectedMoneda);
     }
 
     private async Task<MonedaDto?> GetMonedaPrincipal()
@@ -74,9 +71,9 @@ public partial class MonedaDashboard
         var empresaMonedaDto = _empresaMonedas.First();
 
         var monedaPrincipal =
-            await MonedaService.GetMonedaByIdAsync(empresaMonedaDto!.IdMonedaPrincipal) ??
+            await MonedaService.GetMonedaByIdAsync(empresaMonedaDto.IdMonedaPrincipal) ??
             default;
-        MonedaPrincipalName = monedaPrincipal.Nombre;
+        MonedaPrincipalName = monedaPrincipal?.Nombre;
         return monedaPrincipal;
     }
 
@@ -84,8 +81,8 @@ public partial class MonedaDashboard
     {
         var selectedMonedaAlternativa =
             _monedas.FirstOrDefault(ma => ma.Nombre == SelectedMoneda);
-        var idMonedaAlternativa  = selectedMonedaAlternativa!.IdMoneda;
-        var cambio               = Cambio;
+        var idMonedaAlternativa = selectedMonedaAlternativa!.IdMoneda;
+        var cambio              = Cambio;
         var url =
             $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{IdEmpresa}/{idMonedaAlternativa}";
 
@@ -99,10 +96,10 @@ public partial class MonedaDashboard
             IdUsuario           = 1
         };
         var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
-
         if (response.IsSuccessStatusCode)
         {
-            Snackbar.Add("EmpresaMoneda actualizada exitosamente", Severity.Success);
+            await OnDataGridChange();
+            Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
         }
     }
 
@@ -128,6 +125,12 @@ public partial class MonedaDashboard
             return;
         var uri = $"/gestion/overview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
+    }
+
+    private async Task OnDataGridChange()
+    {
+        _empresaMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+        await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 
     private void NavigateToMonedas()

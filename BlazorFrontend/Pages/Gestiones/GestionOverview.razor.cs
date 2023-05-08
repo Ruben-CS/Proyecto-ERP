@@ -14,7 +14,7 @@ public partial class GestionOverview
     private List<GestionDto> _gestiones = new();
 
     [Inject]
-    ISnackbar Snackbar { get; set; } = null !;
+    private ISnackbar Snackbar { get; set; } = null !;
 
     [Parameter]
     public int IdEmpresa { get; set; }
