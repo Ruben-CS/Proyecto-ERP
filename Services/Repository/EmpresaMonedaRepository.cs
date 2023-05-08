@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -41,22 +42,31 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
             _mapper.Map<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>(empresaMonedaDto);
         empresaMonedaDb.IdEmpresa         = idEmpresa;
         empresaMonedaDb.IdMonedaPrincipal = idMoneda;
+        var listaEmpresaMonedas =
+            _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa);
+        await listaEmpresaMonedas.ForEachAsync(em =>
+            em.Estado = EstadoEmpresaMoneda.Inactivo);
         await _applicationDbContext.EmpresaMonedas.AddAsync(empresaMonedaDb);
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(
             _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));
     }
 
-    public async Task<EmpresaMonedaDto> UpdateMoneda(
+    public async Task<EmpresaMonedaDto?> UpdateMoneda(
         JsonPatchDocument<EmpresaMonedaDto> patchDoc, int id)
     {
         var empresaMonedaDb = await _applicationDbContext.EmpresaMonedas.FindAsync(id);
 
-        var empresaMonedaDto =
-            _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb);
-        patchDoc.ApplyTo(empresaMonedaDto);
+        if (empresaMonedaDb is not null)
+        {
+            var empresaMonedaDto =
+                _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(
+                    empresaMonedaDb);
+            patchDoc.ApplyTo(empresaMonedaDto);
 
-        _mapper.Map(empresaMonedaDto, empresaMonedaDb);
+            _mapper.Map(empresaMonedaDto, empresaMonedaDb);
+        }
+
         await _applicationDbContext.SaveChangesAsync();
 
         return _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(

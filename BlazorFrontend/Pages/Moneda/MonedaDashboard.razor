@@ -2,6 +2,7 @@
 @using global::Services.Moneda
 @using global::Services.EmpresaMonedaService
 @using BlazorFrontend.Utility_Class
+@using Modelos.Models.Enums
 @layout MonedaDashBoardLayout
 @inject NavigationManager NavigationManager
 @inject EmpresaMonedaService EmpresaMonedaService
@@ -113,7 +114,14 @@
                     @context.Cambio
                 </MudTd>
                 <MudTd DataLabel="Estado">
-                    <MudChip Color="Color.Info">@context.Estado</MudChip>
+                    @if (context.Estado == EstadoEmpresaMoneda.Activo)
+                    {
+                        <MudChip Color="Color.Info">@context.Estado</MudChip>
+                    }
+                    else
+                    {
+                        <MudChip Color="Color.Error">@context.Estado</MudChip>
+                    }
                 </MudTd>
             </RowTemplate>
         </MudTable>
