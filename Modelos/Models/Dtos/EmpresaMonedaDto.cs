@@ -7,7 +7,7 @@ public sealed class EmpresaMonedaDto
 {
     public EmpresaMonedaDto()
     {
-        FechaRegistro = DateTime.UtcNow;
+        FechaRegistro = DateTime.Now;
     }
     public int IdEmpresaMoneda { get; set; }
 

@@ -21,10 +21,12 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
 
     public async Task<List<EmpresaMonedaDto>> GetEmpresasMonedas(int idEmpresa)
     {
-        var listaEmpresaMoneda =
-            await _applicationDbContext.EmpresaMonedas.Where(em =>
-                em.IdEmpresa == idEmpresa).ToListAsync();
-        return _mapper.Map<List<EmpresaMonedaDto>>(listaEmpresaMoneda);
+        var listaEmpresaMoneda = await _applicationDbContext.EmpresaMonedas
+            .AsNoTracking()
+            .Where(em => em.IdEmpresa == idEmpresa)
+            .ToListAsync();
+        return await Task.FromResult(
+            _mapper.Map<List<EmpresaMonedaDto>>(listaEmpresaMoneda));
     }
 
     public Task<EmpresaMonedaDto> GetEmpresaMoneda(int id)
