@@ -23,17 +23,24 @@
                                   Value="MonedaPrincipalName"
                                   Disabled="true"
                                   Variant="Variant.Outlined"/>
-                    <MudSelect T="string" Label="Moneda Alternativa"
-                               AnchorOrigin="Origin.BottomCenter"
-                               @bind-Value="@SelectedMoneda"
-                               HelperText="Seleccione una moneda alternativa"
-                               Variant="Variant.Outlined">
-                        @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
-                                                                    MonedaPrincipal.IdMoneda))
-                        {
-                            <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
-                        }
-                    </MudSelect>
+                    @if (IsLoading)
+                    {
+                        <MudProgressCircular Style="align-self: center" Color="Color.Default" Indeterminate="true" Size="Size.Medium"/>
+                    }
+                    else
+                    {
+                        <MudSelect T="string" Label="Moneda Alternativa"
+                                   AnchorOrigin="Origin.BottomCenter"
+                                   @bind-Value="@SelectedMoneda"
+                                   HelperText="Seleccione una moneda alternativa"
+                                   Variant="Variant.Outlined">
+                            @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
+                                                                        MonedaPrincipal.IdMoneda))
+                            {
+                                <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
                     <MudTextField T="float?"
                                   @bind-Value="AppState.Cambio"
                                   Label="Cambio"
