@@ -21,7 +21,7 @@ public partial class MonedaDashboard
     private float? Cambio => AppState.Cambio;
 
     private string? _previousSelectedMoneda;
-    private string?                   MonedaPrincipalName { get; set; }
+    private string? MonedaPrincipalName { get; set; }
 
     private string? SelectedMoneda { get; set; }
 
@@ -95,11 +95,22 @@ public partial class MonedaDashboard
             IdMonedaAlternativa = idMonedaAlternativa,
             IdUsuario           = 1
         };
-        var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
-        if (response.IsSuccessStatusCode)
+        if (await ValidateIncorrectCambio(empresaMonedaDto.Cambio))
         {
-            await OnDataGridChange();
-            Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
+            Snackbar.Add("Tipo de cambio incorrecto", Severity.Error);
+        }
+        else if (await ValidateTipoDeCambio(empresaMonedaDto.Cambio))
+        {
+            Snackbar.Add("Ya existe una moneda con este tipo de cambio", Severity.Error);
+        }
+        else
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
+            if (response.IsSuccessStatusCode)
+            {
+                await OnDataGridChange();
+                Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
+            }
         }
     }
 
@@ -110,6 +121,16 @@ public partial class MonedaDashboard
         return monedaAlterna?.Nombre ?? string.Empty;
     }
 
+    private static async Task<bool> ValidateIncorrectCambio(float? cambio) =>
+        await Task.FromResult(cambio is null ||
+                              float.IsNegative((float)cambio));
+
+
+    private async Task<bool> ValidateTipoDeCambio(float? cambio)
+    {
+        return await Task.FromResult(
+            _empresaMonedas.Any(em => Equals(em.Cambio, cambio)));
+    }
 
     private void NavigateToCuentas()
     {
