@@ -11,6 +11,7 @@ public partial class MonedaDashboard
 
     private List<EmpresaMonedaDto> _empresaMonedas = new();
     private List<MonedaDto>        _monedas        = new();
+    public  bool                   IsLoading { get; set; } = true;
 
     private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
@@ -44,6 +45,7 @@ public partial class MonedaDashboard
                     await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
                 MonedaPrincipal = (await GetMonedaPrincipal())!;
+                IsLoading       = false;
                await InvokeAsync(StateHasChanged);
             }
             else
