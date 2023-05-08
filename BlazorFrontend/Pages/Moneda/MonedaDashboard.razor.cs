@@ -131,34 +131,10 @@ public partial class MonedaDashboard
         return await Task.FromResult(
             _empresaMonedas.Any(em => Equals(em.Cambio, cambio)));
     }
-
-    private void NavigateToCuentas()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/plandecuentas/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-    private void NavigateToGestiones()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
     private async Task OnDataGridChange()
     {
         _empresaMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
         await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 
-    private void NavigateToMonedas()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
 }
