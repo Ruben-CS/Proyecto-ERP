@@ -1,12 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "ONdmixSsfnwmNpknWR58S70BI+VJoxDUH3nxrNARexDlIht9+TV852cVrlAyPNQwUqOYhA/kT+B311pHwBWXZw==",
-=======
-  "dgSpecHash": "4Rytv3c6ryTkverRL4zGwxoGiWxi/O28NWZtNxq9uQDmbZTkXXR7zEKKkgxEPWzRymbrG8BuN4g4uPLHaTWVNA==",
->>>>>>> EmpresaMoneda_Dashboard
+  "dgSpecHash": "PnW5Tn3T0eQZfx/SHufncPtEM/3CDeU9SSuw6+z8tt2o0lMMD1cRx7EFjVaXO+qNWQBEqYHHXtGaUF3ljRFKsw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
@@ -18,8 +14,8 @@
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.5\\microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.3\\microsoft.entityframeworkcore.relational.7.0.3.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.3\\microsoft.entityframeworkcore.sqlserver.7.0.3.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.5\\microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.5\\microsoft.entityframeworkcore.sqlserver.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

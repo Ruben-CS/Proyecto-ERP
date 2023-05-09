@@ -4039,8 +4039,8 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "Microsoft.EntityFrameworkCore": "7.0.5",
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.3",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.3"
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.5",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
         },
         "compile": {
           "bin/placeholder/Modelos.dll": {}
@@ -4059,8 +4059,8 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.3",
           "Microsoft.AspNetCore.OpenApi": "7.0.3",
           "Microsoft.EntityFrameworkCore": "7.0.5",
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.3",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.5",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5",
           "Modelos": "1.0.0",
           "Services": "1.0.0",
           "Swashbuckle.AspNetCore": "6.5.0"
@@ -11698,11 +11698,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\BlazorFrontend\\BlazorFrontend.csproj",
+      "projectUniqueName": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\BlazorFrontend.csproj",
       "projectName": "BlazorFrontend",
-      "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\BlazorFrontend\\BlazorFrontend.csproj",
+      "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\BlazorFrontend.csproj",
       "packagesPath": "C:\\Users\\ruben\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\BlazorFrontend\\obj\\",
+      "outputPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ruben\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -11719,19 +11719,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
-              "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Modelos\\Modelos.csproj"
+            "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj": {
+              "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Modelos\\Modelos.csproj"
             },
-<<<<<<< HEAD
-            "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
-              "projectPath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
-=======
             "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj": {
               "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj"
             },
             "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\MonedaComprobanteApi\\MonedaComprobanteApi.csproj": {
               "projectPath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\MonedaComprobanteApi\\MonedaComprobanteApi.csproj"
->>>>>>> EmpresaMoneda_Dashboard
             }
           }
         }

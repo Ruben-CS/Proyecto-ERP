@@ -1,12 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "CcN8mmqxO1S/zZUqgnptz+SDLYYnQolSLHlj56mOD0NLFRdFotp5VGZVwfxlrYeD6oEg/6UANh4+xPhughrmeQ==",
-=======
-  "dgSpecHash": "Tj/g0onX/kbQiH+yvYY8KjxD6n/YZt5apBHaVG12GX08Wnexo15UjWgwyXzF/matMhxnR2E49p2A7lLtGAdmwQ==",
->>>>>>> EmpresaMoneda_Dashboard
+  "dgSpecHash": "UjEaXzOAU2QaEeYIEScMk5jWGSmX5wkI8NFzNakddpPXGnB9y13F5tZd0U7ha7rqdJPCbccGN01IbMozg9ggOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Services\\Services.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -21,8 +17,8 @@
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.5\\microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.3\\microsoft.entityframeworkcore.relational.7.0.3.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.3\\microsoft.entityframeworkcore.sqlserver.7.0.3.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.5\\microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.5\\microsoft.entityframeworkcore.sqlserver.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
