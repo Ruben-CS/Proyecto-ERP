@@ -25,7 +25,7 @@
                                   Variant="Variant.Outlined"/>
                     @if (IsLoading)
                     {
-                        <MudProgressCircular Style="align-self: center" Color="Color.Default" Indeterminate="true" Size="Size.Medium"/>
+                        <MudProgressCircular Style="align-self: center" Color="Color.Default" Indeterminate="true" Size="Size.Small"/>
                     }
                     else
                     {
@@ -37,7 +37,9 @@
                             @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
                                                                         MonedaPrincipal.IdMoneda))
                             {
-                                <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
+                                <MudSelectItem Value="@moneda.Nombre">
+                                    @moneda.Nombre
+                                </MudSelectItem>
                             }
                         </MudSelect>
                     }
@@ -56,7 +58,8 @@
                             Icon="@Icons.Material.Filled.AddCircleOutline"
                             Size="Size.Small"
                             Style="align-self: center"
-                            Label="Agregar">
+                            Label="Agregar"
+                            Disabled="@IsLoading">
                         Agregar Moneda Alterna
                     </MudFab>
                 </MudStack>
@@ -103,7 +106,7 @@
                     }
                     else
                     {
-                        <MudChip Color="Color.Error"
+                        <MudChip Color="Color.Dark"
                                  Icon="@Icons.Material.Filled.GppBad">
                             @context.Estado
                         </MudChip>

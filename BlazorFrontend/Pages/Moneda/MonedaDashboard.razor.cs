@@ -28,7 +28,7 @@ public partial class MonedaDashboard
     private bool _open;
     private void ToggleDrawer()   => _open = !_open;
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-
+    //todo fix the bug that occurs when clicking agregar without data
     protected override async Task OnInitializedAsync()
     {
         try
@@ -95,7 +95,11 @@ public partial class MonedaDashboard
             IdMonedaAlternativa = idMonedaAlternativa,
             IdUsuario           = 1
         };
-        if (await ValidateIncorrectCambio(empresaMonedaDto.Cambio))
+        if (SelectedMoneda is null)
+        {
+            Snackbar.Add("Seleccione una moneda", Severity.Error);
+        }
+        else if (await ValidateIncorrectCambio(empresaMonedaDto.Cambio))
         {
             Snackbar.Add("Tipo de cambio incorrecto", Severity.Error);
         }
