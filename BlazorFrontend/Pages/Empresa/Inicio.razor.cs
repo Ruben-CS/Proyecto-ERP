@@ -6,6 +6,7 @@ using BlazorFrontend.Pages.Empresa.Crear;
 using BlazorFrontend.Pages.Empresa.Editar;
 using BlazorFrontend.Pages.Empresa.Eliminar;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.IdentityModel.Tokens;
 using DialogOptions =  MudBlazor . DialogOptions ;
 
 namespace BlazorFrontend.Pages.Empresa;
@@ -13,14 +14,28 @@ namespace BlazorFrontend.Pages.Empresa;
 public partial class Inicio
 {
     [Inject]
-    ISnackbar Snackbar { get; set; } = null !;
+    private ISnackbar Snackbar { get; set; } = null !;
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
-    private int                     SelectedEmpresaId { get; set; }
+    private int                    SelectedEmpresaId { get; set; }
+
+    public string? SelecteEmpresaName { get; set; }
 
     private async Task LoadSelectedEmpresaAsync(int selectedId)
     {
         SelectedEmpresaId = selectedId;
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task<IEnumerable<string>> Search(string value)
+    {
+        IEnumerable<string> empresasName = _empresas.Select(x => x.Nombre).ToList();
+        if (string.IsNullOrEmpty(value))
+        {
+            return empresasName;
+        }
+
+        return await Task.FromResult(empresasName.Where(e =>
+            e.Contains(value, StringComparison.InvariantCultureIgnoreCase)));
     }
 
     private async Task ShowMudCrearEmpresaModal()
@@ -35,27 +50,26 @@ public partial class Inicio
         var parameters = new DialogParameters
         {
             {
-                "OnEmpresaAdded",
-                EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaAddedHandler)
+                "OnEmpresaListChange",
+                EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaListChange)
             }
         };
         await DialogService.ShowAsync<CrearEmpresa>
             ("Llene los datos de la empresa", parameters, options);
     }
-
-    //todo refactor this duplicate method
-    private async Task OnEmpresaAddedHandler(EmpresaDto addedEmpresa)
+    private async Task OnEmpresaListChange(EmpresaDto empresaDto)
     {
-        _empresas         = await EmpresaService.GetEmpresasAsync();
-        SelectedEmpresaId = addedEmpresa.IdEmpresa;
-        await LoadSelectedEmpresaAsync(SelectedEmpresaId);
-    }
+        _empresas          = await EmpresaService.GetEmpresasAsync();
 
-    private async Task OnEmpresaDeletedHandler(EmpresaDto deletedEmpresa)
-    {
-        _empresas         = await EmpresaService.GetEmpresasAsync();
-        SelectedEmpresaId = deletedEmpresa.IdEmpresa;
-        await LoadSelectedEmpresaAsync(SelectedEmpresaId);
+        if (empresaDto.IsDeleted)
+        {
+            SelecteEmpresaName = null;
+        }
+        else
+        {
+            SelecteEmpresaName = _empresas.Last().Nombre;
+            await Task.FromResult(LoadSelectedEmpresaAsync(SelectedEmpresaId));
+        }
     }
 
     protected override async Task OnInitializedAsync()
@@ -66,6 +80,8 @@ public partial class Inicio
 
     private async Task Editar(MouseEventArgs obj)
     {
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelecteEmpresaName)!.IdEmpresa;
         var options = new DialogOptions
         {
             CloseOnEscapeKey = true,
@@ -75,15 +91,26 @@ public partial class Inicio
         var parameters = new DialogParameters
         {
             {
+                "OnEmpresaListChange",
+                EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaListChange)
+            },
+            {
                 "SelectedEmpresaId",
-                SelectedEmpresaId
+                selectedEmpresa
             }
         };
-        await DialogService.ShowAsync<EditarEmpresa>("Edite los datos de la empresa", parameters, options);
+        await DialogService.ShowAsync<EditarEmpresa>("Edite los datos de la empresa",
+            parameters, options);
     }
 
     private async void Eliminar(MouseEventArgs obj)
     {
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelecteEmpresaName)!.IdEmpresa;
+        if (selectedEmpresa is 0)
+        {
+            Snackbar.Add("Seleccione una empresa primero", Severity.Info);
+        }
         var options = new DialogOptions
         {
             CloseOnEscapeKey = true,
@@ -94,11 +121,11 @@ public partial class Inicio
         {
             {
                 "SelectedEmpresaId",
-                SelectedEmpresaId
+                selectedEmpresa
             },
             {
-                "OnEmpresaDeleted",
-                EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaDeletedHandler)
+                "OnEmpresaListChange",
+                EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaListChange)
             }
         };
         await DialogService.ShowAsync<EliminarEmpresa>("Edite los datos de la empresa", parameters, options);
@@ -106,14 +133,16 @@ public partial class Inicio
 
     private void NavigateToPage()
     {
-        if (SelectedEmpresaId != default)
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelecteEmpresaName)!.IdEmpresa;
+        if (selectedEmpresa != default)
         {
             var uri = NavigationManager.ToAbsoluteUri("inicio/mainpage");
             var queryBuilder = new QueryBuilder
             {
                 {
                     "id",
-                    SelectedEmpresaId.ToString()
+                    selectedEmpresa.ToString()
                 }
             };
             uri = new UriBuilder(uri)

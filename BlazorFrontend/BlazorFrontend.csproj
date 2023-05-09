@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.5.1" />
-    <PackageReference Include="MudBlazor" Version="6.2.0" />
+    <PackageReference Include="MudBlazor" Version="6.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -23,10 +23,6 @@
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Moneda\Components\" />
   </ItemGroup>
 
 </Project>

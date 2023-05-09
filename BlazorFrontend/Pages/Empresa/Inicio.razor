@@ -22,19 +22,13 @@
 
 <MudGrid Class="ma-2 pa-4">
     <MudItem xs="12">
-        <MudSelect T="int" Label="Empresa" Variant="Variant.Filled"
-                   AnchorOrigin="Origin.BottomCenter"
-                   bind-Value="@SelectedEmpresaId"
-                   ValueChanged="LoadSelectedEmpresaAsync"
-                   HelperText="Seleccione una empresa">
-            @foreach (var empresa in _empresas.Reverse())
-            {
-                @if (!empresa.IsDeleted)
-                {
-                    <MudSelectItem Value="@empresa.IdEmpresa">@empresa.Nombre</MudSelectItem>
-                }
-            }
-        </MudSelect>
+        <MudAutocomplete T="string"
+                         Label="Lista de empresas"
+                         @bind-Value="SelecteEmpresaName"
+                         SearchFunc="Search"
+                         HelperText="Busque una empresa"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         Variant="Variant.Filled"/>
     </MudItem>
     <MudItem xs="4">
         <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"

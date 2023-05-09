@@ -8,7 +8,7 @@ public sealed class EmpresaMoneda
 {
     public EmpresaMoneda()
     {
-        FechaRegistro = DateTime.UtcNow;
+        FechaRegistro = DateTime.Now;
     }
 
     [Key]

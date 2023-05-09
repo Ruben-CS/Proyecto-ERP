@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
+using MudBlazor;
 
 namespace BlazorFrontend.Pages.Moneda;
 
@@ -10,16 +11,24 @@ public partial class MonedaDashboard
 
     private List<EmpresaMonedaDto> _empresaMonedas = new();
     private List<MonedaDto>        _monedas        = new();
+    private bool                   IsLoading { get; set; } = true;
 
-    private EmpresaMonedaDto EmpresaMonedaDto { get; set; } = new();
+    private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
-    private bool             IsExpanded       { get; set; }
 
-    public  string MonedaPrincipalName { get; set; }
-    private bool   _open;
-    private void   ToggleDrawer()   => _open = !_open;
-    private void   CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    private bool IsExpanded { get; set; }
 
+    private float? Cambio => AppState.Cambio;
+
+    private string? _previousSelectedMoneda;
+    private string? MonedaPrincipalName { get; set; }
+
+    private string? SelectedMoneda { get; set; }
+
+    private bool _open;
+    private void ToggleDrawer()   => _open = !_open;
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    //todo fix the bug that occurs when clicking agregar without data
     protected override async Task OnInitializedAsync()
     {
         try
@@ -34,6 +43,7 @@ public partial class MonedaDashboard
                     await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
                 MonedaPrincipal = (await GetMonedaPrincipal())!;
+                IsLoading       = false;
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -49,45 +59,86 @@ public partial class MonedaDashboard
         }
     }
 
+    protected override void OnParametersSet()
+    {
+        if (SelectedMoneda == _previousSelectedMoneda) return;
+        _previousSelectedMoneda = SelectedMoneda;
+        SelectedMoneda = _monedas.FirstOrDefault(m => m.Nombre == SelectedMoneda)?.Nombre;
+    }
+
     private async Task<MonedaDto?> GetMonedaPrincipal()
     {
-        var empresaMonedaDto = _empresaMonedas.Find(em => em.IdEmpresa == IdEmpresa);
+        var empresaMonedaDto = _empresaMonedas.First();
 
         var monedaPrincipal =
             await MonedaService.GetMonedaByIdAsync(empresaMonedaDto.IdMonedaPrincipal) ??
             default;
-        MonedaPrincipalName = monedaPrincipal.Nombre;
+        MonedaPrincipalName = monedaPrincipal?.Nombre;
         return monedaPrincipal;
     }
 
-    private async void AddMonedaAlternativa()
+    private async Task AddMonedaAlternativa()
     {
+        var selectedMonedaAlternativa =
+            _monedas.FirstOrDefault(ma => ma.Nombre == SelectedMoneda);
+        var idMonedaAlternativa = selectedMonedaAlternativa!.IdMoneda;
+        var cambio              = Cambio;
+        var url =
+            $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{IdEmpresa}/{idMonedaAlternativa}";
+
+
+        var empresaMonedaDto = new EmpresaMonedaDto
+        {
+            Cambio              = cambio,
+            IdEmpresa           = IdEmpresa,
+            IdMonedaPrincipal   = MonedaPrincipal.IdMoneda,
+            IdMonedaAlternativa = idMonedaAlternativa,
+            IdUsuario           = 1
+        };
+        if (SelectedMoneda is null)
+        {
+            Snackbar.Add("Seleccione una moneda", Severity.Error);
+        }
+        else if (await ValidateIncorrectCambio(empresaMonedaDto.Cambio))
+        {
+            Snackbar.Add("Tipo de cambio incorrecto", Severity.Error);
+        }
+        else if (await ValidateTipoDeCambio(empresaMonedaDto.Cambio))
+        {
+            Snackbar.Add("Ya existe una moneda con este tipo de cambio", Severity.Error);
+        }
+        else
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
+            if (response.IsSuccessStatusCode)
+            {
+                await OnDataGridChange();
+                Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
+            }
+        }
     }
 
-    private string GetMonedaPrincipalName() => MonedaPrincipal.Nombre;
-
-
-    private void NavigateToCuentas()
+    private string GetMonedaAlternativaName(int? idMonedaAlternativa)
     {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/plandecuentas/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
+        var monedaAlterna = _monedas.SingleOrDefault(ma =>
+            ma.IdMoneda == idMonedaAlternativa);
+        return monedaAlterna?.Nombre ?? string.Empty;
     }
 
-    private void NavigateToGestiones()
+    private static async Task<bool> ValidateIncorrectCambio(float? cambio) =>
+        await Task.FromResult(cambio is null ||
+                              float.IsNegative((float)cambio));
+
+
+    private async Task<bool> ValidateTipoDeCambio(float? cambio)
     {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
+        return await Task.FromResult(
+            _empresaMonedas.Any(em => Equals(em.Cambio, cambio)));
+    }
+    private async Task OnDataGridChange()
+    {
+        _empresaMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+        await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 
-    private void NavigateToMonedas()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
 }

@@ -13,8 +13,8 @@ public sealed class EmpresaMonedaService
     }
 
     public async Task<List<EmpresaMonedaDto>> GetEmpresasMonedaAsync(int idEmpresa) =>
-        await GetApiResponseAsync<List<EmpresaMonedaDto>>
-            ($"https://localhost:44352/empresaMonedas/getEmpresasMonedaByIdEmpresa/{idEmpresa}");
+        await await Task.FromResult(GetApiResponseAsync<List<EmpresaMonedaDto>>
+            ($"https://localhost:44352/empresaMonedas/getEmpresasMonedaByIdEmpresa/{idEmpresa}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {
@@ -25,7 +25,8 @@ public sealed class EmpresaMonedaService
         var responseObject = JsonConvert.DeserializeObject<ResponseDto>(content);
         if (responseObject.IsSuccess)
         {
-            return JsonConvert.DeserializeObject<T>(responseObject.Result.ToString());
+            return await Task.FromResult(
+                JsonConvert.DeserializeObject<T>(responseObject.Result.ToString()));
         }
 
         throw new Exception(string.Join(", ", responseObject.ErrorMessages));

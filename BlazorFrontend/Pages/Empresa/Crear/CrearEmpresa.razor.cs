@@ -10,7 +10,7 @@ public partial class CrearEmpresa
     private ISnackbar Snackbar { get; set; } = null!;
 
     [Parameter]
-    public EventCallback<EmpresaDto> OnEmpresaAdded { get; set; }
+    public EventCallback<EmpresaDto> OnEmpresaListChange { get; set; }
 
     [CascadingParameter]
     private MudDialogInstance? MudDialog { get; set; }
@@ -58,15 +58,15 @@ public partial class CrearEmpresa
 
         if (!await ValidateUniqueNombre())
         {
-            Snackbar.Add("Existe una empresa activa con ese nombre", Severity.Error);
+            Snackbar.Add("Existe una empresa con ese nombre", Severity.Error);
         }
         else if (!await ValidateUniqueNit())
         {
-            Snackbar.Add("Existe una empresa activa con el mismo NIT", Severity.Error);
+            Snackbar.Add("Existe una empresa con el mismo NIT", Severity.Error);
         }
         else if (!await ValidateUniqueSigla())
         {
-            Snackbar.Add("Existe una empresa activa con esas siglas", Severity.Error);
+            Snackbar.Add("Existe una empresa con esas siglas", Severity.Error);
         }
         else if (await ValidateEmptyEmpresa())
         {
@@ -77,18 +77,20 @@ public partial class CrearEmpresa
             var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
             Snackbar.Add("Empresa creada exitosamente", Severity.Success);
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
-            await OnEmpresaAdded.InvokeAsync(addedEmpresa);
-            await CreateEmpresaMoneda(empresaDto);
+            await OnEmpresaListChange.InvokeAsync(addedEmpresa);
+            await CreateEmpresaMoneda();
             MudDialog!.Close(DialogResult.Ok(response));
         }
     }
 
-    private async Task CreateEmpresaMoneda(EmpresaDto newEmpresaDto)
+    private async Task CreateEmpresaMoneda()
     {
-        const string url = "https://localhost:44352/empresaMonedas";
-        var empresas = await EmpresaService.GetEmpresasAsync();
-        var newEmpresa = empresas.Single(empresa => empresa.Nit == newEmpresaDto.Nit);
+        var empresas   = await EmpresaService.GetEmpresasAsync();
+        var newEmpresa = empresas.Last();
         MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
+        var url =
+            $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{newEmpresa.IdEmpresa}/{MonedaDto.IdMoneda}";
+
         var empresaMonedaDto = new EmpresaMonedaDto
         {
             Cambio              = null,
