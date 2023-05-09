@@ -6,8 +6,7 @@ using BlazorFrontend.Pages.Empresa.Crear;
 using BlazorFrontend.Pages.Empresa.Editar;
 using BlazorFrontend.Pages.Empresa.Eliminar;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.IdentityModel.Tokens;
-using DialogOptions =  MudBlazor . DialogOptions ;
+using DialogOptions = MudBlazor.DialogOptions;
 
 namespace BlazorFrontend.Pages.Empresa;
 
@@ -15,8 +14,9 @@ public partial class Inicio
 {
     [Inject]
     private ISnackbar Snackbar { get; set; } = null !;
+
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
-    private int                    SelectedEmpresaId { get; set; }
+    private int                     SelectedEmpresaId { get; set; }
 
     public string? SelecteEmpresaName { get; set; }
 
@@ -42,9 +42,9 @@ public partial class Inicio
     {
         var options = new DialogOptions
         {
-            CloseOnEscapeKey = true,
-            MaxWidth         = MaxWidth.Small,
-            FullWidth        = true,
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.Small,
+            FullWidth            = true,
             DisableBackdropClick = true
         };
         var parameters = new DialogParameters
@@ -57,9 +57,10 @@ public partial class Inicio
         await DialogService.ShowAsync<CrearEmpresa>
             ("Llene los datos de la empresa", parameters, options);
     }
+
     private async Task OnEmpresaListChange(EmpresaDto empresaDto)
     {
-        _empresas          = await EmpresaService.GetEmpresasAsync();
+        _empresas = await EmpresaService.GetEmpresasAsync();
 
         if (empresaDto.IsDeleted)
         {
@@ -111,6 +112,7 @@ public partial class Inicio
         {
             Snackbar.Add("Seleccione una empresa primero", Severity.Info);
         }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey = true,
@@ -128,7 +130,8 @@ public partial class Inicio
                 EventCallback.Factory.Create<EmpresaDto>(this, OnEmpresaListChange)
             }
         };
-        await DialogService.ShowAsync<EliminarEmpresa>("Edite los datos de la empresa", parameters, options);
+        await DialogService.ShowAsync<EliminarEmpresa>("Edite los datos de la empresa",
+            parameters, options);
     }
 
     private void NavigateToPage()
