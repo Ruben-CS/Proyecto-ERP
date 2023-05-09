@@ -48,6 +48,10 @@ public partial class CuentasOverview
         public int?                  IdCuentaPadre { get; set; }
         public HashSet<TreeItemData> CuentasHijas  { get; set; }
 
+        private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
+
+        private TreeItemData SelectedValue { get; set; }
+
         public TreeItemData(CuentaDto cuenta)
         {
             IdCuenta      = cuenta.IdCuenta;
@@ -59,6 +63,7 @@ public partial class CuentasOverview
         }
     }
 
+<<<<<<< Updated upstream
     private async Task<bool> HasChildren(TreeItemData selectedValue) =>
         await Task.FromResult(_cuentas.Any(cuenta =>
             cuenta.IdCuentaPadre == selectedValue.IdCuenta));
@@ -66,6 +71,9 @@ public partial class CuentasOverview
     private void CuentaSelected() => IsCuentaSelected = true;
 
     private static TreeItemData CreateTree(TreeItemData           treeItemData,
+=======
+    private static TreeItemData CreateTree(CuentaDto              cuenta,
+>>>>>>> Stashed changes
                                            IEnumerable<CuentaDto> allCuentas)
     {
         var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == treeItemData.IdCuenta)
@@ -110,13 +118,35 @@ public partial class CuentasOverview
         return treeItems;
     }
 
+    private Dictionary<TreeItemData, HashSet<TreeItemData>> CreateRootItems(
+        List<CuentaDto> cuentas)
+    {
+        var rootItems = new Dictionary<TreeItemData, HashSet<TreeItemData>>();
+
+        foreach (var cuenta in cuentas)
+        {
+            if (cuenta.IdCuentaPadre == null)
+            {
+                var rootItem = new TreeItemData(cuenta);
+                var children = CreateTree(rootItem, cuentas);
+                rootItems.Add(rootItem, children);
+            }
+        }
+
+        return rootItems;
+    }
+
     private static HashSet<TreeItemData> BuildTreeItemChildren(
         CuentaDto parentCuenta, IEnumerable<CuentaDto> cuentas)
     {
         var childCuentas = cuentas.Where(c => c.IdCuentaPadre == parentCuenta.IdCuenta)
                                   .ToList();
-        var treeItemChildren = new HashSet<TreeItemData>(childCuentas.Select(c =>
-            new TreeItemData(c) { CuentasHijas = BuildTreeItemChildren(c, cuentas) }));
+        var treeItemChildren = new HashSet<TreeItemData>(childCuentas
+            .Select(c =>
+                new TreeItemData(c)
+                {
+                    CuentasHijas = BuildTreeItemChildren(c, cuentas)
+                }));
 
         return treeItemChildren;
     }
@@ -249,6 +279,7 @@ public partial class CuentasOverview
         var uri = $"/gestion/overview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
+<<<<<<< Updated upstream
 
     private async Task OnTreeViewChange(CuentaDto cuentaDto)
     {
@@ -257,4 +288,6 @@ public partial class CuentasOverview
         await LoadCuentas();
         await Task.FromResult(InvokeAsync(StateHasChanged));
     }
+=======
+>>>>>>> Stashed changes
 }

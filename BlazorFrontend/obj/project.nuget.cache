@@ -1,8 +1,12 @@
 {
   "version": 2,
+<<<<<<< HEAD
+  "dgSpecHash": "XTV7b5KFqONwO6DGWskvkFVlhptlwLbKpDj2m4WJYN2iqdmsq4shRdMWBUYrvpiRfbdmgknYefgIGuSzKW7J7Q==",
+=======
   "dgSpecHash": "3CTnXKuWc63g/bfLmr238c/mq0pG5hKwJYkUQcqaYlpD89nKtsmqWS4kAYPPpyO53ke9MXJJio7+9+CQb1etDg==",
+>>>>>>> EmpresaMoneda_Dashboard
   "success": true,
-  "projectFilePath": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\BlazorFrontend.csproj",
+  "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\BlazorFrontend\\BlazorFrontend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
