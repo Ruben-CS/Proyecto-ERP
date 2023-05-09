@@ -5,24 +5,38 @@
 @using Variant = MudBlazor.Variant
 @inject ISnackbar Snackbar
 
-<MudStack Direction="Direction.Column"
-          AlignItems="AlignItems.Center"
-          Justify="Justify.Center"
-          Style="width: 40%">
-    <EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
-        <MudTextField @bind-Value="RequestDto.Nombre"
-                      Label="Usuario"
-                      Variant="Variant.Filled"
-                      Adornment="Adornment.End"
-                      AdornmentIcon="@Icons.Material.Filled.AccountCircle"/>
-        <MudTextField @bind-Value="RequestDto.Password"
-                      InputType="InputType.Password" Label="Contraseña"
-                      Variant="Variant.Filled"
-                      Adornment="Adornment.End"
-                      AdornmentIcon="@Icons.Material.Filled.Password"/>
 
-        <MudButton Color="Color.Info" ButtonType="ButtonType.Submit">
-            Iniciar Sesión
-        </MudButton>
-    </EditForm>
-</MudStack>
+<MudCard Elevation="1" Style="width: 400px">
+    <MudCardContent>
+        <EditForm Model="RequestDto">
+            <MudTextField @bind-Value="RequestDto.Nombre"
+                          Label="Usuario"
+                          Variant="Variant.Text"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Material.Filled.AccountCircle"/>
+
+            <MudTextField @bind-Value="RequestDto.Password"
+                          InputType="InputType.Password" Label="Contraseña"
+                          Variant="Variant.Text"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Material.Filled.Password"/>
+        </EditForm>
+    </MudCardContent>
+    <MudCardActions Class="d-flex justify-content-center align-items-center">
+        @if (IsLoading)
+        {
+            <MudProgressCircular Color="Color.Tertiary" Size="Size.Small"
+                                 Indeterminate="true"/>
+        }
+        else
+        {
+            <MudButton Color="Color.Tertiary"
+                       ButtonType="ButtonType.Submit"
+                       OnClick="LoginAsync"
+                       Variant="Variant.Filled"
+                       Style="align-self: center">
+                Iniciar Sesión
+            </MudButton>
+        }
+    </MudCardActions>
+</MudCard>
