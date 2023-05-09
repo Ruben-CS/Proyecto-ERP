@@ -2,24 +2,27 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @layout LoginLayout
-@using AlignItems = MudBlazor.AlignItems
 @using Variant = MudBlazor.Variant
 @inject ISnackbar Snackbar
 
-<MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
+<MudStack Direction="Direction.Column"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.Center"
+          Style="width: 40%">
     <EditForm Model="RequestDto" OnValidSubmit="LoginAsync">
-        <div class="form-group">
-            <MudTextField @bind-Value="RequestDto.Nombre" id="usuario" Label="Usuario" Variant="Variant.Filled"/>
-        </div>
+        <MudTextField @bind-Value="RequestDto.Nombre"
+                      Label="Usuario"
+                      Variant="Variant.Filled"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.AccountCircle"/>
+        <MudTextField @bind-Value="RequestDto.Password"
+                      InputType="InputType.Password" Label="Contraseña"
+                      Variant="Variant.Filled"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.Password"/>
 
-        <div class="form-group">
-            <MudTextField @bind-Value="RequestDto.Password" InputType="InputType.Password" Label="Contraseña" Variant="Variant.Filled"/>
-        </div>
-
-        <div class="form-group p-4 shadow-sm text-center">
-            <MudButton Color="Color.Info" ButtonType="ButtonType.Submit">
-                Iniciar Sesión
-            </MudButton>
-        </div>
+        <MudButton Color="Color.Info" ButtonType="ButtonType.Submit">
+            Iniciar Sesión
+        </MudButton>
     </EditForm>
 </MudStack>
