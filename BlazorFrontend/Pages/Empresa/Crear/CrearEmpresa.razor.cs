@@ -1,4 +1,3 @@
-using BlazorFrontend.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Modelos.Models.Dtos;
@@ -8,24 +7,38 @@ namespace BlazorFrontend.Pages.Empresa.Crear;
 public partial class CrearEmpresa
 {
     [Inject]
-    ISnackbar Snackbar { get; set; } = null!;
+    private ISnackbar Snackbar { get; set; } = null!;
 
     [Parameter]
     public EventCallback<EmpresaDto> OnEmpresaAdded { get; set; }
 
     [CascadingParameter]
-    MudDialogInstance? MudDialog { get; set; }
+    private MudDialogInstance? MudDialog { get; set; }
 
+    private List<MonedaDto> _monedas = new();
+
+    private          MonedaDto MonedaDto { get; set; } = new();
     private          EmpresaDto EmpresaDto { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
     private          IEnumerable<EmpresaDto> _empresaDtos = new List<EmpresaDto>();
+    private          void Cancel() => MudDialog!.Cancel();
 
     protected override async Task OnInitializedAsync()
     {
         _empresaDtos = await EmpresaService.GetEmpresasAsync();
+        _monedas     = (await MonedaService.GetMonedasAsync())!;
     }
 
-    private void Cancel() => MudDialog!.Cancel();
+    public  string? SelectedMoneda { get; set; }
+    private string? _previousSelectedMoneda;
+
+    protected override void OnParametersSet()
+    {
+        if (SelectedMoneda == _previousSelectedMoneda) return;
+        _previousSelectedMoneda = SelectedMoneda;
+        SelectedMoneda = _monedas.FirstOrDefault(m => m.Nombre == SelectedMoneda)?.Nombre;
+        MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
+    }
 
     private async Task UpsertEmpresa()
     {
@@ -65,8 +78,28 @@ public partial class CrearEmpresa
             Snackbar.Add("Empresa creada exitosamente", Severity.Success);
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
             await OnEmpresaAdded.InvokeAsync(addedEmpresa);
+            await CreateEmpresaMoneda();
             MudDialog!.Close(DialogResult.Ok(response));
         }
+    }
+
+    private async Task CreateEmpresaMoneda()
+    {
+        var empresas   = await EmpresaService.GetEmpresasAsync();
+        var newEmpresa = empresas.Last();
+        MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
+        var url =
+            $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{newEmpresa.IdEmpresa}/{MonedaDto.IdMoneda}";
+
+        var empresaMonedaDto = new EmpresaMonedaDto
+        {
+            Cambio              = null,
+            IdEmpresa           = newEmpresa.IdEmpresa,
+            IdMonedaPrincipal   = MonedaDto.IdMoneda,
+            IdMonedaAlternativa = null,
+            IdUsuario           = 1
+        };
+        await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
     }
 
     private async Task<bool> ValidateUniqueNombre() =>

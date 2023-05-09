@@ -1,20 +1,26 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "CcN8mmqxO1S/zZUqgnptz+SDLYYnQolSLHlj56mOD0NLFRdFotp5VGZVwfxlrYeD6oEg/6UANh4+xPhughrmeQ==",
+=======
+  "dgSpecHash": "Tj/g0onX/kbQiH+yvYY8KjxD6n/YZt5apBHaVG12GX08Wnexo15UjWgwyXzF/matMhxnR2E49p2A7lLtGAdmwQ==",
+>>>>>>> EmpresaMoneda_Dashboard
   "success": true,
   "projectFilePath": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ruben\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.5\\microsoft.aspnetcore.jsonpatch.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.0.1\\microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.3\\microsoft.entityframeworkcore.7.0.3.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.3\\microsoft.entityframeworkcore.abstractions.7.0.3.nupkg.sha512",
-    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.3\\microsoft.entityframeworkcore.analyzers.7.0.3.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.5\\microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
+    "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.3\\microsoft.entityframeworkcore.relational.7.0.3.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.3\\microsoft.entityframeworkcore.sqlserver.7.0.3.nupkg.sha512",
     "C:\\Users\\ruben\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",

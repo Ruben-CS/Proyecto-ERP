@@ -18,4 +18,10 @@ public class Usuario
     public string Tipo { get; set; } = "admin";
     public List<Gestion>? Gestiones { get; set; }
     public List<Periodo>? Periodos  { get; set; }
+
+    public List<EmpresaMoneda>?      EmpresaMonedas      { get; set; }
+    public List<Comprobante>?        Comprobantes        { get; set; }
+    public List<DetalleComprobante>? DetalleComprobantes { get; set; }
+    public List<Moneda>?             Monedas             { get; set; }
+
 }

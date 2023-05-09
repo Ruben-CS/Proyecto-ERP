@@ -14,7 +14,7 @@ public partial class GestionOverview
     private List<GestionDto> _gestiones = new();
 
     [Inject]
-    ISnackbar Snackbar { get; set; } = null !;
+    private ISnackbar Snackbar { get; set; } = null !;
 
     [Parameter]
     public int IdEmpresa { get; set; }
@@ -131,12 +131,6 @@ public partial class GestionOverview
         {
             Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
         }
-    }
-
-    private async Task OnGestionAdded(GestionDto newGestion)
-    {
-        _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
-        await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 
     private async Task OnDataGridChange(GestionDto gestionDto)

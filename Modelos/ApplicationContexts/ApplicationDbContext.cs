@@ -15,6 +15,14 @@ public class ApplicationDbContext : DbContext
     public DbSet<Periodo> Periodos  { get; set; }
     public DbSet<Usuario> Usuarios  { get; set; }
 
+    public DbSet<Moneda> Monedas { get; set; }
+
+    public DbSet<EmpresaMoneda> EmpresaMonedas { get; set; }
+
+    public DbSet<DetalleComprobante> DetalleComprobantes { get; set; }
+
+    public DbSet<Comprobante> Comprobantes { get; set; }
+
     public DbSet<Cuenta> Cuentas { get; set; }
 
 
@@ -53,6 +61,11 @@ public class ApplicationDbContext : DbContext
                     .WithMany(usuario => usuario.Empresas)
                     .HasForeignKey(empresa => empresa.IdUsuario);
 
+        modelBuilder.Entity<Empresa>().HasMany(e => e.Cuentas)
+                    .WithOne(c => c.Empresa)
+                    .HasForeignKey(c => c.IdEmpresa)
+                    .OnDelete(DeleteBehavior.Cascade);
+
 
         modelBuilder.Entity<Gestion>()
                     .HasOne(gestion => gestion.Usuario)
@@ -82,6 +95,82 @@ public class ApplicationDbContext : DbContext
                     .HasForeignKey(cuenta => cuenta.IdCuentaPadre)
                     .OnDelete(DeleteBehavior.NoAction);
 
+        modelBuilder.Entity<Moneda>().HasOne(m => m.Usuario)
+                    .WithMany(u => u.Monedas)
+                    .HasForeignKey(m => m.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+
+        modelBuilder.Entity<Comprobante>().HasOne(c => c.Usuario)
+                    .WithMany(u => u.Comprobantes)
+                    .HasForeignKey(c => c.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Comprobante>().HasOne(c => c.Moneda)
+                    .WithMany()
+                    .HasForeignKey(c => c.IdMoneda)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Comprobante>().HasMany(c => c.DetalleComprobantes)
+                    .WithOne(d => d.Comprobante)
+                    .HasForeignKey(d => d.IdComprobante)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+
+        modelBuilder.Entity<DetalleComprobante>().HasOne(d => d.Usuario)
+                    .WithMany(u => u.DetalleComprobantes)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DetalleComprobante>().HasOne(d => d.Comprobante)
+                    .WithMany(c => c.DetalleComprobantes)
+                    .HasForeignKey(d => d.IdComprobante)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DetalleComprobante>().HasOne(d => d.Cuenta)
+                    .WithMany(c => c.DetalleComprobantes)
+                    .HasForeignKey(d => d.IdCuenta)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Usuario>().HasMany(u => u.EmpresaMonedas)
+                    .WithOne(em => em.Usuario)
+                    .HasForeignKey(em => em.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Usuario>().HasMany(u => u.Comprobantes)
+                    .WithOne(c => c.Usuario)
+                    .HasForeignKey(c => c.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Usuario>().HasMany(u => u.DetalleComprobantes)
+                    .WithOne(d => d.Usuario)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Usuario>().HasMany(u => u.Monedas)
+                    .WithOne(m => m.Usuario)
+                    .HasForeignKey(m => m.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<EmpresaMoneda>().HasOne(em => em.Usuario)
+                    .WithMany(u => u.EmpresaMonedas)
+                    .HasForeignKey(em => em.IdUsuario)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<EmpresaMoneda>().HasOne(em => em.Empresa)
+                    .WithMany(e => e.EmpresaMonedas)
+                    .HasForeignKey(em => em.IdEmpresa)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<EmpresaMoneda>().HasOne(em => em.MonedaPrincipal)
+                    .WithMany()
+                    .HasForeignKey(em => em.IdMonedaPrincipal)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<EmpresaMoneda>().HasOne(em => em.MonedaAlternativa)
+               .WithMany()
+               .HasForeignKey(em => em.IdMonedaAlternativa)
+               .OnDelete(DeleteBehavior.Restrict);
         #endregion
     }
 }

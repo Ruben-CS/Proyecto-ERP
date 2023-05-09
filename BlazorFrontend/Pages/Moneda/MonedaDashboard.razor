@@ -1,0 +1,127 @@
+@page "/inicio/configuracion/monedaDashboard/{idempresa:int}"
+@using global::Services.Moneda
+@using global::Services.EmpresaMonedaService
+@using BlazorFrontend.Utility_Class
+@using Modelos.Models.Enums
+@layout MonedaDashBoardLayout
+@inject NavigationManager NavigationManager
+@inject EmpresaMonedaService EmpresaMonedaService
+@inject MonedaService MonedaService
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
+@inject AppStateService AppState
+
+<MudLayout>
+    <MudMainContent>
+        <NavBarComponent IdEmpresa="@IdEmpresa"/>
+        <MudStack Row="true" Class="pb-7">
+            <EditForm Model="EmpresaMonedaDto">
+                <DataAnnotationsValidator/>
+                <MudStack Row="true">
+                    <MudTextField Required="true"
+                                  Label="Moneda Principal"
+                                  Value="MonedaPrincipalName"
+                                  Disabled="true"
+                                  Variant="Variant.Outlined"/>
+                    @if (IsLoading)
+                    {
+                        <MudProgressCircular Style="align-self: center" Color="Color.Default" Indeterminate="true" Size="Size.Medium"/>
+                    }
+                    else
+                    {
+                        <MudSelect T="string" Label="Moneda Alternativa"
+                                   AnchorOrigin="Origin.BottomCenter"
+                                   @bind-Value="@SelectedMoneda"
+                                   HelperText="Seleccione una moneda alternativa"
+                                   Variant="Variant.Outlined">
+                            @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
+                                                                        MonedaPrincipal.IdMoneda))
+                            {
+                                <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
+                    <MudTextField T="float?"
+                                  @bind-Value="AppState.Cambio"
+                                  Label="Cambio"
+                                  Placeholder="0.00"
+                                  Class="mud-text-field"
+                                  Variant="Variant.Outlined"
+                                  HelperText="Ingrese el tipo de cambio"/>
+                    <MudFab Color="Color.Success"
+                            ButtonType="ButtonType.Submit"
+                            Variant="Variant.Filled"
+                            OnClick="AddMonedaAlternativa"
+                            DisableElevation="true"
+                            Icon="@Icons.Material.Filled.AddCircleOutline"
+                            Size="Size.Small"
+                            Style="align-self: center"
+                            Label="Agregar">
+                        Agregar Moneda Alterna
+                    </MudFab>
+                </MudStack>
+            </EditForm>
+        </MudStack>
+        <MudTable Items="@_empresaMonedas.Where(em => em.IdMonedaAlternativa != null)"
+                  Hover="true"
+                  Breakpoint="Breakpoint.Sm"
+                  Bordered="true"
+                  Striped="true"
+                  Loading="@IsLoading"
+                  Elevation="5"
+                  Class="mt-1"
+                  RowsPerPage="4">
+            <HeaderContent>
+                <MudTh>
+                    <MudTableSortLabel
+                        SortBy="new Func<EmpresaMonedaDto, object>(x => x.FechaRegistro)"
+                        InitialDirection="SortDirection.Descending">
+                        Fecha de registro
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>Moneda Principal</MudTh>
+                <MudTh>Moneda Alternativa</MudTh>
+                <MudTh>Cambio</MudTh>
+                <MudTh>Estado</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
+                <MudTd DataLabel="MonedaAlternativa">@MonedaPrincipal.Nombre</MudTd>
+                <MudTd DataLabel="MonedaAlternativa">
+                    @GetMonedaAlternativaName(context.IdMonedaAlternativa)
+                </MudTd>
+                <MudTd DataLabel="Cambio" Style="text-align: right">
+                    @context.Cambio
+                </MudTd>
+                <MudTd DataLabel="Estado" Style="align-content: center">
+                    @if (context.Estado == EstadoEmpresaMoneda.Activo)
+                    {
+                        <MudChip Color="Color.Info"
+                                 Icon="@Icons.Material.Filled.GppGood">
+                            @context.Estado
+                        </MudChip>
+                    }
+                    else
+                    {
+                        <MudChip Color="Color.Error"
+                                 Icon="@Icons.Material.Filled.GppBad">
+                            @context.Estado
+                        </MudChip>
+                    }
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new[] { 3, 5, 6, 7, 8 }"
+                               HorizontalAlignment="HorizontalAlignment.Left"
+                               HidePageNumber="true"
+                               HideRowsPerPage="true"/>
+            </PagerContent>
+        </MudTable>
+    </MudMainContent>
+</MudLayout>
+
+<style>
+   .mud-text-field .mud-input input {
+        text-align: right;
+    }
+</style>

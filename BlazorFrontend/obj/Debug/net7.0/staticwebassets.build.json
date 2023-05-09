@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "pNY43pE9O4taV0lR7foyMOLcn1pAdB24H6KRsyXtRRY=",
+=======
+  "Hash": "C0bbvPs77D1gpd+4fFEbu08gI/exedeG/ZjxPRqd86g=",
+>>>>>>> EmpresaMoneda_Dashboard
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
@@ -10,6 +14,17 @@
       "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\ModuloContabilidadApi\\ModuloContabilidadApi.csproj",
       "Version": 2,
       "Source": "ModuloContabilidadApi",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\MonedaComprobanteApi\\MonedaComprobanteApi.csproj",
+      "Version": 2,
+      "Source": "MonedaComprobanteApi",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
       "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
@@ -29,10 +44,10 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -43,13 +58,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\MudBlazor.min.js",
+      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -60,7 +75,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.0\\staticwebassets\\MudBlazor.min.js"
+      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.js"
     },
     {
       "Identity": "C:\\Users\\ruben\\Documents\\ERP-REPO\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlazorFrontend.styles.css",

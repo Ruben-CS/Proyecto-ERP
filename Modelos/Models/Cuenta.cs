@@ -32,4 +32,7 @@ public class Cuenta
     public EstadoCuenta Estado { get; set; } = EstadoCuenta.Activo;
 
     public ICollection<Cuenta>? CuentasHijas { get; set; }
+
+    public List<DetalleComprobante>? DetalleComprobantes { get; set; }
+
 }
