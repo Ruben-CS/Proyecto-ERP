@@ -18,17 +18,28 @@
             <EditForm Model="EmpresaMonedaDto">
                 <DataAnnotationsValidator/>
                 <MudStack Row="true">
-                    <MudTextField Required="true"
-                                  Label="Moneda Principal"
-                                  Value="MonedaPrincipalName"
-                                  Disabled="true"
-                                  Variant="Variant.Outlined"/>
                     @if (IsLoading)
                     {
-                        <MudProgressCircular Style="align-self: center" Color="Color.Default" Indeterminate="true" Size="Size.Small"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle"
+                                     Width="227px"
+                                     Height="56px"
+                                     Animation="Animation.Wave"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle"
+                                     Width="227px"
+                                     Height="56px"
+                                     Animation="Animation.Wave"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle"
+                                     Width="227px"
+                                     Height="56px"
+                                     Animation="Animation.Wave"/>
                     }
                     else
                     {
+                        <MudTextField Required="true"
+                                      Label="Moneda Principal"
+                                      Value="MonedaPrincipalName"
+                                      Disabled="true"
+                                      Variant="Variant.Outlined"/>
                         <MudSelect T="string" Label="Moneda Alternativa"
                                    AnchorOrigin="Origin.BottomCenter"
                                    @bind-Value="@SelectedMoneda"
@@ -42,14 +53,14 @@
                                 </MudSelectItem>
                             }
                         </MudSelect>
+                        <MudTextField T="float?"
+                                      @bind-Value="AppState.Cambio"
+                                      Label="Cambio"
+                                      Placeholder="0.00"
+                                      Class="mud-text-field"
+                                      Variant="Variant.Outlined"
+                                      HelperText="Ingrese el tipo de cambio"/>
                     }
-                    <MudTextField T="float?"
-                                  @bind-Value="AppState.Cambio"
-                                  Label="Cambio"
-                                  Placeholder="0.00"
-                                  Class="mud-text-field"
-                                  Variant="Variant.Outlined"
-                                  HelperText="Ingrese el tipo de cambio"/>
                     <MudFab Color="Color.Success"
                             ButtonType="ButtonType.Submit"
                             Variant="Variant.Filled"
