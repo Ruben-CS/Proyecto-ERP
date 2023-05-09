@@ -7,7 +7,7 @@ public partial class InicioSesion
 {
     private LoginRequestDto RequestDto { get; } = new();
 
-    public bool IsLoading { get; set; }
+    private bool IsLoading { get; set; }
     private async Task LoginAsync()
     {
         IsLoading = true;

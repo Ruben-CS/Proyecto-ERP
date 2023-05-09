@@ -21,15 +21,6 @@ builder.Services.AddScoped<CuentaService>();
 builder.Services.AddScoped<MonedaService>();
 builder.Services.AddScoped<EmpresaMonedaService>();
 builder.Services.AddScoped<AppStateService>();
-builder.Services.AddMudServices(o =>
-{
-    o.SnackbarConfiguration.PreventDuplicates      = true;
-    o.SnackbarConfiguration.NewestOnTop            = true;
-    o.SnackbarConfiguration.ClearAfterNavigation   = true;
-    o.SnackbarConfiguration.VisibleStateDuration   = 2500;
-    o.SnackbarConfiguration.HideTransitionDuration = 350;
-    o.SnackbarConfiguration.ShowTransitionDuration = 350;
-});
 
 var app = builder.Build();
 
