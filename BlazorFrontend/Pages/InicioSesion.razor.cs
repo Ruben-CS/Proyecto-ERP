@@ -6,8 +6,11 @@ namespace BlazorFrontend.Pages;
 public partial class InicioSesion
 {
     private LoginRequestDto RequestDto { get; } = new();
+
+    public bool IsLoading { get; set; }
     private async Task LoginAsync()
     {
+        IsLoading = true;
         const string loginUrl = "https://localhost:44378/Auth/login";
         var loginRequestDto = new LoginRequestDto
         {
@@ -19,10 +22,12 @@ public partial class InicioSesion
         {
             Snackbar.Add($"Bienvenido {loginRequestDto.Nombre}!", Severity.Success);
             NavigationManager.NavigateTo("/Inicio");
+            IsLoading = false;
         }
         else
         {
             Snackbar.Add($"Credenciales incorrectas", Severity.Error);
+            IsLoading = false;
         }
     }
 }
