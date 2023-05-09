@@ -20,13 +20,19 @@ public partial class InicioSesion
         var response = await HttpClient.PostAsJsonAsync(loginUrl, loginRequestDto);
         if (response.IsSuccessStatusCode)
         {
-            Snackbar.Add($"Bienvenido {loginRequestDto.Nombre}!", Severity.Success);
+            Snackbar.Add($"Bienvenido {loginRequestDto.Nombre}!", Severity.Success,
+                o =>
+                {
+                    o.VisibleStateDuration   = 1500;
+                    o.HideTransitionDuration = 350;
+                    o.ShowTransitionDuration = 350;
+                });
             NavigationManager.NavigateTo("/Inicio");
             IsLoading = false;
         }
         else
         {
-            Snackbar.Add($"Credenciales incorrectas", Severity.Error);
+            Snackbar.Add("Credenciales incorrectas", Severity.Error);
             IsLoading = false;
         }
     }
