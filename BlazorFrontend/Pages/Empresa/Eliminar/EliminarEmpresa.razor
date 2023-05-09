@@ -22,7 +22,7 @@
     MudDialogInstance MudDialog { get; set; } = null!;
 
     [Parameter]
-    public EventCallback<EmpresaDto> OnEmpresaDeleted { get; set; }
+    public EventCallback<EmpresaDto> OnEmpresaListChange { get; set; }
 
     [Parameter]
     public int SelectedEmpresaId { get; set; }
@@ -36,8 +36,8 @@
 
         if (!response.IsSuccessStatusCode) return;
         var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
-        await OnEmpresaDeleted.InvokeAsync(addedEmpresa);
-        Snackbar.Add("Empresa borrada exitosamente 🗑️", Severity.Success);
+        await OnEmpresaListChange.InvokeAsync(addedEmpresa);
+        Snackbar.Add("Empresa borrada exitosamente", Severity.Success);
         MudDialog.Close(DialogResult.Ok(response));
     }
 
