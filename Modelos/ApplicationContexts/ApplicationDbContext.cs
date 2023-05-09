@@ -168,9 +168,15 @@ public class ApplicationDbContext : DbContext
                     .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<EmpresaMoneda>().HasOne(em => em.MonedaAlternativa)
-               .WithMany()
-               .HasForeignKey(em => em.IdMonedaAlternativa)
-               .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(em => em.IdMonedaAlternativa)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Comprobante>().HasOne(comprobante => comprobante.Empresa)
+                    .WithMany(empresa => empresa.Comprobantes)
+                    .HasForeignKey(comprobante => comprobante.IdEmpresa)
+                    .OnDelete(DeleteBehavior.NoAction);
+
         #endregion
     }
 }
