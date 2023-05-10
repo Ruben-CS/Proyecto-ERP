@@ -5,33 +5,23 @@
 @inject NavigationManager NavigationManager
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
-<MudText Align="Align.Center" Typo="Typo.h5">Comprobantes</MudText>
+<MudText Align="Align.Start" Typo="Typo.h5">Comprobantes</MudText>
 
-<MudGrid>
-    <MudItem xs="12" sm="4">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
-            xs=4
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
-            xs=4
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
-            xs=4
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
-            xs=12
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-    </MudItem>
-    <MudItem xs="12" sm="4">
-    </MudItem>
-    <MudItem xs="12" sm="4">
-    </MudItem>
-</MudGrid>
+<ComprobanteGrid/>
+
+<MudStack Row="true" Class="mt-3" Style="align-self: end">
+    <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
+        <MudFab Color="Color.Success"
+                IconSize="Size.Medium"
+                StartIcon="@Icons.Material.Filled.PostAdd"
+                Size="Size.Small"
+                DisableElevation="true"/>
+    </MudTooltip>
+    <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
+        <MudFab Color="Color.Info"
+                IconSize="Size.Medium"
+                StartIcon="@Icons.Material.Filled.NoteAdd"
+                Size="Size.Small"
+                DisableElevation="true"/>
+    </MudTooltip>
+</MudStack>

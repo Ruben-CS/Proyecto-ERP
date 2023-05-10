@@ -16,7 +16,7 @@ public class DetalleComprobante
     public float  MontoHaberAlt { get; set; }
 
     [ForeignKey("Usuario")]
-    public int IdUsuario { get; set; }
+    public int IdUsuario { get; set; } = 1;
 
     public Usuario? Usuario { get; set; }
 

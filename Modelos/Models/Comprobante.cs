@@ -17,7 +17,7 @@ public class Comprobante
 
     public string            Tc              { get; set; } = null!;
     public EstadoComprobante Estado          { get; set; } = EstadoComprobante.Abierto;
-    public string            TipoComprobante { get; set; } = null!;
+    public TipoComprobante   TipoComprobante { get; set; }
 
     public List<DetalleComprobante>? DetalleComprobantes { get; set; }
 
