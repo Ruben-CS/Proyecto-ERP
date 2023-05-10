@@ -4,9 +4,11 @@
 {
     <MudTreeViewItem Value="@Value"
                      LoadingIconColor="Color.Info"
-                     CanExpand="true" Text="@($"{Value.Codigo} - {Value.Nombre}")"
+                     CanExpand="true"
+                     Text="@($"{Value.Codigo} - {Value.Nombre}")"
                      EndTextTypo="@Typo.caption"
-                     Icon="@(_folderTwoExpanded ? Icons.Custom.Uncategorized.FolderOpen :
+                     Icon="@(_folderTwoExpanded ?
+                               Icons.Custom.Uncategorized.FolderOpen :
                                Icons.Custom.Uncategorized.Folder)"
                      @bind-Expanded="@_folderTwoExpanded"
                      OnClick="@(() => OnItemClick(Value))">
