@@ -21,7 +21,6 @@ public class CuentaRepository : ICuentaRepository
 
     public async Task<CuentaDto> CreateCuenta(CuentaDto cuentaDto)
     {
-
         var selectedEmpresa =
             await _applicationDbContext.Empresas.FirstOrDefaultAsync(e =>
                 e.IdEmpresa == cuentaDto.IdEmpresa);
@@ -29,12 +28,55 @@ public class CuentaRepository : ICuentaRepository
         var levelsPerEmpresa = Convert.ToInt32(selectedEmpresa!.Niveles);
 
         cuentaDto.Codigo = await CuentaUtility.GenerarCodigo
-            (_applicationDbContext, cuentaDto.IdCuentaPadre,
-                cuentaDto.IdEmpresa, levelsPerEmpresa);
+        (_applicationDbContext, cuentaDto.IdCuentaPadre,
+            cuentaDto.IdEmpresa, levelsPerEmpresa);
         var cuenta = _mapper.Map<CuentaDto, Modelos.Models.Cuenta>(cuentaDto);
         await _applicationDbContext.AddAsync(cuenta);
         await _applicationDbContext.SaveChangesAsync();
         return _mapper.Map<Modelos.Models.Cuenta, CuentaDto>(cuenta);
+    }
+
+    public async Task<IEnumerable<CuentaDto>> CreateDefaultCuentas(int idEmpresa)
+    {
+        var defaultCuentas = new List<CuentaDto>
+        {
+            new() { Nombre = "Activo", TipoCuenta     = "Global", IdEmpresa = idEmpresa },
+            new() { Nombre = "Pasivo", TipoCuenta     = "Global", IdEmpresa = idEmpresa },
+            new() { Nombre = "Patrimonio", TipoCuenta = "Global", IdEmpresa = idEmpresa },
+            new() { Nombre = "Ingresos", TipoCuenta   = "Global", IdEmpresa = idEmpresa },
+            new() { Nombre = "Egresos", TipoCuenta    = "Global", IdEmpresa = idEmpresa }
+        };
+
+        var createdCuentas = new List<CuentaDto>();
+
+        foreach (var defaultCuenta in defaultCuentas)
+        {
+            var createdCuentaDto = await CreateCuenta(defaultCuenta);
+            createdCuentas.Add(createdCuentaDto);
+        }
+
+        var egresosDto = createdCuentas.Last();
+        var subCuentasEgresos = new List<CuentaDto>
+        {
+            new()
+            {
+                Nombre    = "Costos", IdCuentaPadre = egresosDto.IdCuenta,
+                IdEmpresa = idEmpresa
+            },
+            new()
+            {
+                Nombre    = "Gastos", IdCuentaPadre = egresosDto.IdCuenta,
+                IdEmpresa = idEmpresa
+            }
+        };
+
+        foreach (var subCuenta in subCuentasEgresos)
+        {
+            var createdSubCuentaDto = await CreateCuenta(subCuenta);
+            createdCuentas.Add(createdSubCuentaDto);
+        }
+
+        return createdCuentas;
     }
 
     public async Task<bool> DeleteCuenta(int id)
@@ -77,5 +119,4 @@ public class CuentaRepository : ICuentaRepository
                                        .ToListAsync();
         return _mapper.Map<List<CuentaDto>>(listaGestiones);
     }
-
 }

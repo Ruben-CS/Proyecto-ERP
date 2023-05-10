@@ -37,74 +37,22 @@ public class CuentaApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpPost("CrearCuentasPorDefecto/{IdEmpresa:int}")]
-    public async Task<object> CrearCuentasPorDefecto([FromRoute] int IdEmpresa)
+    [HttpPost("CrearCuentasPorDefecto/{IdEmpresa}")]
+    public async Task<ResponseDto> CrearCuentasPorDefecto(
+        [FromRoute] int IdEmpresa)
     {
-        var cuentasPorDefecto = new List<CuentaDto>
+        try
         {
-            new() { Nombre = "Activo", TipoCuenta     = "Global", IdEmpresa = IdEmpresa },
-            new() { Nombre = "Pasivo", TipoCuenta     = "Global", IdEmpresa = IdEmpresa },
-            new() { Nombre = "Patrimonio", TipoCuenta = "Global", IdEmpresa = IdEmpresa },
-            new() { Nombre = "Ingresos", TipoCuenta   = "Global", IdEmpresa = IdEmpresa },
-            new() { Nombre = "Egresos", TipoCuenta    = "Global", IdEmpresa = IdEmpresa }
-        };
-
-        var cuentasCreadas = new List<CuentaDto>();
-
-        foreach (var cuentaDefecto in cuentasPorDefecto)
+            var cuentasCreadas = await _cuentaRepository.CreateDefaultCuentas(IdEmpresa);
+            await Task.FromResult(_responseDto.Result = cuentasCreadas);
+        }
+        catch (Exception e)
         {
-            try
-            {
-                var cuentaDto = await _cuentaRepository.CreateCuenta(cuentaDefecto);
-                cuentasCreadas.Add(cuentaDto);
-            }
-            catch (Exception e)
-            {
-                _responseDto.IsSuccess = false;
-                _responseDto.ErrorMessages = new List<string>()
-                {
-                    e.ToString()
-                };
-                return _responseDto;
-            }
+            _responseDto.IsSuccess     = false;
+            _responseDto.ErrorMessages = new List<string> { e.ToString() };
         }
 
-        // Crear las subcuentas para la cuenta 5 Egresos
-        var cuentaEgresos = cuentasCreadas.Last();
-        var subCuentasEgresos = new List<CuentaDto>
-        {
-            new()
-            {
-                Nombre    = "Costos", IdCuentaPadre = cuentaEgresos.IdCuenta,
-                IdEmpresa = IdEmpresa
-            },
-            new()
-            {
-                Nombre    = "Gastos", IdCuentaPadre = cuentaEgresos.IdCuenta,
-                IdEmpresa = IdEmpresa
-            }
-        };
-
-        foreach (var subCuenta in subCuentasEgresos)
-        {
-            try
-            {
-                var cuentaDto = await _cuentaRepository.CreateCuenta(subCuenta);
-                cuentasCreadas.Add(cuentaDto);
-            }
-            catch (Exception e)
-            {
-                _responseDto.IsSuccess = false;
-                _responseDto.ErrorMessages = new List<string>()
-                {
-                    e.ToString()
-                };
-                return _responseDto;
-            }
-        }
-
-        _responseDto.Result = cuentasCreadas;
-        return _responseDto;
+        return await Task.FromResult(_responseDto);
     }
 
     [HttpPut("actualizarcuenta/{id:int}")]
