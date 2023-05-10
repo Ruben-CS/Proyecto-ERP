@@ -1,9 +1,17 @@
+@using BlazorFrontend.Services
 @inject NavigationManager NavigationManager
+@inject EmpresaService EmpresaService
 <MudAppBar Elevation="5" Dense="false">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                    Edge="Edge.Start"
-                   OnClick="@ToggleDrawer"/>
+                   OnClick="@ToggleDrawer"
+                   Class="mr-16"/>
     <MudSpacer/>
+    <MudText Typo="@Typo.h4"
+             Class="ml-16 pl-16"
+             Align="Align.Center">
+        @NombreEmpresa
+    </MudText>
     <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
                    Color="Color.Inherit"
                    Link="https://github.com/MudBlazor/MudBlazor"
@@ -20,7 +28,7 @@
     <MudNavMenu>
         <MudNavGroup Icon="@Icons.Material.Filled.Business"
                      Title="Contabilidad"
-                     @bind-Expanded=IsExpanded>
+                     Expanded="true">
 
             <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
                         OnClick="NavigateToGestiones">
@@ -43,7 +51,8 @@
             </MudNavLink>
         </MudNavGroup>
         <MudNavGroup Icon="@Icons.Material.Filled.Settings"
-                     Title="Configuracion">
+                     Title="Configuracion"
+                     Expanded="true">
             <MudNavLink Icon="@Icons.Material.Filled.CurrencyExchange"
                         OnClick="NavigateToMonedas">
                 Monedas
@@ -53,10 +62,18 @@
 </MudDrawer>
 
 @code {
-    private bool IsExpanded { get; set; }
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private string? NombreEmpresa { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var empresa = await EmpresaService.GetEmpresaByIdAsync(IdEmpresa);
+        NombreEmpresa = empresa!.Nombre;
+        await InvokeAsync(StateHasChanged);
+    }
 
     private bool _open = true;
     private void ToggleDrawer() => _open = !_open;

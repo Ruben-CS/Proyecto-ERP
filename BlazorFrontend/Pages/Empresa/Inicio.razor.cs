@@ -65,7 +65,7 @@ public partial class Inicio
         _empresas = await EmpresaService.GetActiveEmpresasAsync();
         var selectedEmpresa =
             _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName);
-        if (empresaDto.IsDeleted || selectedEmpresa is null )
+        if (empresaDto.IsDeleted || selectedEmpresa is null)
         {
             SelectedEmpresaName = _empresas.Last().Nombre;
         }
@@ -120,6 +120,7 @@ public partial class Inicio
             Snackbar.Add("Seleccione una empresa primero", Severity.Info);
             return;
         }
+
         var selectedEmpresa =
             _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
         var options = new DialogOptions
@@ -145,28 +146,16 @@ public partial class Inicio
 
     private void NavigateToPage()
     {
-        var selectedEmpresa =
-            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
-        if (selectedEmpresa != default)
-        {
-            var uri = NavigationManager.ToAbsoluteUri("inicio/mainpage");
-            var queryBuilder = new QueryBuilder
-            {
-                {
-                    "id",
-                    selectedEmpresa.ToString()
-                }
-            };
-            uri = new UriBuilder(uri)
-            {
-                Query = queryBuilder.ToString()
-            }.Uri;
-            NavigationManager.NavigateTo(uri.ToString());
-        }
-        else
+        if (SelectedEmpresaName is null)
         {
             Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
+            return;
         }
+
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
+        var uri = $"/inicio/mainpage/{selectedEmpresa}";
+        NavigationManager.NavigateTo(uri);
     }
 
     private async Task CerrarSesion()

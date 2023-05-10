@@ -16,18 +16,12 @@ public partial class MonedaDashboard
     private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
 
-    private bool IsExpanded { get; set; }
-
     private float? Cambio => AppState.Cambio;
 
     private string? _previousSelectedMoneda;
     private string? MonedaPrincipalName { get; set; }
 
     private string? SelectedMoneda { get; set; }
-
-    private bool _open;
-    private void ToggleDrawer()   => _open = !_open;
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
     //todo fix the bug that occurs when clicking agregar without data
     protected override async Task OnInitializedAsync()
     {
@@ -81,6 +75,13 @@ public partial class MonedaDashboard
     {
         var selectedMonedaAlternativa =
             _monedas.FirstOrDefault(ma => ma.Nombre == SelectedMoneda);
+
+        if (selectedMonedaAlternativa is null)
+        {
+            Snackbar.Add("Seleccione una moneda alternativa", Severity.Error);
+            return;
+        }
+
         var idMonedaAlternativa = selectedMonedaAlternativa!.IdMoneda;
         var cambio              = Cambio;
         var url =
