@@ -5,7 +5,6 @@ using Modelos.Models.Dtos;
 using BlazorFrontend.Pages.Empresa.Crear;
 using BlazorFrontend.Pages.Empresa.Editar;
 using BlazorFrontend.Pages.Empresa.Eliminar;
-using Microsoft.AspNetCore.Http.Extensions;
 using DialogOptions = MudBlazor.DialogOptions;
 
 namespace BlazorFrontend.Pages.Empresa;

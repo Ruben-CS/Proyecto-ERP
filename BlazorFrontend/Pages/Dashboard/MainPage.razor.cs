@@ -11,12 +11,13 @@ public partial class MainPage
     {
         try
         {
-            var uri   = new Uri(NavigationManager.Uri);
-            var query = QueryHelpers.ParseQuery(uri.Query);
-            if (query.TryGetValue("id", out var idValue))
+            var uri      = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue  = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa            = int.Parse(idValue!);
-                StateHasChanged();
+                IdEmpresa = int.Parse(idValue);
+                await InvokeAsync(StateHasChanged);
             }
             else
             {

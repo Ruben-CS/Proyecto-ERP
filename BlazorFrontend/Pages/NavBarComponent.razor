@@ -4,18 +4,7 @@
 <MudAppBar Elevation="5" Dense="false">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                    Edge="Edge.Start"
-                   OnClick="@ToggleDrawer"
-                   Class="mr-16"/>
-    <MudSpacer/>
-    <MudText Typo="@Typo.h4"
-             Class="ml-16 pl-16"
-             Align="Align.Center">
-        @NombreEmpresa
-    </MudText>
-    <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
-                   Color="Color.Inherit"
-                   Link="https://github.com/MudBlazor/MudBlazor"
-                   Target="_blank"/>
+                   OnClick="@ToggleDrawer"/>
 </MudAppBar>
 
 <MudDrawer @bind-Open="@_open"
@@ -25,7 +14,16 @@
            PreserveOpenState="true"
            Breakpoint="Breakpoint.Md"
            OpenMiniOnHover="true">
-    <MudNavMenu>
+    <MudDrawerHeader>
+        <MudText Typo="@Typo.h6"
+                 Class="ml-5"
+                 Align="Align.Left">
+            @NombreEmpresa
+        </MudText>
+    </MudDrawerHeader>
+    <MudNavMenu Rounded="true"
+                Color="Color.Tertiary"
+                Bordered="true">
         <MudNavGroup Icon="@Icons.Material.Filled.Business"
                      Title="Contabilidad"
                      Expanded="true">
@@ -50,6 +48,8 @@
                 Cambiar empresa
             </MudNavLink>
         </MudNavGroup>
+    </MudNavMenu>
+    <MudNavMenu Color="Color.Info" Bordered="true" Rounded="true">
         <MudNavGroup Icon="@Icons.Material.Filled.Settings"
                      Title="Configuracion"
                      Expanded="true">
