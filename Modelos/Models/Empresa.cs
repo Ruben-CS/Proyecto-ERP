@@ -28,7 +28,7 @@ public class Empresa
     [Range(3, 7, ErrorMessage = "Nivel no aceptale")]
     public int Niveles { get; set; } = 3;
 
-    public bool IsDeleted { get; set; } = false;
+    public bool IsDeleted { get; set; }
 
     public List<Gestion>? Gestiones { get; set; }
 
@@ -41,4 +41,6 @@ public class Empresa
 
     [InverseProperty("Empresas")]
     public Usuario? Usuario { get; set; }
+
+    public List<Comprobante>? Comprobantes { get; set; }
 }

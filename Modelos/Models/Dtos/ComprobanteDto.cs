@@ -1,15 +1,18 @@
+using Modelos.Models.Enums;
+
 namespace Modelos.Models.Dtos;
 
 public sealed class ComprobanteDto
 {
     public int IdComprobante { get; set; }
 
-    public string Serie { get; set; }
-    public string Glosa { get; set; }
-    public DateTime Fecha { get;         set; }
-    public string TC              { get; set; }
-    public bool   Estado          { get; set; }
-    public string TipoComprobante { get; set; }
+    public string            Serie  { get; set; } = null!;
+    public string            Glosa  { get; set; } = null!;
+    public DateTime          Fecha  { get; set; }
+    public string            Tc     { get; set; } = null!;
+    public EstadoComprobante Estado { get; set; } = EstadoComprobante.Abierto;
+
+    public string TipoComprobante { get; set; } = null!;
 
     public List<DetalleComprobante>? DetalleComprobantes { get; set; }
 

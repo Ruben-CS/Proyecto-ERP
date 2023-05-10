@@ -79,6 +79,7 @@ public partial class CrearEmpresa
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
             await OnEmpresaListChange.InvokeAsync(addedEmpresa);
             await CreateEmpresaMoneda();
+            await CreateDefaultCuentas();
             MudDialog!.Close(DialogResult.Ok(response));
         }
     }
@@ -100,6 +101,23 @@ public partial class CrearEmpresa
             IdUsuario           = 1
         };
         await HttpClient.PostAsJsonAsync(url, empresaMonedaDto);
+    }
+
+    private async Task CreateDefaultCuentas()
+    {
+        var lasEmpresaCreated    = await EmpresaService.GetEmpresasAsync();
+        var lastEmpresaCreatedId = lasEmpresaCreated.Last().IdEmpresa;
+        var url =
+            $"https://localhost:44378/cuentas/CrearCuentasPorDefecto/{lastEmpresaCreatedId}";
+       var response = await HttpClient.PostAsJsonAsync(url, lastEmpresaCreatedId);
+       if (response.IsSuccessStatusCode)
+       {
+           Snackbar.Add("Cuentas creada", Severity.Info);
+       }
+       else
+       {
+           Snackbar.Add("Error al crear las cuentas", Severity.Error);
+       }
     }
 
     private async Task<bool> ValidateUniqueNombre() =>

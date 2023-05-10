@@ -30,8 +30,8 @@ namespace ModuloContabilidadApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComprobante"));
 
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -39,6 +39,9 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<string>("Glosa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
 
                     b.Property<int>("IdMoneda")
                         .HasColumnType("int");
@@ -50,7 +53,7 @@ namespace ModuloContabilidadApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TC")
+                    b.Property<string>("Tc")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -59,6 +62,8 @@ namespace ModuloContabilidadApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdComprobante");
+
+                    b.HasIndex("IdEmpresa");
 
                     b.HasIndex("IdMoneda");
 
@@ -389,6 +394,12 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("Modelos.Models.Comprobante", b =>
                 {
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Comprobantes")
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Modelos.Models.Moneda", "Moneda")
                         .WithMany()
                         .HasForeignKey("IdMoneda")
@@ -400,6 +411,8 @@ namespace ModuloContabilidadApi.Migrations
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Empresa");
 
                     b.Navigation("Moneda");
 
@@ -559,6 +572,8 @@ namespace ModuloContabilidadApi.Migrations
 
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
+                    b.Navigation("Comprobantes");
+
                     b.Navigation("Cuentas");
 
                     b.Navigation("EmpresaMonedas");
