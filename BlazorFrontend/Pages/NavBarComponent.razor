@@ -32,6 +32,11 @@
                 Plan de Cuentas
             </MudNavLink>
 
+            <MudNavLink Icon="@Icons.Material.Filled.ReceiptLong"
+                        OnClick="NavigateToComprobantes">
+                Comprobantes
+            </MudNavLink>
+
             <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
                         OnClick="CambiarEmpresa">
                 Cambiar empresa
@@ -49,9 +54,11 @@
 
 @code {
     private bool IsExpanded { get; set; }
+
     [Parameter]
     public int IdEmpresa { get; set; }
-    private bool _open;
+
+    private bool _open = true;
     private void ToggleDrawer() => _open = !_open;
     private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
@@ -77,6 +84,12 @@
         if (IdEmpresa is 0)
             return;
         var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private void NavigateToComprobantes()
+    {
+        var uri = $"/comprobantes/overview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
 

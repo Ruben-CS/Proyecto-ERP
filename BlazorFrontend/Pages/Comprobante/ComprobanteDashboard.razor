@@ -1,0 +1,8 @@
+@page "/comprobantes/overview/{idempresa:int}"
+@layout ComprobanteLayout
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+<h1>This is the main dashboard</h1>

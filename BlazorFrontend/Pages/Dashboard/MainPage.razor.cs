@@ -9,7 +9,7 @@ public partial class MainPage
 
     private bool IsExpanded { get; set; }
 
-    bool _open;
+    private bool _open = true;
 
     protected override Task OnInitializedAsync()
     {
@@ -59,6 +59,12 @@ public partial class MainPage
     {
         if (Id is 0) return;
         var uri = $"/inicio/configuracion/monedaDashboard/{Id}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private void NavigateToComprobantes()
+    {
+        var uri = $"/comprobantes/overview/{Id}";
         NavigationManager.NavigateTo(uri);
     }
 }
