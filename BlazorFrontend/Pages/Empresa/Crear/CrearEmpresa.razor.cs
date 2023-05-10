@@ -75,7 +75,10 @@ public partial class CrearEmpresa
         else
         {
             var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
-            Snackbar.Add("Empresa creada exitosamente", Severity.Success);
+            Snackbar.Add("Empresa creada exitosamente", Severity.Success, options =>
+            {
+                options.CloseAfterNavigation = true;
+            });
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
             await OnEmpresaListChange.InvokeAsync(addedEmpresa);
             await CreateEmpresaMoneda();
@@ -109,15 +112,7 @@ public partial class CrearEmpresa
         var lastEmpresaCreatedId = lasEmpresaCreated.Last().IdEmpresa;
         var url =
             $"https://localhost:44378/cuentas/CrearCuentasPorDefecto/{lastEmpresaCreatedId}";
-       var response = await HttpClient.PostAsJsonAsync(url, lastEmpresaCreatedId);
-       if (response.IsSuccessStatusCode)
-       {
-           Snackbar.Add("Cuentas creada", Severity.Info);
-       }
-       else
-       {
-           Snackbar.Add("Error al crear las cuentas", Severity.Error);
-       }
+        await HttpClient.PostAsJsonAsync(url, lastEmpresaCreatedId);
     }
 
     private async Task<bool> ValidateUniqueNombre() =>

@@ -6,6 +6,7 @@ namespace BlazorFrontend.Services;
 public sealed class EmpresaService
 {
     private readonly HttpClient _httpClient;
+
     public EmpresaService(HttpClient httpClient)
     {
         _httpClient = httpClient;
@@ -18,6 +19,10 @@ public sealed class EmpresaService
     public async Task<EmpresaDto?> GetEmpresaByIdAsync(int id) =>
         await GetApiResponseAsync<EmpresaDto>
             ($"https://localhost:44378/empresas/{id}");
+
+    public async Task<List<EmpresaDto>> GetActiveEmpresasAsync() =>
+        await GetApiResponseAsync<List<EmpresaDto>>(
+            "https://localhost:44378/empresas/listarempresasactivas");
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {

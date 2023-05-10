@@ -26,6 +26,14 @@ public class EmpresaRepository : IEmpresaRepository
         return _mapper.Map<List<EmpresaDto>>(listaEmpresas);
     }
 
+    public async Task<IEnumerable<EmpresaDto>> GetNonDeletedModels()
+    {
+        var activeEmpresas = await _applicationDbContext.Empresas
+                                                  .Where(e => e.IsDeleted == false)
+                                                  .ToListAsync();
+        return await Task.FromResult(_mapper.Map<List<EmpresaDto>>(activeEmpresas));
+    }
+
     public async Task<EmpresaDto> GetModelo(int modeloId)
     {
         var empresa = await _applicationDbContext.Empresas.Where(id => id

@@ -18,7 +18,9 @@ public partial class Inicio
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
     private int                     SelectedEmpresaId { get; set; }
 
-    public string? SelecteEmpresaName { get; set; }
+    private string? SelectedEmpresaName { get; set; }
+
+    private bool IsSelectedEmpresaNameNull => SelectedEmpresaName is null;
 
     private async Task LoadSelectedEmpresaAsync(int selectedId)
     {
@@ -60,29 +62,35 @@ public partial class Inicio
 
     private async Task OnEmpresaListChange(EmpresaDto empresaDto)
     {
-        _empresas = await EmpresaService.GetEmpresasAsync();
+        _empresas = await EmpresaService.GetActiveEmpresasAsync();
 
         if (empresaDto.IsDeleted)
         {
-            SelecteEmpresaName = null;
+            SelectedEmpresaName = null;
         }
         else
         {
-            SelecteEmpresaName = _empresas.Last().Nombre;
+            SelectedEmpresaName = _empresas.Last().Nombre;
             await Task.FromResult(LoadSelectedEmpresaAsync(SelectedEmpresaId));
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        _empresas = await EmpresaService.GetEmpresasAsync();
+        _empresas = await EmpresaService.GetActiveEmpresasAsync();
         StateHasChanged();
     }
 
     private async Task Editar(MouseEventArgs obj)
     {
+        if (IsSelectedEmpresaNameNull)
+        {
+            Snackbar.Add("Seleccione una empresa primero", Severity.Info);
+            return;
+        }
+
         var selectedEmpresa =
-            _empresas.SingleOrDefault(e => e.Nombre == SelecteEmpresaName)!.IdEmpresa;
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
         var options = new DialogOptions
         {
             CloseOnEscapeKey = true,
@@ -106,13 +114,13 @@ public partial class Inicio
 
     private async void Eliminar(MouseEventArgs obj)
     {
-        var selectedEmpresa =
-            _empresas.SingleOrDefault(e => e.Nombre == SelecteEmpresaName)!.IdEmpresa;
-        if (selectedEmpresa is 0)
+        if (IsSelectedEmpresaNameNull)
         {
             Snackbar.Add("Seleccione una empresa primero", Severity.Info);
+            return;
         }
-
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
         var options = new DialogOptions
         {
             CloseOnEscapeKey = true,
@@ -137,7 +145,7 @@ public partial class Inicio
     private void NavigateToPage()
     {
         var selectedEmpresa =
-            _empresas.SingleOrDefault(e => e.Nombre == SelecteEmpresaName)!.IdEmpresa;
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
         if (selectedEmpresa != default)
         {
             var uri = NavigationManager.ToAbsoluteUri("inicio/mainpage");

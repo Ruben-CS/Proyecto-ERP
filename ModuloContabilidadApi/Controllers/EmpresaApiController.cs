@@ -37,6 +37,26 @@ public class EmpresaApiController : ControllerBase
         return _responseDto;
     }
 
+    [HttpGet("listarempresasactivas")]
+    public async Task<object> GetActive()
+    {
+        try
+        {
+            var activeEmpresas = await _empresaRepository.GetNonDeletedModels();
+            _responseDto.Result = activeEmpresas;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+
+        return _responseDto;
+    }
+
     [HttpGet]
     [Route("{id}")]
     public async Task<object> Get(int id)
