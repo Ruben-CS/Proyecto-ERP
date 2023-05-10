@@ -20,7 +20,7 @@
     </MudStack>
 </MudContainer>
 
-<MudGrid Class="ma-2 pa-4">
+<MudGrid Class="ma-2 pa-4" Spacing="1">
     <MudItem xs="12">
         <MudAutocomplete T="string"
                          Label="Lista de empresas"
@@ -30,28 +30,41 @@
                          AdornmentIcon="@Icons.Material.Filled.Search"
                          Variant="Variant.Filled"/>
     </MudItem>
-    <MudItem xs="4">
+    <MudItem xs="3">
         <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
                 Class="d-flex align-center
                        justify-center
                        mud-width-full py-8"
                 Label="Editar"
-                OnClick="Editar"/>
+                OnClick="Editar"
+                Size="Size.Small"/>
     </MudItem>
-    <MudItem xs="4">
+    <MudItem xs="3">
         <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8"
                 Label="Eliminar"
-                @onclick="Eliminar"/>
+                @onclick="Eliminar"
+                Size="Size.Small" />
     </MudItem>
-    <MudItem xs="4">
+    <MudItem xs="3">
+        <MudFab Color="Color.Primary"
+                StartIcon="@Icons.Material.Filled.InsertChart"
+                Class="d-flex align-center
+                justify-center
+                mud-width-full py-8"
+                Label="Reporte"
+                Size="Size.Small"
+                Disabled="true"/>
+    </MudItem>
+    <MudItem xs="3">
         <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8"
                 Label="Ingresar"
-                OnClick="NavigateToPage"/>
+                OnClick="NavigateToPage"
+                Size="Size.Small" />
     </MudItem>
 </MudGrid>

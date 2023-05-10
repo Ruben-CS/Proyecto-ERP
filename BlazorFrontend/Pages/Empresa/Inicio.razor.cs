@@ -63,10 +63,11 @@ public partial class Inicio
     private async Task OnEmpresaListChange(EmpresaDto empresaDto)
     {
         _empresas = await EmpresaService.GetActiveEmpresasAsync();
-
-        if (empresaDto.IsDeleted)
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName);
+        if (empresaDto.IsDeleted || selectedEmpresa is null )
         {
-            SelectedEmpresaName = null;
+            SelectedEmpresaName = _empresas.Last().Nombre;
         }
         else
         {
