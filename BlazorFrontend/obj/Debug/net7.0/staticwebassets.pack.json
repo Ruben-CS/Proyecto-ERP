@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\BlazorFrontend.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\Animation.css",
+      "PackagePath": "staticwebassets\\css\\Animation.css"
+    },
+    {
       "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

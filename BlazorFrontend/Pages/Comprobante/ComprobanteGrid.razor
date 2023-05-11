@@ -15,11 +15,6 @@
                    T="string">
         </MudSelect>
     </MudItem>
-    <MudItem xs="12">
-        <MudTextField Variant="Variant.Outlined"
-                      Label="Glosa"
-                      T="string"/>
-    </MudItem>
     <MudItem xs="12" sm="4">
         <MudTextField Variant="Variant.Outlined"
                       Label="Tipo de cambio"
@@ -37,7 +32,30 @@
                    T="string">
         </MudSelect>
     </MudItem>
+    <MudItem xs="12">
+        <MudTextField Variant="Variant.Outlined"
+                      Label="Glosa"
+                      T="string"/>
+    </MudItem>
 </MudGrid>
+
+<MudStack Row="true" Class="mt-3" Style="align-self: end">
+    <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
+        <MudFab Color="Color.Success"
+                IconSize="Size.Medium"
+                StartIcon="@Icons.Material.Filled.PostAdd"
+                Size="Size.Small"
+                DisableElevation="true"/>
+    </MudTooltip>
+    <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
+        <MudFab Color="Color.Info"
+                IconSize="Size.Medium"
+                StartIcon="@Icons.Material.Filled.NoteAdd"
+                Size="Size.Small"
+                DisableElevation="true"/>
+    </MudTooltip>
+</MudStack>
+
 
 @code {
 

@@ -7,12 +7,12 @@ namespace MonedaComprobanteApi.Controllers;
 
 [ApiController]
 [Route("empresaMonedas")]
-public class EmpresaMonedaApi : ControllerBase
+public class EmpresaMonedaController : ControllerBase
 {
     private readonly ResponseDto              _responseDto;
     private readonly IEmpresaMonedaRepository _empresaMonedaRepository;
 
-    public EmpresaMonedaApi(IEmpresaMonedaRepository empresaMonedaRepository)
+    public EmpresaMonedaController(IEmpresaMonedaRepository empresaMonedaRepository)
     {
         _empresaMonedaRepository = empresaMonedaRepository;
         _responseDto             = new ResponseDto();

@@ -6,20 +6,22 @@
 @inject ISnackbar Snackbar
 
 
-<MudCard Elevation="1" Style="width: 400px">
+<MudCard Elevation="1" Style="width: 400px"  Class="fade-in">
     <MudCardContent>
         <EditForm Model="RequestDto">
             <MudTextField @bind-Value="RequestDto.Nombre"
                           Label="Usuario"
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.AccountCircle"/>
+                          AdornmentIcon="@Icons.Material.Filled.AccountCircle"
+                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
 
             <MudTextField @bind-Value="RequestDto.Password"
                           InputType="InputType.Password" Label="Contraseña"
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Password"/>
+                          AdornmentIcon="@Icons.Material.Filled.Password"
+                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
         </EditForm>
     </MudCardContent>
     <MudCardActions Class="d-flex justify-content-center align-items-center">
