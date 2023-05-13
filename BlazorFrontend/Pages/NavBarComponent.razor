@@ -1,10 +1,30 @@
 @using BlazorFrontend.Services
 @inject NavigationManager NavigationManager
 @inject EmpresaService EmpresaService
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
 <MudAppBar Elevation="5" Dense="false">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                    Edge="Edge.Start"
                    OnClick="@ToggleDrawer"/>
+    <MudSpacer/>
+        <MudMenu Icon="@Icons.Material.Filled.AccountCircle"
+                 Color="Color.Inherit"
+                 Size="Size.Large"
+                 Edge="Edge.End"
+                 AnchorOrigin="Origin.BottomLeft"
+                 TransformOrigin="Origin.TopRight">
+            <MudText Typo="Typo.subtitle2" Align="Align.Center"
+                     GutterBottom="true">
+                @Username
+            </MudText>
+            <MudMenuItem IconSize="Size.Small"
+                         IconColor="Color.Dark"
+                         Icon="@Icons.Material.Filled.Logout"
+                         OnClick="CerrarSesion">
+                Cerrar Sesion
+            </MudMenuItem>
+        </MudMenu>
 </MudAppBar>
 
 <MudDrawer @bind-Open="@_open"
@@ -61,6 +81,13 @@
     </MudNavMenu>
 </MudDrawer>
 
+@if (IsLoggingOut)
+{
+    <MudOverlay Visible="IsLoggingOut" DarkBackground="true" Absolute="false" ZIndex="9999">
+        <MudProgressCircular Color="Color.Info" Indeterminate="true"/>
+    </MudOverlay>
+}
+
 @code {
 
     [Parameter]
@@ -68,10 +95,15 @@
 
     private string? NombreEmpresa { get; set; }
 
+    private bool IsLoggingOut { get; set; }
+
+    private string? Username { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         var empresa = await EmpresaService.GetEmpresaByIdAsync(IdEmpresa);
         NombreEmpresa = empresa!.Nombre;
+        Username  = await LocalStorage.GetItemAsync<string>("username");
         await InvokeAsync(StateHasChanged);
     }
 
@@ -86,6 +118,16 @@
         var uri = $"/plandecuentas/overview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Username = await LocalStorage.GetItemAsync<string>("username");
+            StateHasChanged();
+        }
+    }
+
 
     private void NavigateToGestiones()
     {
@@ -108,6 +150,14 @@
     {
         var uri = $"/comprobantes/overview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
+    }
+
+    private async Task CerrarSesion()
+    {
+        IsLoggingOut = true;
+        await Task.Delay(2500);
+        NavigationManager!.NavigateTo("/");
+        IsLoggingOut = false;
     }
 
 }

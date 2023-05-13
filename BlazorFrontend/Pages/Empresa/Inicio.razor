@@ -13,11 +13,16 @@
              Color="Color.Inherit"
              Size="Size.Large"
              Edge="Edge.End"
-             AnchorOrigin="Origin.CenterCenter">
-        <MudMenuItem Icon="@Icons.Material.Filled.Logout"
-                     OnClick="CerrarSesion"
-                     IconSize="Size.Small"
-                     IconColor="Color.Dark">
+             AnchorOrigin="Origin.BottomLeft"
+             TransformOrigin="Origin.TopRight">
+        <MudText Typo="Typo.subtitle2" Align="Align.Center"
+                 GutterBottom="true">
+            @Username
+        </MudText>
+        <MudMenuItem IconSize="Size.Small"
+                     IconColor="Color.Dark"
+                     Icon="@Icons.Material.Filled.Logout"
+                     OnClick="CerrarSesion">
             Cerrar Sesion
         </MudMenuItem>
     </MudMenu>
