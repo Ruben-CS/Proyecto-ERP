@@ -6,7 +6,7 @@
 @inject NavigationManager NavigationManager
 
 
-<MudContainer MaxWidth="MaxWidth.Small">
+<MudContainer MaxWidth="MaxWidth.ExtraSmall">
     <MudStack Row="true">
         <MudTooltip Text="Cerrar sesion">
             <MudFab Color="Color.Dark"
@@ -19,20 +19,19 @@
                 Label="Agregar Empresa"/>
     </MudStack>
 </MudContainer>
+<MudContainer Fixed="true">
+    <MudAutocomplete T="string"
+                     Label="Lista de empresas"
+                     @bind-Value="SelectedEmpresaName"
+                     SearchFunc="Search"
+                     HelperText="Busque una empresa"
+                     AdornmentIcon="@Icons.Material.Filled.Search"
+                     Variant="Variant.Filled"
+                     Dense="true"
+                     Style="border-radius: 50px"
+                     Class="mb-4"/>
 
-<MudGrid Class="ma-2 pa-4" Spacing="1">
-    <MudItem xs="12">
-        <MudAutocomplete T="string"
-                         Label="Lista de empresas"
-                         @bind-Value="SelectedEmpresaName"
-                         SearchFunc="Search"
-                         HelperText="Busque una empresa"
-                         AdornmentIcon="@Icons.Material.Filled.Search"
-                         Variant="Variant.Filled"
-                         Dense="true"
-                         Style="border-radius: 50px"/>
-    </MudItem>
-    <MudItem xs="3">
+    <MudStack Row="true" Justify="Justify.Center" Spacing="4">
         <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
                 Class="d-flex align-center
                        justify-center
@@ -40,17 +39,13 @@
                 Label="Editar"
                 OnClick="Editar"
                 Size="Size.Small"/>
-    </MudItem>
-    <MudItem xs="3">
         <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8 mud-elevation-6 rounded-pill"
                 Label="Eliminar"
                 @onclick="Eliminar"
-                Size="Size.Small" />
-    </MudItem>
-    <MudItem xs="3">
+                Size="Size.Small"/>
         <MudFab Color="Color.Primary"
                 StartIcon="@Icons.Material.Filled.InsertChart"
                 Class="d-flex align-center
@@ -59,14 +54,12 @@
                 Label="Reporte"
                 Size="Size.Small"
                 Disabled="true"/>
-    </MudItem>
-    <MudItem xs="3">
         <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
                 Class="d-flex align-center
                 justify-center
                 mud-width-full py-8 mud-elevation-6 rounded-pill"
                 Label="Ingresar"
                 OnClick="NavigateToPage"
-                Size="Size.Small" />
-    </MudItem>
-</MudGrid>
+                Size="Size.Small"/>
+    </MudStack>
+</MudContainer>
