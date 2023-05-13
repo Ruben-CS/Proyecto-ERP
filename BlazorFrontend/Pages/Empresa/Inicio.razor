@@ -32,34 +32,37 @@
                      Class="mb-4"/>
 
     <MudStack Row="true" Justify="Justify.Center" Spacing="4">
-        <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
-                Class="d-flex align-center
-                       justify-center
-                       mud-width-full py-8 rounded-pill mud-elevation-0"
-                Label="Editar"
-                OnClick="Editar"
-                Size="Size.Small"/>
-        <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
-                Class="d-flex align-center
-                justify-center
-                mud-width-full py-8 mud-elevation-6 rounded-pill"
-                Label="Eliminar"
-                @onclick="Eliminar"
-                Size="Size.Small"/>
-        <MudFab Color="Color.Primary"
-                StartIcon="@Icons.Material.Filled.InsertChart"
-                Class="d-flex align-center
-                justify-center
-                mud-width-full py-8 mud-elevation-6 rounded-pill"
-                Label="Reporte"
-                Size="Size.Small"
-                Disabled="true"/>
-        <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
-                Class="d-flex align-center
-                justify-center
-                mud-width-full py-8 mud-elevation-6 rounded-pill"
-                Label="Ingresar"
-                OnClick="NavigateToPage"
-                Size="Size.Small"/>
+        <MudButton Color="Color.Warning"
+                   Variant="Variant.Filled"
+                   OnClick="Editar"
+                   Size="Size.Large"
+                   StartIcon="@Icons.Material.Filled.Edit"
+                   Class="rounded-pill">
+            Editar
+        </MudButton>
+        <MudButton Color="Color.Error"
+                   StartIcon="@Icons.Material.Filled.Delete"
+                   OnClick="Eliminar"
+                   Size="Size.Large"
+                   Variant="Variant.Filled"
+                   Class="rounded-pill">
+            Eliminar
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.InsertChart"
+                   Class="rounded-pill"
+                   Size="Size.Large"
+                   Disabled="true"
+                   Variant="Variant.Filled">
+            Reporte
+        </MudButton>
+        <MudButton Color="Color.Info"
+                   StartIcon="@Icons.Material.Filled.Login"
+                   Class="rounded-pill"
+                   OnClick="NavigateToPage"
+                   Size="Size.Large"
+                   Variant="Variant.Filled">
+            Ingresar
+        </MudButton>
     </MudStack>
 </MudContainer>

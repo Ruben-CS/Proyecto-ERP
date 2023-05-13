@@ -81,7 +81,7 @@ public partial class Inicio
         StateHasChanged();
     }
 
-    private async Task Editar(MouseEventArgs obj)
+    private async Task Editar()
     {
         if (IsSelectedEmpresaNameNull)
         {
@@ -112,7 +112,7 @@ public partial class Inicio
             parameters, options);
     }
 
-    private async void Eliminar(MouseEventArgs obj)
+    private async Task Eliminar()
     {
         if (IsSelectedEmpresaNameNull)
         {
