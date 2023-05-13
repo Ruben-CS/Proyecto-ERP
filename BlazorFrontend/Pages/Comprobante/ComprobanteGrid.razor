@@ -1,12 +1,14 @@
-<MudGrid Spacing="3" Justify="Justify.Center">
+<MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
     <MudItem xs="12" sm="4">
         <MudTextField Variant="Variant.Outlined"
                       Label="Serie"
-                      T="string"/>
+                      T="string"
+                      Disabled="true"/>
     </MudItem>
     <MudItem xs="12" sm="4">
         <MudDatePicker Variant="Variant.Outlined"
-                       Label="Fecha">
+                       Label="Fecha"
+                       bind-Date="Fecha = DateTime.Now">
         </MudDatePicker>
     </MudItem>
     <MudItem xs="12" sm="4">
@@ -29,13 +31,16 @@
     <MudItem xs="12" sm="4">
         <MudSelect Variant="Variant.Outlined"
                    Label="Estado"
-                   T="string">
+                   T="string"
+                   Disabled="true"
+                   bind-Text="@ComprobanteDto.Estado">
         </MudSelect>
     </MudItem>
     <MudItem xs="12">
         <MudTextField Variant="Variant.Outlined"
                       Label="Glosa"
-                      T="string"/>
+                      T="string"
+                      bind-Value="@ComprobanteDto.Glosa"/>
     </MudItem>
 </MudGrid>
 
@@ -58,5 +63,10 @@
 
 
 @code {
+    #region DataForComprobante
 
+    public ComprobanteDto ComprobanteDto { get; set; } = new();
+    public DateTime Fecha { get; set; }
+
+    #endregion
 }

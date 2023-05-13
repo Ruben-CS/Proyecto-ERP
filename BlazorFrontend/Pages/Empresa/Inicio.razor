@@ -28,13 +28,15 @@
                          SearchFunc="Search"
                          HelperText="Busque una empresa"
                          AdornmentIcon="@Icons.Material.Filled.Search"
-                         Variant="Variant.Filled"/>
+                         Variant="Variant.Filled"
+                         Dense="true"
+                         Style="border-radius: 50px"/>
     </MudItem>
     <MudItem xs="3">
         <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Edit"
                 Class="d-flex align-center
                        justify-center
-                       mud-width-full py-8"
+                       mud-width-full py-8 rounded-pill mud-elevation-0"
                 Label="Editar"
                 OnClick="Editar"
                 Size="Size.Small"/>
@@ -43,7 +45,7 @@
         <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete"
                 Class="d-flex align-center
                 justify-center
-                mud-width-full py-8"
+                mud-width-full py-8 mud-elevation-6 rounded-pill"
                 Label="Eliminar"
                 @onclick="Eliminar"
                 Size="Size.Small" />
@@ -53,7 +55,7 @@
                 StartIcon="@Icons.Material.Filled.InsertChart"
                 Class="d-flex align-center
                 justify-center
-                mud-width-full py-8"
+                mud-width-full py-8 mud-elevation-6 rounded-pill"
                 Label="Reporte"
                 Size="Size.Small"
                 Disabled="true"/>
@@ -62,7 +64,7 @@
         <MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Login"
                 Class="d-flex align-center
                 justify-center
-                mud-width-full py-8"
+                mud-width-full py-8 mud-elevation-6 rounded-pill"
                 Label="Ingresar"
                 OnClick="NavigateToPage"
                 Size="Size.Small" />
