@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using Modelos.Models.Dtos;
 using BlazorFrontend.Pages.Empresa.Crear;
@@ -17,7 +16,11 @@ public partial class Inicio
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
     private int                     SelectedEmpresaId { get; set; }
 
+    public string Username { get; set; }
+
     private string? SelectedEmpresaName { get; set; }
+
+    public bool IsLoading { get; set; }
 
     private bool IsSelectedEmpresaNameNull => SelectedEmpresaName is null;
 
@@ -78,7 +81,17 @@ public partial class Inicio
     protected override async Task OnInitializedAsync()
     {
         _empresas = await EmpresaService.GetActiveEmpresasAsync();
+        Username  = await LocalStorage.GetItemAsync<string>("username");
         StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Username = await LocalStorage.GetItemAsync<string>("username");
+            StateHasChanged();
+        }
     }
 
     private async Task Editar()
@@ -156,10 +169,11 @@ public partial class Inicio
         var uri = $"/inicio/mainpage/{selectedEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
-
     private async Task CerrarSesion()
     {
+        IsLoading = true;
         await Task.Delay(2500);
-        NavigationManager.NavigateTo("/");
+        NavigationManager!.NavigateTo("/");
+        IsLoading = false;
     }
 }

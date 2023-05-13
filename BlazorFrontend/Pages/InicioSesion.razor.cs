@@ -27,6 +27,7 @@ public partial class InicioSesion
                     o.HideTransitionDuration = 350;
                     o.ShowTransitionDuration = 350;
                 });
+            await LocalStorage.SetItemAsync("username", loginRequestDto.Nombre);
             NavigationManager.NavigateTo("/Inicio");
             IsLoading = false;
         }

@@ -4,15 +4,26 @@
 @inject IDialogService DialogService
 @inject EmpresaService EmpresaService
 @inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 
 
+<MudAppBar Elevation="1">
+    <MudSpacer/>
+    <MudMenu Icon="@Icons.Material.Filled.AccountCircle"
+             Color="Color.Inherit"
+             Size="Size.Large"
+             Edge="Edge.End"
+             AnchorOrigin="Origin.CenterCenter">
+        <MudMenuItem Icon="@Icons.Material.Filled.Logout"
+                     OnClick="CerrarSesion"
+                     IconSize="Size.Small"
+                     IconColor="Color.Dark">
+            Cerrar Sesion
+        </MudMenuItem>
+    </MudMenu>
+</MudAppBar>
 <MudContainer MaxWidth="MaxWidth.ExtraSmall">
     <MudStack Row="true">
-        <MudTooltip Text="Cerrar sesion">
-            <MudFab Color="Color.Dark"
-                    StartIcon="@Icons.Material.Filled.Logout"
-                    @onclick="CerrarSesion"/>
-        </MudTooltip>
         <MudFab Color="Color.Success"
                 StartIcon="@Icons.Material.Filled.Add"
                 @onclick="@ShowMudCrearEmpresaModal"
@@ -27,7 +38,7 @@
                      HelperText="Busque una empresa"
                      AdornmentIcon="@Icons.Material.Filled.Search"
                      Variant="Variant.Filled"
-                     Dense="true"
+                     Dense="false"
                      Style="border-radius: 50px"
                      Class="mb-4"/>
 
@@ -66,3 +77,9 @@
         </MudButton>
     </MudStack>
 </MudContainer>
+@if (IsLoading)
+{
+    <MudOverlay Visible="IsLoading" DarkBackground="true" Absolute="true" ZIndex="9999">
+        <MudProgressCircular Color="Color.Info" Indeterminate="true"/>
+    </MudOverlay>
+}
