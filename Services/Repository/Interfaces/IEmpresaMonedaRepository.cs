@@ -14,4 +14,6 @@ public interface IEmpresaMonedaRepository
 
     public Task<EmpresaMonedaDto?> UpdateMoneda(
         JsonPatchDocument<EmpresaMonedaDto> patchDocument, int id);
+
+    public Task<List<EmpresaMonedaDto>> GetMonedaAlternativasPerEmpresa(int idEmpresa);
 }

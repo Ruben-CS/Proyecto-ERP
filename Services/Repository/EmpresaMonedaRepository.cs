@@ -72,4 +72,11 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
         return _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(
             empresaMonedaDb);
     }
+
+    public async Task<List<EmpresaMonedaDto>> GetMonedaAlternativasPerEmpresa(int idEmpresa)
+    {
+        var empresaMonedasActivas = await _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa &&
+            em.Estado == EstadoEmpresaMoneda.Activo).ToListAsync();
+        return await Task.FromResult(_mapper.Map<List<EmpresaMonedaDto>>(empresaMonedasActivas));
+    }
 }

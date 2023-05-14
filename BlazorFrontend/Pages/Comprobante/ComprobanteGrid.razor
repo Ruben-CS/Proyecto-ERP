@@ -1,3 +1,6 @@
+@using global::Services.EmpresaMonedaService
+@inject EmpresaMonedaService EmpresaMonedaService
+
 <MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
     <MudItem xs="12" sm="4">
         <MudTextField Variant="Variant.Outlined"
@@ -63,10 +66,26 @@
 
 
 @code {
+
     #region DataForComprobante
 
     public ComprobanteDto ComprobanteDto { get; set; } = new();
     public DateTime Fecha { get; set; }
+    public IEnumerable<EmpresaMonedaDto>? MainAndAltMonedas { get; set; }
 
     #endregion
+
+    #region parameters
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        MainAndAltMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+        await InvokeAsync(StateHasChanged);
+    }
+
 }
