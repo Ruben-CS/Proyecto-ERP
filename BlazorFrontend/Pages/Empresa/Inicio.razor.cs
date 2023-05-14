@@ -81,7 +81,6 @@ public partial class Inicio
     protected override async Task OnInitializedAsync()
     {
         _empresas = await EmpresaService.GetActiveEmpresasAsync();
-        Username  = await LocalStorage.GetItemAsync<string>("username");
         StateHasChanged();
     }
 

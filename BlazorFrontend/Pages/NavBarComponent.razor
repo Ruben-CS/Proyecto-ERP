@@ -103,7 +103,6 @@
     {
         var empresa = await EmpresaService.GetEmpresaByIdAsync(IdEmpresa);
         NombreEmpresa = empresa!.Nombre;
-        Username  = await LocalStorage.GetItemAsync<string>("username");
         await InvokeAsync(StateHasChanged);
     }
 
