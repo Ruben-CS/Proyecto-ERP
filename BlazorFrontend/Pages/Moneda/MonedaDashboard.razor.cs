@@ -22,7 +22,6 @@ public partial class MonedaDashboard
     private string? MonedaPrincipalName { get; set; }
 
     private string? SelectedMoneda { get; set; }
-    //todo fix the bug that occurs when clicking agregar without data
     protected override async Task OnInitializedAsync()
     {
         try
@@ -82,17 +81,18 @@ public partial class MonedaDashboard
             return;
         }
 
-        var idMonedaAlternativa = selectedMonedaAlternativa!.IdMoneda;
+        var idMonedaPrincial    =  MonedaPrincipal.IdMoneda;
+        var idMonedaAlternativa = selectedMonedaAlternativa.IdMoneda;
         var cambio              = Cambio;
         var url =
-            $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{IdEmpresa}/{idMonedaAlternativa}";
+            $"https://localhost:44352/empresaMonedas/agregarmonedaAlternativa/{IdEmpresa}/{idMonedaAlternativa}/{idMonedaPrincial}";
 
 
         var empresaMonedaDto = new EmpresaMonedaDto
         {
             Cambio              = cambio,
             IdEmpresa           = IdEmpresa,
-            IdMonedaPrincipal   = MonedaPrincipal.IdMoneda,
+            IdMonedaPrincipal   = idMonedaPrincial,
             IdMonedaAlternativa = idMonedaAlternativa,
             IdUsuario           = 1
         };

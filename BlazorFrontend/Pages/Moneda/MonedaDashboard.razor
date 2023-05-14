@@ -86,28 +86,35 @@
                   Class="mt-1"
                   RowsPerPage="4">
             <HeaderContent>
-                <MudTh>
+                <MudTh Style="text-align: center">
                     <MudTableSortLabel
                         SortBy="new Func<EmpresaMonedaDto, object>(x => x.FechaRegistro)"
                         InitialDirection="SortDirection.Descending">
                         Fecha de registro
                     </MudTableSortLabel>
                 </MudTh>
-                <MudTh>Moneda Principal</MudTh>
-                <MudTh>Moneda Alternativa</MudTh>
-                <MudTh>Cambio</MudTh>
-                <MudTh>Estado</MudTh>
+                <MudTh Style="text-align: center">Moneda Principal</MudTh>
+                <MudTh Style="text-align: center">Moneda Alternativa</MudTh>
+                <MudTh Style="text-align: center">Cambio</MudTh>
+                <MudTh Style="text-align: center">Estado</MudTh>
             </HeaderContent>
             <RowTemplate>
-                <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
-                <MudTd DataLabel="MonedaAlternativa">@MonedaPrincipal.Nombre</MudTd>
-                <MudTd DataLabel="MonedaAlternativa">
+                <MudTd DataLabel="FechaRegistro"
+                       Style="text-align: center">
+                    @context.FechaRegistro
+                </MudTd>
+                <MudTd DataLabel="MonedaAlternativa"
+                       Style="text-align: center">
+                    @MonedaPrincipal.Nombre
+                </MudTd>
+                <MudTd DataLabel="MonedaAlternativa"
+                       Style="text-align: center">
                     @GetMonedaAlternativaName(context.IdMonedaAlternativa)
                 </MudTd>
                 <MudTd DataLabel="Cambio" Style="text-align: right">
                     @context.Cambio
                 </MudTd>
-                <MudTd DataLabel="Estado" Style="align-content: center">
+                <MudTd DataLabel="Estado" Style="text-align: center">
                     @if (context.Estado == EstadoEmpresaMoneda.Activo)
                     {
                         <MudChip Color="Color.Info"

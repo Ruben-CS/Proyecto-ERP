@@ -1,5 +1,7 @@
 @using global::Services.EmpresaMonedaService
+@using global::Services.Moneda
 @inject EmpresaMonedaService EmpresaMonedaService
+@inject MonedaService MonedaService
 
 <MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
     <MudItem xs="12" sm="4">
@@ -28,7 +30,9 @@
     <MudItem xs="12" sm="4">
         <MudSelect Variant="Variant.Outlined"
                    Label="Moneda"
+                   bind-Value="SelectedEmpresaMoneda"
                    T="string">
+
         </MudSelect>
     </MudItem>
     <MudItem xs="12" sm="4">
@@ -63,29 +67,3 @@
                 DisableElevation="true"/>
     </MudTooltip>
 </MudStack>
-
-
-@code {
-
-    #region DataForComprobante
-
-    public ComprobanteDto ComprobanteDto { get; set; } = new();
-    public DateTime Fecha { get; set; }
-    public IEnumerable<EmpresaMonedaDto>? MainAndAltMonedas { get; set; }
-
-    #endregion
-
-    #region parameters
-
-    [Parameter]
-    public int IdEmpresa { get; set; }
-
-    #endregion
-
-    protected override async Task OnInitializedAsync()
-    {
-        MainAndAltMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
-        await InvokeAsync(StateHasChanged);
-    }
-
-}

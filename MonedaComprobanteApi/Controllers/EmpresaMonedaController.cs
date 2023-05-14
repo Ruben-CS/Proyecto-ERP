@@ -39,6 +39,29 @@ public class EmpresaMonedaController : ControllerBase
         return _responseDto;
     }
 
+    [HttpPost("agregarmonedaAlternativa/{idEmpresa:int}/{idMonedaAlternativa:int}/{idMonedaPrincipal:int}")]
+    public async Task<object> PostMonedaAlternativa([FromBody]  EmpresaMonedaDto empresaMonedaDto,
+                                                    [FromRoute] int              idEmpresa,
+                                                    [FromRoute] int              idMonedaAlternativa,
+                                                    [FromRoute] int              idMonedaPrincipal)
+    {
+        try
+        {
+            var result = await _empresaMonedaRepository.CrearMonedaAlternativa(empresaMonedaDto, idEmpresa,
+                idMonedaAlternativa, idMonedaPrincipal);
+            _responseDto.Result = result;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+        return _responseDto;
+    }
+
     [HttpPost("agregarempresamoneda/{idEmpresa:int}/{idMoneda:int}")]
     public async Task<object> Post([FromBody]  EmpresaMonedaDto empresaMonedaDto,
                                    [FromRoute] int              idEmpresa,
@@ -79,6 +102,7 @@ public class EmpresaMonedaController : ControllerBase
                 e.ToString()
             };
         }
+
         return _responseDto;
     }
 

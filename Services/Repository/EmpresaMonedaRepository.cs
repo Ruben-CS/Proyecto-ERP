@@ -23,9 +23,9 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
     public async Task<List<EmpresaMonedaDto>> GetEmpresasMonedas(int idEmpresa)
     {
         var listaEmpresaMoneda = await _applicationDbContext.EmpresaMonedas
-            .AsNoTracking()
-            .Where(em => em.IdEmpresa == idEmpresa)
-            .ToListAsync();
+                                                            .AsNoTracking()
+                                                            .Where(em => em.IdEmpresa == idEmpresa)
+                                                            .ToListAsync();
         return await Task.FromResult(
             _mapper.Map<List<EmpresaMonedaDto>>(listaEmpresaMoneda));
     }
@@ -35,6 +35,7 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
         throw new NotImplementedException();
     }
 
+
     public async Task<EmpresaMonedaDto> CreateEmpresaMoneda(
         EmpresaMonedaDto empresaMonedaDto, int idEmpresa, int idMoneda)
     {
@@ -42,10 +43,29 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
             _mapper.Map<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>(empresaMonedaDto);
         empresaMonedaDb.IdEmpresa         = idEmpresa;
         empresaMonedaDb.IdMonedaPrincipal = idMoneda;
+
+        await _applicationDbContext.EmpresaMonedas.AddAsync(empresaMonedaDb);
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(
+            _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));
+    }
+
+    public async Task<EmpresaMonedaDto> CrearMonedaAlternativa(EmpresaMonedaDto empresaMonedaDto,
+                                                               int              idEmpresa,
+                                                               int              idMonedaAlterna,
+                                                               int              idMonedaPrincipal)
+    {
+        var empresaMonedaDb =
+            _mapper.Map<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>(empresaMonedaDto);
+        empresaMonedaDb.IdEmpresa           = idEmpresa;
+        empresaMonedaDb.IdMonedaPrincipal   = idMonedaPrincipal;
+        empresaMonedaDb.IdMonedaAlternativa = idMonedaAlterna;
+
         var listaEmpresaMonedas =
             _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa);
-        await listaEmpresaMonedas.ForEachAsync(em =>
+        await listaEmpresaMonedas.Skip(1).ForEachAsync(em =>
             em.Estado = EstadoEmpresaMoneda.Inactivo);
+
         await _applicationDbContext.EmpresaMonedas.AddAsync(empresaMonedaDb);
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(
