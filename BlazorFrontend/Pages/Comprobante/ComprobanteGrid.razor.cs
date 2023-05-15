@@ -18,7 +18,9 @@ public partial class ComprobanteGrid
 
     #region Fields
 
-    private IEnumerable<EmpresaMonedaDto>? MonedasPerEmpresa { get; set; }
+    private List<EmpresaMonedaDto>? EmpresaMonedas { get; set; } = new();
+
+    private List<MonedaDto?> MonedasDeLaEmpresa { get; set; } = new();
 
     #endregion
 
@@ -31,15 +33,17 @@ public partial class ComprobanteGrid
 
     protected override async Task OnInitializedAsync()
     {
-        await GetPrimaryAndAltMonedaAsync(IdEmpresa);
+        EmpresaMonedas     = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+        MonedasDeLaEmpresa = (await MonedaService.GetMonedasAsync())!;
+
+        //TODO Optimize this code
+        var idMonedaPrincipal   = EmpresaMonedas!.First().IdMonedaPrincipal;
+        var idMonedaAlternativa = EmpresaMonedas.Last().IdMonedaAlternativa;
+        MonedasDeLaEmpresa = MonedasDeLaEmpresa
+                             .Where(m => m.IdMoneda == idMonedaPrincipal ||
+                                         m.IdMoneda == idMonedaAlternativa)
+                             .ToList();
+
         await InvokeAsync(StateHasChanged);
     }
-
-    private async Task GetPrimaryAndAltMonedaAsync(int idEmpresa)
-    {
-        var empresMonedas = await EmpresaMonedaService.GetEmpresasMonedaAsync(idEmpresa);
-        MonedasPerEmpresa = empresMonedas.Where(em => em.Cambio == null && em.Estado == EstadoEmpresaMoneda.Activo)
-                                         .ToList();
-    }
-
 }

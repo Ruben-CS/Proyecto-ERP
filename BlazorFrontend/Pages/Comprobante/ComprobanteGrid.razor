@@ -31,8 +31,14 @@
         <MudSelect Variant="Variant.Outlined"
                    Label="Moneda"
                    bind-Value="SelectedEmpresaMoneda"
-                   T="string">
-
+                   T="string"
+                   >
+                @foreach(var moneda in MonedasDeLaEmpresa)
+            {
+                <MudSelectItem Value="@moneda.Nombre">
+                    @moneda.Nombre
+                </MudSelectItem>
+            }
         </MudSelect>
     </MudItem>
     <MudItem xs="12" sm="4">
