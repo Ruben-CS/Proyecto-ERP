@@ -9,7 +9,7 @@ public partial class ComprobanteGrid
     #region DataForComprobante
 
     private ComprobanteDto ComprobanteDto { get; set; } = new();
-    public  DateTime       Fecha          { get; set; } = DateTime.Today;
+    public  DateTime?       Fecha          { get; set; } = DateTime.Today;
 
     private List<string>? MonedasName           { get; set; }
     private string?       SelectedEmpresaMoneda { get; set; }
