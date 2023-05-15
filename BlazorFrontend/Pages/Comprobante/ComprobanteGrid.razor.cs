@@ -9,10 +9,30 @@ public partial class ComprobanteGrid
     #region DataForComprobante
 
     private ComprobanteDto ComprobanteDto { get; set; } = new();
-    public  DateTime?       Fecha          { get; set; } = DateTime.Today;
+    private DateTime?      Fecha          { get; set; } = DateTime.Today;
 
     private List<string>? MonedasName           { get; set; }
     private string?       SelectedEmpresaMoneda { get; set; }
+
+    public float? TipoDeCambio { get; set; }
+
+    public string TipoDeCambioString
+    {
+        get => TipoDeCambio?.ToString() ?? string.Empty;
+        set
+        {
+            if (float.TryParse(value, out var result))
+            {
+                TipoDeCambio = result;
+            }
+            else
+            {
+                TipoDeCambio = null;
+            }
+        }
+    }
+
+    private string? SelectedTipoComprobante { get; set; }
 
     #endregion
 
@@ -20,6 +40,7 @@ public partial class ComprobanteGrid
 
     private List<EmpresaMonedaDto>? EmpresaMonedas { get; set; } = new();
 
+    private List<string>     ComprobanteTypes   { get; set; } = new();
     private List<MonedaDto?> MonedasDeLaEmpresa { get; set; } = new();
 
     #endregion
@@ -35,15 +56,28 @@ public partial class ComprobanteGrid
     {
         EmpresaMonedas     = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
         MonedasDeLaEmpresa = (await MonedaService.GetMonedasAsync())!;
+        ComprobanteTypes   = Enum.GetNames(typeof(TipoComprobante)).ToList();
 
         //TODO Optimize this code
         var idMonedaPrincipal   = EmpresaMonedas!.First().IdMonedaPrincipal;
         var idMonedaAlternativa = EmpresaMonedas.Last().IdMonedaAlternativa;
+        TipoDeCambio = await SetTipoCambio(idMonedaAlternativa);
         MonedasDeLaEmpresa = MonedasDeLaEmpresa
                              .Where(m => m.IdMoneda == idMonedaPrincipal ||
                                          m.IdMoneda == idMonedaAlternativa)
                              .ToList();
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task<float?> SetTipoCambio(int? idMonedaAlternativa)
+    {
+        if (idMonedaAlternativa is null)
+        {
+            return default;
+        }
+
+        return await Task.FromResult(EmpresaMonedas.Single(em => em.IdMonedaAlternativa == idMonedaAlternativa
+                                                                 && em.Estado == EstadoEmpresaMoneda.Abierto).Cambio);
     }
 }

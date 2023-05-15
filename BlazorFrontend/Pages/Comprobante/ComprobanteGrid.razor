@@ -13,27 +13,32 @@
     <MudItem xs="12" sm="4">
         <MudDatePicker Variant="Variant.Outlined"
                        Label="Fecha"
-                       @bind-Date="@Fecha">
-        </MudDatePicker>
+                       @bind-Date="@Fecha"/>
     </MudItem>
     <MudItem xs="12" sm="4">
         <MudSelect Variant="Variant.Outlined"
                    Label="Tipo de comprobante"
+                   bind-Value="SelectedTipoComprobante"
                    T="string">
+            @foreach (var type in ComprobanteTypes)
+            {
+                <MudSelectItem Value="@type">@type</MudSelectItem>
+            }
         </MudSelect>
+
     </MudItem>
     <MudItem xs="12" sm="4">
-        <MudTextField Variant="Variant.Outlined"
+        <MudTextField @bind-Value="@TipoDeCambioString"
                       Label="Tipo de cambio"
-                      T="string"/>
+                      Class="right-aligned-input"
+                      Variant="Variant.Outlined"/>
     </MudItem>
     <MudItem xs="12" sm="4">
         <MudSelect Variant="Variant.Outlined"
                    Label="Moneda"
                    bind-Value="SelectedEmpresaMoneda"
-                   T="string"
-                   >
-                @foreach(var moneda in MonedasDeLaEmpresa)
+                   T="string">
+            @foreach (var moneda in MonedasDeLaEmpresa)
             {
                 <MudSelectItem Value="@moneda.Nombre">
                     @moneda.Nombre
@@ -46,7 +51,8 @@
                    Label="Estado"
                    T="string"
                    Disabled="true"
-                   bind-Text="@ComprobanteDto.Estado">
+                   bind-Text="@ComprobanteDto.Estado"
+                   Placeholder="@ComprobanteDto.Estado.ToString()">
         </MudSelect>
     </MudItem>
     <MudItem xs="12">
@@ -73,3 +79,9 @@
                 DisableElevation="true"/>
     </MudTooltip>
 </MudStack>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>
