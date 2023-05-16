@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QEVXV3we9sKhGP7uJ+HLwJQ5sLAgjpgJX9ggSR9PG/A=",
+  "Hash": "xE/ltGNiTJCnh+inxMaQ91g852b7JwUIlChQNnTwF00=",
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
@@ -108,6 +108,40 @@
       "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlazorFrontend.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria1.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria1.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria1.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria2.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria2.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria2.jpeg"
+    },
+    {
       "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\Animation.css",
       "SourceId": "BlazorFrontend",
       "SourceType": "Discovered",
@@ -174,6 +208,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\interop.js"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\login.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "login.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\login.jpeg"
     }
   ]
 }

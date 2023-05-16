@@ -9,10 +9,11 @@ public partial class InicioSesion
 
     private bool IsLoading { get; set; }
 
-    public bool SuccessfulLogin { get; set; } = true;
+    public bool FailedLogin { get; set; }
     private async Task LoginAsync()
     {
-        IsLoading = true;
+        IsLoading       = true;
+        FailedLogin = false;
         const string loginUrl = "https://localhost:44378/Auth/login";
         var loginRequestDto = new LoginRequestDto
         {
@@ -32,12 +33,12 @@ public partial class InicioSesion
             await LocalStorage.SetItemAsync("username", loginRequestDto.Nombre);
             NavigationManager.NavigateTo("/Inicio");
             IsLoading       = false;
-            SuccessfulLogin = true;
+            FailedLogin = false;
         }
         else
         {
             IsLoading       = false;
-            SuccessfulLogin = false;
+            FailedLogin = true;
         }
     }
 }

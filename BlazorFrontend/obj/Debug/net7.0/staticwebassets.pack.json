@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\BlazorFrontend.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria1.jpeg",
+      "PackagePath": "staticwebassets\\alegria1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria2.jpeg",
+      "PackagePath": "staticwebassets\\alegria2.jpeg"
+    },
+    {
       "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\Animation.css",
       "PackagePath": "staticwebassets\\css\\Animation.css"
     },
@@ -19,6 +27,10 @@
     {
       "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\js\\interop.js",
       "PackagePath": "staticwebassets\\js\\interop.js"
+    },
+    {
+      "Id": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\login.jpeg",
+      "PackagePath": "staticwebassets\\login.jpeg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.BlazorFrontend.Microsoft.AspNetCore.StaticWebAssets.props",
