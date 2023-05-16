@@ -20,7 +20,7 @@ public partial class Inicio
 
     private string? SelectedEmpresaName { get; set; }
 
-    public bool IsLoading { get; set; }
+    private bool IsLoading { get; set; }
 
     private bool IsSelectedEmpresaNameNull => SelectedEmpresaName is null;
 
@@ -49,7 +49,8 @@ public partial class Inicio
             CloseOnEscapeKey     = true,
             MaxWidth             = MaxWidth.Small,
             FullWidth            = true,
-            DisableBackdropClick = true
+            DisableBackdropClick = true,
+            ClassBackground      =  "modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -108,6 +109,7 @@ public partial class Inicio
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
             FullWidth        = true,
+            ClassBackground  =  "modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -139,6 +141,7 @@ public partial class Inicio
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
             FullWidth        = true,
+            ClassBackground =  ".modal-background"
         };
         var parameters = new DialogParameters
         {

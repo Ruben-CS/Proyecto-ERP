@@ -14,9 +14,9 @@ public partial class ComprobanteGrid
     private List<string>? MonedasName           { get; set; }
     private string?       SelectedEmpresaMoneda { get; set; }
 
-    public float? TipoDeCambio { get; set; }
+    private float? TipoDeCambio { get; set; }
 
-    public string TipoDeCambioString
+    private string TipoDeCambioString
     {
         get => TipoDeCambio?.ToString() ?? string.Empty;
         set
