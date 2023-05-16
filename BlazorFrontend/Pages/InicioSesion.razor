@@ -42,4 +42,14 @@
             </MudButton>
         }
     </MudCardActions>
+    @if (!SuccessfulLogin)
+    {
+        <MudAlert Dense="true"
+                  Severity="Severity.Error"
+                  Class="my-2"
+                  Elevation="0"
+                  Icon="@Icons.Material.Filled.Error">
+            Usuario o contrasena incorrectos
+        </MudAlert>
+    }
 </MudCard>

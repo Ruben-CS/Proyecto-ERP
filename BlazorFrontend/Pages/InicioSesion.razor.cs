@@ -8,6 +8,8 @@ public partial class InicioSesion
     private LoginRequestDto RequestDto { get; } = new();
 
     private bool IsLoading { get; set; }
+
+    public bool SuccessfulLogin { get; set; } = true;
     private async Task LoginAsync()
     {
         IsLoading = true;
@@ -29,12 +31,13 @@ public partial class InicioSesion
                 });
             await LocalStorage.SetItemAsync("username", loginRequestDto.Nombre);
             NavigationManager.NavigateTo("/Inicio");
-            IsLoading = false;
+            IsLoading       = false;
+            SuccessfulLogin = true;
         }
         else
         {
-            Snackbar.Add("Credenciales incorrectas", Severity.Error);
-            IsLoading = false;
+            IsLoading       = false;
+            SuccessfulLogin = false;
         }
     }
 }
