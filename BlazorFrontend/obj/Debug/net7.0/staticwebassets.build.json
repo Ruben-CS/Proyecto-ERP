@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xE/ltGNiTJCnh+inxMaQ91g852b7JwUIlChQNnTwF00=",
+  "Hash": "9DKg14d0epHxEJdiohkhMGj+qxaxo+3zbSk0iOygOVg=",
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
@@ -140,6 +140,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\alegria2.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria3.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria3.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria3.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria4.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria4.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria4.jpeg"
     },
     {
       "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\Animation.css",

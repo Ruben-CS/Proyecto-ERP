@@ -9,7 +9,28 @@ public partial class InicioSesion
 
     private bool IsLoading { get; set; }
 
-    public bool FailedLogin { get; set; }
+    private bool FailedLogin { get; set; }
+
+    private bool _isShow;
+
+    private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    private InputType _passwordInput = InputType.Password;
+
+    private void ButtonTestclick()
+    {
+        if (_isShow)
+        {
+            _isShow           = false;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInput     = InputType.Password;
+        }
+        else {
+            _isShow           = true;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _passwordInput     = InputType.Text;
+        }
+    }
     private async Task LoginAsync()
     {
         IsLoading       = true;

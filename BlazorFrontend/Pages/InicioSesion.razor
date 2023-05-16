@@ -21,10 +21,11 @@
                           Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
 
             <MudTextField @bind-Value="RequestDto.Password"
-                          InputType="InputType.Password" Label="Contraseña"
+                          InputType="@_passwordInput"
+                          Label="Contraseña"
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Password"
+                          AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password"
                           Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
         </EditForm>
     </MudCardContent>
