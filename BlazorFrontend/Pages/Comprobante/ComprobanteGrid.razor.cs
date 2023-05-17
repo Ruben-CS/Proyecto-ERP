@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
+using MudBlazor;
+
 
 namespace BlazorFrontend.Pages.Comprobante;
 
@@ -14,14 +16,14 @@ public partial class ComprobanteGrid
     private List<string>? MonedasName           { get; set; }
     private string?       SelectedEmpresaMoneda { get; set; }
 
-    private float? TipoDeCambio { get; set; }
+    private decimal? TipoDeCambio { get; set; }
 
     private string TipoDeCambioString
     {
         get => TipoDeCambio?.ToString() ?? string.Empty;
         set
         {
-            if (float.TryParse(value, out var result))
+            if (decimal.TryParse(value, out var result))
             {
                 TipoDeCambio = result;
             }
@@ -70,7 +72,7 @@ public partial class ComprobanteGrid
         await InvokeAsync(StateHasChanged);
     }
 
-    private async Task<float?> SetTipoCambio(int? idMonedaAlternativa)
+    private async Task<decimal?> SetTipoCambio(int? idMonedaAlternativa)
     {
         if (idMonedaAlternativa is null)
         {
@@ -79,5 +81,20 @@ public partial class ComprobanteGrid
 
         return await Task.FromResult(EmpresaMonedas.Single(em => em.IdMonedaAlternativa == idMonedaAlternativa
                                                                  && em.Estado == EstadoEmpresaMoneda.Abierto).Cambio);
+    }
+
+    private async Task OpenAgregarDetalleModal()
+    {
+        var options = new DialogOptions
+        {
+            MaxWidth             = MaxWidth.Large,
+            DisableBackdropClick = true,
+            ClassBackground      = "modal-background"
+        };
+        var parameters = new DialogParameters
+        {
+            { "IdEmpresa", IdEmpresa }
+        };
+        await DialogService.ShowAsync<DetalleComprobante>(string.Empty,parameters,options);
     }
 }

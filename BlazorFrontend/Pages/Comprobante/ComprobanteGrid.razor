@@ -2,6 +2,7 @@
 @using global::Services.Moneda
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
+@inject IDialogService DialogService
 
 <MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
     <MudItem xs="12" sm="4">
@@ -76,12 +77,18 @@
                 IconSize="Size.Medium"
                 StartIcon="@Icons.Material.Filled.NoteAdd"
                 Size="Size.Small"
-                DisableElevation="true"/>
+                DisableElevation="true"
+                OnClick="OpenAgregarDetalleModal"/>
     </MudTooltip>
 </MudStack>
 
 <style>
     .right-aligned-input input {
         text-align: right;
+    }
+    .modal-background{
+        background: rgba(0,0,0,0.5);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
     }
 </style>

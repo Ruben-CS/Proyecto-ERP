@@ -16,7 +16,7 @@ public partial class MonedaDashboard
     private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
 
-    private float? Cambio => AppState.Cambio;
+    private decimal? Cambio => AppState.Cambio;
 
     private string? _previousSelectedMoneda;
     private string? MonedaPrincipalName { get; set; }
@@ -126,12 +126,12 @@ public partial class MonedaDashboard
         return monedaAlterna?.Nombre ?? string.Empty;
     }
 
-    private static async Task<bool> ValidateIncorrectCambio(float? cambio) =>
+    private static async Task<bool> ValidateIncorrectCambio(decimal? cambio) =>
         await Task.FromResult(cambio is null ||
-                              float.IsNegative((float)cambio));
+                              decimal.IsNegative((decimal)cambio));
 
 
-    private async Task<bool> ValidateTipoDeCambio(float? cambio)
+    private async Task<bool> ValidateTipoDeCambio(decimal? cambio)
     {
         return await Task.FromResult(
             _empresaMonedas.Any(em => Equals(em.Cambio, cambio)));

@@ -11,7 +11,7 @@
 <MudTable Dense="true"
           Hover="true"
           Striped="true"
-          RowsPerPage="5"
+          RowsPerPage="4"
           T="IEnumerable<int>">
     <HeaderContent>
         <MudTh>Cuenta</MudTh>
@@ -20,4 +20,18 @@
         <MudTh>Haber</MudTh>
         <MudTh>Acciones</MudTh>
     </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Cuenta"></MudTd>
+        <MudTd DataLabel="Glosa"></MudTd>
+        <MudTd DataLabel="Debe"></MudTd>
+        <MudTd DataLabel="Haber"></MudTd>
+        <MudTd DataLabel="Acciones"></MudTd>
+    </RowTemplate>
+    <FooterContent>
+        <MudTd></MudTd>
+        <MudTd></MudTd>
+        <MudTd>Total Debe: </MudTd>
+        <MudTd>Total Haber: </MudTd>
+        <MudTd></MudTd>
+    </FooterContent>
 </MudTable>

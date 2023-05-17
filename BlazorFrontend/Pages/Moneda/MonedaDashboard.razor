@@ -53,13 +53,14 @@
                                 </MudSelectItem>
                             }
                         </MudSelect>
-                        <MudTextField T="float?"
+                        <MudTextField T="decimal?"
                                       @bind-Value="AppState.Cambio"
                                       Label="Cambio"
                                       Placeholder="0.00"
                                       Class="mud-text-field"
                                       Variant="Variant.Outlined"
-                                      HelperText="Ingrese el tipo de cambio"/>
+                                      HelperText="Ingrese el tipo de cambio"
+                                      Format="F2"/>
                     }
                     <MudFab Color="Color.Success"
                             ButtonType="ButtonType.Submit"
@@ -112,7 +113,7 @@
                     @GetMonedaAlternativaName(context.IdMonedaAlternativa)
                 </MudTd>
                 <MudTd DataLabel="Cambio" Style="text-align: right">
-                    @context.Cambio
+                    @(context.Cambio.HasValue ? context.Cambio.Value.ToString("F2") : "")
                 </MudTd>
                 <MudTd DataLabel="Estado" Style="text-align: center">
                     @if (context.Estado == EstadoEmpresaMoneda.Abierto)

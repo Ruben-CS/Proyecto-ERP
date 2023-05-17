@@ -54,6 +54,14 @@ public class ApplicationDbContext : DbContext
 
         #endregion
 
+        #region Configuracion EmpresaMoneda
+        modelBuilder.Entity<EmpresaMoneda>()
+                    .Property(em => em.Cambio)
+                    .HasPrecision(18, 2);
+
+
+        #endregion
+
         #region Configuracion de Relaciones
 
         modelBuilder.Entity<Empresa>()

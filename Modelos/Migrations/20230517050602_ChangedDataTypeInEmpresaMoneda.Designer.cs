@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modelos.ApplicationContexts;
 
 #nullable disable
 
-namespace ModuloContabilidadApi.Migrations
+namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230517050602_ChangedDataTypeInEmpresaMoneda")]
+    partial class ChangedDataTypeInEmpresaMoneda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,9 +225,8 @@ namespace ModuloContabilidadApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEmpresaMoneda"));
 
-                    b.Property<decimal?>("Cambio")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float?>("Cambio")
+                        .HasColumnType("real");
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
