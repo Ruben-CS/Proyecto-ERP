@@ -1,8 +1,12 @@
+@page "/comprobantegrid/{idempresa:int}"
 @using global::Services.EmpresaMonedaService
 @using global::Services.Moneda
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
+@layout ComprobanteLayout
 @inject IDialogService DialogService
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
     <MudItem xs="12" sm="4">

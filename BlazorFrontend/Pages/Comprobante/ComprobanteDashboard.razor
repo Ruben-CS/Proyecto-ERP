@@ -1,36 +1,44 @@
 @page "/comprobantes/overview/{idempresa:int}"
+@using global::Services.Comprobante
 @layout ComprobanteLayout
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+@inject ComprobanteService ComprobanteService
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
-<MudText Align="Align.Start" Typo="Typo.h5">Comprobantes</MudText>
+<MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Comprobantes</MudText>
+<MudButton ButtonType="ButtonType.Button"
+           Color="Color.Success"
+           Variant="Variant.Filled"
+           OnClick="GoToDetalle"
+           Style="align-self: flex-end">
+    <MudText>Agregar Comprobante</MudText>
+</MudButton>
 
-<MudTable Dense="true"
-          Hover="true"
+<MudTable Hover="true"
           Striped="true"
-          RowsPerPage="4"
-          T="IEnumerable<int>">
+          RowsPerPage="5"
+          Items="Comprobantes"
+          Elevation="5">
     <HeaderContent>
-        <MudTh>Cuenta</MudTh>
+        <MudTh>Serie</MudTh>
+        <MudTh>Fecha</MudTh>
         <MudTh>Glosa</MudTh>
-        <MudTh>Debe</MudTh>
-        <MudTh>Haber</MudTh>
+        <MudTh>Tipo</MudTh>
         <MudTh>Acciones</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Cuenta"></MudTd>
-        <MudTd DataLabel="Glosa"></MudTd>
-        <MudTd DataLabel="Debe"></MudTd>
-        <MudTd DataLabel="Haber"></MudTd>
+        <MudTd DataLabel="Serie">@context.Serie</MudTd>
+        <MudTd DataLabel="Fecha">@context.Fecha.ToString("d")</MudTd>
+        <MudTd DataLabel="Glosa">@context.Glosa</MudTd>
+        <MudTd DataLabel="Tipo">@context.TipoComprobante</MudTd>
         <MudTd DataLabel="Acciones"></MudTd>
     </RowTemplate>
-    <FooterContent>
-        <MudTd></MudTd>
-        <MudTd></MudTd>
-        <MudTd>Total Debe: </MudTd>
-        <MudTd>Total Haber: </MudTd>
-        <MudTd></MudTd>
-    </FooterContent>
+    <PagerContent>
+        <MudTablePager
+            HorizontalAlignment="HorizontalAlignment.Left"
+            HidePageNumber="true"
+            HideRowsPerPage="true"/>
+    </PagerContent>
 </MudTable>

@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
-using Modelos.Models;
 using Modelos.Models.Dtos;
 using Services.Repository.Interfaces;
 
@@ -12,7 +11,8 @@ public class ComprobanteRepository : IComprobanteRepository
     private readonly ApplicationDbContext _dbContext;
     private readonly IMapper              _mapper;
 
-    public ComprobanteRepository(ApplicationDbContext dbContext, IMapper mapper)
+    public ComprobanteRepository(ApplicationDbContext dbContext,
+                                 IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper    = mapper;
@@ -21,10 +21,10 @@ public class ComprobanteRepository : IComprobanteRepository
     public async Task<ComprobanteDto> CrearComprobante(
         ComprobanteDto comprobanteDto, int idEmpresa)
     {
-        var comprobante = _mapper.Map<ComprobanteDto, Comprobante>(comprobanteDto);
+        var comprobante = _mapper.Map<ComprobanteDto, Modelos.Models.Comprobante>(comprobanteDto);
         await _dbContext.AddAsync(comprobante);
         await _dbContext.SaveChangesAsync();
-        return _mapper.Map<Comprobante, ComprobanteDto>(comprobante);
+        return _mapper.Map<Modelos.Models.Comprobante, ComprobanteDto>(comprobante);
     }
 
      async Task<IEnumerable<ComprobanteDto>> IComprobanteRepository.GetAllComprobantes(

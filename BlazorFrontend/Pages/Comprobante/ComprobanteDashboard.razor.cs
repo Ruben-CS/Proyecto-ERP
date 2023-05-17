@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Modelos.Models.Dtos;
 
 namespace BlazorFrontend.Pages.Comprobante;
 
@@ -6,6 +7,8 @@ public partial class ComprobanteDashboard
 {
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private List<ComprobanteDto> Comprobantes { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -16,7 +19,9 @@ public partial class ComprobanteDashboard
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa = int.Parse(idValue);
+                await base.OnInitializedAsync();
+                Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
+                IdEmpresa    = int.Parse(idValue);
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -30,5 +35,11 @@ public partial class ComprobanteDashboard
             Console.WriteLine(
                 $"An error occurred while initializing the component: {ex}");
         }
+    }
+
+    private void GoToDetalle()
+    {
+        var uri = $"/comprobantegrid/{IdEmpresa}";
+        NavigationManager!.NavigateTo(uri);
     }
 }
