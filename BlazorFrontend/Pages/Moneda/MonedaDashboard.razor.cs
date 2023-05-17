@@ -16,7 +16,11 @@ public partial class MonedaDashboard
     private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
 
-    private decimal? Cambio => AppState.Cambio;
+    private decimal? Cambio
+    {
+        get => AppState.Cambio;
+        set => AppState.Cambio = value;
+    }
 
     private string? _previousSelectedMoneda;
     private string? MonedaPrincipalName { get; set; }
@@ -116,6 +120,9 @@ public partial class MonedaDashboard
                 await OnDataGridChange();
                 Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
             }
+
+            SelectedMoneda = null;
+            Cambio         = null;
         }
     }
 
