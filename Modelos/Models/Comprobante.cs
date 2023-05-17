@@ -9,7 +9,7 @@ public class Comprobante
     [Key]
     public int IdComprobante { get; set; }
 
-    public string Serie { get; set; } = null!;
+    public int? Serie { get; set; } = null!;
     public string Glosa { get; set; } = null!;
 
     [Required]

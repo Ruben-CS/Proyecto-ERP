@@ -13,14 +13,15 @@ public partial class ComprobanteGrid
     private ComprobanteDto ComprobanteDto { get; set; } = new();
     private DateTime?      Fecha          { get; set; } = DateTime.Today;
 
-    private List<string>? MonedasName           { get; set; }
-    private string?       SelectedEmpresaMoneda { get; set; }
+    private string? SelectedEmpresaMoneda { get; set; }
+
+    private string? SerieString { get; set; } = string.Empty;
 
     private decimal? TipoDeCambio { get; set; }
 
     private string TipoDeCambioString
     {
-        get => TipoDeCambio?.ToString() ?? string.Empty;
+        get => TipoDeCambio?.ToString("F2") ?? string.Empty;
         set
         {
             if (decimal.TryParse(value, out var result))
@@ -45,6 +46,8 @@ public partial class ComprobanteGrid
     private List<string>     ComprobanteTypes   { get; set; } = new();
     private List<MonedaDto?> MonedasDeLaEmpresa { get; set; } = new();
 
+    public List<ComprobanteDto> Comprobantes { get; set; } = new();
+
     #endregion
 
     #region Parameters
@@ -58,8 +61,11 @@ public partial class ComprobanteGrid
     {
         EmpresaMonedas     = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
         MonedasDeLaEmpresa = (await MonedaService.GetMonedasAsync())!;
+        Comprobantes       = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
         ComprobanteTypes   = Enum.GetNames(typeof(TipoComprobante)).ToList();
 
+        var nextSerie = GetNextSerie(IdEmpresa);
+        SerieString = nextSerie.ToString();
         //TODO Optimize this code
         var idMonedaPrincipal   = EmpresaMonedas!.First().IdMonedaPrincipal;
         var idMonedaAlternativa = EmpresaMonedas.Last().IdMonedaAlternativa;
@@ -70,6 +76,15 @@ public partial class ComprobanteGrid
                              .ToList();
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private int GetNextSerie(int idEmpresa)
+    {
+        var maxSerie = Comprobantes
+                       .Where(e => e.Estado   == EstadoComprobante.Abierto &&
+                                   e.IdMoneda == idEmpresa).Max(e => e.Serie)!;
+
+        return (maxSerie ?? 0) + 1;
     }
 
     private async Task<decimal?> SetTipoCambio(int? idMonedaAlternativa)
@@ -95,6 +110,6 @@ public partial class ComprobanteGrid
         {
             { "IdEmpresa", IdEmpresa }
         };
-        await DialogService.ShowAsync<DetalleComprobante>(string.Empty,parameters,options);
+        await DialogService.ShowAsync<DetalleComprobante>(string.Empty, parameters, options);
     }
 }

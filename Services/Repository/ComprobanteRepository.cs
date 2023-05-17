@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -22,6 +23,12 @@ public class ComprobanteRepository : IComprobanteRepository
         ComprobanteDto comprobanteDto, int idEmpresa)
     {
         var comprobante = _mapper.Map<ComprobanteDto, Modelos.Models.Comprobante>(comprobanteDto);
+        var maxSerie = await _dbContext.Comprobantes
+                                     .Where(e => e.Estado == EstadoComprobante.Abierto &&
+                                                 e.IdEmpresa == idEmpresa)
+                                     .MaxAsync(e => e.Serie);
+
+        comprobante.Serie = (maxSerie ?? 0) + 1;
         await _dbContext.AddAsync(comprobante);
         await _dbContext.SaveChangesAsync();
         return _mapper.Map<Modelos.Models.Comprobante, ComprobanteDto>(comprobante);

@@ -1,10 +1,12 @@
 @page "/comprobantegrid/{idempresa:int}"
 @using global::Services.EmpresaMonedaService
 @using global::Services.Moneda
+@using global::Services.Comprobante
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
 @layout ComprobanteLayout
 @inject IDialogService DialogService
+@inject ComprobanteService ComprobanteService
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
@@ -13,6 +15,7 @@
         <MudTextField Variant="Variant.Outlined"
                       Label="Serie"
                       T="string"
+                      @bind-Value="SerieString"
                       Disabled="true"/>
     </MudItem>
     <MudItem xs="12" sm="4">

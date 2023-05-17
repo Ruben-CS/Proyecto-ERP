@@ -6,7 +6,7 @@ public sealed class ComprobanteDto
 {
     public int IdComprobante { get; set; }
 
-    public string            Serie  { get; set; } = null!;
+    public int?            Serie  { get; set; } = null!;
     public string            Glosa  { get; set; } = null!;
     public DateTime          Fecha  { get; set; }
     public string            Tc     { get; set; } = null!;
