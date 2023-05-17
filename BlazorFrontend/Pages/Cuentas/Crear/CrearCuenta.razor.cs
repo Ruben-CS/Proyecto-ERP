@@ -36,7 +36,6 @@ public partial class CrearCuenta
         var cuentaDto = new CuentaDto
         {
             Nombre        = CuentaDto.Nombre,
-            TipoCuenta    = "Global",
             IdCuentaPadre = SelectedValue?.IdCuenta,
             IdEmpresa     = IdEmpresa
         };

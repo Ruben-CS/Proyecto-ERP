@@ -30,6 +30,13 @@ public class CuentaRepository : ICuentaRepository
         cuentaDto.Codigo = await CuentaUtility.GenerarCodigo
         (_applicationDbContext, cuentaDto.IdCuentaPadre,
             cuentaDto.IdEmpresa, levelsPerEmpresa);
+
+        // Verificar si el último número del código generado es ".0"
+        bool esDetalle = cuentaDto.Codigo.Split('.').Last() == "0";
+
+        // Asignar el valor a cuenta.TipoCuenta
+        cuentaDto.TipoCuenta = esDetalle ? "Global" : "Detalle";
+
         var cuenta = _mapper.Map<CuentaDto, Modelos.Models.Cuenta>(cuentaDto);
         await _applicationDbContext.AddAsync(cuenta);
         await _applicationDbContext.SaveChangesAsync();

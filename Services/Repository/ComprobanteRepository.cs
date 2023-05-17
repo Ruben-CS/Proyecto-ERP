@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
@@ -26,10 +27,13 @@ public class ComprobanteRepository : IComprobanteRepository
         return _mapper.Map<Comprobante, ComprobanteDto>(comprobante);
     }
 
-    Task<IEnumerable<ComprobanteDto>> IComprobanteRepository.GetAllComprobantes(
+     async Task<IEnumerable<ComprobanteDto>> IComprobanteRepository.GetAllComprobantes(
         int idEmpresa)
     {
-        throw new NotImplementedException();
+        var comprobantes = await _dbContext.Comprobantes.
+                                            Where(c => c.IdEmpresa == idEmpresa).
+                                            ToListAsync();
+        return _mapper.Map<List<ComprobanteDto>>(comprobantes);
     }
 
     public Task<ComprobanteDto> GetCombrobanteById(int idComprobante)

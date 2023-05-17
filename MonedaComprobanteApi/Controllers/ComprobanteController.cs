@@ -35,4 +35,23 @@ public class ComprobanteController : ControllerBase
 
         return _responseDto;
     }
+
+    [HttpGet("/getcomprobantes/{idEmpresa:int}")]
+    public async Task<object> ListarComprobantes([FromRoute] int idEmpresa)
+    {
+        try
+        {
+            var comprobantes = await _comprobanteRepository.GetAllComprobantes(idEmpresa);
+            _responseDto.Result = comprobantes;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+        return _responseDto;
+    }
 }
