@@ -10,7 +10,7 @@ public partial class ComprobanteGrid
 {
     #region DataForComprobante
 
-    private DateTime?      Fecha          { get; set; } = DateTime.Today;
+    private DateTime? Fecha { get; set; } = DateTime.Today;
 
     private string? Glosa                 { get; set; } = string.Empty;
     private string? SelectedEmpresaMoneda { get; set; }
@@ -104,11 +104,12 @@ public partial class ComprobanteGrid
         {
             MaxWidth             = MaxWidth.Large,
             DisableBackdropClick = true,
-            ClassBackground      = "modal-background"
+            Position = DialogPosition.TopCenter
         };
         var parameters = new DialogParameters
         {
-            { "IdEmpresa", IdEmpresa }
+            { "IdEmpresa", IdEmpresa },
+            { "Glosa", Glosa }
         };
         await DialogService.ShowAsync<DetalleComprobante>(string.Empty, parameters, options);
     }
@@ -126,19 +127,19 @@ public partial class ComprobanteGrid
         var idMoneda        = MonedasDeLaEmpresa.First(m => m!.Nombre == SelectedEmpresaMoneda)!.IdMoneda;
         var comprobanteDto = new ComprobanteDto
         {
-            Glosa = Glosa!,
-            Fecha = Fecha!.Value,
-            Tc    = TipoDeCambio,
+            Glosa           = Glosa!,
+            Fecha           = Fecha!.Value,
+            Tc              = TipoDeCambio,
             TipoComprobante = tipoComprobante,
-            IdMoneda  = idMoneda,
-            IdEmpresa = IdEmpresa,
-            IdUsuario = 1
+            IdMoneda        = idMoneda,
+            IdEmpresa       = IdEmpresa,
+            IdUsuario       = 1
         };
 
         var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
         if (response.IsSuccessStatusCode)
         {
-            Snackbar.Add("Comprobante agregado exitosamente",Severity.Success);
+            Snackbar.Add("Comprobante agregado exitosamente", Severity.Success);
         }
     }
 }
