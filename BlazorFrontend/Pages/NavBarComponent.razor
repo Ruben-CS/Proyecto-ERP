@@ -53,40 +53,62 @@
     <MudNavMenu Rounded="true"
                 Color="Color.Tertiary"
                 Bordered="true">
+
         <MudNavGroup Icon="@Icons.Material.Filled.Business"
                      Title="Contabilidad"
                      Expanded="true">
 
-            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
-                        OnClick="NavigateToGestiones">
-                Gestiones
+            <MudNavLink Href="@NavigateToGestiones()"
+                        Icon="@Icons.Material.Filled.CalendarMonth"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Gestiones
+                </MudText>
             </MudNavLink>
 
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        OnClick="NavigateToCuentas">
-                Plan de Cuentas
+                        Href="@NavigateToCuentas()"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Plan de Cuentas
+                </MudText>
             </MudNavLink>
 
-            <MudNavLink Icon="@Icons.Material.Filled.ReceiptLong"
-                        OnClick="NavigateToComprobantes">
-                Comprobantes
+            <MudNavLink Href="@NavigateToComprobantes()"
+                        Icon="@Icons.Material.Filled.ReceiptLong"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Comprobantes
+                </MudText>
             </MudNavLink>
 
-            <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        OnClick="CambiarEmpresa">
-                Cambiar empresa
+            <MudNavLink Href="@CambiarEmpresa()"
+                        Icon="@Icons.Material.Filled.SwapHorizontalCircle"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Cambiar Empresa
+                </MudText>
             </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
-    <MudDivider DividerType="DividerType.Middle" Light="false"
-                Style="border-top-width: 3px;" Class="my-1"/>
-    <MudNavMenu Color="Color.Info" Bordered="true" Rounded="true">
+
+    <MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="my-1"/>
+
+    <MudNavMenu Color="Color.Info"
+                Bordered="true"
+                Rounded="true">
         <MudNavGroup Icon="@Icons.Material.Filled.Settings"
                      Title="Configuracion"
                      Expanded="true">
-            <MudNavLink Icon="@Icons.Material.Filled.CurrencyExchange"
-                        OnClick="NavigateToMonedas">
-                Monedas
+            <MudNavLink Href="@NavigateToMonedas()"
+                        Icon="@Icons.Material.Filled.CurrencyExchange"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Monedas
+                </MudText>
             </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
@@ -98,6 +120,7 @@
         <MudProgressCircular Color="Color.Info" Indeterminate="true"/>
     </MudOverlay>
 }
+
 
 @code {
 
@@ -119,7 +142,7 @@
 
     private bool _open = true;
     private void ToggleDrawer() => _open = !_open;
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
+    private string CambiarEmpresa() => "/inicio";
 
     private string GetInitials(string nombreEmpresa)
     {
@@ -137,13 +160,7 @@
         return string.Concat(words[0][0], words[1][0]).ToUpper();
     }
 
-    private void NavigateToCuentas()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/plandecuentas/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
+    private string NavigateToCuentas() => $"/plandecuentas/overview/{IdEmpresa}";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -154,35 +171,17 @@
         }
     }
 
+    private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";
 
-    private void NavigateToGestiones()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
+    private string NavigateToMonedas() => $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
 
-
-    private void NavigateToMonedas()
-    {
-        if (IdEmpresa is 0)
-            return;
-        var uri = $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
-
-    private void NavigateToComprobantes()
-    {
-        var uri = $"/comprobantes/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
+    private string NavigateToComprobantes() => $"/comprobantes/overview/{IdEmpresa}";
 
     private async Task CerrarSesion()
     {
         IsLoggingOut = true;
         await Task.Delay(2500);
-        NavigationManager!.NavigateTo("/");
+        NavigationManager.NavigateTo("/");
         IsLoggingOut = false;
     }
 
