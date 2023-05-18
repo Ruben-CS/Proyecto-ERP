@@ -150,14 +150,8 @@
         {
             return string.Empty;
         }
-
         var words = nombreEmpresa.Split(' ');
-        if (words.Length == 1)
-        {
-            return words[0][0].ToString().ToUpper();
-        }
-
-        return string.Concat(words[0][0], words[1][0]).ToUpper();
+        return words.Length == 1 ? words[0][0].ToString().ToUpper() : string.Concat(words[0][0], words[1][0]).ToUpper();
     }
 
     private string NavigateToCuentas() => $"/plandecuentas/overview/{IdEmpresa}";
