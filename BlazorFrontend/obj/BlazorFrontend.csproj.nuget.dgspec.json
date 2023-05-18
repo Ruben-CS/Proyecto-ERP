@@ -61,7 +61,7 @@
             },
             "MudBlazor": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.2.5, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -244,7 +244,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.5, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

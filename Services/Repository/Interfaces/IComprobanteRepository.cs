@@ -7,7 +7,7 @@ public interface IComprobanteRepository
     public Task<ComprobanteDto> CrearComprobante(ComprobanteDto comprobanteDto,
                                                  int            idEmpresa);
 
-    public Task<IEnumerable<ComprobanteDto>> GetAllComprobantes(int idEmpresa);
+    public Task<List<ComprobanteDto>> GetAllComprobantes(int idEmpresa);
 
     public Task<ComprobanteDto> GetCombrobanteById(int idComprobante);
 

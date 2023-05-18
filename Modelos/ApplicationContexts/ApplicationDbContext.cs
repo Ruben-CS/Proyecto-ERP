@@ -30,6 +30,12 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Comprobante>(entity =>
+        {
+            entity.Property(e => e.Tc)
+                  .HasColumnType("decimal(18,4)"); // or whatever precision and scale you need
+        });
+
 
         #region Configuracion Empresa
 

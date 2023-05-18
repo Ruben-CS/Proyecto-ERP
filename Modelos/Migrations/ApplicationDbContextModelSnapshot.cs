@@ -49,13 +49,11 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<string>("Serie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Serie")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Tc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("Tc")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("TipoComprobante")
                         .HasColumnType("int");

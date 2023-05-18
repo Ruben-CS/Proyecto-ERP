@@ -128,7 +128,7 @@ public partial class ComprobanteGrid
         {
             Glosa = Glosa!,
             Fecha = Fecha!.Value,
-            Tc    = TipoDeCambioString,
+            Tc    = TipoDeCambio,
             TipoComprobante = tipoComprobante,
             IdMoneda  = idMoneda,
             IdEmpresa = IdEmpresa,

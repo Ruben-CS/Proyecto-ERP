@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
-using Modelos.Models.Enums;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -35,10 +35,14 @@ public class ComprobanteRepository : IComprobanteRepository
         return _mapper.Map<Modelos.Models.Comprobante, ComprobanteDto>(comprobante);
     }
 
-    async Task<IEnumerable<ComprobanteDto>> IComprobanteRepository.GetAllComprobantes(
+    public async Task<List<ComprobanteDto>> GetAllComprobantes(
         int idEmpresa)
     {
-        var comprobantes = await _dbContext.Comprobantes.Where(c => c.IdEmpresa == idEmpresa).ToListAsync();
+        var comprobantes =  await _dbContext.Comprobantes.Where(c => c.IdEmpresa == idEmpresa).ToListAsync();
+        if (comprobantes.IsNullOrEmpty())
+        {
+            Console.WriteLine("fuck you this is why: ");
+        }
         return _mapper.Map<List<ComprobanteDto>>(comprobantes);
     }
 

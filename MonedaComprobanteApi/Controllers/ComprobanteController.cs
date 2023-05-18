@@ -37,7 +37,7 @@ public class ComprobanteController : ControllerBase
     }
 
     [HttpGet("/getcomprobantes/{idEmpresa:int}")]
-    public async Task<object> ListarComprobantes([FromRoute] int idEmpresa)
+    public async Task<object> ListarComprobantes(int idEmpresa)
     {
         try
         {

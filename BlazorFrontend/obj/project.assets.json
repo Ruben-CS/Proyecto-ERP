@@ -1979,7 +1979,7 @@
           }
         }
       },
-      "MudBlazor/6.2.3": {
+      "MudBlazor/6.2.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Components": "7.0.1",
@@ -7160,10 +7160,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "MudBlazor/6.2.3": {
-      "sha512": "LbsM8/3eK5tk9OPPDIKdV5Fm+hM4KmzAJ8JAtEg9x33TJG3jqFPQ249tSp7l1F628rGCaHoIVjVGjfbgkt7hDg==",
+    "MudBlazor/6.2.5": {
+      "sha512": "rjmxTT6E58FrLUnY2VbUyw2hTFAoaOWXuw8rUuIG8GHjihZabjFOIIP7R2DdJQqY6Ga/HLIWZTmnA7Hjl5l+1Q==",
       "type": "package",
-      "path": "mudblazor/6.2.3",
+      "path": "mudblazor/6.2.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7177,7 +7177,7 @@
         "lib/net6.0/MudBlazor.xml",
         "lib/net7.0/MudBlazor.dll",
         "lib/net7.0/MudBlazor.xml",
-        "mudblazor.6.2.3.nupkg.sha512",
+        "mudblazor.6.2.5.nupkg.sha512",
         "mudblazor.nuspec",
         "staticwebassets/MudBlazor.min.css",
         "staticwebassets/MudBlazor.min.js"
@@ -11715,7 +11715,7 @@
       "Modelos >= 1.0.0",
       "ModuloContabilidadApi >= 1.0.0",
       "MonedaComprobanteApi >= 1.0.0",
-      "MudBlazor >= 6.2.3",
+      "MudBlazor >= 6.2.5",
       "Newtonsoft.Json >= 13.0.3"
     ]
   },
@@ -11779,7 +11779,7 @@
           },
           "MudBlazor": {
             "target": "Package",
-            "version": "[6.2.3, )"
+            "version": "[6.2.5, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

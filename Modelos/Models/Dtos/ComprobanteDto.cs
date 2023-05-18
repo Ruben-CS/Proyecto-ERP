@@ -6,10 +6,10 @@ public sealed class ComprobanteDto
 {
     public int IdComprobante { get; set; }
 
-    public int?            Serie  { get; set; } = null!;
+    public int?              Serie  { get; set; }
     public string            Glosa  { get; set; } = null!;
     public DateTime          Fecha  { get; set; }
-    public string            Tc     { get; set; } = null!;
+    public decimal?          Tc     { get; set; }
     public EstadoComprobante Estado { get; set; } = EstadoComprobante.Abierto;
 
     public TipoComprobante TipoComprobante { get; set; }
@@ -23,6 +23,6 @@ public sealed class ComprobanteDto
     public int      IdEmpresa { get; set; }
     public Empresa? Empresa   { get; set; }
 
-    public int IdMoneda { get;   set; }
-    public Moneda? Moneda { get; set;}
+    public int     IdMoneda { get; set; }
+    public Moneda? Moneda   { get; set; }
 }

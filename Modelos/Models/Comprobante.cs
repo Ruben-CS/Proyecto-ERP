@@ -9,13 +9,13 @@ public class Comprobante
     [Key]
     public int IdComprobante { get; set; }
 
-    public int? Serie { get; set; } = null!;
+    public int?   Serie { get; set; } = null!;
     public string Glosa { get; set; } = null!;
 
     [Required]
     public DateTime Fecha { get; set; }
 
-    public string            Tc              { get; set; } = null!;
+    public decimal?           Tc              { get; set; }
     public EstadoComprobante Estado          { get; set; } = EstadoComprobante.Abierto;
     public TipoComprobante   TipoComprobante { get; set; }
 

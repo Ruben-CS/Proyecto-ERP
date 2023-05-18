@@ -32,7 +32,7 @@ public class CuentaRepository : ICuentaRepository
             cuentaDto.IdEmpresa, levelsPerEmpresa);
 
         // Verificar si el último número del código generado es ".0"
-        bool esDetalle = cuentaDto.Codigo.Split('.').Last() == "0";
+        var esDetalle = cuentaDto.Codigo.Split('.').Last() == "0";
 
         // Asignar el valor a cuenta.TipoCuenta
         cuentaDto.TipoCuenta = esDetalle ? "Global" : "Detalle";
