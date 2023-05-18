@@ -6,10 +6,10 @@ public sealed class DetalleComprobanteDto
 
     public int    Numero        { get; set; }
     public string Glosa         { get; set; }
-    public float  MontoDebe     { get; set; }
-    public float  MontoHaber    { get; set; }
-    public float  MontoDebeAlt  { get; set; }
-    public float  MontoHaberAlt { get; set; }
+    public decimal  MontoDebe     { get; set; }
+    public decimal  MontoHaber    { get; set; }
+    public decimal  MontoDebeAlt  { get; set; }
+    public decimal  MontoHaberAlt { get; set; }
 
     public int IdUsuario { get; set; }
 
