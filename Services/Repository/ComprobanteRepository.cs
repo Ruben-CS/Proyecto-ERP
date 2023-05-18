@@ -13,7 +13,7 @@ public class ComprobanteRepository : IComprobanteRepository
     private readonly IMapper              _mapper;
 
     public ComprobanteRepository(ApplicationDbContext dbContext,
-                                 IMapper mapper)
+                                 IMapper              mapper)
     {
         _dbContext = dbContext;
         _mapper    = mapper;
@@ -23,10 +23,11 @@ public class ComprobanteRepository : IComprobanteRepository
         ComprobanteDto comprobanteDto, int idEmpresa)
     {
         var comprobante = _mapper.Map<ComprobanteDto, Modelos.Models.Comprobante>(comprobanteDto);
+
         var maxSerie = await _dbContext.Comprobantes
-                                     .Where(e => e.Estado == EstadoComprobante.Abierto &&
-                                                 e.IdEmpresa == idEmpresa)
-                                     .MaxAsync(e => e.Serie);
+                                       .Where(e =>
+                                           e.IdEmpresa == idEmpresa)
+                                       .MaxAsync(e => e.Serie);
 
         comprobante.Serie = (maxSerie ?? 0) + 1;
         await _dbContext.AddAsync(comprobante);
@@ -34,12 +35,10 @@ public class ComprobanteRepository : IComprobanteRepository
         return _mapper.Map<Modelos.Models.Comprobante, ComprobanteDto>(comprobante);
     }
 
-     async Task<IEnumerable<ComprobanteDto>> IComprobanteRepository.GetAllComprobantes(
+    async Task<IEnumerable<ComprobanteDto>> IComprobanteRepository.GetAllComprobantes(
         int idEmpresa)
     {
-        var comprobantes = await _dbContext.Comprobantes.
-                                            Where(c => c.IdEmpresa == idEmpresa).
-                                            ToListAsync();
+        var comprobantes = await _dbContext.Comprobantes.Where(c => c.IdEmpresa == idEmpresa).ToListAsync();
         return _mapper.Map<List<ComprobanteDto>>(comprobantes);
     }
 

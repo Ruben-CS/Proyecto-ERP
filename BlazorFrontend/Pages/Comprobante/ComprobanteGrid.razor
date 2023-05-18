@@ -2,11 +2,15 @@
 @using global::Services.EmpresaMonedaService
 @using global::Services.Moneda
 @using global::Services.Comprobante
+@using Modelos.Models.Enums
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
 @layout ComprobanteLayout
 @inject IDialogService DialogService
 @inject ComprobanteService ComprobanteService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
@@ -26,7 +30,7 @@
     <MudItem xs="12" sm="4">
         <MudSelect Variant="Variant.Outlined"
                    Label="Tipo de comprobante"
-                   bind-Value="SelectedTipoComprobante"
+                   @bind-Value="SelectedTipoComprobante"
                    T="string">
             @foreach (var type in ComprobanteTypes)
             {
@@ -44,7 +48,7 @@
     <MudItem xs="12" sm="4">
         <MudSelect Variant="Variant.Outlined"
                    Label="Moneda"
-                   bind-Value="SelectedEmpresaMoneda"
+                   @bind-Value="SelectedEmpresaMoneda"
                    T="string">
             @foreach (var moneda in MonedasDeLaEmpresa)
             {
@@ -59,15 +63,15 @@
                    Label="Estado"
                    T="string"
                    Disabled="true"
-                   bind-Text="@ComprobanteDto.Estado"
-                   Placeholder="@ComprobanteDto.Estado.ToString()">
+                   bind-Text="@EstadoComprobante.Abierto.ToString()"
+                   Placeholder="@EstadoComprobante.Abierto.ToString()">
         </MudSelect>
     </MudItem>
     <MudItem xs="12">
         <MudTextField Variant="Variant.Outlined"
                       Label="Glosa"
                       T="string"
-                      bind-Value="@ComprobanteDto.Glosa"/>
+                      @bind-Value="Glosa"/>
     </MudItem>
 </MudGrid>
 
@@ -77,7 +81,8 @@
                 IconSize="Size.Medium"
                 StartIcon="@Icons.Material.Filled.PostAdd"
                 Size="Size.Small"
-                DisableElevation="true"/>
+                DisableElevation="true"
+                OnClick="@AgregarComprobante"/>
     </MudTooltip>
     <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
         <MudFab Color="Color.Info"

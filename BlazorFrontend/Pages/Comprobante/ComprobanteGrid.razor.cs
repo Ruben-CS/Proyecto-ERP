@@ -10,9 +10,9 @@ public partial class ComprobanteGrid
 {
     #region DataForComprobante
 
-    private ComprobanteDto ComprobanteDto { get; set; } = new();
     private DateTime?      Fecha          { get; set; } = DateTime.Today;
 
+    private string? Glosa                 { get; set; } = string.Empty;
     private string? SelectedEmpresaMoneda { get; set; }
 
     private string? SerieString { get; set; } = string.Empty;
@@ -46,7 +46,7 @@ public partial class ComprobanteGrid
     private List<string>     ComprobanteTypes   { get; set; } = new();
     private List<MonedaDto?> MonedasDeLaEmpresa { get; set; } = new();
 
-    public List<ComprobanteDto> Comprobantes { get; set; } = new();
+    private List<ComprobanteDto> Comprobantes { get; set; } = new();
 
     #endregion
 
@@ -111,5 +111,34 @@ public partial class ComprobanteGrid
             { "IdEmpresa", IdEmpresa }
         };
         await DialogService.ShowAsync<DetalleComprobante>(string.Empty, parameters, options);
+    }
+
+    private async Task AgregarComprobante()
+    {
+        var url = $"https://localhost:44352/agregarcomprobante/{IdEmpresa}";
+
+        if (!Enum.TryParse(typeof(TipoComprobante), SelectedTipoComprobante, out var parsedEnum))
+        {
+            throw new Exception("Unable to parse SelectedTipoComprobante to TipoComprobante enum");
+        }
+
+        var tipoComprobante = (TipoComprobante)parsedEnum;
+        var idMoneda        = MonedasDeLaEmpresa.First(m => m!.Nombre == SelectedEmpresaMoneda)!.IdMoneda;
+        var comprobanteDto = new ComprobanteDto
+        {
+            Glosa = Glosa!,
+            Fecha = Fecha!.Value,
+            Tc    = TipoDeCambioString,
+            TipoComprobante = tipoComprobante,
+            IdMoneda  = idMoneda,
+            IdEmpresa = IdEmpresa,
+            IdUsuario = 1
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Comprobante agregado exitosamente",Severity.Success);
+        }
     }
 }

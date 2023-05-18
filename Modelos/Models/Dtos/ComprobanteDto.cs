@@ -20,6 +20,9 @@ public sealed class ComprobanteDto
 
     public Usuario? Usuario { get; set; }
 
+    public int      IdEmpresa { get; set; }
+    public Empresa? Empresa   { get; set; }
+
     public int IdMoneda { get;   set; }
     public Moneda? Moneda { get; set;}
 }
