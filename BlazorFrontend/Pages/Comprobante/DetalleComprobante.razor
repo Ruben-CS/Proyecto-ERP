@@ -5,19 +5,23 @@
 <MudDialog>
     <DialogContent>
         <MudStack Row="true">
+            <MudAutocomplete T="string"
+                             Label="Seleccionar cuenta"
+                             @bind-Value="SelectedCuenta"
+                             SearchFunc="SearchCuenta"/>
             <MudTextField @bind-Value="Glosa"
                           Label="Glosa"
-                          Variant="Variant.Filled"
+                          Variant="Variant.Outlined"
                           Style="width: 800px;"/>
             <MudTextField @bind-Value="@Debe"
                           Label="Debe"
-                          Variant="Variant.Filled"
+                          Variant="Variant.Outlined"
                           Style="width: 80px; text-align: right"
                           Placeholder="0.00"
                           Class="right-aligned-input"/>
             <MudTextField @bind-Value="@Haber"
                           Label="Haber"
-                          Variant="Variant.Filled"
+                          Variant="Variant.Outlined"
                           Style="width: 80px; text-align: right"
                           Class="right-aligned-input"
                           Placeholder="0.00"/>

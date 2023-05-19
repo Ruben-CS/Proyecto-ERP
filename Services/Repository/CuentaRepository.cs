@@ -128,7 +128,8 @@ public class CuentaRepository : ICuentaRepository
 
     public async Task<IEnumerable<CuentaDto>> GetCuentasTipoDetalle(int idEmpresa)
     {
-        var cuentasDetalle = await _applicationDbContext.Cuentas.Where(c => c.IdEmpresa == idEmpresa)
+        var cuentasDetalle = await _applicationDbContext.Cuentas.Where(c => c.IdEmpresa == idEmpresa &&
+                                                                            c.TipoCuenta == TipoCuenta.Detalle)
                                                         .ToListAsync();
         return _mapper.Map<List<CuentaDto>>(cuentasDetalle);
     }

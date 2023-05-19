@@ -28,9 +28,21 @@ public partial class DetalleComprobante
 
     #endregion
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        return base.OnInitializedAsync();
+        await base.OnInitializedAsync();
+        Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
+    }
+
+    private async Task<IEnumerable<string>> SearchCuenta(string value)
+    {
+        IEnumerable<string> nombreCuentas = Cuentas.Select(c => $"{c.Codigo} - {c.Nombre}").ToList();
+        if (string.IsNullOrEmpty(value))
+        {
+            return await Task.FromResult(nombreCuentas);
+        }
+
+        return nombreCuentas.Where(c => c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
