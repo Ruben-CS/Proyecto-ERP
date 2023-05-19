@@ -14,109 +14,143 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
-    <MudItem xs="12" sm="4">
-        <MudTextField Variant="Variant.Outlined"
-                      Label="Serie"
-                      T="string"
-                      @bind-Value="SerieString"
-                      Disabled="true"/>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudDatePicker Variant="Variant.Outlined"
-                       Label="Fecha"
-                       @bind-Date="@Fecha"/>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudSelect Variant="Variant.Outlined"
-                   Label="Tipo de comprobante"
-                   @bind-Value="SelectedTipoComprobante"
-                   T="string">
-            @foreach (var type in ComprobanteTypes)
-            {
-                <MudSelectItem Value="@type">@type</MudSelectItem>
-            }
-        </MudSelect>
+<MudText Typo="Typo.h4" GutterBottom="true">Agregar comprobante</MudText>
 
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudTextField @bind-Value="@TipoDeCambioString"
-                      Label="Tipo de cambio"
-                      Class="right-aligned-input"
-                      Variant="Variant.Outlined"/>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudSelect Variant="Variant.Outlined"
-                   Label="Moneda"
-                   @bind-Value="SelectedEmpresaMoneda"
-                   T="string">
-            @foreach (var moneda in MonedasDeLaEmpresa)
-            {
-                <MudSelectItem Value="@moneda.Nombre">
-                    @moneda.Nombre
-                </MudSelectItem>
-            }
-        </MudSelect>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudSelect Variant="Variant.Outlined"
-                   Label="Estado"
-                   T="string"
-                   Disabled="true"
-                   bind-Text="@EstadoComprobante.Abierto.ToString()"
-                   Placeholder="@EstadoComprobante.Abierto.ToString()">
-        </MudSelect>
-    </MudItem>
-    <MudItem xs="12">
-        <MudTextField Variant="Variant.Outlined"
-                      Label="Glosa"
-                      T="string"
-                      @bind-Value="Glosa"/>
-    </MudItem>
-</MudGrid>
+<MudPaper Elevation="1" Class="p-3">
+    <MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
+        <MudItem xs="12" sm="4">
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Serie"
+                          T="string"
+                          @bind-Value="SerieString"
+                          Disabled="true"
+                          Margin="Margin.Dense"/>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudDatePicker Variant="Variant.Outlined"
+                           Label="Fecha"
+                           @bind-Date="@Fecha"
+                           Margin="Margin.Dense"/>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudSelect Variant="Variant.Outlined"
+                       Label="Tipo de comprobante"
+                       @bind-Value="SelectedTipoComprobante"
+                       T="string"
+                       Margin="Margin.Dense"
+                       Dense="true">
+                @foreach (var type in ComprobanteTypes)
+                {
+                    <MudSelectItem Value="@type">@type</MudSelectItem>
+                }
+            </MudSelect>
 
-<MudStack Row="true" Class="mt-3" Style="align-self: end">
-    <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
-        <MudFab Color="Color.Success"
-                IconSize="Size.Medium"
-                StartIcon="@Icons.Material.Filled.PostAdd"
-                Size="Size.Small"
-                DisableElevation="true"
-                OnClick="@AgregarComprobante"/>
-    </MudTooltip>
-    <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
-        <MudFab Color="Color.Info"
-                IconSize="Size.Medium"
-                StartIcon="@Icons.Material.Filled.NoteAdd"
-                Size="Size.Small"
-                DisableElevation="true"
-                OnClick="OpenAgregarDetalleModal"/>
-    </MudTooltip>
-</MudStack>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudTextField @bind-Value="@TipoDeCambioString"
+                          Label="Tipo de cambio"
+                          Class="right-aligned-input"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense"/>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudSelect Variant="Variant.Outlined"
+                       Label="Moneda"
+                       @bind-Value="SelectedEmpresaMoneda"
+                       T="string"
+                       Margin="Margin.Dense"
+                       Dense="true">
+                @foreach (var moneda in MonedasDeLaEmpresa)
+                {
+                    <MudSelectItem Value="@moneda.Nombre">
+                        @moneda.Nombre
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudSelect Variant="Variant.Outlined"
+                       Label="Estado"
+                       T="string"
+                       Disabled="true"
+                       bind-Text="@EstadoComprobante.Abierto.ToString()"
+                       Placeholder="@EstadoComprobante.Abierto.ToString()"
+                       Margin="Margin.Dense"
+                       Dense="true">
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Glosa"
+                          T="string"
+                          @bind-Value="Glosa"
+                          Margin="Margin.Dense"/>
+        </MudItem>
+    </MudGrid>
 
-<MudTable Hover="true"
-          Striped="true"
-          RowsPerPage="5"
-          Items="_detalles"
-          Dense="true"
-          Bordered="true">
+    <MudStack Row="true" Class="mt-3" Style="align-self: end">
+        <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
+            <MudFab Color="Color.Success"
+                    IconSize="Size.Medium"
+                    StartIcon="@Icons.Material.Filled.PostAdd"
+                    Size="Size.Small"
+                    DisableElevation="true"
+                    OnClick="@AgregarComprobante"/>
+        </MudTooltip>
+        <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
+            <MudFab Color="Color.Info"
+                    IconSize="Size.Medium"
+                    StartIcon="@Icons.Material.Filled.NoteAdd"
+                    Size="Size.Small"
+                    DisableElevation="true"
+                    OnClick="OpenAgregarDetalleModal"/>
+        </MudTooltip>
+    </MudStack>
+</MudPaper>
+<MudPaper Elevation="1" Class="p-3 mt-3">
+    <MudTable Hover="true"
+              Striped="true"
+              RowsPerPage="3"
+              Items="_detalles"
+              Dense="true"
+              Bordered="true"
+              Elevation="2">
 
-    <HeaderContent>
-            <MudTh>Cuenta</MudTh>
-            <MudTh>Glosa</MudTh>
-            <MudTh>Monto Debe</MudTh>
-            <MudTh>Monto Haber</MudTh>
-            <MudTh>Acciones</MudTh>
+        <HeaderContent>
+            <MudTh Style="text-align: left">Cuenta</MudTh>
+            <MudTh Style="text-align: left">Glosa</MudTh>
+            <MudTh Style="text-align: right">Monto Debe</MudTh>
+            <MudTh Style="text-align: right">Monto Haber</MudTh>
+            <MudTh Style="text-align: center">Acciones</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Serie">@context.NombreCuenta</MudTd>
-            <MudTd DataLabel="Fecha">@context.Glosa</MudTd>
-            <MudTd DataLabel="Glosa">@context.MontoDebe</MudTd>
-            <MudTd DataLabel="Tipo">@context.MontoHaber</MudTd>
+            <MudTd DataLabel="Nombre Cuenta">
+                @context.NombreCuenta
+            </MudTd>
+            <MudTd DataLabel="Glosa">
+                @context.Glosa
+            </MudTd>
+            <MudTd DataLabel="Monto Debe" Style="text-align: right">
+                @(context.MontoDebe.ToString("F2"))
+            </MudTd>
+            <MudTd DataLabel="Monto Haber" Style="text-align: right">
+                @context.MontoHaber.ToString("F2")
+            </MudTd>
             <MudTd DataLabel="Acciones"></MudTd>
         </RowTemplate>
-</MudTable>
-
+        <FooterContent>
+            <MudTd></MudTd>
+            <MudTd></MudTd>
+            <MudTd Style="text-align: right">
+               <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
+            </MudTd>
+            <MudTd Style="text-align: right">
+                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+            </MudTd>
+            <MudTd></MudTd>
+        </FooterContent>
+    </MudTable>
+</MudPaper>
 <style>
     .right-aligned-input input {
         text-align: right;

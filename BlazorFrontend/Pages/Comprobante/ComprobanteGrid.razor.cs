@@ -60,9 +60,12 @@ public partial class ComprobanteGrid
 
     #region Datagrid Data
 
-    private ObservableCollection<DetalleComprobanteDto> _detalles = new();
+    private readonly ObservableCollection<DetalleComprobanteDto> _detalles = new();
 
     #endregion
+
+    public decimal TotalDebe  => _detalles.Sum(x => x.MontoDebe);
+    public decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
 
     protected override async Task OnInitializedAsync()
     {
