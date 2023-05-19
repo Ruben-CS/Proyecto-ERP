@@ -32,10 +32,8 @@ public class CuentaRepository : ICuentaRepository
         (_applicationDbContext, cuentaDto.IdCuentaPadre,
             cuentaDto.IdEmpresa, levelsPerEmpresa);
 
-        // Verificar si el último número del código generado es ".0"
         var esDetalle = cuentaDto.Codigo.Split('.').Last() == "0";
 
-        // Asignar el valor a cuenta.TipoCuenta
         cuentaDto.TipoCuenta = esDetalle ? TipoCuenta.Global : TipoCuenta.Detalle;
 
         var cuenta = _mapper.Map<CuentaDto, Modelos.Models.Cuenta>(cuentaDto);
@@ -130,8 +128,7 @@ public class CuentaRepository : ICuentaRepository
 
     public async Task<IEnumerable<CuentaDto>> GetCuentasTipoDetalle(int idEmpresa)
     {
-        var cuentasDetalle = await _applicationDbContext.Cuentas.Where(c => c.IdEmpresa  == idEmpresa &&
-                                                                            c.TipoCuenta == TipoCuenta.Detalle)
+        var cuentasDetalle = await _applicationDbContext.Cuentas.Where(c => c.IdEmpresa == idEmpresa)
                                                         .ToListAsync();
         return _mapper.Map<List<CuentaDto>>(cuentasDetalle);
     }
