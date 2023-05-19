@@ -111,7 +111,7 @@ public partial class ComprobanteGrid
             { "IdEmpresa", IdEmpresa },
             { "Glosa", Glosa }
         };
-        await DialogService.ShowAsync<DetalleComprobante>(string.Empty, parameters, options);
+        await DialogService.ShowAsync<DetalleComprobante>("Ingrese los detalles del comprobante", parameters, options);
     }
 
     private async Task AgregarComprobante()

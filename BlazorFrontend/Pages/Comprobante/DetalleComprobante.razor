@@ -11,26 +11,39 @@
                              SearchFunc="SearchCuenta"/>
             <MudTextField @bind-Value="Glosa"
                           Label="Glosa"
-                          Variant="Variant.Outlined"
+                          Variant="Variant.Text"
                           Style="width: 800px;"/>
             <MudTextField @bind-Value="@Debe"
                           Label="Debe"
-                          Variant="Variant.Outlined"
+                          Variant="Variant.Text"
                           Style="width: 80px; text-align: right"
                           Placeholder="0.00"
                           Class="right-aligned-input"/>
             <MudTextField @bind-Value="@Haber"
                           Label="Haber"
-                          Variant="Variant.Outlined"
+                          Variant="Variant.Text"
                           Style="width: 80px; text-align: right"
                           Class="right-aligned-input"
                           Placeholder="0.00"/>
         </MudStack>
     </DialogContent>
     <DialogActions>
-        <MudDivider/>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Filled"
+                   Size="Size.Small"
+                   Color="Color.Dark"
+                   Class="rounded-pill"
+                   Style="width: 100px;">
+            Cancelar
+        </MudButton>
+        <MudButton Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Size="Size.Small"
+                   OnClick="Submit"
+                   Class="rounded-pill"
+                   Style="width: 100px;">
+            Agregar
+        </MudButton>
     </DialogActions>
 </MudDialog>
 
