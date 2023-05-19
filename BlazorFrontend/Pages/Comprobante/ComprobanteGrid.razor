@@ -14,10 +14,10 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudText Typo="Typo.h4" GutterBottom="true">Agregar comprobante</MudText>
+<MudText Typo="Typo.h4" GutterBottom="true">Datos del comprobante</MudText>
 
 <MudPaper Elevation="1" Class="p-3">
-    <MudGrid Spacing="3" Justify="Justify.Center" Style="box-shadow: black">
+    <MudGrid Spacing="2" Justify="Justify.Center">
         <MudItem xs="12" sm="4">
             <MudTextField Variant="Variant.Outlined"
                           Label="Serie"
@@ -62,7 +62,7 @@
                        Dense="true">
                 @foreach (var moneda in MonedasDeLaEmpresa)
                 {
-                    <MudSelectItem Value="@moneda.Nombre">
+                    <MudSelectItem Value="@moneda!.Nombre">
                         @moneda.Nombre
                     </MudSelectItem>
                 }
@@ -91,18 +91,19 @@
     <MudStack Row="true" Class="mt-3" Style="align-self: end">
         <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
             <MudFab Color="Color.Success"
-                    IconSize="Size.Medium"
+                    IconSize="Size.Small"
                     StartIcon="@Icons.Material.Filled.PostAdd"
                     Size="Size.Small"
-                    DisableElevation="true"
+                    Class="squircle-fab"
                     OnClick="@AgregarComprobante"/>
         </MudTooltip>
         <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
             <MudFab Color="Color.Info"
-                    IconSize="Size.Medium"
+                    IconSize="Size.Small"
                     StartIcon="@Icons.Material.Filled.NoteAdd"
                     Size="Size.Small"
                     DisableElevation="true"
+                    Class="squircle-fab"
                     OnClick="OpenAgregarDetalleModal"/>
         </MudTooltip>
     </MudStack>
@@ -136,13 +137,29 @@
             <MudTd DataLabel="Monto Haber" Style="text-align: right">
                 @context.MontoHaber.ToString("F2")
             </MudTd>
-            <MudTd DataLabel="Acciones"></MudTd>
+            <MudTd DataLabel="Acciones">
+                <MudStack Row="true"
+                          Justify="Justify.Center">
+                    <MudTooltip Text="Eliminar detalle">
+                        <MudIconButton Color="Color.Error"
+                                       Icon="@Icons.Material.Filled.DeleteForever"
+                                       Size="Size.Small"
+                                       OnClick="() => DeleteDetalle(context)"/>
+                    </MudTooltip>
+                    <MudTooltip Text="Editar detalle">
+                        <MudIconButton Color="Color.Warning"
+                                       Icon="@Icons.Material.Filled.Edit"
+                                       Size="Size.Small"
+                                       OnClick="() => EditDetalle(context)"/>
+                    </MudTooltip>
+                </MudStack>
+            </MudTd>
         </RowTemplate>
         <FooterContent>
             <MudTd></MudTd>
             <MudTd></MudTd>
             <MudTd Style="text-align: right">
-               <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
+                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
             </MudTd>
             <MudTd Style="text-align: right">
                 <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
@@ -154,5 +171,10 @@
 <style>
     .right-aligned-input input {
         text-align: right;
+    }
+
+    .squircle-fab {
+        border-radius: 30% !important;
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
     }
 </style>

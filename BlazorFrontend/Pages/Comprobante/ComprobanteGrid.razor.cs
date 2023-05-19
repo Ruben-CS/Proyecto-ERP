@@ -64,8 +64,15 @@ public partial class ComprobanteGrid
 
     #endregion
 
-    public decimal TotalDebe  => _detalles.Sum(x => x.MontoDebe);
-    public decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+    private decimal TotalDebe  => _detalles.Sum(x => x.MontoDebe);
+    private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+
+    private void DeleteDetalle(DetalleComprobanteDto dto) => _detalles.Remove(dto);
+
+    private void EditDetalle(DetalleComprobanteDto dto)
+    {
+
+    }
 
     protected override async Task OnInitializedAsync()
     {
