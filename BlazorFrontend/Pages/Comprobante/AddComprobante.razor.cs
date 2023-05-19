@@ -7,7 +7,7 @@ using MudBlazor;
 
 namespace BlazorFrontend.Pages.Comprobante;
 
-public partial class ComprobanteGrid
+public partial class AddComprobante
 {
     #region DataForComprobante
 
@@ -64,15 +64,6 @@ public partial class ComprobanteGrid
 
     #endregion
 
-    private decimal TotalDebe  => _detalles.Sum(x => x.MontoDebe);
-    private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
-
-    private void DeleteDetalle(DetalleComprobanteDto dto) => _detalles.Remove(dto);
-
-    private void EditDetalle(DetalleComprobanteDto dto)
-    {
-
-    }
 
     protected override async Task OnInitializedAsync()
     {

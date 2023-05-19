@@ -20,16 +20,20 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/AddComprobante.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcQWRkQ29tcHJvYmFudGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/ComprobanteDashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcQ29tcHJvYmFudGVEYXNoYm9hcmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/ComprobanteGrid.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcQ29tcHJvYmFudGVHcmlkLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/DetalleComprobante.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcRGV0YWxsZUNvbXByb2JhbnRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/DetalleComprobanteTable.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcRGV0YWxsZUNvbXByb2JhbnRlVGFibGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Cuentas/Crear/CrearCuenta.razor]
