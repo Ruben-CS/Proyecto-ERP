@@ -4,7 +4,7 @@ using MudBlazor;
 
 namespace BlazorFrontend.Pages.Comprobante;
 
-public partial class DetalleComprobante
+public partial class DetalleComprobanteModal
 {
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; } = null!;
