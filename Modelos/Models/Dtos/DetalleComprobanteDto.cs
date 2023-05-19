@@ -4,12 +4,13 @@ public sealed class DetalleComprobanteDto
 {
     public int IdDetalleComprobante { get; set; }
 
-    public int    Numero        { get; set; }
-    public string Glosa         { get; set; }
-    public decimal  MontoDebe     { get; set; }
-    public decimal  MontoHaber    { get; set; }
-    public decimal  MontoDebeAlt  { get; set; }
-    public decimal  MontoHaberAlt { get; set; }
+    public int     Numero             { get; set; }
+    public string  Glosa              { get; set; }
+    public decimal MontoDebe          { get; set; }
+    public decimal MontoHaber         { get; set; }
+    public decimal MontoDebeAlt       { get; set; }
+    public decimal MontoHaberAlt      { get; set; }
+    public string? NombreCuenta { get; set; }
 
     public int IdUsuario { get; set; }
 
@@ -21,5 +22,5 @@ public sealed class DetalleComprobanteDto
 
     public int IdCuenta { get; set; }
 
-    public Cuenta? Cuenta { get; set;}
+    public Cuenta? Cuenta { get; set; }
 }

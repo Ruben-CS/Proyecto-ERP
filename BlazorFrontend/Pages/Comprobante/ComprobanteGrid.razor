@@ -94,6 +94,29 @@
     </MudTooltip>
 </MudStack>
 
+<MudTable Hover="true"
+          Striped="true"
+          RowsPerPage="5"
+          Items="_detalles"
+          Dense="true"
+          Bordered="true">
+
+    <HeaderContent>
+            <MudTh>Cuenta</MudTh>
+            <MudTh>Glosa</MudTh>
+            <MudTh>Monto Debe</MudTh>
+            <MudTh>Monto Haber</MudTh>
+            <MudTh>Acciones</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Serie">@context.NombreCuenta</MudTd>
+            <MudTd DataLabel="Fecha">@context.Glosa</MudTd>
+            <MudTd DataLabel="Glosa">@context.MontoDebe</MudTd>
+            <MudTd DataLabel="Tipo">@context.MontoHaber</MudTd>
+            <MudTd DataLabel="Acciones"></MudTd>
+        </RowTemplate>
+</MudTable>
+
 <style>
     .right-aligned-input input {
         text-align: right;

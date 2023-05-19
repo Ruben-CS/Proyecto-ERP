@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
@@ -57,6 +58,12 @@ public partial class ComprobanteGrid
 
     #endregion
 
+    #region Datagrid Data
+
+    private ObservableCollection<DetalleComprobanteDto> _detalles = new();
+
+    #endregion
+
     protected override async Task OnInitializedAsync()
     {
         EmpresaMonedas     = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
@@ -76,6 +83,11 @@ public partial class ComprobanteGrid
                              .ToList();
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private void AddNewDetalleComprobante(DetalleComprobanteDto detalleComprobanteDto)
+    {
+        _detalles.Add(detalleComprobanteDto);
     }
 
     private int GetNextSerie(int idEmpresa)
@@ -104,12 +116,16 @@ public partial class ComprobanteGrid
         {
             MaxWidth             = MaxWidth.Large,
             DisableBackdropClick = true,
-            Position = DialogPosition.TopCenter
+            Position             = DialogPosition.TopCenter
         };
         var parameters = new DialogParameters
         {
             { "IdEmpresa", IdEmpresa },
-            { "Glosa", Glosa }
+            { "Glosa", Glosa },
+            {
+                "AddNewDetalleComprobante",
+                EventCallback.Factory.Create<DetalleComprobanteDto>(this, AddNewDetalleComprobante)
+            }
         };
         await DialogService.ShowAsync<DetalleComprobante>("Ingrese los detalles del comprobante", parameters, options);
     }

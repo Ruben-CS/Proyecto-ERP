@@ -8,12 +8,13 @@ public class DetalleComprobante
     [Key]
     public int IdDetalleComprobante { get; set; }
 
-    public int    Numero        { get; set; }
-    public string Glosa         { get; set; }
-    public decimal  MontoDebe     { get; set; }
-    public decimal  MontoHaber    { get; set; }
-    public decimal  MontoDebeAlt  { get; set; }
-    public decimal  MontoHaberAlt { get; set; }
+    public int     Numero        { get; set; }
+    public string  Glosa         { get; set; }
+    public decimal MontoDebe     { get; set; }
+    public decimal MontoHaber    { get; set; }
+    public decimal MontoDebeAlt  { get; set; }
+    public decimal MontoHaberAlt { get; set; }
+    public string? NombreCuenta  { get; set; }
 
     [ForeignKey("Usuario")]
     public int IdUsuario { get; set; } = 1;
@@ -31,6 +32,5 @@ public class DetalleComprobante
     public int IdCuenta { get; set; }
 
     [InverseProperty("DetalleComprobantes")]
-    public Cuenta? Cuenta { get; set;}
-
+    public Cuenta? Cuenta { get; set; }
 }

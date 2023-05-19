@@ -11,6 +11,9 @@ public partial class DetalleComprobante
 
     [Parameter]
     public int IdEmpresa { get; set; }
+    
+    [Parameter]
+    public EventCallback<DetalleComprobanteDto> AddNewDetalleComprobante { get; set; }
 
     public List<CuentaDto> Cuentas { get; set; } = new();
 
@@ -45,7 +48,19 @@ public partial class DetalleComprobante
         return nombreCuentas.Where(c => c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    private async Task Submit()
+    {
+        //todo change this to get the id
+        var detalleComprobante = new DetalleComprobanteDto()
+        {
+            NombreCuenta = SelectedCuenta,
+            Glosa = Glosa!,
+            MontoDebe = Debe!.Value,
+            MontoHaber = Haber!.Value
+        };
 
-    void Cancel() => MudDialog.Cancel();
+        await AddNewDetalleComprobante.InvokeAsync(detalleComprobante);
+    }
+
+    private void Cancel() => MudDialog.Cancel();
 }

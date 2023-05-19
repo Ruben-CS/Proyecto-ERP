@@ -6,13 +6,14 @@
     <DialogContent>
         <MudStack Row="true">
             <MudAutocomplete T="string"
-                             Label="Seleccionar cuenta"
                              @bind-Value="SelectedCuenta"
-                             SearchFunc="SearchCuenta"/>
+                             SearchFunc="SearchCuenta"
+                             AdornmentIcon="@Icons.Material.Filled.Search"
+                             HelperText="Seleccione una cuenta"/>
             <MudTextField @bind-Value="Glosa"
-                          Label="Glosa"
                           Variant="Variant.Text"
-                          Style="width: 800px;"/>
+                          Style="width: 800px;"
+                          HelperText="Ingrese la glosa"/>
             <MudTextField @bind-Value="@Debe"
                           Label="Debe"
                           Variant="Variant.Text"

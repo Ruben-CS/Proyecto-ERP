@@ -36,6 +36,11 @@ public class ApplicationDbContext : DbContext
                   .HasColumnType("decimal(18,4)"); // or whatever precision and scale you need
         });
 
+        modelBuilder.Entity<DetalleComprobante>(entity =>
+        {
+            entity.Property(e => e.NombreCuenta)
+                  .HasColumnType("nvarchar(max)");
+        });
 
         #region Configuracion Empresa
 
