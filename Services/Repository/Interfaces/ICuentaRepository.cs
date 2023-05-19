@@ -12,4 +12,6 @@ public interface ICuentaRepository
     public       Task<CuentaDto>              EditCuenta(CuentaDto     cuentaDto, int id);
 
     public Task<IEnumerable<CuentaDto>> GetAllCuentas(int idempresa);
+
+    public Task<IEnumerable<CuentaDto>> GetCuentasTipoDetalle(int idEmpresa);
 }

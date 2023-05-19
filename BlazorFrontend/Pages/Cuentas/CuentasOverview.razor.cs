@@ -4,6 +4,7 @@ using BlazorFrontend.Pages.Cuentas.Eliminar;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using MudBlazor;
 
 namespace BlazorFrontend.Pages.Cuentas;
@@ -43,7 +44,7 @@ public partial class CuentasOverview
         public string? Codigo   { get; set; }
         public string  Nombre   { get; set; }
 
-        public string? TipoCuenta { get; set; }
+        public TipoCuenta TipoCuenta { get; set; }
 
         public int?                  IdCuentaPadre { get; set; }
         public HashSet<TreeItemData> CuentasHijas  { get; set; }
@@ -69,7 +70,7 @@ public partial class CuentasOverview
 
     private void CuentaSelected() => IsCuentaSelected = true;
 
-    private static TreeItemData CreateTree(TreeItemData treeItemData,
+    private static TreeItemData CreateTree(TreeItemData           treeItemData,
                                            IEnumerable<CuentaDto> allCuentas)
     {
         var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == treeItemData.IdCuenta)
@@ -111,15 +112,16 @@ public partial class CuentasOverview
     private static HashSet<TreeItemData> BuildTreeItemChildren(
         CuentaDto parentCuenta, IEnumerable<CuentaDto> cuentas)
     {
-        var childCuentas = cuentas.Where(c => c.IdCuentaPadre == parentCuenta.IdCuenta)
-                                  .ToList();
+        var cuentaDtos = cuentas.ToList();
+
+        var childCuentas = cuentaDtos.Where(c => c.IdCuentaPadre == parentCuenta.IdCuenta)
+                                     .ToList();
         var treeItemChildren = new HashSet<TreeItemData>(childCuentas
             .Select(c =>
                 new TreeItemData(c)
                 {
-                    CuentasHijas = BuildTreeItemChildren(c, cuentas)
+                    CuentasHijas = BuildTreeItemChildren(c, cuentaDtos)
                 }));
-
         return treeItemChildren;
     }
 
