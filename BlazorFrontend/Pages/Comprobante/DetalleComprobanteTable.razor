@@ -1,12 +1,13 @@
 @using System.Collections.ObjectModel
-<MudPaper Elevation="1" Class="p-3 mt-3">
+<MudPaper Elevation="2" Class="p-3 mt-4" Style="border-radius: 15px;">
     <MudTable Hover="true"
               Striped="true"
               RowsPerPage="3"
               Items="_detalles"
               Dense="true"
               Bordered="true"
-              Elevation="0">
+              Elevation="0"
+              Style="border-radius: 15px;">
 
         <HeaderContent>
             <MudTh Style="text-align: left">Cuenta</MudTh>
@@ -47,15 +48,15 @@
             </MudTd>
         </RowTemplate>
         <FooterContent>
-            <MudTd></MudTd>
-            <MudTd></MudTd>
+            <MudTd/>
+            <MudTd/>
             <MudTd Style="text-align: right">
                 <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
             </MudTd>
             <MudTd Style="text-align: right">
                 <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
             </MudTd>
-            <MudTd></MudTd>
+            <MudTd/>
         </FooterContent>
     </MudTable>
 </MudPaper>
@@ -70,7 +71,6 @@
     private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
 
     private void DeleteDetalle(DetalleComprobanteDto dto) => _detalles.Remove(dto);
-
 
     private void EditDetalle(DetalleComprobanteDto dto)
 
