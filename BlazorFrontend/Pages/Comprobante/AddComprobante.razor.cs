@@ -126,7 +126,8 @@ public partial class AddComprobante
             {
                 "AddNewDetalleComprobante",
                 EventCallback.Factory.Create<DetalleComprobanteDto>(this, AddNewDetalleComprobante)
-            }
+            },
+            {"_detalles", _detalles}
         };
         await DialogService.ShowAsync<DetalleComprobanteModal>("Ingrese los detalles del comprobante", parameters, options);
     }

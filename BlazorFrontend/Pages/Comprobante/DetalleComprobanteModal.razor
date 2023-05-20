@@ -1,8 +1,9 @@
 @using global::Services.Cuenta
 @inject HttpClient HttpClient
 @inject CuentaService CuentaService
+@inject ISnackbar Snackbar
 
-<MudDialog>
+<MudDialog Style="border-radius: 20px">
     <DialogContent>
         <MudStack Row="true">
             <MudAutocomplete T="string"
@@ -30,10 +31,10 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel"
-                   Variant="Variant.Filled"
+                   Variant="Variant.Text"
                    Size="Size.Small"
                    Color="Color.Dark"
-                   Class="rounded-pill"
+                   Class="mb-2 mr-2"
                    Style="width: 100px;">
             Cerrar
         </MudButton>
@@ -41,7 +42,7 @@
                    Variant="Variant.Filled"
                    Size="Size.Small"
                    OnClick="Submit"
-                   Class="rounded-pill"
+                   Class="rounded-pill mb-2 mr-2"
                    Style="width: 100px;">
             Agregar
         </MudButton>
