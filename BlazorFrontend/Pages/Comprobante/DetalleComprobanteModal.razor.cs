@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -34,6 +35,8 @@ public partial class DetalleComprobanteModal
 
     #endregion
 
+    private void Cancel() => MudDialog.Cancel();
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -59,16 +62,20 @@ public partial class DetalleComprobanteModal
             return;
         if (IsHaberOrDebeZero(Debe.Value, Haber.Value))
             return;
-        if(CuentaHasMoreExistingDetalle())
+        if (CuentaHasMoreExistingDetalle())
             return;
 
+        var selectedCuentaCodigo = ExtractCodigo(SelectedCuenta!);
+        var idCuenta             = Cuentas.SingleOrDefault(c => c.Codigo == selectedCuentaCodigo)!.IdCuenta;
         //todo change this to get the id
-        var detalleComprobante = new DetalleComprobanteDto()
+        var detalleComprobante = new DetalleComprobanteDto
         {
             NombreCuenta = SelectedCuenta,
             Glosa        = Glosa!,
             MontoDebe    = Debe.Value,
             MontoHaber   = Haber.Value,
+            IdCuenta     = idCuenta,
+            IdUsuario    = 1
         };
 
 
@@ -108,24 +115,30 @@ public partial class DetalleComprobanteModal
             Snackbar.Add("El debe o haber tiene que ser 0", Severity.Error);
             return true;
         }
+
         if (debe == 0 && haber == 0)
         {
             Snackbar.Add("Debe y haber no pueden ser 0 simultaneamente", Severity.Error);
             return true;
         }
+
         return false;
     }
 
     private bool CuentaHasMoreExistingDetalle()
     {
-        if (_detalles.Any(d => string.Equals(d.NombreCuenta, SelectedCuenta)))
-        {
-            Snackbar.Add("No se puede agregar otro detalle a la misma cuenta",Severity.Error);
-            return true;
-        }
-        return false;
+        if (!_detalles.Any(d => string.Equals(d.NombreCuenta, SelectedCuenta))) return false;
+        Snackbar.Add("No se puede agregar otro detalle a la misma cuenta", Severity.Error);
+        return true;
     }
 
+    private static string ExtractCodigo(string nombreCuenta)
+    {
+        var regex = MyRegex();
+        var match = regex.Match(nombreCuenta);
+        return match.Success ? match.Value : string.Empty;
+    }
 
-    private void Cancel() => MudDialog.Cancel();
+    [GeneratedRegex("\\d+(\\.\\d+)*")]
+    private static partial Regex MyRegex();
 }
