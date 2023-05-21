@@ -29,11 +29,12 @@
 
 <MudDrawer @bind-Open="@_open"
            ClipMode="DrawerClipMode.Docked"
-           Elevation="1"
+           Elevation="2"
            Variant="@DrawerVariant.Responsive"
            PreserveOpenState="true"
            Breakpoint="Breakpoint.Md"
-           OpenMiniOnHover="true">
+           OpenMiniOnHover="true"
+           Style="border-bottom-right-radius: 10px; border-top-right-radius: 10px">
     <MudDrawerHeader>
         <MudStack Row="true" Justify="Justify.Center" Spacing="1">
             <MudAvatar Color="Color.Secondary"
