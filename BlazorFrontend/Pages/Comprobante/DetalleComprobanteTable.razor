@@ -3,7 +3,7 @@
     <MudTable Hover="true"
               Striped="true"
               RowsPerPage="3"
-              Items="_detalles"
+              Items="Detalles"
               Dense="true"
               Bordered="true"
               Elevation="0"
@@ -64,13 +64,13 @@
 @code {
 
     [Parameter]
-    public ObservableCollection<DetalleComprobanteDto> _detalles { get; set; } = null!;
+    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = null!;
 
-    private decimal TotalDebe => _detalles.Sum(x => x.MontoDebe);
+    private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
 
-    private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+    private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
 
-    private void DeleteDetalle(DetalleComprobanteDto dto) => _detalles.Remove(dto);
+    private void DeleteDetalle(DetalleComprobanteDto dto) => Detalles.Remove(dto);
 
     private void EditDetalle(DetalleComprobanteDto dto)
 

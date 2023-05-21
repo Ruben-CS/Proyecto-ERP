@@ -24,7 +24,7 @@ public partial class DetalleComprobanteModal
     public List<CuentaDto> Cuentas { get; set; } = new();
 
     [Parameter]
-    public ObservableCollection<DetalleComprobanteDto> _detalles { get; set; }
+    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = null!;
 
     #region Fields
 
@@ -133,7 +133,7 @@ public partial class DetalleComprobanteModal
 
     private bool CuentaHasMoreExistingDetalle()
     {
-        if (!_detalles.Any(d => string.Equals(d.NombreCuenta, SelectedCuenta))) return false;
+        if (!Detalles.Any(d => string.Equals(d.NombreCuenta, SelectedCuenta))) return false;
         Snackbar.Add("No se puede agregar otro detalle a la misma cuenta", Severity.Error);
         return true;
     }

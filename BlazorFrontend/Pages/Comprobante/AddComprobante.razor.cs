@@ -105,13 +105,12 @@ public partial class AddComprobante
         _detalles.Add(detalleComprobanteDto);
     }
 
-    private int GetNextSerie(int idEmpresa)
+    private async Task<int> GetNextSerie(int idEmpresa)
     {
         var maxSerie = Comprobantes
-                       .Where(e => e.Estado   == EstadoComprobante.Abierto &&
-                                   e.IdMoneda == idEmpresa).Max(e => e.Serie)!;
+                       .Where(e => e.IdEmpresa == idEmpresa).Max(e => e.Serie)!;
 
-        return (maxSerie ?? 0) + 1;
+        return await Task.FromResult((maxSerie ?? 0) + 1);
     }
 
     private async Task<decimal?> SetTipoCambio(int? idMonedaAlternativa)
@@ -141,7 +140,7 @@ public partial class AddComprobante
                 "AddNewDetalleComprobante",
                 EventCallback.Factory.Create<DetalleComprobanteDto>(this, AddNewDetalleComprobante)
             },
-            {"_detalles", _detalles}
+            {"Detalles", _detalles}
         };
         await DialogService.ShowAsync<DetalleComprobanteModal>("Ingrese los detalles del comprobante", parameters, options);
     }
@@ -183,8 +182,13 @@ public partial class AddComprobante
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Comprobante agregado exitosamente", Severity.Success);
-            var nextSerie = GetNextSerie(IdEmpresa);
-            SerieString = nextSerie.ToString();
+            await OnSerieChanged();
         }
+    }
+
+    private async Task OnSerieChanged()
+    {
+        Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
+        SerieString  = GetNextSerie(IdEmpresa).ToString();
     }
 }
