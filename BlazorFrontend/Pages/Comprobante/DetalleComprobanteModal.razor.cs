@@ -44,7 +44,8 @@ public partial class DetalleComprobanteModal
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+        Cuentas                              = await CuentaService.GetCuentasDetalle(IdEmpresa);
     }
 
     private async Task<IEnumerable<string>> SearchCuenta(string value)

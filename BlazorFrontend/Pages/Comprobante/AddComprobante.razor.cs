@@ -80,21 +80,21 @@ public partial class AddComprobante
 
     private async Task<bool> ValidateFechaComprobante()
     {
-        var gestionesActivas   = Gestiones.Where(g => g.Estado == EstadosGestion.Abierto).ToList();
-        var periodoActivo      = new List<PeriodoDto>();
-        var periodoActivoAlt    = new List<PeriodoDto>();
+        var gestionesActivas = Gestiones.Where(g => g.Estado == EstadosGestion.Abierto).ToList();
+        var periodoActivoAlt = new List<PeriodoDto>();
 
-        periodoActivo = await PeriodoService.GetPeriodosAsync(gestionesActivas.First().IdGestion);
-        if (gestionesActivas.Count  != 1)
+        var periodoActivo = await PeriodoService.GetPeriodosAsync(gestionesActivas.First().IdGestion);
+        if (gestionesActivas.Count != 1)
         {
             periodoActivoAlt = await PeriodoService.GetPeriodosAsync(gestionesActivas.Last().IdGestion);
         }
 
-        if (periodoActivo.Any(p => Fecha!.Value >= p.FechaInicio && Fecha!.Value <= p.FechaFin ) ||
+        if (periodoActivo.Any(p => Fecha!.Value     >= p.FechaInicio  && Fecha!.Value <= p.FechaFin) ||
             periodoActivoAlt.Any(pa => Fecha!.Value >= pa.FechaInicio && Fecha!.Value <= pa.FechaFin))
         {
             return await Task.FromResult(true);
         }
+
         return false;
     }
 
@@ -126,6 +126,13 @@ public partial class AddComprobante
                              .Where(m => m.IdMoneda == idMonedaPrincipal ||
                                          m.IdMoneda == idMonedaAlternativa)
                              .ToList();
+
+        #region Snackbar Config
+        Snackbar.Configuration.PositionClass        = Defaults.Classes.Position.BottomLeft;
+        Snackbar.Configuration.ClearAfterNavigation = true;
+        Snackbar.Configuration.ShowCloseIcon        = false;
+        Snackbar.Configuration.PreventDuplicates    = true;
+        #endregion
 
         await InvokeAsync(StateHasChanged);
     }
