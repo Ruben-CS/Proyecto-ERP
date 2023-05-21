@@ -50,21 +50,28 @@
     </MudNavMenu>
 </MudDrawer>
 
-<MudStack Row="true">
-    <MudText Typo="Typo.h5" Align="Align.Center">
-        Administracion del periodo de la gestion - @_gestionDto.Nombre
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+    <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">
+        <MudTooltip Text="Volver a gestion">
+            <MudIconButton Size="Size.Medium"
+                           Icon="@Icons.Material.Filled.ArrowBack"
+                           Color="Color.Dark"
+                           OnClick="@(GoBack)"
+                           Style="align-self: center"/>
+        </MudTooltip>
+        Administracion del periodo de la gestion: @_gestionDto.Nombre
     </MudText>
-    <MudChip Size="Size.Small"
-             Icon="@Icons.Material.Filled.ArrowBack"
-             Color="Color.Dark"
-             OnClick="@(GoBack)"
-             Class="d-flex justify-end">
-        Volver
-    </MudChip>
 </MudStack>
-<MudDivider />
-<MudTable Items="@_periodos" Hover="true" Breakpoint="Breakpoint.Sm" Bordered="true"
-          Striped="true">
+<MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="mb-5"/>
+<MudTable Items="@_periodos"
+          Hover="true"
+          Breakpoint="Breakpoint.Sm"
+          Bordered="true"
+          Striped="true"
+          Elevation="3">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>
