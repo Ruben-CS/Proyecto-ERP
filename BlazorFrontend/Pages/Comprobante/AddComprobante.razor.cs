@@ -12,7 +12,7 @@ public partial class AddComprobante
 
     private bool _success;
 
-    private MudForm _form;
+    private MudForm? _form;
 
     #region DataForComprobante
 
@@ -68,6 +68,15 @@ public partial class AddComprobante
     private readonly ObservableCollection<DetalleComprobanteDto> _detalles = new();
 
     #endregion
+
+
+    private decimal TotalDebe => _detalles.Sum(x => x.MontoDebe);
+
+    private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+
+    private bool HasMoreThanTwoDetalles() => _detalles.Count < 2;
+
+    private bool SumDebeAndHaberIsEqual() => TotalDebe.Equals(TotalHaber);
 
 
     protected override async Task OnInitializedAsync()
@@ -158,11 +167,24 @@ public partial class AddComprobante
             IdEmpresa       = IdEmpresa,
             IdUsuario       = 1
         };
+        if (HasMoreThanTwoDetalles())
+        {
+            Snackbar.Add("Debe agregar al menos dos detalles",Severity.Error);
+            return;
+        }
+
+        if (!SumDebeAndHaberIsEqual())
+        {
+            Snackbar.Add("El total del debe y el haber deben ser iguales", Severity.Error);
+            return;
+        }
 
         var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Comprobante agregado exitosamente", Severity.Success);
+            var nextSerie = GetNextSerie(IdEmpresa);
+            SerieString = nextSerie.ToString();
         }
     }
 }
