@@ -9,7 +9,6 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class AddComprobante
 {
-
     private bool _success;
 
     private MudForm? _form;
@@ -54,6 +53,10 @@ public partial class AddComprobante
 
     private List<ComprobanteDto> Comprobantes { get; set; } = new();
 
+    public List<GestionDto> Gestiones { get; set; } = new();
+
+    public List<PeriodoDto> Periodos { get; set; } = new();
+
     #endregion
 
     #region Parameters
@@ -69,15 +72,42 @@ public partial class AddComprobante
 
     #endregion
 
-
-    private decimal TotalDebe => _detalles.Sum(x => x.MontoDebe);
-
-    private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+    #region Validations
 
     private bool HasMoreThanTwoDetalles() => _detalles.Count < 2;
 
     private bool SumDebeAndHaberIsEqual() => TotalDebe.Equals(TotalHaber);
 
+    private async Task<bool> ValidateFechaComprobante()
+    {
+        var gestionesActivas   = Gestiones.Where(g => g.Estado == EstadosGestion.Abierto).ToList();
+        var periodoActivo      = new List<PeriodoDto>();
+        var periodoActivoAlt    = new List<PeriodoDto>();
+
+        periodoActivo = await PeriodoService.GetPeriodosAsync(gestionesActivas.First().IdGestion);
+        if (gestionesActivas.Count  != 1)
+        {
+            periodoActivoAlt = await PeriodoService.GetPeriodosAsync(gestionesActivas.Last().IdGestion);
+        }
+
+        if (periodoActivo.Any(p => Fecha!.Value >= p.FechaInicio && Fecha!.Value <= p.FechaFin ) ||
+            periodoActivoAlt.Any(pa => Fecha!.Value >= pa.FechaInicio && Fecha!.Value <= pa.FechaFin))
+        {
+            return await Task.FromResult(true);
+        }
+        return false;
+    }
+
+    private async Task InitializeGestion() => Gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
+
+    #endregion
+
+    private decimal TotalDebe => _detalles.Sum(x => x.MontoDebe);
+
+    private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+
+    private async Task RefreshComprobanteList() =>
+        Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
 
     protected override async Task OnInitializedAsync()
     {
@@ -85,8 +115,8 @@ public partial class AddComprobante
         MonedasDeLaEmpresa = (await MonedaService.GetMonedasAsync())!;
         Comprobantes       = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
         ComprobanteTypes   = Enum.GetNames(typeof(TipoComprobante)).ToList();
-
-        var nextSerie = GetNextSerie(IdEmpresa);
+        await InitializeGestion();
+        var nextSerie = GetNextSerie(IdEmpresa).Result;
         SerieString = nextSerie.ToString();
         //TODO Optimize this code
         var idMonedaPrincipal   = EmpresaMonedas!.First().IdMonedaPrincipal;
@@ -140,9 +170,10 @@ public partial class AddComprobante
                 "AddNewDetalleComprobante",
                 EventCallback.Factory.Create<DetalleComprobanteDto>(this, AddNewDetalleComprobante)
             },
-            {"Detalles", _detalles}
+            { "Detalles", _detalles }
         };
-        await DialogService.ShowAsync<DetalleComprobanteModal>("Ingrese los detalles del comprobante", parameters, options);
+        await DialogService.ShowAsync<DetalleComprobanteModal>("Ingrese los detalles del comprobante", parameters,
+            options);
     }
 
     private async Task AgregarComprobante()
@@ -168,13 +199,19 @@ public partial class AddComprobante
         };
         if (HasMoreThanTwoDetalles())
         {
-            Snackbar.Add("Debe agregar al menos dos detalles",Severity.Error);
+            Snackbar.Add("Debe agregar al menos dos detalles", Severity.Error);
             return;
         }
 
         if (!SumDebeAndHaberIsEqual())
         {
             Snackbar.Add("El total del debe y el haber deben ser iguales", Severity.Error);
+            return;
+        }
+
+        if (!await ValidateFechaComprobante())
+        {
+            Snackbar.Add("La fecha del comprobante no esta dentro de un periodo activo", Severity.Error);
             return;
         }
 
@@ -188,7 +225,7 @@ public partial class AddComprobante
 
     private async Task OnSerieChanged()
     {
-        Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
-        SerieString  = GetNextSerie(IdEmpresa).ToString();
+        await RefreshComprobanteList();
+        SerieString = GetNextSerie(IdEmpresa).ToString();
     }
 }

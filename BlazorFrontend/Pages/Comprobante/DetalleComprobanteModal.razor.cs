@@ -24,7 +24,7 @@ public partial class DetalleComprobanteModal
     public List<CuentaDto> Cuentas { get; set; } = new();
 
     [Parameter]
-    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = null!;
+    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = new();
 
     #region Fields
 
@@ -54,7 +54,6 @@ public partial class DetalleComprobanteModal
         {
             return await Task.FromResult(nombreCuentas);
         }
-
         return nombreCuentas.Where(c => c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 

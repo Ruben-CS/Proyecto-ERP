@@ -2,6 +2,8 @@
 @using global::Services.EmpresaMonedaService
 @using global::Services.Moneda
 @using global::Services.Comprobante
+@using global::Services.Gestion
+@using global::Services.Periodo
 @using Modelos.Models.Enums
 @inject EmpresaMonedaService EmpresaMonedaService
 @inject MonedaService MonedaService
@@ -10,6 +12,8 @@
 @inject ComprobanteService ComprobanteService
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
+@inject GestionServices GestionServices
+@inject PeriodoService PeriodoService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
@@ -25,7 +29,8 @@
                               T="string"
                               @bind-Value="SerieString"
                               Disabled="true"
-                              Margin="Margin.Dense"/>
+                              Margin="Margin.Dense"
+                              Class="right-aligned-input"/>
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudDatePicker Variant="Variant.Outlined"

@@ -2,7 +2,7 @@
 <MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
     <MudTable Hover="true"
               Striped="true"
-              RowsPerPage="3"
+              RowsPerPage="4"
               Items="Detalles"
               Dense="true"
               Bordered="true"
@@ -58,13 +58,19 @@
             </MudTd>
             <MudTd/>
         </FooterContent>
+        <PagerContent>
+            <MudTablePager
+                HorizontalAlignment="HorizontalAlignment.Left"
+                HidePageNumber="true"
+                HideRowsPerPage="true"/>
+        </PagerContent>
     </MudTable>
 </MudPaper>
 
 @code {
 
     [Parameter]
-    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = null!;
+    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = new();
 
     private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
 
