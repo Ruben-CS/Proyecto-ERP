@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.IdentityModel.Tokens;
 using Modelos.Models.Dtos;
 using MudBlazor;
 
@@ -8,6 +9,9 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteModal
 {
+    [GeneratedRegex("\\d+(\\.\\d+)*")]
+    private static partial Regex MyRegex();
+
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; } = null!;
 
@@ -63,6 +67,8 @@ public partial class DetalleComprobanteModal
         if (IsHaberOrDebeZero(Debe.Value, Haber.Value))
             return;
         if (CuentaHasMoreExistingDetalle())
+            return;
+        if(IsGlosaNullOrEmpty(Glosa))
             return;
 
         var selectedCuentaCodigo = ExtractCodigo(SelectedCuenta!);
@@ -132,13 +138,18 @@ public partial class DetalleComprobanteModal
         return true;
     }
 
+    private bool IsGlosaNullOrEmpty(string? glosa)
+    {
+        if (!glosa.IsNullOrEmpty()) return false;
+        Snackbar.Add("La glosa no puede estar vacia", Severity.Error);
+        return true;
+
+    }
+
     private static string ExtractCodigo(string nombreCuenta)
     {
         var regex = MyRegex();
         var match = regex.Match(nombreCuenta);
         return match.Success ? match.Value : string.Empty;
     }
-
-    [GeneratedRegex("\\d+(\\.\\d+)*")]
-    private static partial Regex MyRegex();
 }
