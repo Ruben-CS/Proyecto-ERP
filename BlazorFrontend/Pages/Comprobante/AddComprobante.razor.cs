@@ -9,6 +9,11 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class AddComprobante
 {
+
+    private bool _success;
+
+    private MudForm _form;
+
     #region DataForComprobante
 
     private DateTime? Fecha { get; set; } = DateTime.Today;

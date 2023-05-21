@@ -17,85 +17,96 @@
 <MudText Typo="Typo.h4" GutterBottom="true">Datos del comprobante</MudText>
 
 <MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px;">
-    <MudGrid Spacing="2" Justify="Justify.Center">
-        <MudItem xs="12" sm="4">
-            <MudTextField Variant="Variant.Outlined"
-                          Label="Serie"
-                          T="string"
-                          @bind-Value="SerieString"
-                          Disabled="true"
-                          Margin="Margin.Dense"/>
-        </MudItem>
-        <MudItem xs="12" sm="4">
-            <MudDatePicker Variant="Variant.Outlined"
-                           Label="Fecha"
-                           @bind-Date="@Fecha"
-                           Margin="Margin.Dense"/>
-        </MudItem>
-        <MudItem xs="12" sm="4">
-            <MudSelect Variant="Variant.Outlined"
-                       Label="Tipo de comprobante"
-                       @bind-Value="SelectedTipoComprobante"
-                       T="string"
-                       Margin="Margin.Dense"
-                       Dense="true">
-                @foreach (var type in ComprobanteTypes)
-                {
-                    <MudSelectItem Value="@type">@type</MudSelectItem>
-                }
-            </MudSelect>
+    <MudForm @ref="_form" @bind-IsValid="@_success">
+        <MudGrid Spacing="2" Justify="Justify.Center">
+            <MudItem xs="12" sm="4">
+                <MudTextField Variant="Variant.Outlined"
+                              Label="Serie"
+                              T="string"
+                              @bind-Value="SerieString"
+                              Disabled="true"
+                              Margin="Margin.Dense"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudDatePicker Variant="Variant.Outlined"
+                               Label="Fecha"
+                               @bind-Date="@Fecha"
+                               Margin="Margin.Dense"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Tipo de comprobante"
+                           @bind-Value="SelectedTipoComprobante"
+                           T="string"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Required="true"
+                           RequiredError="Seleccione un tipo de comprobante">
+                    @foreach (var type in ComprobanteTypes)
+                    {
+                        <MudSelectItem Value="@type">@type</MudSelectItem>
+                    }
+                </MudSelect>
 
-        </MudItem>
-        <MudItem xs="12" sm="4">
-            <MudTextField @bind-Value="@TipoDeCambioString"
-                          Label="Tipo de cambio"
-                          Class="right-aligned-input"
-                          Variant="Variant.Outlined"
-                          Margin="Margin.Dense"/>
-        </MudItem>
-        <MudItem xs="12" sm="4">
-            <MudSelect Variant="Variant.Outlined"
-                       Label="Moneda"
-                       @bind-Value="SelectedEmpresaMoneda"
-                       T="string"
-                       Margin="Margin.Dense"
-                       Dense="true">
-                @foreach (var moneda in MonedasDeLaEmpresa)
-                {
-                    <MudSelectItem Value="@moneda!.Nombre">
-                        @moneda.Nombre
-                    </MudSelectItem>
-                }
-            </MudSelect>
-        </MudItem>
-        <MudItem xs="12" sm="4">
-            <MudSelect Variant="Variant.Outlined"
-                       Label="Estado"
-                       T="string"
-                       Disabled="true"
-                       bind-Text="@EstadoComprobante.Abierto.ToString()"
-                       Placeholder="@EstadoComprobante.Abierto.ToString()"
-                       Margin="Margin.Dense"
-                       Dense="true">
-            </MudSelect>
-        </MudItem>
-        <MudItem xs="12">
-            <MudTextField Variant="Variant.Outlined"
-                          Label="Glosa"
-                          T="string"
-                          @bind-Value="Glosa"
-                          Margin="Margin.Dense"/>
-        </MudItem>
-    </MudGrid>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField @bind-Value="@TipoDeCambioString"
+                              Label="Tipo de cambio"
+                              Class="right-aligned-input"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              Required="true"
+                              RequiredError="Tipo de cambio no puede estar vacio"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Moneda"
+                           @bind-Value="SelectedEmpresaMoneda"
+                           T="string"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Required="true"
+                           RequiredError="Debe seleccionar una moneda">
+                    @foreach (var moneda in MonedasDeLaEmpresa)
+                    {
+                        <MudSelectItem Value="@moneda!.Nombre">
+                            @moneda.Nombre
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Estado"
+                           T="string"
+                           Disabled="true"
+                           bind-Text="@EstadoComprobante.Abierto.ToString()"
+                           Placeholder="@EstadoComprobante.Abierto.ToString()"
+                           Margin="Margin.Dense"
+                           Dense="true">
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12">
+                <MudTextField Variant="Variant.Outlined"
+                              Label="Glosa"
+                              T="string"
+                              @bind-Value="Glosa"
+                              Margin="Margin.Dense"
+                              Required="true"
+                              RequiredError="Glosa no puede estar vacia"/>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
 
-    <MudStack Row="true" Class="mt-3 fade-in" Style="align-self: end" >
+    <MudStack Row="true" Class="mt-3 fade-in" Style="align-self: end">
         <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
             <MudFab Color="Color.Success"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Filled.PostAdd"
                     Size="Size.Small"
                     Class="squircle-fab"
-                    OnClick="@AgregarComprobante"/>
+                    OnClick="@AgregarComprobante"
+                    Disabled="@(!_success)" />
         </MudTooltip>
         <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
             <MudFab Color="Color.Info"
