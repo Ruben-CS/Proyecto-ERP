@@ -73,4 +73,23 @@ public class ComprobanteController : ControllerBase
         }
         return _responseDto;
     }
+
+    [HttpDelete("anularComprobante/{idComprobante:int}")]
+    public async Task<object> AnularComprobante(int idComprobante)
+    {
+        try
+        {
+            var comprobantes = await _comprobanteRepository.AnularComprobante(idComprobante);
+            _responseDto.Result = comprobantes;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+        return _responseDto;
+    }
 }

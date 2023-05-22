@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using Services.Repository.Interfaces;
 
 namespace Services.Repository;
@@ -66,8 +67,13 @@ public class ComprobanteRepository : IComprobanteRepository
         return _mapper.Map<ComprobanteDto>(comprobante);
     }
 
-    public Task<bool> DeleteComprobante(int idComprobante)
+    public async Task<object> AnularComprobante(int idComprobante)
     {
-        throw new NotImplementedException();
+        var comprobante = await _dbContext.Comprobantes
+                                          .Where(c => c.IdComprobante == idComprobante)
+                                          .FirstOrDefaultAsync();
+        comprobante!.Estado = EstadoComprobante.Anulado;
+        await _dbContext.SaveChangesAsync();
+        return await Task.FromResult(true);
     }
 }

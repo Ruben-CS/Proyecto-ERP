@@ -13,5 +13,5 @@ public interface IComprobanteRepository
 
     public Task<ComprobanteDto> EditComprobante(int idComprobante);
 
-    public Task<bool> DeleteComprobante(int idComprobante);
+    public Task<object> AnularComprobante(int idComprobante);
 }

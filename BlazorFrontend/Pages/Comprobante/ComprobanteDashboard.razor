@@ -28,7 +28,7 @@
 
 <MudTable Hover="true"
           Striped="true"
-          RowsPerPage="8"
+          RowsPerPage="7"
           Items="Comprobantes"
           Elevation="2"
           Class="fade-in"
@@ -56,7 +56,8 @@
             <MudButton OnClick="() => NavigateToDetalleComprobante(context.IdComprobante, context.IdEmpresa)"
                        Size="Size.Small"
                        Class="rounded-pill"
-                       StartIcon="@Icons.Material.Filled.Preview">
+                       StartIcon="@Icons.Material.Filled.Preview"
+                       Color="Color.Info">
                 <MudText Typo="Typo.button">Ver Detalles</MudText>
             </MudButton>
         </MudTd>
