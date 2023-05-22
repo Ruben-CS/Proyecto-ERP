@@ -7,10 +7,24 @@
 @inject IDialogService DialogService
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
-<h3>Lista de gestiones</h3>
 
-<MudTable Items="@_gestiones" Hover="true" Breakpoint="Breakpoint.Sm" Bordered="true"
-          Striped="true">
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+    <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">
+        Lista de gestiones
+    </MudText>
+</MudStack>
+<MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="mb-5"/>
+
+<MudTable Items="@_gestiones"
+          Hover="true"
+          Breakpoint="Breakpoint.Sm"
+          Bordered="true"
+          Striped="true"
+          Elevation="3">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>
@@ -21,7 +35,7 @@
         </MudTh>
         <MudTh>Fecha de cierre</MudTh>
         <MudTh>Estado</MudTh>
-        <MudTh>Acciones</MudTh>
+        <MudTh Style="text-align: center">Acciones</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
@@ -32,8 +46,8 @@
                 @context.Estado
             </MudChip>
         </MudTd>
-        <MudTd DataLabel="Acciones">
-            <MudStack Row="true">
+        <MudTd DataLabel="Acciones" Style="text-align: center">
+            <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
                 <MudTooltip Text="Editar Gestion" ShowOnClick="Click"
                             ShowOnFocus="Focus">
                     <MudIconButton Class="pa-1"

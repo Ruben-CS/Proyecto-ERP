@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using MudBlazor;
@@ -105,6 +106,9 @@ public partial class AddComprobante
     private decimal TotalDebe => _detalles.Sum(x => x.MontoDebe);
 
     private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
+
+    private async Task GoBack() => await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
+
 
     private async Task RefreshComprobanteList() =>
         Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);

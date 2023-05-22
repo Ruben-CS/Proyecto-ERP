@@ -7,22 +7,36 @@
 @inject ComprobanteService ComprobanteService
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
-<MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Comprobantes</MudText>
-<MudButton ButtonType="ButtonType.Button"
-           Color="Color.Success"
-           Variant="Variant.Filled"
-           OnClick="GoToDetalle"
-           Style="align-self: flex-end">
-    <MudText>Agregar Comprobante</MudText>
-</MudButton>
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Comprobantes</MudText>
+    <div style="display: flex; align-items: center;">
+        <MudButton ButtonType="ButtonType.Button"
+                   Color="Color.Success"
+                   Variant="Variant.Filled"
+                   OnClick="GoToDetalle"
+                   Style="justify-self: flex-end; align-self: center"
+                   Class="mb-4">
+            <MudText>Agregar Comprobante</MudText>
+        </MudButton>
+    </div>
+</MudStack>
+
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
 
 <MudTable Hover="true"
           Striped="true"
-          RowsPerPage="5"
+          RowsPerPage="8"
           Items="Comprobantes"
           Elevation="2"
           Class="fade-in"
-          Bordered="true">
+          Bordered="true"
+          Loading="IsLoading"
+          LoadingProgressColor="Color.Dark">
     <HeaderContent>
         <MudTh>Serie</MudTh>
         <MudTh>Fecha</MudTh>

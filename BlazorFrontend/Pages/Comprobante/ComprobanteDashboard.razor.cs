@@ -10,10 +10,13 @@ public partial class ComprobanteDashboard
 
     private List<ComprobanteDto> Comprobantes { get; set; } = new();
 
+    private bool IsLoading { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            IsLoading = true;
             var uri      = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
             var idValue  = segments[^1];
@@ -23,6 +26,7 @@ public partial class ComprobanteDashboard
                 Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
                 IdEmpresa    = int.Parse(idValue);
                 await InvokeAsync(StateHasChanged);
+                IsLoading = false;
             }
             else
             {

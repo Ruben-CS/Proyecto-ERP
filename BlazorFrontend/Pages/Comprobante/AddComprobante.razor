@@ -14,11 +14,26 @@
 @inject ISnackbar Snackbar
 @inject GestionServices GestionServices
 @inject PeriodoService PeriodoService
+@inject IJSRuntime JsRuntime
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudText Typo="Typo.h4" GutterBottom="true">Datos del comprobante</MudText>
+<MudText Typo="Typo.h5" GutterBottom="true">
+    <MudTooltip Text="Volver a gestion">
+        <MudIconButton Size="Size.Medium"
+                       Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Dark"
+                       OnClick="@(GoBack)"
+                       Style="align-self: center"/>
+    </MudTooltip>
+    Datos del comprobante
+</MudText>
+
+<MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="mb-5"/>
 
 <MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px;">
     <MudForm @ref="_form" @bind-IsValid="@_success">
@@ -111,7 +126,7 @@
                     Size="Size.Small"
                     Class="squircle-fab"
                     OnClick="@AgregarComprobante"
-                    Disabled="@(!_success)" />
+                    Disabled="@(!_success)"/>
         </MudTooltip>
         <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
             <MudFab Color="Color.Info"
