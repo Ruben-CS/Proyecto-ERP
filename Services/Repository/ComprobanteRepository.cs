@@ -22,7 +22,8 @@ public class ComprobanteRepository : IComprobanteRepository
     public async Task<ComprobanteDto> CrearComprobante(
         ComprobanteDto comprobanteDto, int idEmpresa)
     {
-        var comprobante = _mapper.Map<ComprobanteDto, Modelos.Models.Comprobante>(comprobanteDto);
+        var comprobante =
+            _mapper.Map<ComprobanteDto, Modelos.Models.Comprobante>(comprobanteDto);
 
         var maxSerie = await _dbContext.Comprobantes
                                        .Where(e =>
@@ -38,22 +39,31 @@ public class ComprobanteRepository : IComprobanteRepository
     public async Task<List<ComprobanteDto>> GetAllComprobantes(
         int idEmpresa)
     {
-        var comprobantes =  await _dbContext.Comprobantes.Where(c => c.IdEmpresa == idEmpresa).ToListAsync();
+        var comprobantes = await _dbContext.Comprobantes
+                                           .Where(c => c.IdEmpresa == idEmpresa)
+                                           .ToListAsync();
         if (comprobantes.IsNullOrEmpty())
         {
             Console.WriteLine("fuck you this is why: ");
         }
+
         return _mapper.Map<List<ComprobanteDto>>(comprobantes);
     }
 
-    public Task<ComprobanteDto> GetCombrobanteById(int idComprobante)
+    public async Task<ComprobanteDto> GetCombrobanteById(int idComprobante)
     {
-        throw new NotImplementedException();
+        var comprobante = await _dbContext.Comprobantes.Where(c =>
+            c.IdComprobante
+            == idComprobante).FirstOrDefaultAsync();
+        return _mapper.Map<ComprobanteDto>(comprobante);
     }
 
-    public Task<ComprobanteDto> EditComprobante(int idComprobante)
+    public async Task<ComprobanteDto> EditComprobante(int idComprobante)
     {
-        throw new NotImplementedException();
+        var comprobante =
+            await _dbContext.Comprobantes.SingleOrDefaultAsync(c =>
+                c.IdComprobante == idComprobante);
+        return _mapper.Map<ComprobanteDto>(comprobante);
     }
 
     public Task<bool> DeleteComprobante(int idComprobante)

@@ -36,18 +36,30 @@
           Loading="IsLoading"
           LoadingProgressColor="Color.Dark">
     <HeaderContent>
-        <MudTh>Serie</MudTh>
+        <MudTh>
+            <MudTableSortLabel InitialDirection="SortDirection.Descending"
+                               SortBy="new Func<ComprobanteDto, object>(x => x.Serie)">
+                Serie
+            </MudTableSortLabel>
+        </MudTh>
         <MudTh>Fecha</MudTh>
         <MudTh>Glosa</MudTh>
         <MudTh>Tipo</MudTh>
-        <MudTh>Acciones</MudTh>
+        <MudTh Style="text-align: center">Acciones</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Serie">@context.Serie</MudTd>
         <MudTd DataLabel="Fecha">@context.Fecha.ToString("d")</MudTd>
         <MudTd DataLabel="Glosa">@context.Glosa</MudTd>
         <MudTd DataLabel="Tipo">@context.TipoComprobante</MudTd>
-        <MudTd DataLabel="Acciones"></MudTd>
+        <MudTd DataLabel="Acciones">
+            <MudButton OnClick="() => NavigateToDetalleComprobante(context.IdComprobante, context.IdEmpresa)"
+                       Size="Size.Small"
+                       Class="rounded-pill"
+                       StartIcon="@Icons.Material.Filled.Preview">
+                <MudText Typo="Typo.button">Ver Detalles</MudText>
+            </MudButton>
+        </MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager

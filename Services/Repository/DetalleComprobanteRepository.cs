@@ -1,6 +1,6 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
-using Modelos.Models;
 using Modelos.Models.Dtos;
 using Services.Repository.Interfaces;
 
@@ -17,12 +17,23 @@ public class DetalleComprobanteRepository : IDetalleComprobanteRepository
         _mapper    = mapper;
     }
 
-    public async Task<object> CreateDetalleComprobante(int idComprobante,
-                                                 DetalleComprobanteDto detalleComprobanteDto)
+    public async Task<object> CreateDetalleComprobante(
+        DetalleComprobanteDto detalleComprobanteDto)
     {
-        var detalleComprobante = _mapper.Map<DetalleComprobanteDto, DetalleComprobante>(detalleComprobanteDto);
+        var detalleComprobante =
+            _mapper.Map<DetalleComprobanteDto, Modelos.Models.DetalleComprobante>(
+                detalleComprobanteDto);
         await _dbContext.AddAsync(detalleComprobante);
         await _dbContext.SaveChangesAsync();
-        return _mapper.Map<DetalleComprobante, DetalleComprobanteDto>(detalleComprobante);
+        return _mapper.Map<Modelos.Models.DetalleComprobante, DetalleComprobanteDto>(
+            detalleComprobante);
+    }
+
+    public async Task<object> GetComprobantes(int idComprobante)
+    {
+        var detalles = await _dbContext.DetalleComprobantes.Where(dc =>
+            dc.IdComprobante ==
+            idComprobante).ToListAsync();
+        return await Task.FromResult(_mapper.Map<List<DetalleComprobanteDto>>(detalles));
     }
 }

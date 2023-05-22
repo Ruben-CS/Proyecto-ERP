@@ -1,0 +1,212 @@
+@page "/VerDetallesComprobante/{idempresa:int}/{idcomprobante:int}"
+@using global::Services.Comprobante
+@using global::Services.DetalleComprobante
+@using System.Collections.ObjectModel
+@layout ComprobanteLayout
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject ComprobanteService ComprobanteService
+@inject DetalleComprobanteService DetalleComprobanteService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudText Typo="Typo.h5" GutterBottom="true">
+    <MudTooltip Text="Volver a gestion">
+        <MudIconButton Size="Size.Medium"
+                       Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Dark"
+                       OnClick="@(GoBack)"
+                       Style="align-self: center"/>
+    </MudTooltip>
+    Datos del comprobante
+</MudText>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px;">
+    <MudForm>
+        <MudGrid Spacing="2" Justify="Justify.Center">
+            <MudItem xs="12" sm="4">
+                <MudTextField Variant="Variant.Outlined"
+                              Label="Serie"
+                              @bind-Value="@ComprobanteDto.Serie"
+                              Disabled="true"
+                              Margin="Margin.Dense"
+                              Class="right-aligned-input"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudDatePicker Variant="Variant.Outlined"
+                               Label="Fecha"
+                               @bind-Date="@Fecha"
+                               Margin="Margin.Dense"
+                               Disabled="true"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Tipo de comprobante"
+                           @bind-Value="@ComprobanteDto.TipoComprobante"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Required="true"
+                           RequiredError="Seleccione un tipo de comprobante"
+                           Disabled="true">
+                </MudSelect>
+
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField
+                    @bind-Value="@ComprobanteDto.Tc"
+                    Label="Tipo de cambio"
+                    Class="right-aligned-input"
+                    Variant="Variant.Outlined"
+                    Margin="Margin.Dense"
+                    Required="true"
+                    RequiredError="Tipo de cambio no puede estar vacio"
+                    Disabled="true"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Moneda"
+                           @bind-Value="@ComprobanteDto.IdMoneda"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Required="true"
+                           RequiredError="Debe seleccionar una moneda"
+                           Disabled="true">
+
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Estado"
+                           Disabled="true"
+                           @bind-Value="@ComprobanteDto.Estado"
+                           Margin="Margin.Dense"
+                           Dense="true">
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12">
+                <MudTextField Variant="Variant.Outlined"
+                              Label="Glosa"
+                              @bind-Value="@ComprobanteDto.Glosa"
+                              Margin="Margin.Dense"
+                              Required="true"
+                              RequiredError="Glosa no puede estar vacia"
+                              Disabled="true"/>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+</MudPaper>
+
+<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
+    <MudTable Hover="true"
+              Striped="true"
+              RowsPerPage="4"
+              Items="Detalles"
+              Dense="true"
+              Bordered="true"
+              Elevation="0"
+              Style="border-radius: 15px;">
+
+        <HeaderContent>
+            <MudTh Style="text-align: left">Cuenta</MudTh>
+            <MudTh Style="text-align: left">Glosa</MudTh>
+            <MudTh Style="text-align: right">Monto Debe</MudTh>
+            <MudTh Style="text-align: right">Monto Haber</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nombre Cuenta">
+                @context.NombreCuenta
+            </MudTd>
+            <MudTd DataLabel="Glosa">
+                @context.Glosa
+            </MudTd>
+            <MudTd DataLabel="Monto Debe" Style="text-align: right">
+                @(context.MontoDebe.ToString("F2"))
+            </MudTd>
+            <MudTd DataLabel="Monto Haber" Style="text-align: right">
+                @context.MontoHaber.ToString("F2")
+            </MudTd>
+        </RowTemplate>
+        <FooterContent>
+            <MudTd/>
+            <MudTd/>
+            <MudTd Style="text-align: right">
+                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2") </MudText>
+            </MudTd>
+            <MudTd Style="text-align: right">
+                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+            </MudTd>
+        </FooterContent>
+        <PagerContent>
+            <MudTablePager
+                HorizontalAlignment="HorizontalAlignment.Left"
+                HidePageNumber="true"
+                HideRowsPerPage="true"/>
+        </PagerContent>
+    </MudTable>
+</MudPaper>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>
+
+
+@code {
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    [Parameter]
+    public int IdComprobante { get; set; }
+
+    private ComprobanteDto ComprobanteDto { get; set; } = new();
+
+    private List<DetalleComprobanteDto> Detalles { get; set; } = new();
+
+    private DateTime? Fecha { get; set; }
+
+    private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
+
+    private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
+            {
+                ComprobanteDto = await ComprobanteService.GetComprobanteByIdAsync(id);
+                Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(id-1);
+                IdEmpresa = Convert.ToInt32(segments[^2]);
+                Fecha = ComprobanteDto.Fecha;
+            }
+            else
+            {
+                throw new ArgumentException
+                    ("The 'idgestion' parameter is missing or invalid.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"An error occurred while initializing the component: {ex}");
+        }
+    }
+
+    private async Task GoBack() =>
+        await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
+
+
+}

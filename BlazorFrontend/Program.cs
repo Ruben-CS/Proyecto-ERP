@@ -4,6 +4,7 @@ using BlazorFrontend.Services;
 using BlazorFrontend.Utility_Class;
 using Services.Comprobante;
 using Services.Cuenta;
+using Services.DetalleComprobante;
 using Services.EmpresaMonedaService;
 using Services.Gestion;
 using Services.Moneda;
@@ -24,6 +25,7 @@ builder.Services.AddScoped<MonedaService>();
 builder.Services.AddScoped<EmpresaMonedaService>();
 builder.Services.AddScoped<ComprobanteService>();
 builder.Services.AddScoped<AppStateService>();
+builder.Services.AddScoped<DetalleComprobanteService>();
 builder.Services.AddBlazoredLocalStorage();
 var app = builder.Build();
 

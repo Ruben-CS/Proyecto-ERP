@@ -36,8 +36,8 @@ public static class MappingConfiguration
             config.CreateMap<ComprobanteDto, Modelos.Models.Comprobante>();
             config.CreateMap<Modelos.Models.Comprobante, ComprobanteDto>();
 
-            config.CreateMap<DetalleComprobante, DetalleComprobanteDto>();
-            config.CreateMap<DetalleComprobanteDto, DetalleComprobante>();
+            config.CreateMap<Modelos.Models.DetalleComprobante, DetalleComprobanteDto>();
+            config.CreateMap<DetalleComprobanteDto, Modelos.Models.DetalleComprobante>();
         });
         return mappingConfig;
     }

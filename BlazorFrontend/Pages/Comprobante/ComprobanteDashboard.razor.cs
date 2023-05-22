@@ -41,6 +41,12 @@ public partial class ComprobanteDashboard
         }
     }
 
+    private void NavigateToDetalleComprobante(int idcomprobante, int idempresa)
+    {
+        var uri = $"/VerDetallesComprobante/{idempresa}/{idcomprobante}";
+        NavigationManager!.NavigateTo(uri);
+    }
+
     private void GoToDetalle()
     {
         var uri = $"/comprobantegrid/{IdEmpresa}";

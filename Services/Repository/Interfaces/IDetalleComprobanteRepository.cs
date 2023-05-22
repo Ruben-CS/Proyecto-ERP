@@ -4,6 +4,8 @@ namespace Services.Repository.Interfaces;
 
 public interface IDetalleComprobanteRepository
 {
-    public Task<object> CreateDetalleComprobante(int idComprobante,
-                                                 DetalleComprobanteDto detalleComprobanteDto);
+    public Task<object> CreateDetalleComprobante(
+        DetalleComprobanteDto detalleComprobanteDto);
+
+    public Task<object> GetComprobantes(int idComprobante);
 }

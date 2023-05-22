@@ -1,22 +1,20 @@
 using Modelos.Models.Dtos;
 using Newtonsoft.Json;
 
-namespace Services.Comprobante;
 
-public sealed class ComprobanteService
+namespace Services.DetalleComprobante;
+
+public class DetalleComprobanteService
 {
     private readonly HttpClient _httpClient;
 
-    public ComprobanteService(HttpClient httpClient) => _httpClient = httpClient;
+    public DetalleComprobanteService(HttpClient httpClient) => _httpClient = httpClient;
 
-    public async Task<List<ComprobanteDto>> GetComprobantesAsync(int idEmpresa) =>
-        await await Task.FromResult(GetApiResponseAsync<List<ComprobanteDto>>
-            ($"https://localhost:44352/getcomprobantes/{idEmpresa}"));
+    public async Task<List<DetalleComprobanteDto>> GetDetalleComprobantesAsync(
+        int idComprobante) =>
+        await await Task.FromResult(GetApiResponseAsync<List<DetalleComprobanteDto>>
+            ($"https://localhost:44352/detalleComprobantes/getDetallesById/{idComprobante}"));
 
-    public async Task<ComprobanteDto> GetComprobanteByIdAsync(int idComprobante) =>
-        await await Task.FromResult(
-            GetApiResponseAsync<ComprobanteDto>(
-                $"https://localhost:44352/getComprobanteById/{idComprobante}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {
