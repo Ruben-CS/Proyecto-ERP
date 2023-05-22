@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "C0bbvPs77D1gpd+4fFEbu08gI/exedeG/ZjxPRqd86g=",
+  "Hash": "LABjEbHjTgZ0TxPMJ7pGE6PmoVQRj0NiIByr5tYdcuI=",
   "Source": "BlazorFrontend",
   "BasePath": "_content/BlazorFrontend",
   "Mode": "Default",
@@ -40,10 +40,10 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.5\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.5\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -54,13 +54,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.5\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.js",
+      "Identity": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.5\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.5\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -71,7 +71,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.3\\staticwebassets\\MudBlazor.min.js"
+      "OriginalItemSpec": "C:\\Users\\ruben\\.nuget\\packages\\mudblazor\\6.2.5\\staticwebassets\\MudBlazor.min.js"
     },
     {
       "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlazorFrontend.styles.css",
@@ -106,6 +106,91 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlazorFrontend.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria1.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria1.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria1.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria2.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria2.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria2.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria3.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria3.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria3.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\alegria4.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "alegria4.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\alegria4.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\Animation.css",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "css/Animation.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Animation.css"
     },
     {
       "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\css\\site.css",
@@ -157,6 +242,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\interop.js"
+    },
+    {
+      "Identity": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\login.jpeg",
+      "SourceId": "BlazorFrontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ruben\\OneDrive\\Documents\\Repos\\ERP-Solultion\\Proyecto-ERP\\BlazorFrontend\\wwwroot\\",
+      "BasePath": "_content/BlazorFrontend",
+      "RelativePath": "login.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\login.jpeg"
     }
   ]
 }

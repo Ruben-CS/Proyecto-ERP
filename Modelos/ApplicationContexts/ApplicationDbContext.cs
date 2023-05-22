@@ -30,6 +30,17 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Comprobante>(entity =>
+        {
+            entity.Property(e => e.Tc)
+                  .HasColumnType("decimal(18,4)"); // or whatever precision and scale you need
+        });
+
+        modelBuilder.Entity<DetalleComprobante>(entity =>
+        {
+            entity.Property(e => e.NombreCuenta)
+                  .HasColumnType("nvarchar(max)");
+        });
 
         #region Configuracion Empresa
 
@@ -51,6 +62,14 @@ public class ApplicationDbContext : DbContext
         #endregion
 
         #region Configuracion Periodo
+
+        #endregion
+
+        #region Configuracion EmpresaMoneda
+        modelBuilder.Entity<EmpresaMoneda>()
+                    .Property(em => em.Cambio)
+                    .HasPrecision(18, 2);
+
 
         #endregion
 

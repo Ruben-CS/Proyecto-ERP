@@ -28,15 +28,8 @@ public partial class GestionOverview
         return count == 2;
     }
 
-    private bool _open;
-
     private const bool Click = false;
     private const bool Focus = false;
-
-    private bool IsExpanded { get; set; }
-
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-    private void ToggleDrawer()   => _open = !_open;
 
     private readonly DialogOptions _options = new()
     {
@@ -124,7 +117,7 @@ public partial class GestionOverview
     {
         if (gestion.IdGestion is not 0)
         {
-            var uri = $"/overview/inicioperiodo/{gestion.IdGestion}";
+            var uri = $"/overview/inicioperiodo/{IdEmpresa}/{gestion.IdGestion}";
             NavigationManager.NavigateTo(uri);
         }
         else

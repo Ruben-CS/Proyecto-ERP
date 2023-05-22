@@ -13,15 +13,10 @@ public partial class InicioPeriodo
     [Parameter]
     public int IdGestion { get; set; }
 
-    private bool IsExpanded { get; set; }
 
-    private bool _open;
+    [Parameter]
+    public int IdEmpresa { get; set; }
 
-    private const bool Click = false;
-    private const bool Focus = false;
-
-
-    private void ToggleDrawer() => _open = !_open;
 
     private IEnumerable<PeriodoDto> _periodos   = new List<PeriodoDto>();
     private GestionDto              _gestionDto = new();
@@ -45,6 +40,7 @@ public partial class InicioPeriodo
             {
                 _gestionDto = await GestionServices.GetGestionSingleAsync(id);
                 _periodos   = await PeriodoService.GetPeriodosAsync(IdGestion);
+                IdEmpresa   = Convert.ToInt32(segments[^2]);
             }
             else
             {
@@ -105,7 +101,7 @@ public partial class InicioPeriodo
 
     private async Task GoBack()
     {
-        await Task.FromResult(JSRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
+        await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
     }
 
     private async Task OnPeriodoDataGridChange(PeriodoDto periodoDto)
@@ -114,12 +110,4 @@ public partial class InicioPeriodo
         await InvokeAsync(StateHasChanged);
     }
 
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-
-    private void NavigateToCuentas()
-    {
-        if(_gestionDto.IdEmpresa is 0) return;
-        var uri = $"/plandecuentas/overview/{_gestionDto.IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
 }

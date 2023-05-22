@@ -77,8 +77,20 @@
         </MudButton>
         <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"
                    Color="Color.Success"
-                   OnClick="UpsertEmpresa">
-            Crear
+                   OnClick="UpsertEmpresa"
+                   Disabled="Processing">
+            @if (Processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small"
+                                     Indeterminate="true"
+                                     Color="Color.Success"/>
+            }
+            else
+            {
+                <MudText Align="Align.Center">
+                    Agregar
+                </MudText>
+            }
         </MudButton>
     </DialogActions>
 </MudDialog>

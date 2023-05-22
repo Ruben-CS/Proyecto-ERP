@@ -53,13 +53,14 @@
                                 </MudSelectItem>
                             }
                         </MudSelect>
-                        <MudTextField T="float?"
+                        <MudTextField T="decimal?"
                                       @bind-Value="AppState.Cambio"
                                       Label="Cambio"
                                       Placeholder="0.00"
                                       Class="mud-text-field"
                                       Variant="Variant.Outlined"
-                                      HelperText="Ingrese el tipo de cambio"/>
+                                      HelperText="Ingrese el tipo de cambio"
+                                      Format="F2"/>
                     }
                     <MudFab Color="Color.Success"
                             ButtonType="ButtonType.Submit"
@@ -86,29 +87,36 @@
                   Class="mt-1"
                   RowsPerPage="4">
             <HeaderContent>
-                <MudTh>
+                <MudTh Style="text-align: center">
                     <MudTableSortLabel
                         SortBy="new Func<EmpresaMonedaDto, object>(x => x.FechaRegistro)"
                         InitialDirection="SortDirection.Descending">
                         Fecha de registro
                     </MudTableSortLabel>
                 </MudTh>
-                <MudTh>Moneda Principal</MudTh>
-                <MudTh>Moneda Alternativa</MudTh>
-                <MudTh>Cambio</MudTh>
-                <MudTh>Estado</MudTh>
+                <MudTh Style="text-align: center">Moneda Principal</MudTh>
+                <MudTh Style="text-align: center">Moneda Alternativa</MudTh>
+                <MudTh Style="text-align: center">Cambio</MudTh>
+                <MudTh Style="text-align: center">Estado</MudTh>
             </HeaderContent>
             <RowTemplate>
-                <MudTd DataLabel="FechaRegistro">@context.FechaRegistro</MudTd>
-                <MudTd DataLabel="MonedaAlternativa">@MonedaPrincipal.Nombre</MudTd>
-                <MudTd DataLabel="MonedaAlternativa">
+                <MudTd DataLabel="FechaRegistro"
+                       Style="text-align: center">
+                    @context.FechaRegistro
+                </MudTd>
+                <MudTd DataLabel="MonedaAlternativa"
+                       Style="text-align: center">
+                    @MonedaPrincipal.Nombre
+                </MudTd>
+                <MudTd DataLabel="MonedaAlternativa"
+                       Style="text-align: center">
                     @GetMonedaAlternativaName(context.IdMonedaAlternativa)
                 </MudTd>
                 <MudTd DataLabel="Cambio" Style="text-align: right">
-                    @context.Cambio
+                    @(context.Cambio.HasValue ? context.Cambio.Value.ToString("F2") : "")
                 </MudTd>
-                <MudTd DataLabel="Estado" Style="align-content: center">
-                    @if (context.Estado == EstadoEmpresaMoneda.Activo)
+                <MudTd DataLabel="Estado" Style="text-align: center">
+                    @if (context.Estado == EstadoEmpresaMoneda.Abierto)
                     {
                         <MudChip Color="Color.Info"
                                  Icon="@Icons.Material.Filled.GppGood">

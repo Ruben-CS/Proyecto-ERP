@@ -16,19 +16,16 @@ public partial class MonedaDashboard
     private EmpresaMonedaDto EmpresaMonedaDto { get; }      = new();
     private MonedaDto        MonedaPrincipal  { get; set; } = null!;
 
-    private bool IsExpanded { get; set; }
-
-    private float? Cambio => AppState.Cambio;
+    private decimal? Cambio
+    {
+        get => AppState.Cambio;
+        set => AppState.Cambio = value;
+    }
 
     private string? _previousSelectedMoneda;
     private string? MonedaPrincipalName { get; set; }
 
     private string? SelectedMoneda { get; set; }
-
-    private bool _open;
-    private void ToggleDrawer()   => _open = !_open;
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-    //todo fix the bug that occurs when clicking agregar without data
     protected override async Task OnInitializedAsync()
     {
         try
@@ -81,17 +78,25 @@ public partial class MonedaDashboard
     {
         var selectedMonedaAlternativa =
             _monedas.FirstOrDefault(ma => ma.Nombre == SelectedMoneda);
-        var idMonedaAlternativa = selectedMonedaAlternativa!.IdMoneda;
+
+        if (selectedMonedaAlternativa is null)
+        {
+            Snackbar.Add("Seleccione una moneda alternativa", Severity.Error);
+            return;
+        }
+
+        var idMonedaPrincial    =  MonedaPrincipal.IdMoneda;
+        var idMonedaAlternativa = selectedMonedaAlternativa.IdMoneda;
         var cambio              = Cambio;
         var url =
-            $"https://localhost:44352/empresaMonedas/agregarempresamoneda/{IdEmpresa}/{idMonedaAlternativa}";
+            $"https://localhost:44352/empresaMonedas/agregarmonedaAlternativa/{IdEmpresa}/{idMonedaAlternativa}/{idMonedaPrincial}";
 
 
         var empresaMonedaDto = new EmpresaMonedaDto
         {
             Cambio              = cambio,
             IdEmpresa           = IdEmpresa,
-            IdMonedaPrincipal   = MonedaPrincipal.IdMoneda,
+            IdMonedaPrincipal   = idMonedaPrincial,
             IdMonedaAlternativa = idMonedaAlternativa,
             IdUsuario           = 1
         };
@@ -115,6 +120,9 @@ public partial class MonedaDashboard
                 await OnDataGridChange();
                 Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
             }
+
+            SelectedMoneda = null;
+            Cambio         = null;
         }
     }
 
@@ -125,12 +133,12 @@ public partial class MonedaDashboard
         return monedaAlterna?.Nombre ?? string.Empty;
     }
 
-    private static async Task<bool> ValidateIncorrectCambio(float? cambio) =>
+    private static async Task<bool> ValidateIncorrectCambio(decimal? cambio) =>
         await Task.FromResult(cambio is null ||
-                              float.IsNegative((float)cambio));
+                              decimal.IsNegative((decimal)cambio));
 
 
-    private async Task<bool> ValidateTipoDeCambio(float? cambio)
+    private async Task<bool> ValidateTipoDeCambio(decimal? cambio)
     {
         return await Task.FromResult(
             _empresaMonedas.Any(em => Equals(em.Cambio, cambio)));

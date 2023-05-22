@@ -37,7 +37,7 @@ public class CuentaApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpPost("CrearCuentasPorDefecto/{IdEmpresa}")]
+    [HttpPost("CrearCuentasPorDefecto/{IdEmpresa:int}")]
     public async Task<ResponseDto> CrearCuentasPorDefecto(
         [FromRoute] int IdEmpresa)
     {
@@ -114,5 +114,25 @@ public class CuentaApiController : ControllerBase
         }
 
         return await Task.FromResult(_responseDto);
+    }
+
+    [HttpGet("getCuentasDetalle/{idEmpresa:int}")]
+    public async Task<object> GetCuentasDetalle([FromRoute] int idEmpresa)
+    {
+        try
+        {
+            var cuentasDetalle = await _cuentaRepository.GetCuentasTipoDetalle(idEmpresa);
+            _responseDto.Result = cuentasDetalle;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+
+        return _responseDto;
     }
 }

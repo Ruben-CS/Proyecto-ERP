@@ -1,23 +1,11 @@
 ﻿@inherits LayoutComponentBase
-@inject NavigationManager NavigationManager
 
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
-<MudContainer>
-    <MudContainer Class="d-flex align-center justify-center mud-width-full"
-                  style="height:100vh;" MaxWidth="MaxWidth.ExtraLarge">
-        <MudPaper Height="400px" Width="100%">
-            <MudContainer Fixed="true">
-                <MudPaper Height="400px" Width="100%" Square="true" Class="mud-theme-none
-                 d-flex align-center justify-center mud-width-full" Elevation="0">
-                    @Body
-                </MudPaper>
-            </MudContainer>
-        </MudPaper>
+<MudLayout>
+    <MudContainer Class="d-flex justify-content-center align-items-center vh-100 fade-in">
+        @Body
     </MudContainer>
-</MudContainer>
-@code {
-    public bool IsDark { get; set; } = true;
-}
+</MudLayout>

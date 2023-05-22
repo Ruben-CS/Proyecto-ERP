@@ -1,51 +1,5 @@
-@page "/inicio/mainpage/{id?}"
+@page "/inicio/mainpage/{idempresa:int}"
 @layout MainPageLayout
 @inject NavigationManager NavigationManager
 
-<MudAppBar Elevation="1" Dense="false">
-    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
-                   Edge="Edge.Start"
-                   OnClick="@ToggleDrawer"/>
-    <MudSpacer/>
-    <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
-                   Color="Color.Inherit"
-                   Link="https://github.com/MudBlazor/MudBlazor"
-                   Target="_blank"/>
-</MudAppBar>
-
-<MudDrawer @bind-Open="@_open"
-           ClipMode="DrawerClipMode.Docked"
-           Elevation="1"
-           Variant="@DrawerVariant.Responsive"
-           PreserveOpenState="true"
-           Breakpoint="Breakpoint.Md"
-           OpenMiniOnHover="true">
-    <MudNavMenu>
-        <MudNavGroup Icon="@Icons.Material.Filled.Business"
-                     Title="Contabilidad"
-                     @bind-Expanded=IsExpanded>
-
-            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
-                        OnClick="NavigateToGestiones">
-                Gestiones
-            </MudNavLink>
-
-            <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        OnClick="NavigateToCuentas">
-                Plan de Cuentas
-            </MudNavLink>
-
-            <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        OnClick="CambiarEmpresa">
-                Cambiar empresa
-            </MudNavLink>
-        </MudNavGroup>
-        <MudNavGroup Icon="@Icons.Material.Filled.Settings"
-                     Title="Configuracion">
-            <MudNavLink Icon="@Icons.Material.Filled.CurrencyExchange"
-                        OnClick="NavigateToMonedas">
-                Monedas
-            </MudNavLink>
-        </MudNavGroup>
-    </MudNavMenu>
-</MudDrawer>
+<NavBarComponent IdEmpresa="@IdEmpresa"/>

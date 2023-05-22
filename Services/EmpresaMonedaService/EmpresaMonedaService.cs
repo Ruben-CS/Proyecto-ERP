@@ -16,6 +16,11 @@ public sealed class EmpresaMonedaService
         await await Task.FromResult(GetApiResponseAsync<List<EmpresaMonedaDto>>
             ($"https://localhost:44352/empresaMonedas/getEmpresasMonedaByIdEmpresa/{idEmpresa}"));
 
+    public async Task<List<EmpresaMonedaDto>> GetEmpresaMonedasActiveAsync(int idEmpresa) =>
+        await await Task.FromResult(
+            GetApiResponseAsync<List<EmpresaMonedaDto>>(
+                $"https://localhost:44352/empresaMonedas/getActiveEmpresaMoneda/{idEmpresa}"));
+
     private async Task<T> GetApiResponseAsync<T>(string url)
     {
         var response = await _httpClient.GetAsync(url);

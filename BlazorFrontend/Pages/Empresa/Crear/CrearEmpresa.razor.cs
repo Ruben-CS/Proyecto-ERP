@@ -17,6 +17,8 @@ public partial class CrearEmpresa
 
     private List<MonedaDto> _monedas = new();
 
+    public bool Processing { get; set; }
+
     private          MonedaDto MonedaDto { get; set; } = new();
     private          EmpresaDto EmpresaDto { get; } = new();
     private readonly List<int> _listaNiveles = Enumerable.Range(3, 5).ToList();
@@ -42,6 +44,7 @@ public partial class CrearEmpresa
 
     private async Task UpsertEmpresa()
     {
+        Processing = true;
         const string url = "https://localhost:44378/empresas/agregarempresa";
 
         var empresaDto = new EmpresaDto
@@ -84,6 +87,7 @@ public partial class CrearEmpresa
             await CreateEmpresaMoneda();
             await CreateDefaultCuentas();
             MudDialog!.Close(DialogResult.Ok(response));
+            Processing = false;
         }
     }
 

@@ -7,12 +7,12 @@ namespace MonedaComprobanteApi.Controllers;
 
 [ApiController]
 [Route("empresaMonedas")]
-public class EmpresaMonedaApi : ControllerBase
+public class EmpresaMonedaController : ControllerBase
 {
     private readonly ResponseDto              _responseDto;
     private readonly IEmpresaMonedaRepository _empresaMonedaRepository;
 
-    public EmpresaMonedaApi(IEmpresaMonedaRepository empresaMonedaRepository)
+    public EmpresaMonedaController(IEmpresaMonedaRepository empresaMonedaRepository)
     {
         _empresaMonedaRepository = empresaMonedaRepository;
         _responseDto             = new ResponseDto();
@@ -39,10 +39,33 @@ public class EmpresaMonedaApi : ControllerBase
         return _responseDto;
     }
 
+    [HttpPost("agregarmonedaAlternativa/{idEmpresa:int}/{idMonedaAlternativa:int}/{idMonedaPrincipal:int}")]
+    public async Task<object> PostMonedaAlternativa([FromBody]  EmpresaMonedaDto empresaMonedaDto,
+                                                    [FromRoute] int              idEmpresa,
+                                                    [FromRoute] int              idMonedaAlternativa,
+                                                    [FromRoute] int              idMonedaPrincipal)
+    {
+        try
+        {
+            var result = await _empresaMonedaRepository.CrearMonedaAlternativa(empresaMonedaDto, idEmpresa,
+                idMonedaAlternativa, idMonedaPrincipal);
+            _responseDto.Result = result;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+        return _responseDto;
+    }
+
     [HttpPost("agregarempresamoneda/{idEmpresa:int}/{idMoneda:int}")]
     public async Task<object> Post([FromBody]  EmpresaMonedaDto empresaMonedaDto,
-                                   [FromRoute] int idEmpresa,
-                                   [FromRoute] int idMoneda)
+                                   [FromRoute] int              idEmpresa,
+                                   [FromRoute] int              idMoneda)
     {
         try
         {
@@ -50,6 +73,26 @@ public class EmpresaMonedaApi : ControllerBase
                 await _empresaMonedaRepository.CreateEmpresaMoneda(empresaMonedaDto,
                     idEmpresa, idMoneda);
             _responseDto.Result = result;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+
+        return _responseDto;
+    }
+
+    [HttpGet("getActiveEmpresaMoneda/{idEmpresa:int}")]
+    public async Task<object> GetActiveEmpresaMonedas([FromRoute] int idEmpresa)
+    {
+        try
+        {
+            var empresaMonedas = await _empresaMonedaRepository.GetMonedaAlternativasPerEmpresa(idEmpresa);
+            _responseDto.Result = empresaMonedas;
         }
         catch (Exception e)
         {

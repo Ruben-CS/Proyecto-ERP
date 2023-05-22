@@ -1,0 +1,86 @@
+@using System.Collections.ObjectModel
+<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
+    <MudTable Hover="true"
+              Striped="true"
+              RowsPerPage="4"
+              Items="Detalles"
+              Dense="true"
+              Bordered="true"
+              Elevation="0"
+              Style="border-radius: 15px;">
+
+        <HeaderContent>
+            <MudTh Style="text-align: left">Cuenta</MudTh>
+            <MudTh Style="text-align: left">Glosa</MudTh>
+            <MudTh Style="text-align: right">Monto Debe</MudTh>
+            <MudTh Style="text-align: right">Monto Haber</MudTh>
+            <MudTh Style="text-align: center">Acciones</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nombre Cuenta">
+                @context.NombreCuenta
+            </MudTd>
+            <MudTd DataLabel="Glosa">
+                @context.Glosa
+            </MudTd>
+            <MudTd DataLabel="Monto Debe" Style="text-align: right">
+                @(context.MontoDebe.ToString("F2"))
+            </MudTd>
+            <MudTd DataLabel="Monto Haber" Style="text-align: right">
+                @context.MontoHaber.ToString("F2")
+            </MudTd>
+            <MudTd DataLabel="Acciones">
+                <MudStack Row="true"
+                          Justify="Justify.Center">
+                    <MudTooltip Text="Eliminar detalle">
+                        <MudIconButton Color="Color.Error"
+                                       Icon="@Icons.Material.Filled.DeleteForever"
+                                       Size="Size.Small"
+                                       OnClick="() => DeleteDetalle(context)"/>
+                    </MudTooltip>
+                    <MudTooltip Text="Editar detalle">
+                        <MudIconButton Color="Color.Warning"
+                                       Icon="@Icons.Material.Filled.Edit"
+                                       Size="Size.Small"
+                                       OnClick="() => EditDetalle(context)"/>
+                    </MudTooltip>
+                </MudStack>
+            </MudTd>
+        </RowTemplate>
+        <FooterContent>
+            <MudTd/>
+            <MudTd/>
+            <MudTd Style="text-align: right">
+                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
+            </MudTd>
+            <MudTd Style="text-align: right">
+                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+            </MudTd>
+            <MudTd/>
+        </FooterContent>
+        <PagerContent>
+            <MudTablePager
+                HorizontalAlignment="HorizontalAlignment.Left"
+                HidePageNumber="true"
+                HideRowsPerPage="true"/>
+        </PagerContent>
+    </MudTable>
+</MudPaper>
+
+@code {
+
+    [Parameter]
+    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = new();
+
+    private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
+
+    private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
+
+    private void DeleteDetalle(DetalleComprobanteDto dto) => Detalles.Remove(dto);
+
+    private void EditDetalle(DetalleComprobanteDto dto)
+
+    {
+    }
+
+}

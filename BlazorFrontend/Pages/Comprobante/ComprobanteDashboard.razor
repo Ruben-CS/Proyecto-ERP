@@ -1,0 +1,58 @@
+@page "/comprobantes/overview/{idempresa:int}"
+@using global::Services.Comprobante
+@layout ComprobanteLayout
+@inject NavigationManager NavigationManager
+@inject ComprobanteService ComprobanteService
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Comprobantes</MudText>
+    <div style="display: flex; align-items: center;">
+        <MudButton ButtonType="ButtonType.Button"
+                   Color="Color.Success"
+                   Variant="Variant.Filled"
+                   OnClick="GoToDetalle"
+                   Style="justify-self: flex-end; align-self: center"
+                   Class="mb-4"
+                   Disabled="IsLoading">
+            <MudText>Agregar Comprobante</MudText>
+        </MudButton>
+    </div>
+</MudStack>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudTable Hover="true"
+          Striped="true"
+          RowsPerPage="8"
+          Items="Comprobantes"
+          Elevation="2"
+          Class="fade-in"
+          Bordered="true"
+          Loading="IsLoading"
+          LoadingProgressColor="Color.Dark">
+    <HeaderContent>
+        <MudTh>Serie</MudTh>
+        <MudTh>Fecha</MudTh>
+        <MudTh>Glosa</MudTh>
+        <MudTh>Tipo</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Serie">@context.Serie</MudTd>
+        <MudTd DataLabel="Fecha">@context.Fecha.ToString("d")</MudTd>
+        <MudTd DataLabel="Glosa">@context.Glosa</MudTd>
+        <MudTd DataLabel="Tipo">@context.TipoComprobante</MudTd>
+        <MudTd DataLabel="Acciones"></MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager
+            HorizontalAlignment="HorizontalAlignment.Left"
+            HidePageNumber="true"
+            HideRowsPerPage="true"/>
+    </PagerContent>
+</MudTable>

@@ -8,9 +8,33 @@ public partial class InicioSesion
     private LoginRequestDto RequestDto { get; } = new();
 
     private bool IsLoading { get; set; }
+
+    private bool FailedLogin { get; set; }
+
+    private bool _isShow;
+
+    private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    private InputType _passwordInput = InputType.Password;
+
+    private void ButtonTestclick()
+    {
+        if (_isShow)
+        {
+            _isShow           = false;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInput     = InputType.Password;
+        }
+        else {
+            _isShow           = true;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _passwordInput     = InputType.Text;
+        }
+    }
     private async Task LoginAsync()
     {
-        IsLoading = true;
+        IsLoading       = true;
+        FailedLogin = false;
         const string loginUrl = "https://localhost:44378/Auth/login";
         var loginRequestDto = new LoginRequestDto
         {
@@ -27,13 +51,15 @@ public partial class InicioSesion
                     o.HideTransitionDuration = 350;
                     o.ShowTransitionDuration = 350;
                 });
+            await LocalStorage.SetItemAsync("username", loginRequestDto.Nombre);
             NavigationManager.NavigateTo("/Inicio");
-            IsLoading = false;
+            IsLoading       = false;
+            FailedLogin = false;
         }
         else
         {
-            Snackbar.Add("Credenciales incorrectas", Severity.Error);
-            IsLoading = false;
+            IsLoading       = false;
+            FailedLogin = true;
         }
     }
 }

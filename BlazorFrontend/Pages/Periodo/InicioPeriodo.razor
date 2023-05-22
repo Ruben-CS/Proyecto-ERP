@@ -1,4 +1,4 @@
-@page "/overview/inicioperiodo/{idgestion:int}"
+@page "/overview/inicioperiodo/{idempresa:int}/{idgestion:int}"
 @using global::Services.Gestion
 @using global::Services.Periodo
 @layout PeriodoDashboard
@@ -6,65 +6,33 @@
 @inject PeriodoService PeriodoService
 @inject NavigationManager NavigationManager
 @inject IDialogService DialogService
-@inject IJSRuntime JSRuntime
+@inject IJSRuntime JsRuntime
 
 
-<MudAppBar Elevation="5" Dense="false">
-    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
-                   Edge="Edge.Start"
-                   OnClick="@ToggleDrawer"/>
-    <MudSpacer/>
-    <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
-                   Color="Color.Inherit"
-                   Link="https://github.com/MudBlazor/MudBlazor"
-                   Target="_blank"/>
-</MudAppBar>
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudDrawer @bind-Open="@_open"
-           ClipMode="DrawerClipMode.Docked"
-           Elevation="1"
-           Variant="@DrawerVariant.Responsive"
-           PreserveOpenState="true"
-           Breakpoint="Breakpoint.Md"
-           OpenMiniOnHover="true">
-    <MudNavMenu>
-        <MudNavGroup Icon="@Icons.Material.Filled.Business"
-                     Title="Contabilidad"
-                     @bind-Expanded=IsExpanded>
-
-            <MudNavLink Icon="@Icons.Material.Filled.CalendarMonth"
-                        OnClick="@(GoBack)">
-                Gestiones
-            </MudNavLink>
-
-            <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
-                        OnClick="NavigateToCuentas">
-                Plan de Cuentas
-            </MudNavLink>
-
-            <MudNavLink Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        OnClick="CambiarEmpresa">
-                Cambiar empresa
-            </MudNavLink>
-        </MudNavGroup>
-    </MudNavMenu>
-</MudDrawer>
-
-<MudStack Row="true">
-    <MudText Typo="Typo.h5" Align="Align.Center">
-        Administracion del periodo de la gestion - @_gestionDto.Nombre
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+    <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">
+        <MudTooltip Text="Volver a gestion">
+            <MudIconButton Size="Size.Medium"
+                           Icon="@Icons.Material.Filled.ArrowBack"
+                           Color="Color.Dark"
+                           OnClick="@(GoBack)"
+                           Style="align-self: center"/>
+        </MudTooltip>
+        Administracion del periodo de la gestion: @_gestionDto.Nombre
     </MudText>
-    <MudChip Size="Size.Small"
-             Icon="@Icons.Material.Filled.ArrowBack"
-             Color="Color.Dark"
-             OnClick="@(GoBack)"
-             Class="d-flex justify-end">
-        Volver
-    </MudChip>
 </MudStack>
-<MudDivider />
-<MudTable Items="@_periodos" Hover="true" Breakpoint="Breakpoint.Sm" Bordered="true"
-          Striped="true">
+<MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="mb-5"/>
+<MudTable Items="@_periodos"
+          Hover="true"
+          Breakpoint="Breakpoint.Sm"
+          Bordered="true"
+          Striped="true"
+          Elevation="3">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>
@@ -88,8 +56,8 @@
         </MudTd>
         <MudTd DataLabel="Acciones">
             <MudStack Row="true">
-                <MudTooltip Text="Editar Gestion" ShowOnClick="Click"
-                            ShowOnFocus="Focus">
+                <MudTooltip Text="Editar Gestion" ShowOnClick="false"
+                            ShowOnFocus="false">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Warning"
                                    Size="Size.Small"
@@ -97,7 +65,7 @@
                                    OnClick="() => EditarPeriodo(context)"/>
                 </MudTooltip>
                 <MudTooltip Text="Eliminar Gestion" ShowOnClick="@false"
-                            ShowOnFocus="Focus">
+                            ShowOnFocus="false">
                     <MudIconButton Class="pa-1"
                                    Color="Color.Error"
                                    Size="Size.Small"
@@ -109,5 +77,7 @@
     </RowTemplate>
 </MudTable>
 
-<MudFab Class="ma-4" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add"
-        @onclick="@ShowMudCrearPeriodonModal" Label="Agregar Periodo"/>
+<MudFab Class="ma-4" Color="Color.Success"
+        StartIcon="@Icons.Material.Filled.Add"
+        @onclick="@ShowMudCrearPeriodonModal"
+        Label="Agregar Periodo"/>

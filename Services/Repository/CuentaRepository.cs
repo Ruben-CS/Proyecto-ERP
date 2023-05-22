@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using Services.Cuenta;
 using Services.Repository.Interfaces;
 
@@ -30,6 +31,11 @@ public class CuentaRepository : ICuentaRepository
         cuentaDto.Codigo = await CuentaUtility.GenerarCodigo
         (_applicationDbContext, cuentaDto.IdCuentaPadre,
             cuentaDto.IdEmpresa, levelsPerEmpresa);
+
+        var esDetalle = cuentaDto.Codigo.Split('.').Last() == "0";
+
+        cuentaDto.TipoCuenta = esDetalle ? TipoCuenta.Global : TipoCuenta.Detalle;
+
         var cuenta = _mapper.Map<CuentaDto, Modelos.Models.Cuenta>(cuentaDto);
         await _applicationDbContext.AddAsync(cuenta);
         await _applicationDbContext.SaveChangesAsync();
@@ -40,11 +46,11 @@ public class CuentaRepository : ICuentaRepository
     {
         var defaultCuentas = new List<CuentaDto>
         {
-            new() { Nombre = "Activo", TipoCuenta     = "Global", IdEmpresa = idEmpresa },
-            new() { Nombre = "Pasivo", TipoCuenta     = "Global", IdEmpresa = idEmpresa },
-            new() { Nombre = "Patrimonio", TipoCuenta = "Global", IdEmpresa = idEmpresa },
-            new() { Nombre = "Ingresos", TipoCuenta   = "Global", IdEmpresa = idEmpresa },
-            new() { Nombre = "Egresos", TipoCuenta    = "Global", IdEmpresa = idEmpresa }
+            new() { Nombre = "Activo", TipoCuenta     = TipoCuenta.Global, IdEmpresa = idEmpresa },
+            new() { Nombre = "Pasivo", TipoCuenta     = TipoCuenta.Global, IdEmpresa = idEmpresa },
+            new() { Nombre = "Patrimonio", TipoCuenta = TipoCuenta.Global, IdEmpresa = idEmpresa },
+            new() { Nombre = "Ingresos", TipoCuenta   = TipoCuenta.Global, IdEmpresa = idEmpresa },
+            new() { Nombre = "Egresos", TipoCuenta    = TipoCuenta.Global, IdEmpresa = idEmpresa }
         };
 
         var createdCuentas = new List<CuentaDto>();
@@ -118,5 +124,13 @@ public class CuentaRepository : ICuentaRepository
                                        .Where(id => id.IdEmpresa == idempresa)
                                        .ToListAsync();
         return _mapper.Map<List<CuentaDto>>(listaGestiones);
+    }
+
+    public async Task<IEnumerable<CuentaDto>> GetCuentasTipoDetalle(int idEmpresa)
+    {
+        var cuentasDetalle = await _applicationDbContext.Cuentas.Where(c => c.IdEmpresa == idEmpresa &&
+                                                                            c.TipoCuenta == TipoCuenta.Detalle)
+                                                        .ToListAsync();
+        return _mapper.Map<List<CuentaDto>>(cuentasDetalle);
     }
 }

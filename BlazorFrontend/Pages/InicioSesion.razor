@@ -4,39 +4,60 @@
 @layout LoginLayout
 @using Variant = MudBlazor.Variant
 @inject ISnackbar Snackbar
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 
 
-<MudCard Elevation="1" Style="width: 400px">
+<MudCard Elevation="5" Style="width: 400px" Class="fade-in">
+    <MudCardMedia Image="alegria4.jpeg"
+                  Style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px"
+                  Height="250"/>
     <MudCardContent>
         <EditForm Model="RequestDto">
             <MudTextField @bind-Value="RequestDto.Nombre"
                           Label="Usuario"
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.AccountCircle"/>
+                          AdornmentIcon="@Icons.Material.Filled.AccountCircle"
+                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
 
             <MudTextField @bind-Value="RequestDto.Password"
-                          InputType="InputType.Password" Label="Contraseña"
+                          InputType="@_passwordInput"
+                          Label="Contraseña"
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Password"/>
+                          AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password"
+                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
         </EditForm>
     </MudCardContent>
     <MudCardActions Class="d-flex justify-content-center align-items-center">
-        @if (IsLoading)
-        {
-            <MudProgressCircular Color="Color.Tertiary" Size="Size.Small"
-                                 Indeterminate="true"/>
-        }
-        else
-        {
-            <MudButton Color="Color.Tertiary"
-                       ButtonType="ButtonType.Submit"
-                       OnClick="LoginAsync"
-                       Variant="Variant.Filled"
-                       Style="align-self: center">
-                Iniciar Sesión
-            </MudButton>
-        }
+        <MudStack Justify="Justify.Center" Style="padding-bottom: 25px">
+            @if (FailedLogin)
+            {
+                <MudAlert Dense="true"
+                          Severity="Severity.Error"
+                          Class="my-2"
+                          Elevation="0"
+                          Icon="@Icons.Material.Filled.Error">
+                    Usuario o contraseña incorrectos
+                </MudAlert>
+            }
+            @if (IsLoading)
+            {
+                <MudProgressCircular Color="Color.Tertiary"
+                                     Size="Size.Small"
+                                     Indeterminate="true"/>
+            }
+            else
+            {
+                <MudButton Color="Color.Tertiary"
+                           ButtonType="ButtonType.Submit"
+                           OnClick="LoginAsync"
+                           Variant="Variant.Filled"
+                           Style="align-self: center">
+                    Iniciar Sesión
+                </MudButton>
+            }
+
+        </MudStack>
     </MudCardActions>
 </MudCard>

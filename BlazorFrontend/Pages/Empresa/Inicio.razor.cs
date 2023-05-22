@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using Modelos.Models.Dtos;
 using BlazorFrontend.Pages.Empresa.Crear;
 using BlazorFrontend.Pages.Empresa.Editar;
 using BlazorFrontend.Pages.Empresa.Eliminar;
-using Microsoft.AspNetCore.Http.Extensions;
 using DialogOptions = MudBlazor.DialogOptions;
 
 namespace BlazorFrontend.Pages.Empresa;
@@ -18,7 +16,11 @@ public partial class Inicio
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
     private int                     SelectedEmpresaId { get; set; }
 
+    public string Username { get; set; }
+
     private string? SelectedEmpresaName { get; set; }
+
+    private bool IsLoading { get; set; }
 
     private bool IsSelectedEmpresaNameNull => SelectedEmpresaName is null;
 
@@ -47,7 +49,8 @@ public partial class Inicio
             CloseOnEscapeKey     = true,
             MaxWidth             = MaxWidth.Small,
             FullWidth            = true,
-            DisableBackdropClick = true
+            DisableBackdropClick = true,
+            ClassBackground      =  "modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -63,10 +66,11 @@ public partial class Inicio
     private async Task OnEmpresaListChange(EmpresaDto empresaDto)
     {
         _empresas = await EmpresaService.GetActiveEmpresasAsync();
-
-        if (empresaDto.IsDeleted)
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName);
+        if (empresaDto.IsDeleted || selectedEmpresa is null)
         {
-            SelectedEmpresaName = null;
+            SelectedEmpresaName = _empresas.Last().Nombre;
         }
         else
         {
@@ -81,7 +85,16 @@ public partial class Inicio
         StateHasChanged();
     }
 
-    private async Task Editar(MouseEventArgs obj)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Username = await LocalStorage.GetItemAsync<string>("username");
+            StateHasChanged();
+        }
+    }
+
+    private async Task Editar()
     {
         if (IsSelectedEmpresaNameNull)
         {
@@ -96,6 +109,7 @@ public partial class Inicio
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
             FullWidth        = true,
+            ClassBackground  =  "modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -112,13 +126,14 @@ public partial class Inicio
             parameters, options);
     }
 
-    private async void Eliminar(MouseEventArgs obj)
+    private async Task Eliminar()
     {
         if (IsSelectedEmpresaNameNull)
         {
             Snackbar.Add("Seleccione una empresa primero", Severity.Info);
             return;
         }
+
         var selectedEmpresa =
             _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
         var options = new DialogOptions
@@ -126,6 +141,7 @@ public partial class Inicio
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
             FullWidth        = true,
+            ClassBackground =  ".modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -144,33 +160,22 @@ public partial class Inicio
 
     private void NavigateToPage()
     {
-        var selectedEmpresa =
-            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
-        if (selectedEmpresa != default)
-        {
-            var uri = NavigationManager.ToAbsoluteUri("inicio/mainpage");
-            var queryBuilder = new QueryBuilder
-            {
-                {
-                    "id",
-                    selectedEmpresa.ToString()
-                }
-            };
-            uri = new UriBuilder(uri)
-            {
-                Query = queryBuilder.ToString()
-            }.Uri;
-            NavigationManager.NavigateTo(uri.ToString());
-        }
-        else
+        if (SelectedEmpresaName is null)
         {
             Snackbar.Add("Seleccione una empresa antes de continuar.", Severity.Info);
+            return;
         }
-    }
 
+        var selectedEmpresa =
+            _empresas.SingleOrDefault(e => e.Nombre == SelectedEmpresaName)!.IdEmpresa;
+        var uri = $"/inicio/mainpage/{selectedEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
     private async Task CerrarSesion()
     {
+        IsLoading = true;
         await Task.Delay(2500);
-        NavigationManager.NavigateTo("/");
+        NavigationManager!.NavigateTo("/");
+        IsLoading = false;
     }
 }

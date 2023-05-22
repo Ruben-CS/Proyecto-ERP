@@ -1,6 +1,8 @@
+using Blazored.LocalStorage;
 using MudBlazor.Services;
 using BlazorFrontend.Services;
 using BlazorFrontend.Utility_Class;
+using Services.Comprobante;
 using Services.Cuenta;
 using Services.EmpresaMonedaService;
 using Services.Gestion;
@@ -20,8 +22,9 @@ builder.Services.AddScoped<PeriodoService>();
 builder.Services.AddScoped<CuentaService>();
 builder.Services.AddScoped<MonedaService>();
 builder.Services.AddScoped<EmpresaMonedaService>();
+builder.Services.AddScoped<ComprobanteService>();
 builder.Services.AddScoped<AppStateService>();
-
+builder.Services.AddBlazoredLocalStorage();
 var app = builder.Build();
 
 

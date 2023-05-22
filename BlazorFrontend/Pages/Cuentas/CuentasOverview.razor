@@ -11,7 +11,9 @@
 
 <MudStack Row="true">
     <MudPaper Elevation="1">
-        <MudTreeView T="TreeItemData" Hover="true" @bind-SelectedValue="SelectedValue"
+        <MudTreeView T="TreeItemData"
+                     Hover="true"
+                     @bind-SelectedValue="SelectedValue"
                      Width="500px">
             <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
                              Icon="@(_folderOneExpanded ?
@@ -23,7 +25,7 @@
                                        Icons.Custom.Uncategorized.Folder)"
                              @bind-Expanded="@_folderOneExpanded">
                     <ItemTemplate>
-                        <TreeItem Value="@context"/>
+                        <TreeItem Value="@context" Expanded="true"/>
                     </ItemTemplate>
                 </MudTreeView>
             </MudTreeViewItem>

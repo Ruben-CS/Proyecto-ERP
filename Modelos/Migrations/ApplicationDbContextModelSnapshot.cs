@@ -49,17 +49,14 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<string>("Serie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Serie")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Tc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("Tc")
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("TipoComprobante")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TipoComprobante")
+                        .HasColumnType("int");
 
                     b.HasKey("IdComprobante");
 
@@ -102,8 +99,8 @@ namespace ModuloContabilidadApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoCuenta")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TipoCuenta")
+                        .HasColumnType("int");
 
                     b.HasKey("IdCuenta");
 
@@ -135,17 +132,20 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<float>("MontoDebe")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoDebe")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MontoDebeAlt")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoDebeAlt")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MontoHaber")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoHaber")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MontoHaberAlt")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoHaberAlt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("NombreCuenta")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Numero")
                         .HasColumnType("int");
@@ -223,8 +223,9 @@ namespace ModuloContabilidadApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEmpresaMoneda"));
 
-                    b.Property<float?>("Cambio")
-                        .HasColumnType("real");
+                    b.Property<decimal?>("Cambio")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");

@@ -1,0 +1,56 @@
+@using global::Services.Cuenta
+@inject HttpClient HttpClient
+@inject CuentaService CuentaService
+@inject ISnackbar Snackbar
+
+<MudDialog Style="border-radius: 20px">
+    <DialogContent>
+        <MudStack Row="true">
+            <MudAutocomplete T="string"
+                             @bind-Value="SelectedCuenta"
+                             SearchFunc="SearchCuenta"
+                             AdornmentIcon="@Icons.Material.Filled.Search"
+                             HelperText="Seleccione una cuenta"/>
+            <MudTextField @bind-Value="Glosa"
+                          Variant="Variant.Text"
+                          Style="width: 800px;"
+                          HelperText="Ingrese la glosa"/>
+            <MudTextField @bind-Value="@Debe"
+                          Label="Debe"
+                          Variant="Variant.Text"
+                          Style="width: 80px; text-align: right"
+                          Placeholder="0.00"
+                          Class="right-aligned-input"/>
+            <MudTextField @bind-Value="@Haber"
+                          Label="Haber"
+                          Variant="Variant.Text"
+                          Style="width: 80px; text-align: right"
+                          Class="right-aligned-input"
+                          Placeholder="0.00"/>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Text"
+                   Size="Size.Small"
+                   Color="Color.Dark"
+                   Class="mb-2 mr-2"
+                   Style="width: 100px;">
+            Cerrar
+        </MudButton>
+        <MudButton Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Size="Size.Small"
+                   OnClick="Submit"
+                   Class="rounded-pill mb-2 mr-2"
+                   Style="width: 100px;">
+            Agregar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>

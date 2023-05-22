@@ -8,11 +8,12 @@
     ".NETCoreApp,Version=v7.0": {
       "BlazorFrontend/1.0.0": {
         "dependencies": {
+          "Blazored.LocalStorage": "4.3.0",
           "FluentValidation": "11.5.1",
           "Modelos": "1.0.0",
           "ModuloContabilidadApi": "1.0.0",
           "MonedaComprobanteApi": "1.0.0",
-          "MudBlazor": "6.2.3",
+          "MudBlazor": "6.2.5",
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
@@ -73,6 +74,17 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
+          }
+        }
+      },
+      "Blazored.LocalStorage/4.3.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "7.0.1"
+        },
+        "runtime": {
+          "lib/net7.0/Blazored.LocalStorage.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -1468,15 +1480,15 @@
           }
         }
       },
-      "MudBlazor/6.2.3": {
+      "MudBlazor/6.2.5": {
         "dependencies": {
           "Microsoft.AspNetCore.Components": "7.0.1",
           "Microsoft.AspNetCore.Components.Web": "7.0.1"
         },
         "runtime": {
           "lib/net7.0/MudBlazor.dll": {
-            "assemblyVersion": "6.2.3.0",
-            "fileVersion": "6.2.3.0"
+            "assemblyVersion": "6.2.5.0",
+            "fileVersion": "6.2.5.0"
           }
         }
       },
@@ -2618,6 +2630,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "Blazored.LocalStorage/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CfHp9SWN45cM/TM8uw4pELQBfCRtMssCMSOjsEXVWibeYBn36TLpzw+J1vsC2Su2BEQ3Et19A5+GqK1S3kHbTQ==",
+      "path": "blazored.localstorage/4.3.0",
+      "hashPath": "blazored.localstorage.4.3.0.nupkg.sha512"
+    },
     "FluentValidation/11.5.1": {
       "type": "package",
       "serviceable": true,
@@ -3185,12 +3204,12 @@
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
     },
-    "MudBlazor/6.2.3": {
+    "MudBlazor/6.2.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LbsM8/3eK5tk9OPPDIKdV5Fm+hM4KmzAJ8JAtEg9x33TJG3jqFPQ249tSp7l1F628rGCaHoIVjVGjfbgkt7hDg==",
-      "path": "mudblazor/6.2.3",
-      "hashPath": "mudblazor.6.2.3.nupkg.sha512"
+      "sha512": "sha512-rjmxTT6E58FrLUnY2VbUyw2hTFAoaOWXuw8rUuIG8GHjihZabjFOIIP7R2DdJQqY6Ga/HLIWZTmnA7Hjl5l+1Q==",
+      "path": "mudblazor/6.2.5",
+      "hashPath": "mudblazor.6.2.5.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

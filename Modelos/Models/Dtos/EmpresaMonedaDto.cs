@@ -11,9 +11,9 @@ public sealed class EmpresaMonedaDto
     }
     public int IdEmpresaMoneda { get; set; }
 
-    public float? Cambio { get; set; }
+    public decimal? Cambio { get; set; }
 
-    public EstadoEmpresaMoneda Estado { get; set; } = EstadoEmpresaMoneda.Activo;
+    public EstadoEmpresaMoneda Estado { get; set; } = EstadoEmpresaMoneda.Abierto;
 
     public DateTime FechaRegistro { get; set; }
 

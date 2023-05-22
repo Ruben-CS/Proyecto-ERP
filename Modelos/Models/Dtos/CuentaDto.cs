@@ -12,7 +12,7 @@ public class CuentaDto
 
     public int? Nivel { get; set; }
 
-    public string? TipoCuenta { get; set; }
+    public TipoCuenta TipoCuenta { get; set; }
 
     public int IdUsuario { get; set; } = 1;
 

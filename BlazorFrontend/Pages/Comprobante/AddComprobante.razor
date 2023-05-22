@@ -1,0 +1,154 @@
+@page "/comprobantegrid/{idempresa:int}"
+@using global::Services.EmpresaMonedaService
+@using global::Services.Moneda
+@using global::Services.Comprobante
+@using global::Services.Gestion
+@using global::Services.Periodo
+@using Modelos.Models.Enums
+@inject EmpresaMonedaService EmpresaMonedaService
+@inject MonedaService MonedaService
+@layout ComprobanteLayout
+@inject IDialogService DialogService
+@inject ComprobanteService ComprobanteService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject GestionServices GestionServices
+@inject PeriodoService PeriodoService
+@inject IJSRuntime JsRuntime
+
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudText Typo="Typo.h5" GutterBottom="true">
+    <MudTooltip Text="Volver a gestion">
+        <MudIconButton Size="Size.Medium"
+                       Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Dark"
+                       OnClick="@(GoBack)"
+                       Style="align-self: center"/>
+    </MudTooltip>
+    Datos del comprobante
+</MudText>
+
+<MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="mb-5"/>
+
+<MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px;">
+    <MudForm @ref="_form" @bind-IsValid="@_success">
+        <MudGrid Spacing="2" Justify="Justify.Center">
+            <MudItem xs="12" sm="4">
+                <MudTextField Variant="Variant.Outlined"
+                              Label="Serie"
+                              T="string"
+                              @bind-Value="SerieString"
+                              Disabled="true"
+                              Margin="Margin.Dense"
+                              Class="right-aligned-input"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudDatePicker Variant="Variant.Outlined"
+                               Label="Fecha"
+                               @bind-Date="@Fecha"
+                               Margin="Margin.Dense"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Tipo de comprobante"
+                           @bind-Value="SelectedTipoComprobante"
+                           T="string"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Required="true"
+                           RequiredError="Seleccione un tipo de comprobante">
+                    @foreach (var type in ComprobanteTypes)
+                    {
+                        <MudSelectItem Value="@type">@type</MudSelectItem>
+                    }
+                </MudSelect>
+
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField @bind-Value="@TipoDeCambioString"
+                              Label="Tipo de cambio"
+                              Class="right-aligned-input"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              Required="true"
+                              RequiredError="Tipo de cambio no puede estar vacio"/>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Moneda"
+                           @bind-Value="SelectedEmpresaMoneda"
+                           T="string"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Required="true"
+                           RequiredError="Debe seleccionar una moneda">
+                    @foreach (var moneda in MonedasDeLaEmpresa)
+                    {
+                        <MudSelectItem Value="@moneda!.Nombre">
+                            @moneda.Nombre
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudSelect Variant="Variant.Outlined"
+                           Label="Estado"
+                           T="string"
+                           Disabled="true"
+                           bind-Text="@EstadoComprobante.Abierto.ToString()"
+                           Placeholder="@EstadoComprobante.Abierto.ToString()"
+                           Margin="Margin.Dense"
+                           Dense="true">
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12">
+                <MudTextField Variant="Variant.Outlined"
+                              Label="Glosa"
+                              T="string"
+                              @bind-Value="Glosa"
+                              Margin="Margin.Dense"
+                              Required="true"
+                              RequiredError="Glosa no puede estar vacia"/>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+
+    <MudStack Row="true" Class="mt-3 fade-in" Style="align-self: end">
+        <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
+            <MudFab Color="Color.Success"
+                    IconSize="Size.Small"
+                    StartIcon="@Icons.Material.Filled.PostAdd"
+                    Size="Size.Small"
+                    Class="squircle-fab"
+                    OnClick="@AgregarComprobante"
+                    Disabled="@(!_success)"/>
+        </MudTooltip>
+        <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
+            <MudFab Color="Color.Info"
+                    IconSize="Size.Small"
+                    StartIcon="@Icons.Material.Filled.NoteAdd"
+                    Size="Size.Small"
+                    DisableElevation="true"
+                    Class="squircle-fab"
+                    OnClick="OpenAgregarDetalleModal"/>
+        </MudTooltip>
+    </MudStack>
+</MudPaper>
+
+<DetalleComprobanteTable Detalles="@_detalles"/>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+
+    .squircle-fab {
+        border-radius: 30% !important;
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
+    }
+</style>

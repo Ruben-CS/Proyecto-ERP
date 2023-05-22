@@ -16,7 +16,10 @@ public sealed class CuentaService
         await await Task.FromResult(GetApiResponseAsync<List<CuentaDto>>(
             $"https://localhost:44378/cuentas/getcuentas/{id}"));
 
-     private async Task<T> GetApiResponseAsync<T>(string url)
+    public async Task<List<CuentaDto>> GetCuentasDetalle(int idEmpresa) =>
+        await await Task.FromResult(GetApiResponseAsync<List<CuentaDto>>($"https://localhost:44378/cuentas/getCuentasDetalle/{idEmpresa}"));
+
+    private async Task<T> GetApiResponseAsync<T>(string url)
      {
          var response = await _httpClient.GetAsync(url);
          response.EnsureSuccessStatusCode();
