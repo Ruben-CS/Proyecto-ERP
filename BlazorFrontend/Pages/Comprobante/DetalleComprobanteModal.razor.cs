@@ -9,9 +9,6 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteModal
 {
-    [GeneratedRegex("\\d+(\\.\\d+)*")]
-    private static partial Regex MyRegex();
-
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; } = null!;
 
@@ -45,18 +42,20 @@ public partial class DetalleComprobanteModal
     {
         await base.OnInitializedAsync();
         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
-        Cuentas                              = await CuentaService.GetCuentasDetalle(IdEmpresa);
+        Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
     }
 
     private async Task<IEnumerable<string>> SearchCuenta(string value)
     {
-        IEnumerable<string> nombreCuentas = Cuentas.Select(c => $"{c.Codigo} - {c.Nombre}").ToList();
+        IEnumerable<string> nombreCuentas =
+            Cuentas.Select(c => $"{c.Codigo} - {c.Nombre}").ToList();
         if (string.IsNullOrEmpty(value))
         {
             return await Task.FromResult(nombreCuentas);
         }
 
-        return nombreCuentas.Where(c => c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        return nombreCuentas.Where(c =>
+            c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
     private async Task Submit()
@@ -73,7 +72,8 @@ public partial class DetalleComprobanteModal
             return;
 
         var selectedCuentaCodigo = ExtractCodigo(SelectedCuenta!);
-        var idCuenta             = Cuentas.SingleOrDefault(c => c.Codigo == selectedCuentaCodigo)!.IdCuenta;
+        var idCuenta = Cuentas.SingleOrDefault(c => c.Codigo == selectedCuentaCodigo)!
+                              .IdCuenta;
         var detalleComprobante = new DetalleComprobanteDto
         {
             NombreCuenta  = SelectedCuenta,
@@ -135,8 +135,10 @@ public partial class DetalleComprobanteModal
 
     private bool CuentaHasMoreExistingDetalle()
     {
-        if (!Detalles.Any(d => string.Equals(d.NombreCuenta, SelectedCuenta))) return false;
-        Snackbar.Add("No se puede agregar otro detalle a la misma cuenta", Severity.Error);
+        if (!Detalles.Any(d => string.Equals(d.NombreCuenta, SelectedCuenta)))
+            return false;
+        Snackbar.Add("No se puede agregar otro detalle a la misma cuenta",
+            Severity.Error);
         return true;
     }
 
@@ -149,8 +151,22 @@ public partial class DetalleComprobanteModal
 
     private static string ExtractCodigo(string nombreCuenta)
     {
-        var regex = MyRegex();
-        var match = regex.Match(nombreCuenta);
-        return match.Success ? match.Value : string.Empty;
+        var separatorIndex = nombreCuenta.IndexOf(" - ", StringComparison.Ordinal);
+
+        if (separatorIndex == -1)
+            return string.Empty;
+        var numberPart = nombreCuenta[..separatorIndex].Trim();
+
+        return IsValidNumberPart(numberPart) ? numberPart : string.Empty;
+    }
+
+    private static bool IsValidNumberPart(string numberPart)
+    {
+        var segments = numberPart.Split('.');
+        if (segments.Any(segment => !int.TryParse(segment, out _)))
+        {
+            return false;
+        }
+        return segments.Length >= 3 && segments.Length <= 7;
     }
 }

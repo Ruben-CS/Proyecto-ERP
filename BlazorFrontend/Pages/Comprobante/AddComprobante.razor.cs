@@ -14,6 +14,13 @@ public partial class AddComprobante
 
     private MudForm? _form;
 
+    private readonly DialogOptions _options = new()
+    {
+        MaxWidth             = MaxWidth.Large,
+        DisableBackdropClick = true,
+        Position             = DialogPosition.TopCenter
+    };
+
     #region DataForComprobante
 
     private DateTime? Fecha { get; set; } = DateTime.Today;
@@ -54,9 +61,7 @@ public partial class AddComprobante
 
     private List<ComprobanteDto> Comprobantes { get; set; } = new();
 
-    public List<GestionDto> Gestiones { get; set; } = new();
-
-    public List<PeriodoDto> Periodos { get; set; } = new();
+    private List<GestionDto> Gestiones { get; set; } = new();
 
     #endregion
 
@@ -161,17 +166,25 @@ public partial class AddComprobante
         var url =
             $"https://localhost:44352/detalleComprobantes/agergarDetalleComprobante/{idComprobante}";
 
-        foreach (var detalle in _detalles)
+        try
         {
-            detalle.IdComprobante = idComprobante;
-            var response = await HttpClient.PostAsJsonAsync(url, detalle);
-            if (!response.IsSuccessStatusCode)
-                break;
-        }
+            foreach (var detalle in _detalles)
+            {
+                detalle.IdComprobante = idComprobante;
+                var response = await HttpClient.PostAsJsonAsync(url, detalle);
+                response.EnsureSuccessStatusCode();
+            }
 
-        Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
-        _detalles.Clear();
+            Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
+            _detalles.Clear();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Error occurred while posting details: {ex.Message}");
+            Snackbar.Add("Error al guardar los detalles", Severity.Error);
+        }
     }
+
 
     private int GetNextSerie(int idEmpresa)
     {
@@ -195,12 +208,6 @@ public partial class AddComprobante
 
     private async Task OpenAgregarDetalleModal()
     {
-        var options = new DialogOptions
-        {
-            MaxWidth             = MaxWidth.Large,
-            DisableBackdropClick = true,
-            Position             = DialogPosition.TopCenter
-        };
         var parameters = new DialogParameters
         {
             { "IdEmpresa", IdEmpresa },
@@ -214,7 +221,7 @@ public partial class AddComprobante
         };
         await DialogService.ShowAsync<DetalleComprobanteModal>(
             "Ingrese los detalles del comprobante", parameters,
-            options);
+            _options);
     }
 
     private async Task AgregarComprobante()

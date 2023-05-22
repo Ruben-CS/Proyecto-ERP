@@ -1,4 +1,8 @@
 @using System.Collections.ObjectModel
+@using BlazorFrontend.Pages.Comprobante.Editar
+@using NuGet.Versioning
+@inject IDialogService DialogService
+
 <MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
     <MudTable Hover="true"
               Striped="true"
@@ -42,7 +46,7 @@
                         <MudIconButton Color="Color.Warning"
                                        Icon="@Icons.Material.Filled.Edit"
                                        Size="Size.Small"
-                                       OnClick="() => EditDetalle(context)"/>
+                                       OnClick="() =>ShowEditDetalleModal(context)"/>
                     </MudTooltip>
                 </MudStack>
             </MudTd>
@@ -66,21 +70,3 @@
         </PagerContent>
     </MudTable>
 </MudPaper>
-
-@code {
-
-    [Parameter]
-    public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = new();
-
-    private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
-
-    private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
-
-    private void DeleteDetalle(DetalleComprobanteDto dto) => Detalles.Remove(dto);
-
-    private void EditDetalle(DetalleComprobanteDto dto)
-
-    {
-    }
-
-}

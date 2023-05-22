@@ -1,0 +1,56 @@
+@using global::Services.Cuenta
+@inject CuentaService CuentaService
+@inject ISnackbar Snackbar
+
+<MudDialog Style="border-radius: 20px">
+    <DialogContent>
+        <MudStack Row="true">
+            <MudAutocomplete T="string"
+                             @bind-Value="SelectedCuenta"
+                             SearchFunc="SearchCuenta"
+                             @bind-Text="@DetalleComprobanteDto.NombreCuenta"
+                             AdornmentIcon="@Icons.Material.Filled.Search"
+                             HelperText="Seleccione una cuenta"/>
+            <MudTextField @bind-Value="@DetalleComprobanteDto.Glosa"
+                          Variant="Variant.Text"
+                          Style="width: 800px;"
+                          HelperText="Ingrese la glosa"/>
+            <MudTextField @bind-Value="@DetalleComprobanteDto.MontoDebe"
+                          Label="Debe"
+                          Variant="Variant.Text"
+                          Style="width: 80px; text-align: right"
+                          Placeholder="0.00"
+                          Class="right-aligned-input"/>
+            <MudTextField @bind-Value="@DetalleComprobanteDto.MontoHaber"
+                          Label="Haber"
+                          Variant="Variant.Text"
+                          Style="width: 80px; text-align: right"
+                          Class="right-aligned-input"
+                          Placeholder="0.00"/>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Text"
+                   Size="Size.Small"
+                   Color="Color.Dark"
+                   Class="mb-2 mr-2"
+                   Style="width: 100px;">
+            Cerrar
+        </MudButton>
+        <MudButton Color="Color.Warning"
+                   Variant="Variant.Filled"
+                   Size="Size.Small"
+                   OnClick="Editar"
+                   Class="rounded-pill mb-2 mr-2"
+                   Style="width: 100px;">
+            Editar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>
