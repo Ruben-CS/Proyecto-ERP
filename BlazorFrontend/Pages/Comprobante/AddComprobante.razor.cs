@@ -81,17 +81,22 @@ public partial class AddComprobante
 
     private async Task<bool> ValidateFechaComprobante()
     {
-        var gestionesActivas = Gestiones.Where(g => g.Estado == EstadosGestion.Abierto).ToList();
+        var gestionesActivas =
+            Gestiones.Where(g => g.Estado == EstadosGestion.Abierto).ToList();
         var periodoActivoAlt = new List<PeriodoDto>();
 
-        var periodoActivo = await PeriodoService.GetPeriodosAsync(gestionesActivas.First().IdGestion);
+        var periodoActivo =
+            await PeriodoService.GetPeriodosAsync(gestionesActivas.First().IdGestion);
         if (gestionesActivas.Count != 1)
         {
-            periodoActivoAlt = await PeriodoService.GetPeriodosAsync(gestionesActivas.Last().IdGestion);
+            periodoActivoAlt =
+                await PeriodoService.GetPeriodosAsync(gestionesActivas.Last().IdGestion);
         }
 
-        if (periodoActivo.Any(p => Fecha!.Value     >= p.FechaInicio  && Fecha!.Value <= p.FechaFin) ||
-            periodoActivoAlt.Any(pa => Fecha!.Value >= pa.FechaInicio && Fecha!.Value <= pa.FechaFin))
+        if (periodoActivo.Any(p =>
+                Fecha!.Value >= p.FechaInicio && Fecha!.Value <= p.FechaFin) ||
+            periodoActivoAlt.Any(pa =>
+                Fecha!.Value >= pa.FechaInicio && Fecha!.Value <= pa.FechaFin))
         {
             return await Task.FromResult(true);
         }
@@ -99,7 +104,8 @@ public partial class AddComprobante
         return false;
     }
 
-    private async Task InitializeGestion() => Gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
+    private async Task InitializeGestion() =>
+        Gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
 
     #endregion
 
@@ -107,7 +113,8 @@ public partial class AddComprobante
 
     private decimal TotalHaber => _detalles.Sum(x => x.MontoHaber);
 
-    private async Task GoBack() => await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
+    private async Task GoBack() =>
+        await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
 
 
     private async Task RefreshComprobanteList() =>
@@ -120,7 +127,7 @@ public partial class AddComprobante
         Comprobantes       = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
         ComprobanteTypes   = Enum.GetNames(typeof(TipoComprobante)).ToList();
         await InitializeGestion();
-        var nextSerie = GetNextSerie(IdEmpresa).Result;
+        var nextSerie = GetNextSerie(IdEmpresa);
         SerieString = nextSerie.ToString();
         //TODO Optimize this code
         var idMonedaPrincipal   = EmpresaMonedas!.First().IdMonedaPrincipal;
@@ -132,10 +139,12 @@ public partial class AddComprobante
                              .ToList();
 
         #region Snackbar Config
-        Snackbar.Configuration.PositionClass        = Defaults.Classes.Position.BottomLeft;
+
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
         Snackbar.Configuration.ClearAfterNavigation = true;
-        Snackbar.Configuration.ShowCloseIcon        = false;
-        Snackbar.Configuration.PreventDuplicates    = true;
+        Snackbar.Configuration.ShowCloseIcon = false;
+        Snackbar.Configuration.PreventDuplicates = true;
+
         #endregion
 
         await InvokeAsync(StateHasChanged);
@@ -146,12 +155,30 @@ public partial class AddComprobante
         _detalles.Add(detalleComprobanteDto);
     }
 
-    private async Task<int> GetNextSerie(int idEmpresa)
+    private async Task PostDetalles(int idComprobante)
+    {
+        await OnSerieChanged();
+        var url =
+            $"https://localhost:44352/detalleComprobantes/agergarDetalleComprobante/{idComprobante}";
+
+        foreach (var detalle in _detalles)
+        {
+            detalle.IdComprobante = idComprobante;
+            var response = await HttpClient.PostAsJsonAsync(url, detalle);
+            if (!response.IsSuccessStatusCode)
+                break;
+        }
+
+        Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
+        _detalles.Clear();
+    }
+
+    private int GetNextSerie(int idEmpresa)
     {
         var maxSerie = Comprobantes
                        .Where(e => e.IdEmpresa == idEmpresa).Max(e => e.Serie)!;
 
-        return await Task.FromResult((maxSerie ?? 0) + 1);
+        return (maxSerie ?? 0) + 1;
     }
 
     private async Task<decimal?> SetTipoCambio(int? idMonedaAlternativa)
@@ -161,8 +188,9 @@ public partial class AddComprobante
             return default;
         }
 
-        return await Task.FromResult(EmpresaMonedas.Single(em => em.IdMonedaAlternativa == idMonedaAlternativa
-                                                                 && em.Estado == EstadoEmpresaMoneda.Abierto).Cambio);
+        return await Task.FromResult(EmpresaMonedas.Single(em =>
+            em.IdMonedaAlternativa == idMonedaAlternativa
+            && em.Estado           == EstadoEmpresaMoneda.Abierto).Cambio);
     }
 
     private async Task OpenAgregarDetalleModal()
@@ -179,11 +207,13 @@ public partial class AddComprobante
             { "Glosa", Glosa },
             {
                 "AddNewDetalleComprobante",
-                EventCallback.Factory.Create<DetalleComprobanteDto>(this, AddNewDetalleComprobante)
+                EventCallback.Factory.Create<DetalleComprobanteDto>(this,
+                    AddNewDetalleComprobante)
             },
             { "Detalles", _detalles }
         };
-        await DialogService.ShowAsync<DetalleComprobanteModal>("Ingrese los detalles del comprobante", parameters,
+        await DialogService.ShowAsync<DetalleComprobanteModal>(
+            "Ingrese los detalles del comprobante", parameters,
             options);
     }
 
@@ -191,13 +221,16 @@ public partial class AddComprobante
     {
         var url = $"https://localhost:44352/agregarcomprobante/{IdEmpresa}";
 
-        if (!Enum.TryParse(typeof(TipoComprobante), SelectedTipoComprobante, out var parsedEnum))
+        if (!Enum.TryParse(typeof(TipoComprobante), SelectedTipoComprobante,
+                out var parsedEnum))
         {
-            throw new Exception("Unable to parse SelectedTipoComprobante to TipoComprobante enum");
+            throw new Exception(
+                "Unable to parse SelectedTipoComprobante to TipoComprobante enum");
         }
 
         var tipoComprobante = (TipoComprobante)parsedEnum;
-        var idMoneda        = MonedasDeLaEmpresa.First(m => m!.Nombre == SelectedEmpresaMoneda)!.IdMoneda;
+        var idMoneda = MonedasDeLaEmpresa.First(m => m!.Nombre == SelectedEmpresaMoneda)!
+                                         .IdMoneda;
         var comprobanteDto = new ComprobanteDto
         {
             Glosa           = Glosa!,
@@ -216,21 +249,23 @@ public partial class AddComprobante
 
         if (!SumDebeAndHaberIsEqual())
         {
-            Snackbar.Add("El total del debe y el haber deben ser iguales", Severity.Error);
+            Snackbar.Add("El total del debe y el haber deben ser iguales",
+                Severity.Error);
             return;
         }
 
         if (!await ValidateFechaComprobante())
         {
-            Snackbar.Add("La fecha del comprobante no esta dentro de un periodo activo", Severity.Error);
+            Snackbar.Add("La fecha del comprobante no esta dentro de un periodo activo",
+                Severity.Error);
             return;
         }
 
         var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
         if (response.IsSuccessStatusCode)
         {
+            await PostDetalles(Comprobantes.Last().IdComprobante);
             Snackbar.Add("Comprobante agregado exitosamente", Severity.Success);
-            await OnSerieChanged();
         }
     }
 

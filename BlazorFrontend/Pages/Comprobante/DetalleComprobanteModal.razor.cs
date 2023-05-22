@@ -55,6 +55,7 @@ public partial class DetalleComprobanteModal
         {
             return await Task.FromResult(nombreCuentas);
         }
+
         return nombreCuentas.Where(c => c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
@@ -68,20 +69,21 @@ public partial class DetalleComprobanteModal
             return;
         if (CuentaHasMoreExistingDetalle())
             return;
-        if(IsGlosaNullOrEmpty(Glosa))
+        if (IsGlosaNullOrEmpty(Glosa))
             return;
 
         var selectedCuentaCodigo = ExtractCodigo(SelectedCuenta!);
         var idCuenta             = Cuentas.SingleOrDefault(c => c.Codigo == selectedCuentaCodigo)!.IdCuenta;
-        //todo change this to get the id
         var detalleComprobante = new DetalleComprobanteDto
         {
-            NombreCuenta = SelectedCuenta,
-            Glosa        = Glosa!,
-            MontoDebe    = Debe.Value,
-            MontoHaber   = Haber.Value,
-            IdCuenta     = idCuenta,
-            IdUsuario    = 1
+            NombreCuenta  = SelectedCuenta,
+            Glosa         = Glosa!,
+            MontoDebe     = Debe.Value,
+            MontoHaber    = Haber.Value,
+            IdCuenta      = idCuenta,
+            IdUsuario     = 1,
+            MontoHaberAlt = default,
+            MontoDebeAlt  = default
         };
 
 
@@ -143,7 +145,6 @@ public partial class DetalleComprobanteModal
         if (!glosa.IsNullOrEmpty()) return false;
         Snackbar.Add("La glosa no puede estar vacia", Severity.Error);
         return true;
-
     }
 
     private static string ExtractCodigo(string nombreCuenta)

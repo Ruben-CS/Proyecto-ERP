@@ -18,8 +18,8 @@ public class ComprobanteDetalleController : ControllerBase
     }
 
     [HttpPost("agergarDetalleComprobante/{idComprobante:int}")]
-    public async Task<object> AgregarDetalle([FromRoute] int idComprobante,
-                                             DetalleComprobanteDto detalleComprobanteDto)
+    public async Task<object> AgregarDetalle([FromRoute] int                   idComprobante,
+                                             [FromBody]  DetalleComprobanteDto detalleComprobanteDto)
     {
         try
         {
@@ -35,6 +35,7 @@ public class ComprobanteDetalleController : ControllerBase
                 e.ToString()
             };
         }
+
         return _responseDto;
     }
 }

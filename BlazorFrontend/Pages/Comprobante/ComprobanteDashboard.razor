@@ -1,8 +1,6 @@
 @page "/comprobantes/overview/{idempresa:int}"
 @using global::Services.Comprobante
 @layout ComprobanteLayout
-@inject ISnackbar Snackbar
-@inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @inject ComprobanteService ComprobanteService
 
@@ -16,12 +14,12 @@
                    Variant="Variant.Filled"
                    OnClick="GoToDetalle"
                    Style="justify-self: flex-end; align-self: center"
-                   Class="mb-4">
+                   Class="mb-4"
+                   Disabled="IsLoading">
             <MudText>Agregar Comprobante</MudText>
         </MudButton>
     </div>
 </MudStack>
-
 
 <MudDivider DividerType="DividerType.Middle"
             Light="false"
