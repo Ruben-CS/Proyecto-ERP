@@ -176,7 +176,6 @@ public partial class AddComprobante
             }
 
             Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
-            _detalles.Clear();
         }
         catch (HttpRequestException ex)
         {
@@ -268,12 +267,29 @@ public partial class AddComprobante
             return;
         }
 
+        if (HasExistingComprobanteApertura(comprobanteDto.TipoComprobante))
+        {
+            Snackbar.Add("Ya existe un comprobante de tipo apertura",
+                Severity.Error);
+            return;
+        }
+
         var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
         if (response.IsSuccessStatusCode)
         {
             await PostDetalles(Comprobantes.Last().IdComprobante);
-            Snackbar.Add("Comprobante agregado exitosamente", Severity.Success);
+            Snackbar.Add("Comprobante agregado exitosamente", Severity.Success, options =>
+            {
+                options.CloseAfterNavigation = false;
+            });
+            NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
         }
+    }
+
+    private bool HasExistingComprobanteApertura(TipoComprobante tipoComprobante)
+    {
+        return Comprobantes.Any(d => d.TipoComprobante == TipoComprobante.Apertura &&
+                                     tipoComprobante   == TipoComprobante.Apertura);
     }
 
     private async Task OnSerieChanged()
