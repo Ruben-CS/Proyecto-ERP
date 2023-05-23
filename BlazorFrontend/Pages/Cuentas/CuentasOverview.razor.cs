@@ -11,8 +11,6 @@ namespace BlazorFrontend.Pages.Cuentas;
 
 public partial class CuentasOverview
 {
-    private bool IsExpanded { get; set; }
-
     private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
 
     private TreeItemData? SelectedValue { get; set; }
@@ -31,13 +29,6 @@ public partial class CuentasOverview
 
     private HashSet<TreeItemData> TreeItems { get; set; } = new();
 
-    private void ToggleDrawer() => _open = !_open;
-
-    private bool IsCuentaSelected { get; set; } = false;
-
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-
-
     public class TreeItemData
     {
         public int     IdCuenta { get; set; }
@@ -48,10 +39,6 @@ public partial class CuentasOverview
 
         public int?                  IdCuentaPadre { get; set; }
         public HashSet<TreeItemData> CuentasHijas  { get; set; }
-
-        private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
-
-        private TreeItemData SelectedValue { get; set; }
 
         public TreeItemData(CuentaDto cuenta)
         {
@@ -68,14 +55,8 @@ public partial class CuentasOverview
         await Task.FromResult(_cuentas.Any(cuenta =>
             cuenta.IdCuentaPadre == selectedValue.IdCuenta));
 
-    private void CuentaSelected() => IsCuentaSelected = true;
-
-    private static TreeItemData CreateTree(TreeItemData           treeItemData,
-                                           IEnumerable<CuentaDto> allCuentas)
+    private static TreeItemData CreateTree(TreeItemData           treeItemData)
     {
-        var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == treeItemData.IdCuenta)
-                                     .ToList();
-
         return treeItemData;
     }
 
@@ -88,7 +69,7 @@ public partial class CuentasOverview
         {
             if (cuenta.IdCuentaPadre is not null) continue;
             var rootItem = new TreeItemData(cuenta);
-            var children = CreateTree(rootItem, cuentas);
+            var children = CreateTree(rootItem);
             rootItems.Add(rootItem, new HashSet<TreeItemData> { children });
         }
 
@@ -246,13 +227,6 @@ public partial class CuentasOverview
         }
     }
 
-
-    private void NavigateToGestiones()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
 
     private async Task OnTreeViewChange(CuentaDto cuentaDto)
     {

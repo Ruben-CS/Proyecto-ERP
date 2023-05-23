@@ -1,0 +1,52 @@
+@page "/CategoriaOverview/{idempresa:int}"
+@using global::Services.CategoriaService
+@layout CuentasOverviewLayout
+@inject CategoriaService CategoriaService
+@inject NavigationManager NavigationManager
+
+
+<NavBarComponent IdEmpresa="IdEmpresa"/>
+
+<MudStack Row="true">
+    <MudPaper Elevation="1">
+        <MudTreeView T="TreeItemDataCategoria"
+                     Hover="true"
+                     @bind-SelectedValue="SelectedValue"
+                     Width="500px">
+            <MudTreeViewItem T="TreeItemDataCategoria" Text="Plan de cuentas" Expanded="true"
+                             Icon="@(_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.FolderOpen :
+                                       Icons.Custom.Uncategorized.Folder)">
+                <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
+                             Icon="@(_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.FolderOpen :
+                                       Icons.Custom.Uncategorized.Folder)"
+                             @bind-Expanded="@_folderOneExpanded">
+                    <ItemTemplate>
+                        <TreeItem Value="@context" Expanded="true"/>
+                    </ItemTemplate>
+                </MudTreeView>
+            </MudTreeViewItem>
+        </MudTreeView>
+    </MudPaper>
+    <MudPaper Elevation="0" id="actionButtons">
+        <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
+                   Variant="Variant.Filled" Color="Color.Success"
+                   OnClick="ShowCrearCuenta"
+        >
+            Agregar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
+                   Variant="Variant.Filled" Color="Color.Warning"
+                   OnClick="ShowEditarCuenta"
+        >
+            Editar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
+                   Variant="Variant.Filled" Color="Color.Error"
+                   OnClick="ShowEliminarCuenta"
+        >
+            Eliminar
+        </MudButton>
+    </MudPaper>
+</MudStack>

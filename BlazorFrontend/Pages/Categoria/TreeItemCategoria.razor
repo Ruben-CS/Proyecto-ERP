@@ -1,0 +1,38 @@
+@inherits MudTreeViewItem<TreeItemDataCategoria>
+
+@if (Value != null)
+{
+    <MudTreeViewItem Value="@Value"
+                     LoadingIconColor="Color.Info"
+                     CanExpand="true"
+                     Text="@($"{Value.Nombre}")"
+                     EndTextTypo="@Typo.caption"
+                     Icon="@(_folderTwoExpanded ?
+                               Icons.Custom.Uncategorized.FolderOpen :
+                               Icons.Custom.Uncategorized.Folder)"
+                     @bind-Expanded="@_folderTwoExpanded"
+                     OnClick="@(() => OnItemClick(Value))">
+        @if (Value.CuentasHijas.Count > 0)
+        {
+            <MudTreeView Items="@Value.CuentasHijas">
+                <ItemTemplate>
+                    <TreeItem Value="@context" />
+                </ItemTemplate>
+            </MudTreeView>
+        }
+    </MudTreeViewItem>
+}
+
+@code{
+
+    private bool _folderOneExpanded;
+    private bool _folderTwoExpanded;
+
+    private TreeItemDataCategoria SelectedValue { get; set; }
+
+    private void OnItemClick(TreeItemDataCategoria value)
+    {
+        SelectedValue = value;
+    }
+
+}

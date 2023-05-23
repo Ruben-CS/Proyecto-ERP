@@ -27,7 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Categoria\" />
+    <Folder Include="Pages\Categoria\Crear\" />
+    <Folder Include="Pages\Categoria\Editar\" />
+    <Folder Include="Pages\Categoria\Eliminar\" />
   </ItemGroup>
 
 </Project>

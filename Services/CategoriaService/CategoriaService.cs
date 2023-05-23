@@ -12,7 +12,7 @@ public sealed class CategoriaService
         _httpClient = httpClient;
     }
 
-    public async Task<List<CategoriaDto>> GetCuentasDetalle(int idEmpresa) =>
+    public async Task<List<CategoriaDto>> GetCategoriasService(int idEmpresa) =>
         await await Task.FromResult(GetApiResponseAsync<List<CategoriaDto>>($"https://localhost:44321/categorias/getCategorias/{idEmpresa}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
