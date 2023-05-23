@@ -111,6 +111,14 @@
                     Monedas
                 </MudText>
             </MudNavLink>
+
+            <MudNavLink Href="@NavigateToCategorias()"
+                                    Icon="@Icons.Material.Filled.Category"
+                                    Match="NavLinkMatch.Prefix">
+                            <MudText>
+                                Categorias
+                            </MudText>
+                        </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
@@ -171,6 +179,8 @@
     private string NavigateToMonedas() => $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
 
     private string NavigateToComprobantes() => $"/comprobantes/overview/{IdEmpresa}";
+
+    private string NavigateToCategorias() => $"/CategoriaOverview/{IdEmpresa}";
 
     private async Task CerrarSesion()
     {

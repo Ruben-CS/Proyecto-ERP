@@ -3,12 +3,14 @@
 @layout CuentasOverviewLayout
 @inject CategoriaService CategoriaService
 @inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+
 
 
 <NavBarComponent IdEmpresa="IdEmpresa"/>
 
 <MudStack Row="true">
-    <MudPaper Elevation="1">
+    <MudPaper Elevation="0">
         <MudTreeView T="TreeItemDataCategoria"
                      Hover="true"
                      @bind-SelectedValue="SelectedValue"
@@ -31,21 +33,21 @@
     </MudPaper>
     <MudPaper Elevation="0" id="actionButtons">
         <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
-                   Variant="Variant.Filled" Color="Color.Success"
-                   OnClick="ShowCrearCuenta"
-        >
+                   Variant="Variant.Filled"
+                   Color="Color.Success"
+                   OnClick="@ShowCrearCategoria">
             Agregar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
-                   Variant="Variant.Filled" Color="Color.Warning"
-                   OnClick="ShowEditarCuenta"
-        >
+                   Variant="Variant.Filled"
+                   Color="Color.Warning"
+                   Disabled="true">
             Editar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
-                   Variant="Variant.Filled" Color="Color.Error"
-                   OnClick="ShowEliminarCuenta"
-        >
+                   Variant="Variant.Filled"
+                   Color="Color.Error"
+                   Disabled="true">
             Eliminar
         </MudButton>
     </MudPaper>

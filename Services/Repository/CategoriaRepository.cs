@@ -13,7 +13,8 @@ public class CategoriaRepository : ICategoriaRepository
 
     private readonly IMapper _mapper;
 
-    public CategoriaRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+    public CategoriaRepository(ApplicationDbContext applicationDbContext,
+                               IMapper mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
@@ -31,7 +32,7 @@ public class CategoriaRepository : ICategoriaRepository
     public async Task<CategoriaDto> EditarDto(CategoriaDto dto, int idCategoria)
     {
         var categoria =
-            await _applicationDbContext.Categorias.Where(c =>
+            await _applicationDbContext.Categoria.Where(c =>
                 c.IdCategoria == idCategoria).SingleOrDefaultAsync();
 
         if (categoria is null)
@@ -48,7 +49,7 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<bool> EliminarDto(int idCategoria)
     {
-        var categoria = await _applicationDbContext.Categorias.SingleOrDefaultAsync(c => c.IdCategoria == idCategoria);
+        var categoria = await _applicationDbContext.Categoria.SingleOrDefaultAsync(c => c.IdCategoria == idCategoria);
 
         if (categoria is null)
         {
@@ -62,7 +63,7 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<IEnumerable<CategoriaDto>> ListarCategoria(int idEmpresa)
     {
-        var cuentas = await _applicationDbContext.Categorias
+        var cuentas = await _applicationDbContext.Categoria
                                                  .Where(c => c.IdEmpresa == idEmpresa)
                                                  .ToListAsync();
 
@@ -72,7 +73,7 @@ public class CategoriaRepository : ICategoriaRepository
     public async Task<CategoriaDto> GetCategoriaById(int idCategoria)
     {
         var categoria =
-            await _applicationDbContext.Categorias.FirstOrDefaultAsync(c =>
+            await _applicationDbContext.Categoria.FirstOrDefaultAsync(c =>
                 c.IdCategoria == idCategoria);
         return await Task.FromResult(_mapper.Map<CategoriaDto>(categoria));
     }

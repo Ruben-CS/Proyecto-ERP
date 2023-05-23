@@ -1,5 +1,8 @@
+using BlazorFrontend.Pages.Categoria.Crear;
+using BlazorFrontend.Pages.Cuentas.Crear;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
+using MudBlazor;
 using Services.Cuenta;
 
 namespace BlazorFrontend.Pages.Categoria;
@@ -115,6 +118,42 @@ public partial class CategoriaOverview
         RootItems = cuentas.Any()
             ? CreateRootItems(cuentas)
             : new Dictionary<TreeItemDataCategoria, HashSet<TreeItemDataCategoria>>();
+    }
+
+
+    private async Task ShowCrearCategoria()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.Small,
+            FullWidth            = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            {
+                "SelectedValue", SelectedValue
+            },
+            {
+                "IdEmpresa", IdEmpresa
+            },
+            {
+                "OnTreeViewChange",
+                EventCallback.Factory.Create<CategoriaDto>(this, OnTreeViewChange)
+            }
+        };
+
+        await DialogService.ShowAsync<CrearCategoria>
+            ("Escriba el nombre de la cuenta", parameters, options);
+    }
+
+    private async Task OnTreeViewChange(CategoriaDto cuentaDto)
+    {
+        _categorias = await CategoriaService.GetCategoriasService(IdEmpresa);
+        TreeItems   = BuildTreeItems(_categorias);
+        await LoadCuentas();
+        await Task.FromResult(InvokeAsync(StateHasChanged));
     }
 
 }

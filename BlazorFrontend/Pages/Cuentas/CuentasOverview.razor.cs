@@ -31,14 +31,14 @@ public partial class CuentasOverview
 
     public class TreeItemData
     {
-        public int     IdCuenta { get; set; }
-        public string? Codigo   { get; set; }
+        public int     IdCuenta { get; }
+        public string? Codigo   { get; }
         public string  Nombre   { get; set; }
 
-        public TipoCuenta TipoCuenta { get; set; }
+        public TipoCuenta TipoCuenta { get; }
 
         public int?                  IdCuentaPadre { get; set; }
-        public HashSet<TreeItemData> CuentasHijas  { get; set; }
+        public HashSet<TreeItemData> CuentasHijas  { get; init; }
 
         public TreeItemData(CuentaDto cuenta)
         {

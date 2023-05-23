@@ -25,13 +25,13 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Cuenta> Cuentas { get; set; }
 
-    public DbSet<Nota> Notas { get; set; }
+    public DbSet<Nota> Nota { get; set; }
 
-    public DbSet<ArticuloCategoria> ArticuloCategorias { get; set; }
+    public DbSet<ArticuloCategoria> ArticuloCategoriaa { get; set; }
 
-    public DbSet<Articulo> Articulos { get; set; }
+    public DbSet<Articulo> Articulo { get; set; }
 
-    public DbSet<Categoria> Categorias { get; set; }
+    public DbSet<Categoria> Categoria { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,18 +64,6 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Empresa>().Property(i => i.IdUsuario)
                     .IsRequired(false);
         modelBuilder.Entity<Empresa>().HasIndex(i => i.IdUsuario);
-
-        #endregion
-
-        #region Configuracion de Usuario
-
-        #endregion
-
-        #region Configruacion Gestion
-
-        #endregion
-
-        #region Configuracion Periodo
 
         #endregion
 

@@ -54,7 +54,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Articulo");
+                    b.ToTable("Articulo", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.ArticuloCategoria", b =>
@@ -75,7 +75,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdCategoria");
 
-                    b.ToTable("ArticuloCategoria");
+                    b.ToTable("ArticuloCategoria", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Categoria", b =>
@@ -113,7 +113,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Categoria", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Comprobante", b =>
@@ -160,7 +160,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Comprobantes");
+                    b.ToTable("Comprobantes", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Cuenta", b =>
@@ -202,7 +202,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdEmpresa");
 
-                    b.ToTable("Cuentas");
+                    b.ToTable("Cuentas", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.DetalleComprobante", b =>
@@ -252,7 +252,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("DetalleComprobantes");
+                    b.ToTable("DetalleComprobantes", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
@@ -306,7 +306,7 @@ namespace ModuloContabilidadApi.Migrations
                     b.HasIndex("Sigla")
                         .IsUnique();
 
-                    b.ToTable("Empresas");
+                    b.ToTable("Empresas", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.EmpresaMoneda", b =>
@@ -349,7 +349,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("EmpresaMonedas");
+                    b.ToTable("EmpresaMonedas", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Gestion", b =>
@@ -388,7 +388,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Gestiones");
+                    b.ToTable("Gestiones", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Moneda", b =>
@@ -423,7 +423,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Monedas");
+                    b.ToTable("Monedas", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Nota", b =>
@@ -468,7 +468,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Nota");
+                    b.ToTable("Nota", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Periodo", b =>
@@ -504,7 +504,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.ToTable("Periodos");
+                    b.ToTable("Periodos", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Usuario", b =>
@@ -529,7 +529,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasKey("IdUsuario");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("Modelos.Models.Articulo", b =>
