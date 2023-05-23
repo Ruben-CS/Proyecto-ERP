@@ -55,11 +55,15 @@
     {
         var uri = $"https://localhost:44321/categorias/editarCategoria/{SelectedValue.IdCategoria}";
 
-        var categoriaDto = new CategoriaDto()
+        var categoriaDto = new CategoriaDto
         {
             IdCategoria = SelectedValue.IdCategoria,
             Nombre = SelectedValue.Nombre,
+            IdEmpresa = IdEmpresa,
             Descripcion = SelectedValue.Descripcion,
+            IdCategoriaPadre = SelectedValue.IdCategoriaPadre,
+            IdUsuario = 1,
+            Estado = true
         };
 
         if (await ValidateName(categoriaDto))
