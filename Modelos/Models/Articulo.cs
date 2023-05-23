@@ -6,6 +6,7 @@ namespace Modelos.Models;
 public class Articulo
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdArticulo { get; set; }
 
     public string? Nombre      { get; set; }

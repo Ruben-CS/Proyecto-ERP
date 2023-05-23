@@ -9,7 +9,6 @@ namespace Services.Repository;
 
 public class ArticuloRepository : IArticuloRepository
 {
-
     private readonly ApplicationDbContext _applicationDbContext;
 
     private readonly IMapper _mapper;
@@ -20,14 +19,15 @@ public class ArticuloRepository : IArticuloRepository
         _mapper               = mapper;
     }
 
-    public async Task<ArticuloDto>              CrearArticulo(ArticuloDto  dto)
+    public async Task<ArticuloDto> CrearArticulo(ArticuloDto dto)
     {
         var articulo = _mapper.Map<ArticuloDto, Articulo>(dto);
         await _applicationDbContext.AddAsync(articulo);
+        await _applicationDbContext.SaveChangesAsync();
         return _mapper.Map<Articulo, ArticuloDto>(articulo);
     }
 
-    public async Task<IEnumerable<ArticuloDto>> ListarArticulo(int         idEmpresa)
+    public async Task<IEnumerable<ArticuloDto>> ListarArticulo(int idEmpresa)
     {
         var articulos = await _applicationDbContext.Articulo
                                                    .Where(a => a.IdEmpresa == idEmpresa)
@@ -35,7 +35,7 @@ public class ArticuloRepository : IArticuloRepository
         return await Task.FromResult(_mapper.Map<List<ArticuloDto>>(articulos));
     }
 
-    public async Task<ArticuloDto>              EditarArticulo(ArticuloDto dto, int idArticulo)
+    public async Task<ArticuloDto> EditarArticulo(ArticuloDto dto, int idArticulo)
     {
         var articulo =
             await _applicationDbContext.Articulo.Where(c =>
@@ -53,7 +53,7 @@ public class ArticuloRepository : IArticuloRepository
         return await Task.FromResult(_mapper.Map<ArticuloDto>(articulo));
     }
 
-    public async Task<ArticuloDto>              GetSingleArticulo(int      idArticulo)
+    public async Task<ArticuloDto> GetSingleArticulo(int idArticulo)
     {
         var articulo =
             await _applicationDbContext.Articulo.FirstOrDefaultAsync(c =>
@@ -61,9 +61,11 @@ public class ArticuloRepository : IArticuloRepository
         return await Task.FromResult(_mapper.Map<ArticuloDto>(articulo));
     }
 
-    public async Task<bool>                         BorrarArticulo(int         idArticulo)
+    public async Task<bool> BorrarArticulo(int idArticulo)
     {
-        var aritculo = await _applicationDbContext.Articulo.SingleOrDefaultAsync(c => c.IdArticulo == idArticulo);
+        var aritculo =
+            await _applicationDbContext.Articulo.SingleOrDefaultAsync(c =>
+                c.IdArticulo == idArticulo);
 
         if (aritculo is null)
         {
