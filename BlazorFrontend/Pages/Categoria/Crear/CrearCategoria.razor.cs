@@ -31,7 +31,9 @@ public partial class CrearCategoria
         {
             Nombre        = CategoriaDto.Nombre,
             IdCategoriaPadre = SelectedValue?.IdCategoria,
-            IdEmpresa     = IdEmpresa
+            IdEmpresa     = IdEmpresa,
+            IdUsuario = 1,
+            Estado = true
         };
         if (await ValidateName(categoriaDto))
         {

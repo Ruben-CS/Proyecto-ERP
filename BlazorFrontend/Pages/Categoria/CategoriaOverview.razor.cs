@@ -1,9 +1,7 @@
 using BlazorFrontend.Pages.Categoria.Crear;
-using BlazorFrontend.Pages.Cuentas.Crear;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
-using Services.Cuenta;
 
 namespace BlazorFrontend.Pages.Categoria;
 
@@ -22,11 +20,14 @@ public partial class CategoriaOverview
 
     private bool _folderOneExpanded;
 
+    public bool IsLoading { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            IsLoading = true;
             var uri      = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
             var idValue  = segments[^1];
@@ -37,6 +38,7 @@ public partial class CategoriaOverview
                 TreeItems   = BuildTreeItems(_categorias);
                 await LoadCuentas();
                 await InvokeAsync(StateHasChanged);
+                IsLoading = false;
             }
             else
             {
@@ -62,7 +64,7 @@ public partial class CategoriaOverview
         return treeItemData;
     }
 
-    private Dictionary<TreeItemDataCategoria, HashSet<TreeItemDataCategoria>>
+    private static Dictionary<TreeItemDataCategoria, HashSet<TreeItemDataCategoria>>
         CreateRootItems(
             List<CategoriaDto> categoriaDtos)
     {
