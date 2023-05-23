@@ -26,4 +26,8 @@
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Categoria\" />
+  </ItemGroup>
+
 </Project>

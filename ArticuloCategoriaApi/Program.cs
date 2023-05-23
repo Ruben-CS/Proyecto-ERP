@@ -1,4 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Modelos.ApplicationContexts;
+using Services.MapConfiguration;
+using Services.Repository;
+using Services.Repository.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
+var mapper  = MappingConfiguration.RegisterMaps().CreateMapper();
+
 
 // Add services to the container.
 
@@ -6,6 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddSingleton(mapper);
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(o =>
+{
+    o.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("Modelos"));
+});
+
+
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
 var app = builder.Build();
 
