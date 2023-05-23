@@ -36,4 +36,6 @@ public class Comprobante
 
     [InverseProperty("Comprobantes")]
     public Empresa? Empresa { get; set; }
+
+    public IEnumerable<Nota> Notas { get; set; }
 }

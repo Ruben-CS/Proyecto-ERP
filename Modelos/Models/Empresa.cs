@@ -11,10 +11,10 @@ public class Empresa
     [Required(ErrorMessage = "Empresa requiere un nombre")]
     public string Nombre { get; set; }
 
-    [Required (ErrorMessage = "Empresa requiere un NIT")]
+    [Required(ErrorMessage = "Empresa requiere un NIT")]
     public string Nit { get; set; }
 
-    [Required (ErrorMessage = "Empresa requiere una sigla")]
+    [Required(ErrorMessage = "Empresa requiere una sigla")]
     public string Sigla { get; set; }
 
     public string? Telefono { get; set; }
@@ -35,6 +35,11 @@ public class Empresa
     public List<EmpresaMoneda>? EmpresaMonedas { get; set; }
 
     public List<Cuenta>? Cuentas { get; set; }
+
+
+    public List<Articulo>?  Articulos       { get; set; }
+    public List<Nota>?      Notas           { get; set; }
+    public List<Categoria>? HijosCategorias { get; set; }
 
     [ForeignKey("Usuario")]
     public int? IdUsuario { get; set; }
