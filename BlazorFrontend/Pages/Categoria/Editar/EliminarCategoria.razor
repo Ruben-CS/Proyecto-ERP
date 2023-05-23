@@ -1,0 +1,45 @@
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Desea elmininar esta categoria?
+        </MudText>
+    </TitleContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Dark"
+                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error"
+                   OnClick="Eliminar">Eliminar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code{
+
+    [Parameter]
+    public EventCallback<CategoriaDto> OnTreeViewChange { get; set; }
+
+    [Parameter]
+    public TreeItemDataCategoria SelectedValue { get; set; }
+
+    public CategoriaDto Dto { get; set; } = new();
+
+    [CascadingParameter]
+    private MudDialogInstance? MudDialog { get; set; } = new();
+
+    private async Task Eliminar()
+    {
+        var uri = $"https://localhost:44321/categorias/eliminarCategoria/{SelectedValue.IdCategoria}";
+        var response = await HttpClient.DeleteAsync(uri);
+
+        await OnTreeViewChange.InvokeAsync(Dto);
+        Snackbar.Add("Categoria borrada exitosamente", Severity.Success);
+        MudDialog!.Close(DialogResult.Ok(response));
+    }
+
+    private void Cancel() => MudDialog!.Cancel();
+
+}
