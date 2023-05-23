@@ -4,6 +4,7 @@
 @inject CategoriaService CategoriaService
 @inject NavigationManager NavigationManager
 @inject IDialogService DialogService
+@inject ISnackbar Snackbar
 
 
 <NavBarComponent IdEmpresa="IdEmpresa"/>
@@ -46,7 +47,7 @@
         <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
                    Variant="Variant.Filled"
                    Color="Color.Error"
-                   Disabled="true">
+                   OnClick="@ShowEliminarCategoria">
             Eliminar
         </MudButton>
     </MudPaper>

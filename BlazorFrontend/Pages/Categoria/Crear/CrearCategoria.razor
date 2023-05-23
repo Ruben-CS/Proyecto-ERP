@@ -9,21 +9,30 @@
         <EditForm Model="CategoriaDto" OnValidSubmit="CreateCuenta">
             <MudTextField Required="true"
                           Label="Nombre"
-                          @bind-Value="@CategoriaDto.Nombre"/>
+                          @bind-Value="@CategoriaDto.Nombre"
+                          Variant="Variant.Outlined"/>
+
+            <MudTextField T="string"
+                          Label="Outlined"
+                          Variant="Variant.Outlined"
+                          @bind-Value="@CategoriaDto.Descripcion"
+                          Lines="3"/>
         </EditForm>
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled"
                    StartIcon="@Icons.Material.Filled.Cancel"
                    Color="Color.Dark"
-                   OnClick="Cancel">
+                   OnClick="Cancel"
+                   Size="Size.Medium">
             Cancelar
         </MudButton>
         <MudButton Variant="Variant.Filled"
                    StartIcon="@Icons.Material.Filled.Add"
                    ButtonType="ButtonType.Submit"
                    Color="Color.Success"
-                   OnClick="CreateCuenta">
+                   OnClick="CreateCuenta"
+                   Size="Size.Medium">
             Crear
         </MudButton>
     </DialogActions>

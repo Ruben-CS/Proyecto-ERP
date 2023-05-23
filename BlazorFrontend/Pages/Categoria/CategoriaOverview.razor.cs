@@ -1,4 +1,5 @@
 using BlazorFrontend.Pages.Categoria.Crear;
+using BlazorFrontend.Pages.Categoria.Editar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -125,6 +126,10 @@ public partial class CategoriaOverview
 
     private async Task ShowCrearCategoria()
     {
+        if (IsSelectedEmpty())
+        {
+            return;
+        }
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -149,6 +154,56 @@ public partial class CategoriaOverview
         await DialogService.ShowAsync<CrearCategoria>
             ("Escriba el nombre de la cuenta", parameters, options);
     }
+
+    private async Task ShowEliminarCategoria()
+    {
+        if (IsSelectedEmpty())
+        {
+            return;
+        }
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.ExtraSmall,
+            FullWidth            = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            {
+                "SelectedValue", SelectedValue
+            },
+            {
+                "OnTreeViewChange",
+                EventCallback.Factory.Create<CategoriaDto>(this, OnTreeViewChange)
+            }
+        };
+        if (await HasChildren(SelectedValue))
+        {
+            Snackbar.Add("No puede eliminar una categoria con hijos", Severity.Error);
+        }
+        else
+        {
+            await DialogService.ShowAsync<EliminarCategoria>
+                ("Esta seguro?", parameters, options);
+        }
+    }
+
+    private async Task<bool> HasChildren(TreeItemDataCategoria selectedValue) =>
+        await Task.FromResult(_categorias.Any(cuenta =>
+            cuenta.IdCategoriaPadre == selectedValue.IdCategoria));
+
+    private bool IsSelectedEmpty()
+    {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una categoria primero", Severity.Info);
+            return true;
+        }
+
+        return false;
+    }
+
 
     private async Task OnTreeViewChange(CategoriaDto cuentaDto)
     {

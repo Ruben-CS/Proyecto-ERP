@@ -7,7 +7,7 @@ namespace BlazorFrontend.Pages.Categoria.Crear;
 
 public partial class CrearCategoria
 {
-    private CategoriaDto CategoriaDto { get; set; } = new();
+    private CategoriaDto CategoriaDto { get; } = new();
 
     [CascadingParameter]
     private MudDialogInstance? MudDialog { get; set; }
@@ -31,6 +31,7 @@ public partial class CrearCategoria
         {
             Nombre        = CategoriaDto.Nombre,
             IdCategoriaPadre = SelectedValue?.IdCategoria,
+            Descripcion = CategoriaDto.Descripcion,
             IdEmpresa     = IdEmpresa,
             IdUsuario = 1,
             Estado = true
