@@ -35,19 +35,22 @@
         <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
                    Variant="Variant.Filled"
                    Color="Color.Success"
-                   OnClick="@ShowCrearCategoria">
+                   OnClick="@ShowCrearCategoria"
+                   Disabled="@IsLoading">
             Agregar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
                    Variant="Variant.Filled"
                    Color="Color.Warning"
-                   OnClick="ShowEditarCategoria">
+                   OnClick="ShowEditarCategoria"
+                   Disabled="@IsLoading">
             Editar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
                    Variant="Variant.Filled"
                    Color="Color.Error"
-                   OnClick="@ShowEliminarCategoria">
+                   OnClick="@ShowEliminarCategoria"
+                   Disabled="@IsLoading">
             Eliminar
         </MudButton>
     </MudPaper>

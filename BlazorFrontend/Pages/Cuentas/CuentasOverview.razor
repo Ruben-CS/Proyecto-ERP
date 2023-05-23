@@ -33,21 +33,20 @@
     </MudPaper>
     <MudPaper Elevation="0" id="actionButtons">
         <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
-                   Variant="Variant.Filled" Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Color="Color.Success"
                    OnClick="ShowCrearCuenta"
-                   >
+                   Disabled="">
             Agregar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
                    Variant="Variant.Filled" Color="Color.Warning"
-                   OnClick="ShowEditarCuenta"
-                   >
+                   OnClick="ShowEditarCuenta">
             Editar
         </MudButton>
         <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
                    Variant="Variant.Filled" Color="Color.Error"
-                   OnClick="ShowEliminarCuenta"
-                   >
+                   OnClick="ShowEliminarCuenta">
             Eliminar
         </MudButton>
     </MudPaper>

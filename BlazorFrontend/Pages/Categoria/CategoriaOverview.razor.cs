@@ -22,7 +22,7 @@ public partial class CategoriaOverview
 
     private bool _folderOneExpanded;
 
-    public bool IsLoading { get; set; }
+    private bool IsLoading { get; set; }
 
 
     protected override async Task OnInitializedAsync()
