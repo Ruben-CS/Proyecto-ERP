@@ -72,7 +72,6 @@ public partial class CuentasOverview
             var children = CreateTree(rootItem);
             rootItems.Add(rootItem, new HashSet<TreeItemData> { children });
         }
-
         return rootItems;
     }
 

@@ -1,5 +1,87 @@
-<h3>EditarCategoria</h3>
+@using ButtonType = MudBlazor.ButtonType
+@using global::Services.CategoriaService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject CategoriaService CategoriaService
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="CategoriaService" OnValidSubmit="Edit">
+            <MudTextField Required="true"
+                          Label="Nombre"
+                          @bind-Value="@SelectedValue.Nombre"/>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Dark"
+                   OnClick="Cancel">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Edit"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Warning"
+                   OnClick="Edit">
+            Editar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
 
-@code {
-    
+@code{
+    private List<CategoriaDto> _categoria = new();
+
+    [Parameter]
+    public EventCallback<CategoriaDto> OnTreeViewChange { get; set; }
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+
+    [Parameter]
+    public TreeItemDataCategoria SelectedValue { get; set; }
+
+    public CategoriaDto Dto { get; set; } = new();
+
+    [CascadingParameter]
+    private MudDialogInstance? MudDialog { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _categoria = await CategoriaService.GetCategoriasService(IdEmpresa);
+    }
+
+    private async Task Edit()
+    {
+        var uri = $"https://localhost:44321/categorias/editarCategoria/{SelectedValue.IdCategoria}";
+
+        var categoriaDto = new CategoriaDto()
+        {
+            IdCategoria = SelectedValue.IdCategoria,
+            Nombre = SelectedValue.Nombre,
+            Descripcion = SelectedValue.Descripcion,
+        };
+
+        if (await ValidateName(categoriaDto))
+        {
+            Snackbar.Add("Este nombre ya existe", Severity.Error);
+        }
+        else
+        {
+            var response = await HttpClient.PutAsJsonAsync(uri, categoriaDto);
+            Snackbar.Add("Categoria editada exitosamente", Severity.Success);
+            await OnTreeViewChange.InvokeAsync(categoriaDto);
+            MudDialog!.Close(DialogResult.Ok(response));
+        }
+    }
+
+    private async Task<bool> ValidateName(CategoriaDto categoriaDto)
+    {
+        return await Task.FromResult(_categoria.Any(c =>
+            c.Nombre    == categoriaDto.Nombre &&
+            c.IdEmpresa == categoriaDto.IdEmpresa));
+    }
+
+    private void Cancel() => MudDialog!.Cancel();
+
 }

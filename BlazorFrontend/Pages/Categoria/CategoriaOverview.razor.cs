@@ -1,5 +1,6 @@
 using BlazorFrontend.Pages.Categoria.Crear;
 using BlazorFrontend.Pages.Categoria.Editar;
+using BlazorFrontend.Pages.Categoria.Eliminar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -130,6 +131,7 @@ public partial class CategoriaOverview
         {
             return;
         }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -161,6 +163,7 @@ public partial class CategoriaOverview
         {
             return;
         }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -189,6 +192,37 @@ public partial class CategoriaOverview
         }
     }
 
+    private async Task ShowEditarCategoria()
+    {
+        if (IsSelectedEmpty())
+        {
+            return;
+        }
+
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.ExtraSmall,
+            FullWidth            = true,
+            DisableBackdropClick = true
+        };
+        var parameters = new DialogParameters
+        {
+            {
+                "SelectedValue", SelectedValue
+            },
+            {
+                "IdEmpresa", IdEmpresa
+            },
+            {
+                "OnTreeViewChange",
+                EventCallback.Factory.Create<CategoriaDto>(this, OnTreeViewChange)
+            }
+        };
+        await DialogService.ShowAsync<EditarCategoria>
+            ("Edite los campos", parameters, options);
+    }
+
     private async Task<bool> HasChildren(TreeItemDataCategoria selectedValue) =>
         await Task.FromResult(_categorias.Any(cuenta =>
             cuenta.IdCategoriaPadre == selectedValue.IdCategoria));
@@ -212,5 +246,4 @@ public partial class CategoriaOverview
         await LoadCuentas();
         await Task.FromResult(InvokeAsync(StateHasChanged));
     }
-
 }

@@ -28,8 +28,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmlhXENyZWFyXENyZWFyQ2F0ZWdvcmlhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Categoria/Editar/EliminarCategoria.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmlhXEVkaXRhclxFbGltaW5hckNhdGVnb3JpYS5yYXpvcg==
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Categoria/Editar/EditarCategoria.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmlhXEVkaXRhclxFZGl0YXJDYXRlZ29yaWEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Categoria/Eliminar/EliminarCategoria.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmlhXEVsaW1pbmFyXEVsaW1pbmFyQ2F0ZWdvcmlhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Categoria/TreeItemCategoria.razor]
