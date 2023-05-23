@@ -1,6 +1,7 @@
 @page "/VerDetallesComprobante/{idempresa:int}/{idcomprobante:int}"
 @using global::Services.Comprobante
 @using global::Services.DetalleComprobante
+@using global::Services.Moneda
 @using Modelos.Models.Enums
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
@@ -8,6 +9,7 @@
 @inject ComprobanteService ComprobanteService
 @inject DetalleComprobanteService DetalleComprobanteService
 @inject NavigationManager NavigationManager
+@inject MonedaService MonedaService
 @inject IJSRuntime JsRuntime
 
 
@@ -90,13 +92,14 @@
             <MudItem xs="12" sm="4">
                 <MudSelect Variant="Variant.Outlined"
                            Label="Moneda"
-                           @bind-Value="@ComprobanteDto.IdMoneda"
+                           @bind-Value="@Moneda.Nombre"
+                           @bind-Text="@Moneda.Nombre"
                            Margin="Margin.Dense"
                            Dense="true"
                            Required="true"
                            RequiredError="Debe seleccionar una moneda"
-                           Disabled="true">
-
+                           Disabled="true"
+                           T="string">
                 </MudSelect>
             </MudItem>
             <MudItem xs="12" sm="4">
@@ -195,6 +198,8 @@
 
     private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
 
+    public MonedaDto Moneda { get; set; } = new();
+
     private bool IsAnulado() => ComprobanteDto.Estado == EstadoComprobante.Anulado;
 
     protected override async Task OnInitializedAsync()
@@ -210,6 +215,7 @@
                 Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(id - 1);
                 IdEmpresa = Convert.ToInt32(segments[^2]);
                 Fecha = ComprobanteDto.Fecha;
+                Moneda = await MonedaService.GetMonedaByIdAsync(ComprobanteDto.IdMoneda);
             }
             else
             {

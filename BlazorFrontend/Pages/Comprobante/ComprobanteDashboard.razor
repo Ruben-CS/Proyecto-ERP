@@ -52,14 +52,13 @@
         <MudTd DataLabel="Fecha">@context.Fecha.ToString("d")</MudTd>
         <MudTd DataLabel="Glosa">@context.Glosa</MudTd>
         <MudTd DataLabel="Tipo">@context.TipoComprobante</MudTd>
-        <MudTd DataLabel="Acciones">
-            <MudButton OnClick="() => NavigateToDetalleComprobante(context.IdComprobante, context.IdEmpresa)"
-                       Size="Size.Small"
-                       Class="rounded-pill"
-                       StartIcon="@Icons.Material.Filled.Preview"
-                       Color="Color.Info">
-                <MudText Typo="Typo.button">Ver Detalles</MudText>
-            </MudButton>
+        <MudTd DataLabel="Acciones" Style="text-align: center">
+            <MudTooltip Text="Ver detalles" Arrow="true" Placement="Placement.Bottom">
+            <MudIconButton OnClick="() => NavigateToDetalleComprobante(context.IdComprobante, context.IdEmpresa)"
+                           Size="Size.Small"
+                           Icon="@Icons.Material.Filled.Preview"
+                           Color="Color.Default"/>
+            </MudTooltip>
         </MudTd>
     </RowTemplate>
     <PagerContent>
