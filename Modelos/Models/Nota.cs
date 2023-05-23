@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Modelos.Models;
 
-namespace Modelos;
+namespace Modelos.Models;
 
 public class Nota
 {
@@ -29,6 +28,4 @@ public class Nota
     [ForeignKey("Comprobante")]
     public int IdComprobante { get;        set; }
     public Comprobante? Comprobante { get; set;}
-
-
 }

@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Modelos.Models;
 
-namespace Modelos;
+namespace Modelos.Models;
 
 public class Categoria
 {

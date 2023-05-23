@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Modelos.Models;
 
-namespace Modelos;
+namespace Modelos.Models;
 
 public class Articulo
 {
@@ -12,7 +11,7 @@ public class Articulo
     public string? Nombre      { get; set; }
     public string? Descripcion { get; set; }
     public int     Cantidad    { get; set; }
-    public float   PrecioVenta { get; set; }
+    public decimal   PrecioVenta { get; set; }
 
     [ForeignKey("Usuario")]
     public int IdUsuario { get; set; }

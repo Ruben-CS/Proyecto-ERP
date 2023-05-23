@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Modelos;
+namespace Modelos.Models;
 
 public class ArticuloCategoria
 {
