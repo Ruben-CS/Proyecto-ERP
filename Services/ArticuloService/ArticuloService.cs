@@ -12,8 +12,8 @@ public sealed class ArticuloService
         _httpClient = httpClient;
     }
 
-    public async Task<List<ArticuloDto>> GetCategoriasService(int idEmpresa) =>
-        await await Task.FromResult(GetApiResponseAsync<List<ArticuloDto>>($"https://localhost:44321/categorias/getCategorias/{idEmpresa}"));
+    public async Task<List<ArticuloDto>> GetArticulosAsync(int idEmpresa) =>
+        await await Task.FromResult(GetApiResponseAsync<List<ArticuloDto>>($"https://localhost:44321/articulos/getArticulos/{idEmpresa}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {

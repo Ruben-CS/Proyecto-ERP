@@ -1,9 +1,34 @@
 @page "/articulo/{idempresa:int}"
 @using global::Services.CategoriaService
+@using global::Services.ArticuloService
 @inject CategoriaService CategoriaService
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+@inject ArticuloService ArticuloService
 @layout MonedaDashBoardLayout
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudTable Items="Articulos"
+          Hover="true"
+          Striped="true"
+          Bordered="true"
+          Style="border-radius: 15px;"
+          Elevation="4"
+          Loading="false"
+          LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Descripcion</MudTh>
+        <MudTh>Cantidad</MudTh>
+        <MudTh>Precio de Venta</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Nombre</MudTd>
+        <MudTd>@context.Descripcion</MudTd>
+        <MudTd>@context.Cantidad</MudTd>
+        <MudTd>@context.PrecioVenta</MudTd>
+    </RowTemplate>
+
+</MudTable>

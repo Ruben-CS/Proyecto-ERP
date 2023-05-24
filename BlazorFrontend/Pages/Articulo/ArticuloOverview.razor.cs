@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Modelos.Models.Dtos;
 
 namespace BlazorFrontend.Pages.Articulo;
 
@@ -8,6 +9,8 @@ public partial class ArticuloOverview
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private List<ArticuloDto> Articulos { get; set; } = new();
 
     #endregion
 
@@ -22,6 +25,7 @@ public partial class ArticuloOverview
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
                 IdEmpresa = int.Parse(idValue);
+                Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
                 await InvokeAsync(StateHasChanged);
             }
             else
