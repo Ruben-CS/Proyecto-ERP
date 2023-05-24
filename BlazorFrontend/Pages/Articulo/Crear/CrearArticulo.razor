@@ -16,11 +16,12 @@
 
                     <MudTextField Variant="Variant.Text"
                                   Immediate="true"
-                                  bind-Value="@Precio"
+                                  bind-Value="@PrecioString"
                                   Required="true"
                                   RequiredError="Precio no puede estar vacio"
                                   Label="Precio"
                                   Margin="Margin.Dense"
+                                  Class="right-aligned-input"
                                   T="string"/>
                     <MudTextField Variant="Variant.Text"
                                   Immediate="true"
@@ -69,7 +70,7 @@
             Cancelar
         </MudButton>
         <MudButton Variant="Variant.Filled"
-                   StartIcon="@Icons.Material.Filled.Add"
+                   StartIcon="@Icons.Material.Rounded.FactCheck"
                    ButtonType="ButtonType.Submit"
                    Color="Color.Success"
                    OnClick="Crear"
@@ -79,3 +80,9 @@
         </MudButton>
     </DialogActions>
 </MudDialog>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>

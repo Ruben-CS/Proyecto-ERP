@@ -18,8 +18,6 @@ public partial class CategoriaOverview
 
     private HashSet<TreeItemDataCategoria> TreeItems { get; set; } = new();
 
-    private bool _open;
-
     private bool _folderOneExpanded;
 
     private bool IsLoading { get; set; }

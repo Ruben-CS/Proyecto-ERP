@@ -32,6 +32,22 @@ public partial class CrearArticulo
 
     public decimal? Precio { get; set; }
 
+    private string PrecioString
+    {
+        get => Precio?.ToString("F2") ?? string.Empty;
+        set
+        {
+            if (decimal.TryParse(value, out var result))
+            {
+                Precio = result;
+            }
+            else
+            {
+                Precio = null;
+            }
+        }
+    }
+
     public string? Descripcion { get; set; }
 
     private IEnumerable<string> NombreCategorias { get; set; } = new HashSet<string>();
@@ -40,6 +56,7 @@ public partial class CrearArticulo
 
     private async Task Crear()
     {
+        const string url = "https://localhost:44321/agregarArticulo";
     }
 
     public void Closed(MudChip chip)
