@@ -1,0 +1,51 @@
+@inject HttpClient HttpClient
+
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_success">
+            <MudTextField Variant="Variant.Text"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Rounded.EditNote"
+                          bind-Value="@Nombre"
+                          Required="true"
+                          RequiredError="Nombre no puede estar vacio"
+                          HelperText="Nombre"
+                          T="string"/>
+
+            <MudTextField Variant="Variant.Text"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Rounded.AttachMoney"
+                          bind-Value="@Precio"
+                          Required="true"
+                          RequiredError="Precio no puede estar vacio"
+                          HelperText="Precio"
+                          T="decimal"/>
+            <MudTextField Variant="Variant.Text"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Rounded.Notes"
+                          bind-Value="@Descripcion"
+                          Required="true"
+                          RequiredError="La descripcion no puede estar vacio"
+                          HelperText="Descripcion"
+                          Lines="3"
+                          T="string"/>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   Size="Size.Medium">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   OnClick="Crear"
+                   Size="Size.Medium">
+            Crear
+        </MudButton>
+    </DialogActions>
+</MudDialog>

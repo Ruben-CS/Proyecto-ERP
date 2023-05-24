@@ -7,7 +7,7 @@
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 
 
-<MudAppBar Elevation="1">
+<MudAppBar Elevation="3">
     <MudSpacer/>
     <MudMenu Icon="@Icons.Material.Filled.AccountCircle"
              Color="Color.Inherit"
@@ -36,17 +36,15 @@
     </MudStack>
 </MudContainer>
 <MudContainer Fixed="true">
-    <MudAutocomplete T="string"
-                     Label="Lista de empresas"
-                     @bind-Value="SelectedEmpresaName"
-                     SearchFunc="Search"
-                     HelperText="Busque una empresa"
-                     AdornmentIcon="@Icons.Material.Filled.Search"
-                     Variant="Variant.Filled"
-                     Dense="false"
-                     Style="border-radius: 50px"
-                     Class="mb-4"/>
-
+        <MudAutocomplete T="string"
+                         Label="Lista de empresas"
+                         @bind-Value="SelectedEmpresaName"
+                         SearchFunc="Search"
+                         HelperText="Busque una empresa"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         Variant="Variant.Filled"
+                         Dense="false"
+                         Class="rounded-pill mb-4"/>
     <MudStack Row="true" Justify="Justify.Center" Spacing="4">
         <MudButton Color="Color.Warning"
                    Variant="Variant.Filled"

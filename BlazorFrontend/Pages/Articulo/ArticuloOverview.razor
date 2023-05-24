@@ -6,9 +6,20 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @inject ArticuloService ArticuloService
+@inject IDialogService DialogService
 @layout MonedaDashBoardLayout
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudButton Variant="Variant.Filled"
+           Color="Color.Success"
+           StartIcon="@Icons.Material.Rounded.LibraryAdd"
+           Class="rounded-pill"
+           OnClick="@ShowCrearArticulo">
+    <MudText Typo="Typo.button">
+        Agregar Articulo
+    </MudText>
+</MudButton>
 
 <MudTable Items="Articulos"
           Hover="true"
