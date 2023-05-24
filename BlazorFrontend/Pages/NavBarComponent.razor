@@ -59,14 +59,6 @@
                      Title="Contabilidad"
                      Expanded="true">
 
-            <MudNavLink Href="@NavigateToGestiones()"
-                        Icon="@Icons.Material.Filled.CalendarMonth"
-                        Match="NavLinkMatch.Prefix">
-                <MudText>
-                    Gestiones
-                </MudText>
-            </MudNavLink>
-
             <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
                         Href="@NavigateToCuentas()"
                         Match="NavLinkMatch.Prefix">
@@ -104,6 +96,8 @@
         <MudNavGroup Icon="@Icons.Material.Filled.Settings"
                      Title="Configuracion"
                      Expanded="true">
+
+
             <MudNavLink Href="@NavigateToMonedas()"
                         Icon="@Icons.Material.Filled.CurrencyExchange"
                         Match="NavLinkMatch.Prefix">
@@ -111,6 +105,29 @@
                     Monedas
                 </MudText>
             </MudNavLink>
+
+            <MudNavLink Href="@NavigateToGestiones()"
+                        Icon="@Icons.Material.Filled.CalendarMonth"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Gestiones
+                </MudText>
+            </MudNavLink>
+
+        </MudNavGroup>
+    </MudNavMenu>
+
+    <MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="my-1"/>
+
+    <MudNavMenu Color="Color.Default"
+                Bordered="true"
+                Rounded="true">
+        <MudNavGroup Icon="@Icons.Material.Filled.Inventory"
+                     Title="Inventario"
+                     Expanded="true">
 
             <MudNavLink Href="@NavigateToCategorias()"
                         Icon="@Icons.Material.Filled.Category"
@@ -127,8 +144,10 @@
                     Articulos
                 </MudText>
             </MudNavLink>
+
         </MudNavGroup>
     </MudNavMenu>
+
 </MudDrawer>
 
 @if (IsLoggingOut)

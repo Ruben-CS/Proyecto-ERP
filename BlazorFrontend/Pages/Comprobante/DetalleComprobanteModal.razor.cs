@@ -85,9 +85,10 @@ public partial class DetalleComprobanteModal
             MontoHaberAlt = default,
             MontoDebeAlt  = default
         };
-
-
         await AddNewDetalleComprobante.InvokeAsync(detalleComprobante);
+        Debe           = null;
+        Haber          = null;
+        SelectedCuenta = null;
     }
 
     private bool ValidateNegatives(decimal debe, decimal haber)
@@ -167,6 +168,7 @@ public partial class DetalleComprobanteModal
         {
             return false;
         }
+
         return segments.Length >= 3 && segments.Length <= 7;
     }
 }

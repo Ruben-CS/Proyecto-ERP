@@ -15,7 +15,10 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="1">
     <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
         <MudTooltip Text="Volver a gestion">
             <MudIconButton Size="Size.Medium"
@@ -25,6 +28,20 @@
                            Style="align-self: center"/>
         </MudTooltip>
         Detalles del Comprobante
+        <MudTooltip Text="Imprimir Comprobante"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                           Size="Size.Large"
+                           Color="Color.Default"/>
+        </MudTooltip>
+        <MudTooltip Text="Ver Reporte"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Feed"
+                           Size="Size.Large"
+                           Color="Color.Default"/>
+        </MudTooltip>
     </MudText>
     <div style="display: flex; align-items: center;">
         <MudTooltip Text="El comprobante ya esta anulado"
@@ -237,11 +254,12 @@
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Comprobante anulado exitosamente", Severity.Info);
-            NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
+            await RefreshList();
         }
     }
 
-    private async Task GoBack() =>
-        await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
+    private async Task RefreshList() => Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(IdComprobante);
+
+    private void GoBack() => NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
 
 }

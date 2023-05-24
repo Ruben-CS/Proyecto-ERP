@@ -278,11 +278,10 @@ public partial class AddComprobante
         if (response.IsSuccessStatusCode)
         {
             await PostDetalles(Comprobantes.Last().IdComprobante);
-            Snackbar.Add("Comprobante agregado exitosamente", Severity.Success, options =>
-            {
-                options.CloseAfterNavigation = false;
-            });
-            NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
+            Snackbar.Add("Comprobante agregado exitosamente", Severity.Success,
+                options => { options.CloseAfterNavigation = true; });
+            NavigationManager.NavigateTo(
+                $"/VerDetallesComprobante/{IdEmpresa}/{Comprobantes.Last().IdComprobante}");
         }
     }
 
