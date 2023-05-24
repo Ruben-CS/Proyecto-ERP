@@ -113,12 +113,20 @@
             </MudNavLink>
 
             <MudNavLink Href="@NavigateToCategorias()"
-                                    Icon="@Icons.Material.Filled.Category"
-                                    Match="NavLinkMatch.Prefix">
-                            <MudText>
-                                Categorias
-                            </MudText>
-                        </MudNavLink>
+                        Icon="@Icons.Material.Filled.Category"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Categorias
+                </MudText>
+            </MudNavLink>
+
+            <MudNavLink Href="@NavigateToArticulo()"
+                        Icon="@Icons.Material.Filled.LocalMall"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Articulos
+                </MudText>
+            </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
@@ -181,6 +189,8 @@
     private string NavigateToComprobantes() => $"/comprobantes/overview/{IdEmpresa}";
 
     private string NavigateToCategorias() => $"/CategoriaOverview/{IdEmpresa}";
+
+    private string NavigateToArticulo() => $"/articulo/{IdEmpresa}";
 
     private async Task CerrarSesion()
     {
