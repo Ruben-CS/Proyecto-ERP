@@ -40,10 +40,13 @@ public partial class CrearArticulo
 
     private async Task Crear()
     {
-
     }
 
-    public  void Closed(MudChip chip) => NombreCategorias.ToHashSet().Remove(chip.Text);
-    private void Cancel()             => MudDialog!.Cancel();
+    public void Closed(MudChip chip)
+    {
+        var chipText = chip.Text;
+        NombreCategorias = NombreCategorias.Where(c => c != chipText);
+    }
 
+    private void Cancel() => MudDialog!.Cancel();
 }
