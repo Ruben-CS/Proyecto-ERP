@@ -2,34 +2,50 @@
 
 <MudDialog>
     <DialogContent>
-        <MudForm @ref="_form" @bind-IsValid="_success">
-            <MudTextField Variant="Variant.Text"
-                          Immediate="true"
-                          AdornmentIcon="@Icons.Material.Rounded.EditNote"
-                          bind-Value="@Nombre"
-                          Required="true"
-                          RequiredError="Nombre no puede estar vacio"
-                          HelperText="Nombre"
-                          T="string"/>
+        <MudGrid Justify="Justify.SpaceBetween">
+            <MudItem xs="12" md="6">
+                <MudForm @ref="_form" @bind-IsValid="_success">
+                    <MudTextField Variant="Variant.Text"
+                                  Immediate="true"
+                                  Label="Nombre"
+                                  bind-Value="@Nombre"
+                                  Required="true"
+                                  RequiredError="Nombre no puede estar vacio"
+                                  Margin="Margin.Dense"
+                                  T="string"/>
 
-            <MudTextField Variant="Variant.Text"
-                          Immediate="true"
-                          AdornmentIcon="@Icons.Material.Rounded.AttachMoney"
-                          bind-Value="@Precio"
-                          Required="true"
-                          RequiredError="Precio no puede estar vacio"
-                          HelperText="Precio"
-                          T="decimal"/>
-            <MudTextField Variant="Variant.Text"
-                          Immediate="true"
-                          AdornmentIcon="@Icons.Material.Rounded.Notes"
-                          bind-Value="@Descripcion"
-                          Required="true"
-                          RequiredError="La descripcion no puede estar vacio"
-                          HelperText="Descripcion"
-                          Lines="3"
-                          T="string"/>
-        </MudForm>
+                    <MudTextField Variant="Variant.Text"
+                                  Immediate="true"
+                                  bind-Value="@Precio"
+                                  Required="true"
+                                  RequiredError="Precio no puede estar vacio"
+                                  Label="Precio"
+                                  Margin="Margin.Dense"
+                                  T="string"/>
+                    <MudTextField Variant="Variant.Text"
+                                  Immediate="true"
+                                  bind-Value="@Descripcion"
+                                  Required="true"
+                                  Margin="Margin.Dense"
+                                  RequiredError="La descripcion no puede estar vacio"
+                                  Label="Descripcion"
+                                  Lines="2"
+                                  T="string"/>
+                </MudForm>
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudSelect T="string"
+                           Label="Categorias"
+                           MultiSelection="true"
+                           @bind-Value="Value"
+                           @bind-SelectedValues="NombreCategorias">
+                    @foreach (var categoria in CategoriaDtos)
+                    {
+                        <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        </MudGrid>
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled"

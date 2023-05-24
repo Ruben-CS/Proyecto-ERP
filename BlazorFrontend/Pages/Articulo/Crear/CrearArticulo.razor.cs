@@ -10,6 +10,8 @@ public partial class CrearArticulo
 
     private bool _success;
 
+    private string Value { get; set; } = string.Empty;
+
 
     #region Params
 
@@ -32,6 +34,7 @@ public partial class CrearArticulo
 
     public string? Descripcion { get; set; }
 
+    private IEnumerable<string> NombreCategorias { get; set; } = new HashSet<string>();
 
     #endregion
 

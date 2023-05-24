@@ -71,6 +71,4 @@ public partial class ArticuloOverview
         await DialogService.ShowAsync<CrearArticulo>
             ("Rellene los datos del articulo", parameters, options);
     }
-
-
 }

@@ -13,7 +13,7 @@ public sealed class CategoriaService
     }
 
     public async Task<List<CategoriaDto>> GetCategoriasService(int idEmpresa) =>
-        await await Task.FromResult(GetApiResponseAsync<List<CategoriaDto>>($"https://localhost:44321/articulos/getaArticulos/{idEmpresa}"));
+        await await Task.FromResult(GetApiResponseAsync<List<CategoriaDto>>($"https://localhost:44321/categorias/getCategorias/{idEmpresa}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {
