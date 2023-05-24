@@ -54,7 +54,7 @@ public partial class ArticuloOverview
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
-            MaxWidth             = MaxWidth.Large,
+            MaxWidth             = MaxWidth.Medium,
             FullWidth            = true,
             DisableBackdropClick = true
         };

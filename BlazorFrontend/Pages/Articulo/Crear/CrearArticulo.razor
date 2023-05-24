@@ -1,6 +1,6 @@
 @inject HttpClient HttpClient
 
-<MudDialog>
+<MudDialog Style="border-radius: 15px">
     <DialogContent>
         <MudGrid Justify="Justify.SpaceBetween">
             <MudItem xs="12" md="6">
@@ -38,21 +38,34 @@
                            Label="Categorias"
                            MultiSelection="true"
                            @bind-Value="Value"
-                           @bind-SelectedValues="NombreCategorias">
+                           @bind-SelectedValues="NombreCategorias"
+                           Margin="Margin.Dense"
+                           Dense="true"
+                           Variant="Variant.Outlined">
                     @foreach (var categoria in CategoriaDtos)
                     {
                         <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
                     }
                 </MudSelect>
+
+                <MudChipSet AllClosable="true" OnClose="Closed" Class="mt-2">
+                    @foreach (var categoria in NombreCategorias)
+                    {
+                        <MudChip Text="@categoria"
+                                 Variant="Variant.Filled"
+                                 Color="Color.Primary"/>
+                    }
+                </MudChipSet>
             </MudItem>
         </MudGrid>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled"
+        <MudButton Variant="Variant.Text"
                    StartIcon="@Icons.Material.Filled.Cancel"
                    Color="Color.Dark"
                    OnClick="Cancel"
-                   Size="Size.Medium">
+                   Size="Size.Medium"
+                   Class="mb-2">
             Cancelar
         </MudButton>
         <MudButton Variant="Variant.Filled"
@@ -60,7 +73,8 @@
                    ButtonType="ButtonType.Submit"
                    Color="Color.Success"
                    OnClick="Crear"
-                   Size="Size.Medium">
+                   Size="Size.Medium"
+                   Class="rounded-pill ml-4 mr-3 mb-2">
             Crear
         </MudButton>
     </DialogActions>

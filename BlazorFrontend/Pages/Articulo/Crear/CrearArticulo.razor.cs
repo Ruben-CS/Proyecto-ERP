@@ -43,6 +43,7 @@ public partial class CrearArticulo
 
     }
 
-    private void Cancel() => MudDialog!.Cancel();
+    public  void Closed(MudChip chip) => NombreCategorias.ToHashSet().Remove(chip.Text);
+    private void Cancel()             => MudDialog!.Cancel();
 
 }
