@@ -24,6 +24,9 @@ public partial class CrearArticulo
     [CascadingParameter]
     private MudDialogInstance? MudDialog { get; set; }
 
+    [Parameter]
+    public EventCallback<ArticuloDto> OnArticuloAdded { get; set; }
+
     #endregion
 
     #region Form Fields
@@ -54,9 +57,29 @@ public partial class CrearArticulo
 
     #endregion
 
+    protected override async Task OnInitializedAsync()
+    {
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+    }
+
     private async Task Crear()
     {
-        const string url = "https://localhost:44321/agregarArticulo";
+        const string url = "https://localhost:44321/articulos/agregarArticulo";
+        var articulo = new ArticuloDto
+        {
+            Nombre      = Nombre,
+            Descripcion = Descripcion,
+            PrecioVenta = Precio!.Value,
+            IdEmpresa = IdEmpresa,
+            IdUsuario = 1
+        };
+        var response = await HttpClient.PostAsJsonAsync(url, articulo);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Articulo creado exitosamente", Severity.Success);
+            MudDialog!.Close(DialogResult.Ok(response));
+            await OnArticuloAdded.InvokeAsync(articulo);
+        }
     }
 
     public void Closed(MudChip chip)

@@ -54,7 +54,7 @@ public partial class ArticuloOverview
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
-            MaxWidth             = MaxWidth.Medium,
+            MaxWidth             = MaxWidth.Small,
             FullWidth            = true,
             DisableBackdropClick = true
         };
@@ -66,9 +66,19 @@ public partial class ArticuloOverview
             {
                 "IdEmpresa", IdEmpresa
             },
+            {
+                "OnArticuloAdded",
+                EventCallback.Factory.Create<ArticuloDto>(this, OnArticuloAdded)
+            }
         };
 
         await DialogService.ShowAsync<CrearArticulo>
             ("Rellene los datos del articulo", parameters, options);
+    }
+
+    private async Task OnArticuloAdded(ArticuloDto dto)
+    {
+        Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
+        await InvokeAsync(StateHasChanged);
     }
 }

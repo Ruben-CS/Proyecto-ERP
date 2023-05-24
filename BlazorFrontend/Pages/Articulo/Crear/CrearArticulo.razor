@@ -1,64 +1,71 @@
 @inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
 
 <MudDialog Style="border-radius: 15px">
     <DialogContent>
-        <MudGrid Justify="Justify.SpaceBetween">
-            <MudItem xs="12" md="6">
-                <MudForm @ref="_form" @bind-IsValid="_success">
+        <MudForm @ref="_form" @bind-IsValid="_success">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <MudTextField Variant="Variant.Text"
                                   Immediate="true"
                                   Label="Nombre"
-                                  bind-Value="@Nombre"
+                                  @bind-Value="@Nombre"
                                   Required="true"
                                   RequiredError="Nombre no puede estar vacio"
                                   Margin="Margin.Dense"
                                   T="string"/>
-
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <MudTextField Variant="Variant.Text"
                                   Immediate="true"
-                                  bind-Value="@PrecioString"
+                                  @bind-Value="@PrecioString"
                                   Required="true"
                                   RequiredError="Precio no puede estar vacio"
                                   Label="Precio"
                                   Margin="Margin.Dense"
                                   Class="right-aligned-input"
                                   T="string"/>
+                </MudItem>
+                <MudItem xs="12">
                     <MudTextField Variant="Variant.Text"
                                   Immediate="true"
-                                  bind-Value="@Descripcion"
+                                  @bind-Value="@Descripcion"
                                   Required="true"
                                   Margin="Margin.Dense"
                                   RequiredError="La descripcion no puede estar vacio"
                                   Label="Descripcion"
-                                  Lines="2"
                                   T="string"/>
-                </MudForm>
-            </MudItem>
-            <MudItem xs="12" md="6">
-                <MudSelect T="string"
-                           Label="Categorias"
-                           MultiSelection="true"
-                           @bind-Value="Value"
-                           @bind-SelectedValues="NombreCategorias"
-                           Margin="Margin.Dense"
-                           Dense="true"
-                           Variant="Variant.Outlined">
-                    @foreach (var categoria in CategoriaDtos)
-                    {
-                        <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
-                    }
-                </MudSelect>
-
-                <MudChipSet AllClosable="true" OnClose="Closed" Class="mt-2">
-                    @foreach (var categoria in NombreCategorias)
-                    {
-                        <MudChip Text="@categoria"
-                                 Variant="Variant.Filled"
-                                 Color="Color.Primary"/>
-                    }
-                </MudChipSet>
-            </MudItem>
-        </MudGrid>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudSelect T="string"
+                               Label="Categorias"
+                               MultiSelection="true"
+                               @bind-Value="Value"
+                               @bind-SelectedValues="NombreCategorias"
+                               Margin="Margin.Dense"
+                               Dense="true"
+                               Variant="Variant.Outlined"
+                               Required="true"
+                               RequiredError="Debe seleccionar una categoria">
+                        @foreach (var categoria in CategoriaDtos)
+                        {
+                            <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudChipSet AllClosable="true" OnClose="Closed" Class="mt-2">
+                        @foreach (var categoria in NombreCategorias)
+                        {
+                            <MudChip Text="@categoria"
+                                     Variant="Variant.Filled"
+                                     Color="Color.Primary"/>
+                        }
+                    </MudChipSet>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Text"
@@ -75,7 +82,8 @@
                    Color="Color.Success"
                    OnClick="Crear"
                    Size="Size.Medium"
-                   Class="rounded-pill ml-4 mr-3 mb-2">
+                   Class="rounded-pill ml-4 mr-3 mb-2"
+                   Disabled="@(!_success)">
             Crear
         </MudButton>
     </DialogActions>
