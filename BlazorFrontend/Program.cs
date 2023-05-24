@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using MudBlazor.Services;
 using BlazorFrontend.Services;
 using BlazorFrontend.Utility_Class;
+using Services.ArticuloService;
 using Services.CategoriaService;
 using Services.Comprobante;
 using Services.Cuenta;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<ComprobanteService>();
 builder.Services.AddScoped<AppStateService>();
 builder.Services.AddScoped<DetalleComprobanteService>();
 builder.Services.AddScoped<CategoriaService>();
+builder.Services.AddScoped<ArticuloService>();
 builder.Services.AddBlazoredLocalStorage();
 var app = builder.Build();
 

@@ -1,19 +1,19 @@
 using Modelos.Models.Dtos;
 using Newtonsoft.Json;
 
-namespace Services.CategoriaService;
+namespace Services.ArticuloService;
 
-public sealed class CategoriaService
+public sealed class ArticuloService
 {
     private readonly HttpClient _httpClient;
 
-    public CategoriaService(HttpClient httpClient)
+    public ArticuloService(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public async Task<List<CategoriaDto>> GetCategoriasService(int idEmpresa) =>
-        await await Task.FromResult(GetApiResponseAsync<List<CategoriaDto>>($"https://localhost:44321/articulos/getaArticulos/{idEmpresa}"));
+    public async Task<List<ArticuloDto>> GetCategoriasService(int idEmpresa) =>
+        await await Task.FromResult(GetApiResponseAsync<List<ArticuloDto>>($"https://localhost:44321/categorias/getCategorias/{idEmpresa}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {

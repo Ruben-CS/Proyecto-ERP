@@ -258,7 +258,11 @@
         }
     }
 
-    private async Task RefreshList() => Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(IdComprobante);
+    private async Task RefreshList()
+    {
+        Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(IdComprobante);
+        await InvokeAsync(StateHasChanged);
+    }
 
     private void GoBack() => NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
 
