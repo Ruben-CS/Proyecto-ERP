@@ -8,21 +8,35 @@
                    Edge="Edge.Start"
                    OnClick="@ToggleDrawer"/>
     <MudSpacer/>
-    <MudMenu Icon="@Icons.Material.Filled.AccountCircle"
+    <MudMenu Icon="@Icons.Material.Rounded.AccountCircle"
              Color="Color.Inherit"
              Size="Size.Large"
              Edge="Edge.End"
              AnchorOrigin="Origin.BottomLeft"
-             TransformOrigin="Origin.TopRight">
-        <MudText Typo="Typo.subtitle2" Align="Align.Center"
+             TransformOrigin="Origin.TopRight"
+             Style="border-radius: 15px;">
+        <MudText Typo="Typo.subtitle2"
+                 Align="Align.Center"
                  GutterBottom="true">
-            @Username
+           @Username
         </MudText>
-        <MudMenuItem IconSize="Size.Small"
-                     IconColor="Color.Dark"
-                     Icon="@Icons.Material.Filled.Logout"
-                     OnClick="CerrarSesion">
-            Cerrar Sesion
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="mb-2"/>
+        <MudMenuItem OnClick="CerrarSesion">
+            <MudText>
+                <MudIcon Icon="@Icons.Material.Filled.Logout"
+                         Color="Color.Default"/>
+                Cerrar Sesion
+            </MudText>
+        </MudMenuItem>
+        <MudMenuItem OnClick="CambiarEmpresa">
+            <MudText>
+                <MudIcon Icon="@Icons.Material.Filled.SwapHorizontalCircle"
+                         Color="Color.Default"/>
+                Cambiar Empresa
+            </MudText>
         </MudMenuItem>
     </MudMenu>
 </MudAppBar>
@@ -72,14 +86,6 @@
                         Match="NavLinkMatch.Prefix">
                 <MudText>
                     Comprobantes
-                </MudText>
-            </MudNavLink>
-
-            <MudNavLink Href="@CambiarEmpresa()"
-                        Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        Match="NavLinkMatch.Prefix">
-                <MudText>
-                    Cambiar Empresa
                 </MudText>
             </MudNavLink>
         </MudNavGroup>
@@ -178,7 +184,7 @@
 
     private bool _open = true;
     private void ToggleDrawer() => _open = !_open;
-    private string CambiarEmpresa() => "/inicio";
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
     private string GetInitials(string nombreEmpresa)
     {

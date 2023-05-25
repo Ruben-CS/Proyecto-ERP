@@ -11,8 +11,9 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
-    <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="6"
+          Justify="Justify.SpaceBetween">
+    <MudText Typo="Typo.h5" Align="Align.Start" GutterBottom="true">
         <MudTooltip Text="Volver a gestion">
             <MudIconButton Size="Size.Medium"
                            Icon="@Icons.Material.Filled.ArrowBack"
@@ -22,17 +23,33 @@
         </MudTooltip>
         Administracion del periodo de la gestion: @_gestionDto.Nombre
     </MudText>
+    <div style="display: flex; align-items: center;">
+
+        <MudButton Class="ma-4 rounded-pill"
+                   Color="Color.Success"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   @onclick="@ShowMudCrearPeriodonModal"
+                   Variant="Variant.Filled"
+                   Style="justify-self: flex-end; align-self: center">
+            <MudText Typo="Typo.button">Agregar Periodo</MudText>
+        </MudButton>
+    </div>
 </MudStack>
+
 <MudDivider DividerType="DividerType.Middle"
-                Light="false"
-                Style="border-top-width: 3px;"
-                Class="mb-5"/>
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
 <MudTable Items="@_periodos"
           Hover="true"
           Breakpoint="Breakpoint.Sm"
           Bordered="true"
           Striped="true"
-          Elevation="3">
+          Elevation="3"
+          Class="fade-in"
+          Style="border-radius: 15px;"
+          RowsPerPage="6">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>
@@ -75,9 +92,10 @@
             </MudStack>
         </MudTd>
     </RowTemplate>
+    <PagerContent>
+        <MudTablePager
+            HorizontalAlignment="HorizontalAlignment.Left"
+            HidePageNumber="true"
+            HideRowsPerPage="true"/>
+    </PagerContent>
 </MudTable>
-
-<MudFab Class="ma-4" Color="Color.Success"
-        StartIcon="@Icons.Material.Filled.Add"
-        @onclick="@ShowMudCrearPeriodonModal"
-        Label="Agregar Periodo"/>
