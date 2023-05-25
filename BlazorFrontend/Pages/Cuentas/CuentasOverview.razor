@@ -9,6 +9,16 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Lista de cuentas</MudText>
+</MudStack>
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
 <MudStack Row="true">
     <MudPaper Elevation="0">
         <MudTreeView T="TreeItemData"
@@ -16,15 +26,11 @@
                      @bind-SelectedValue="SelectedValue"
                      Width="500px">
             <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
-                             Icon="@(!_folderOneExpanded ?
-                                       Icons.Custom.Uncategorized.Folder :
-                                       Icons.Custom.Uncategorized.FolderOpen)">
+                             Icon="@(!_folderOneExpanded ? Icons.Custom.Uncategorized.Folder : Icons.Custom.Uncategorized.FolderOpen)">
                 <MudTreeView Items="TreeItems"
                              Hover="true"
                              ExpandOnClick="true"
-                             Icon="@(!_folderOneExpanded ?
-                                       Icons.Custom.Uncategorized.Folder :
-                                       Icons.Custom.Uncategorized.FolderOpen)"
+                             Icon="@(!_folderOneExpanded ? Icons.Custom.Uncategorized.Folder : Icons.Custom.Uncategorized.FolderOpen)"
                              @bind-Expanded="@_folderOneExpanded">
                     <ItemTemplate>
                         <TreeItem Value="@context" Expanded="true"/>
@@ -34,22 +40,29 @@
         </MudTreeView>
     </MudPaper>
     <MudPaper Elevation="0" id="actionButtons">
-        <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
-                   Variant="Variant.Filled"
-                   Color="Color.Success"
-                   OnClick="ShowCrearCuenta"
-                   Disabled="false">
-            Agregar
-        </MudButton>
-        <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
-                   Variant="Variant.Filled" Color="Color.Warning"
-                   OnClick="ShowEditarCuenta">
-            Editar
-        </MudButton>
-        <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
-                   Variant="Variant.Filled" Color="Color.Error"
-                   OnClick="ShowEliminarCuenta">
-            Eliminar
-        </MudButton>
+        <MudStack Row="true" Spacing="3">
+            <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
+                       Variant="Variant.Filled"
+                       Color="Color.Success"
+                       OnClick="ShowCrearCuenta"
+                       Disabled="false"
+                       Class="rounded-pill">
+                Agregar
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
+                       Variant="Variant.Filled"
+                       Color="Color.Warning"
+                       OnClick="ShowEditarCuenta"
+                       Class="rounded-pill">
+                Editar
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
+                       Variant="Variant.Filled"
+                       Color="Color.Error"
+                       OnClick="ShowEliminarCuenta"
+                       Class="rounded-pill">
+                Eliminar
+            </MudButton>
+        </MudStack>
     </MudPaper>
 </MudStack>

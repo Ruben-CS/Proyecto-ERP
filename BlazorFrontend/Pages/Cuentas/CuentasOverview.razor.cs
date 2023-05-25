@@ -127,6 +127,8 @@ public partial class CuentasOverview
                 _cuentas  = await CuentaService.GetCuentasAsync(IdEmpresa);
                 TreeItems = BuildTreeItems(_cuentas);
                 await LoadCuentas();
+                Snackbar.Configuration.PositionClass =
+                    Defaults.Classes.Position.BottomRight;
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -144,6 +146,26 @@ public partial class CuentasOverview
 
     private async Task ShowCrearCuenta()
     {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
+            return;
+        }
+
+        var codigoSplitted = SelectedValue.Codigo!.Split('.');
+
+        var lastPartIndex = codigoSplitted.Length - 1;
+        var lastDigit     = codigoSplitted[lastPartIndex];
+
+        var isLastPartDigit = int.TryParse(lastDigit, out var lastPartNumber) &&
+                              lastPartNumber > 0;
+
+        if (isLastPartDigit)
+        {
+            Snackbar.Add("Ya no puede agregar hijos a esta cuenta", Severity.Info);
+            return;
+        }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -171,6 +193,13 @@ public partial class CuentasOverview
 
     private async Task ShowEditarCuenta()
     {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
+            return;
+        }
+
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -198,6 +227,12 @@ public partial class CuentasOverview
 
     private async Task ShowEliminarCuenta()
     {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
+            return;
+        }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
