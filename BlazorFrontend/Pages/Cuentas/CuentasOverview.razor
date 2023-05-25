@@ -10,19 +10,21 @@
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true">
-    <MudPaper Elevation="1">
+    <MudPaper Elevation="0">
         <MudTreeView T="TreeItemData"
                      Hover="true"
                      @bind-SelectedValue="SelectedValue"
                      Width="500px">
             <MudTreeViewItem T="TreeItemData" Text="Plan de cuentas" Expanded="true"
-                             Icon="@(_folderOneExpanded ?
-                                       Icons.Custom.Uncategorized.FolderOpen :
-                                       Icons.Custom.Uncategorized.Folder)">
-                <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
-                             Icon="@(_folderOneExpanded ?
-                                       Icons.Custom.Uncategorized.FolderOpen :
-                                       Icons.Custom.Uncategorized.Folder)"
+                             Icon="@(!_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.Folder :
+                                       Icons.Custom.Uncategorized.FolderOpen)">
+                <MudTreeView Items="TreeItems"
+                             Hover="true"
+                             ExpandOnClick="true"
+                             Icon="@(!_folderOneExpanded ?
+                                       Icons.Custom.Uncategorized.Folder :
+                                       Icons.Custom.Uncategorized.FolderOpen)"
                              @bind-Expanded="@_folderOneExpanded">
                     <ItemTemplate>
                         <TreeItem Value="@context" Expanded="true"/>

@@ -20,7 +20,7 @@ public partial class CuentasOverview
 
     private bool _open;
 
-    private bool _folderOneExpanded;
+    private bool _folderOneExpanded = true;
 
     private List<CuentaDto> _cuentas = new();
 

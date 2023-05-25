@@ -7,16 +7,17 @@
                      CanExpand="true"
                      Text="@($"{Value.Codigo} - {Value.Nombre}")"
                      EndTextTypo="@Typo.caption"
-                     Icon="@(_folderTwoExpanded ?
-                               Icons.Custom.Uncategorized.FolderOpen :
-                               Icons.Custom.Uncategorized.Folder)"
-                     @bind-Expanded="@_folderTwoExpanded"
-                     OnClick="@(() => OnItemClick(Value))">
+                     Icon="@(!_folderTwoExpanded ?
+                               Icons.Custom.Uncategorized.Folder :
+                               Icons.Custom.Uncategorized.FolderOpen)"
+                     OnClick="@(() => OnItemClick(Value))"
+                     @bind-Expanded="@_folderOneExpanded">
+
         @if (Value.CuentasHijas.Count > 0)
         {
-            <MudTreeView Items="@Value.CuentasHijas">
+            <MudTreeView Items="@Value.CuentasHijas" ExpandOnClick="true">
                 <ItemTemplate>
-                    <TreeItem Value="@context" />
+                    <TreeItem Value="@context"/>
                 </ItemTemplate>
             </MudTreeView>
         }

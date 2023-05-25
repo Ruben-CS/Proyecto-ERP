@@ -4,7 +4,7 @@ namespace BlazorFrontend.Pages.Cuentas;
 
 public partial class TreeItem
 {
-    private bool _folderOneExpanded;
+    private bool _folderOneExpanded = true;
     private bool _folderTwoExpanded;
 
     private CuentasOverview.TreeItemData SelectedValue { get; set; }
