@@ -11,15 +11,26 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudButton Variant="Variant.Filled"
-           Color="Color.Success"
-           StartIcon="@Icons.Material.Rounded.LibraryAdd"
-           Class="rounded-pill"
-           OnClick="@ShowCrearArticulo">
-    <MudText Typo="Typo.button">
-        Agregar Articulo
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
+        Lista de articulos
     </MudText>
-</MudButton>
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Success"
+               StartIcon="@Icons.Material.Rounded.LibraryAdd"
+               Class="mb-4 rounded-pill"
+               OnClick="@ShowCrearArticulo"
+               Style="justify-self: flex-end; align-self: center">
+        <MudText Typo="Typo.button">
+            Agregar Articulo
+        </MudText>
+    </MudButton>
+</MudStack>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
 
 <MudTable Items="Articulos"
           Hover="true"
@@ -28,7 +39,21 @@
           Style="border-radius: 15px;"
           Elevation="4"
           Loading="false"
-          LoadingProgressColor="Color.Info">
+          LoadingProgressColor="Color.Info"
+          RowsPerPage="10"
+          Filter="new Func<ArticuloDto, bool>(FilterFunc1)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Busque articulos por nombre o descripcion</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="SearchString"
+                      Placeholder="Buscar"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Immediate="true"
+                      DebounceInterval="1"
+                      Class="mt-0"/>
+    </ToolBarContent>
     <HeaderContent>
         <MudTh>Nombre</MudTh>
         <MudTh>Descripcion</MudTh>
@@ -41,5 +66,10 @@
         <MudTd>@context.Cantidad</MudTd>
         <MudTd>@context.PrecioVenta</MudTd>
     </RowTemplate>
-
+    <PagerContent>
+        <MudTablePager
+            HorizontalAlignment="HorizontalAlignment.Left"
+            HidePageNumber="true"
+            HideRowsPerPage="true"/>
+    </PagerContent>
 </MudTable>

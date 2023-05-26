@@ -25,7 +25,8 @@
                                   Label="Precio"
                                   Margin="Margin.Dense"
                                   Class="right-aligned-input"
-                                  T="string"/>
+                                  T="string"
+                                  DebounceInterval="1"/>
                 </MudItem>
                 <MudItem xs="12">
                     <MudTextField Variant="Variant.Text"
@@ -47,7 +48,10 @@
                                Dense="true"
                                Variant="Variant.Outlined"
                                Required="true"
-                               RequiredError="Debe seleccionar una categoria">
+                               RequiredError="Debe seleccionar una categoria"
+                               Class="mud-select-value-label mud-input-slot"
+                               HelperText="Seleccione una categoria"
+                               Immediate="true">
                         @foreach (var categoria in CategoriaDtos)
                         {
                             <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
@@ -55,7 +59,7 @@
                     </MudSelect>
                 </MudItem>
                 <MudItem xs="12">
-                    <MudChipSet AllClosable="true" OnClose="Closed" Class="mt-2">
+                    <MudChipSet AllClosable="true" OnClose="Closed" Class="mb-2">
                         @foreach (var categoria in NombreCategorias)
                         {
                             <MudChip Text="@categoria"
@@ -93,4 +97,11 @@
     .right-aligned-input input {
         text-align: right;
     }
+
+         .mud-select-value-label input::placeholder {
+              color: transparent !important;
+         }
+            .mud-select-value-label .mud-input-slot {
+                color: transparent !important;
+            }
 </style>

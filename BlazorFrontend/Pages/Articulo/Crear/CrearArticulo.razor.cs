@@ -88,5 +88,6 @@ public partial class CrearArticulo
         NombreCategorias = NombreCategorias.Where(c => c != chipText);
     }
 
+
     private void Cancel() => MudDialog!.Cancel();
 }

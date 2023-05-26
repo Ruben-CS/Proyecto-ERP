@@ -9,3 +9,25 @@
         @Body
     </MudContainer>
 </MudLayout>
+
+@code{
+//todo add more config to the theme
+    readonly MudTheme _material3 = new()
+    {
+        Palette = new PaletteLight
+        {
+            Primary = Colors.DeepPurple.Default,
+            PrimaryContrastText = Colors.DeepPurple.Lighten5,
+            Secondary = Colors.DeepPurple.Lighten3,
+            Surface = Colors.DeepPurple.Lighten1,
+            Background = Colors.Grey.Lighten3,
+            Tertiary = Colors.Teal.Default,
+            Warning = Colors.Amber.Lighten1,
+            Error = Colors.Red.Darken3,
+            Info = Colors.DeepPurple.Darken3,
+            AppbarBackground = Colors.DeepPurple.Default,
+
+        }
+    };
+
+}

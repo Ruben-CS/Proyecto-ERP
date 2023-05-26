@@ -32,26 +32,31 @@
         </MudTreeView>
     </MudPaper>
     <MudPaper Elevation="0" id="actionButtons">
-        <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
-                   Variant="Variant.Filled"
-                   Color="Color.Success"
-                   OnClick="@ShowCrearCategoria"
-                   Disabled="@IsLoading">
-            Agregar
-        </MudButton>
-        <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
-                   Variant="Variant.Filled"
-                   Color="Color.Warning"
-                   OnClick="ShowEditarCategoria"
-                   Disabled="@IsLoading">
-            Editar
-        </MudButton>
-        <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
-                   Variant="Variant.Filled"
-                   Color="Color.Error"
-                   OnClick="@ShowEliminarCategoria"
-                   Disabled="@IsLoading">
-            Eliminar
-        </MudButton>
+        <MudStack Row="true" Spacing="3">
+            <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
+                       Variant="Variant.Filled"
+                       Color="Color.Success"
+                       OnClick="@ShowCrearCategoria"
+                       Disabled="@IsLoading"
+                       Class="rounded-pill">
+                Agregar
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
+                       Variant="Variant.Filled"
+                       Color="Color.Warning"
+                       OnClick="ShowEditarCategoria"
+                       Disabled="@IsLoading"
+                       Class="rounded-pill">
+                Editar
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
+                       Variant="Variant.Filled"
+                       Color="Color.Error"
+                       OnClick="@ShowEliminarCategoria"
+                       Disabled="@IsLoading"
+                       Class="rounded-pill">
+                Eliminar
+            </MudButton>
+        </MudStack>
     </MudPaper>
 </MudStack>
