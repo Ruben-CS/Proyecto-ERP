@@ -50,7 +50,6 @@ public partial class Inicio
             MaxWidth             = MaxWidth.Small,
             FullWidth            = true,
             DisableBackdropClick = true,
-            ClassBackground      =  "modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -109,7 +108,6 @@ public partial class Inicio
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
             FullWidth        = true,
-            ClassBackground  =  "modal-background"
         };
         var parameters = new DialogParameters
         {
@@ -141,7 +139,6 @@ public partial class Inicio
             CloseOnEscapeKey = true,
             MaxWidth         = MaxWidth.Small,
             FullWidth        = true,
-            ClassBackground =  ".modal-background"
         };
         var parameters = new DialogParameters
         {

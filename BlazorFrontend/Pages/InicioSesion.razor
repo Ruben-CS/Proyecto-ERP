@@ -7,18 +7,27 @@
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 
 
-<MudCard Elevation="5" Style="width: 400px" Class="fade-in">
+<MudCard Elevation="5" Style="width: 400px; border-radius: 15px;">
     <MudCardMedia Image="alegria4.jpeg"
                   Style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px"
-                  Height="250"/>
+                  Height="250"
+                  Class="fade-in"/>
     <MudCardContent>
+        <MudText Typo="Typo.subtitle1" Align="Align.Center"
+                 Class="fade-in">
+            Bienvenido, ingrese sus credenciales:
+        </MudText>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="mb-1"/>
         <EditForm Model="RequestDto">
             <MudTextField @bind-Value="RequestDto.Nombre"
                           Label="Usuario"
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
                           AdornmentIcon="@Icons.Material.Filled.AccountCircle"
-                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
+                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover fade-in"/>
 
             <MudTextField @bind-Value="RequestDto.Password"
                           InputType="@_passwordInput"
@@ -26,11 +35,13 @@
                           Variant="Variant.Text"
                           Adornment="Adornment.End"
                           AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password"
-                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover"/>
+                          Class="mud-tf-outlined mud-tf-adorned-end mud-tf-hover fade-in"/>
         </EditForm>
     </MudCardContent>
     <MudCardActions Class="d-flex justify-content-center align-items-center">
-        <MudStack Justify="Justify.Center" Style="padding-bottom: 25px">
+        <MudStack Justify="Justify.Center"
+                  AlignItems="AlignItems.Center"
+                  Class="mb-3">
             @if (FailedLogin)
             {
                 <MudAlert Dense="true"
@@ -53,7 +64,8 @@
                            ButtonType="ButtonType.Submit"
                            OnClick="LoginAsync"
                            Variant="Variant.Filled"
-                           Style="align-self: center">
+                           Style="align-self: center"
+                           Class="rounded-pill fade-in">
                     Iniciar Sesión
                 </MudButton>
             }

@@ -51,7 +51,9 @@
                                RequiredError="Debe seleccionar una categoria"
                                Class="mud-select-value-label mud-input-slot"
                                HelperText="Seleccione una categoria"
-                               Immediate="true">
+                               Immediate="true"
+                               AnchorOrigin="Origin.CenterCenter"
+                               TransformOrigin="Origin.CenterCenter">
                         @foreach (var categoria in CategoriaDtos)
                         {
                             <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
