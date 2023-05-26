@@ -5,7 +5,7 @@
 @inject PeriodoService PeriodoService
 @inject GestionServices GestionServices
 
-<MudDialog>
+<MudDialog Style="border-radius: 15px;">
     <DialogContent>
         <EditForm Model="PeriodoDto" OnValidSubmit="@ValidateAndCreatePeriodo">
             <DataAnnotationsValidator/>
@@ -33,11 +33,19 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel"
-                   Variant="Variant.Filled"
-                   Color="Color.Dark">Cancelar</MudButton>
+                   Variant="Variant.Text"
+                   Color="Color.Dark"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Cancel">
+            Cancelar
+        </MudButton>
         <MudButton ButtonType="ButtonType.Submit"
                    Variant="Variant.Filled"
                    Color="Color.Success"
-                   OnClick="@ValidateAndCreatePeriodo">Crear</MudButton>
+                   OnClick="@ValidateAndCreatePeriodo"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Add">
+            Crear
+        </MudButton>
     </DialogActions>
 </MudDialog>

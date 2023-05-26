@@ -4,7 +4,7 @@
 @inject ISnackbar Snackbar
 @inject GestionServices GestionServices
 
-<MudDialog>
+<MudDialog Style="border-radius: 15px">
     <DialogContent>
         <EditForm Model="GestionDto" OnValidSubmit="@ValidateAndCreateGestion">
             <DataAnnotationsValidator/>
@@ -28,11 +28,20 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Dark"
-                   OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Variant="Variant.Text"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Cancel">
+            Cancelar
+        </MudButton>
         <MudButton ButtonType="ButtonType.Submit"
                    Color="Color.Success"
                    Variant="Variant.Filled"
-                   OnClick="@ValidateAndCreateGestion">Crear</MudButton>
+                   OnClick="@ValidateAndCreateGestion"
+                   StartIcon="@Icons.Material.Rounded.Add"
+                   Class="rounded-pill">
+            Crear
+        </MudButton>
     </DialogActions>
 </MudDialog>

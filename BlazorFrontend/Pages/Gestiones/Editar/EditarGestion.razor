@@ -6,7 +6,7 @@
 @inject GestionServices GestionServices
 @inject PeriodoService PeriodoService
 
-<MudDialog>
+<MudDialog Style="border-radius: 15px">
     <DialogContent>
         <EditForm Model="@GestionDto" OnValidSubmit="@ValidateAndEditGestion">
             <DataAnnotationsValidator/>
@@ -48,16 +48,22 @@
     </DialogContent>
     <DialogActions>
         <MudDivider DividerType="DividerType.Middle"/>
-        <MudButton Variant="Variant.Filled"
+        <MudButton Variant="Variant.Text"
                    Color="Color.Dark"
-                   OnClick="Cancel">
+                   OnClick="Cancel"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Cancel">
             Cancelar
         </MudButton>
         <MudButton ButtonType="ButtonType.Submit"
                    Color="Color.Warning"
                    Variant="Variant.Filled"
-                   OnClick="@ValidateAndEditGestion">
-            Editar
+                   OnClick="@ValidateAndEditGestion"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Edit">
+            <MudText Typo="Typo.button">
+                Editar
+            </MudText>
         </MudButton>
     </DialogActions>
 </MudDialog>

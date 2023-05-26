@@ -4,19 +4,48 @@
 @inject ISnackbar Snackbar
 @inject PeriodoService PeriodoService
 
-<MudDialog>
+<MudDialog Style="border-radius: 15px;">
     <DialogContent>
         <EditForm Model="@PeriodoDto" OnValidSubmit="@ValidateAndEditPeriodo">
             <DataAnnotationsValidator/>
-            <MudTextField @bind-Value="@PeriodoDto.Nombre" Label="Nombre" Required="true" RequiredError="Nombre es requerido">@PeriodoDto.Nombre</MudTextField>
+            <MudTextField @bind-Value="@PeriodoDto.Nombre"
+                          Label="Nombre"
+                          Required="true"
+                          RequiredError="Nombre es requerido">
+                @PeriodoDto.Nombre
+            </MudTextField>
             <MudStack Row="true">
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de inicio" @bind-Date="@PeriodoDto.FechaInicio" Required="true" RequiredError="Fecha inicial requerida"/>
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Editable="true" Label="Fecha de cierre" @bind-Date="@PeriodoDto.FechaFin" Required="true" RequiredError="Fecha de cierre requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Label="Fecha de inicio"
+                               @bind-Date="@PeriodoDto.FechaInicio"
+                               Required="true"
+                               RequiredError="Fecha inicial requerida"/>
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Label="Fecha de cierre"
+                               @bind-Date="@PeriodoDto.FechaFin"
+                               Required="true"
+                               RequiredError="Fecha de cierre requerida"/>
             </MudStack>
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Dark" OnClick="Cancel">Cancel</MudButton>
-        <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@ValidateAndEditPeriodo">Editar</MudButton>
+        <MudButton Variant="Variant.Text"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   StartIcon="@Icons.Material.Rounded.Cancel">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Warning"
+                   OnClick="@ValidateAndEditPeriodo"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Add">
+            Editar
+        </MudButton>
     </DialogActions>
 </MudDialog>
