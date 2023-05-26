@@ -5,9 +5,10 @@
 @inject EmpresaService EmpresaService
 @inject MonedaService MonedaService
 
-<MudDialog >
+<MudDialog Style="border-radius: 15px;">
     <DialogContent>
-        <EditForm Model="@EmpresaDto" OnValidSubmit="UpsertEmpresa">
+        <EditForm Model="@EmpresaDto"
+                  OnValidSubmit="UpsertEmpresa">
             <DataAnnotationsValidator/>
             <div class="row">
                 <div class="col-md-6 mb-4">
@@ -41,18 +42,18 @@
                                   For="@(() => EmpresaDto.Direccion)"/>
                 </div>
                 <div class="col-md-6 md-4">
-                    <div class="form-outline">
-                        <label>Niveles</label>
-                        <InputSelect @bind-Value="EmpresaDto.Niveles"
-                                     class="form-select"
-                                     aria-label="Default select example">
-                            @foreach (var item in _listaNiveles)
-                            {
-                                <option value="@item">@item</option>
-                            }
-                        </InputSelect>
-                        <ValidationMessage For="@(() => EmpresaDto.Niveles)"/>
-                    </div>
+                    <MudSelect @bind-Value="EmpresaDto.Niveles"
+                               HelperText="Seleccione el nivel de la empresa"
+                               Label="Niveles"
+                               Variant="Variant.Text">
+                        @foreach (var item in _listaNiveles)
+                        {
+                            <MudSelectItem Value="@item">
+                                @item
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                    <ValidationMessage For="@(() => EmpresaDto.Niveles)"/>
                 </div>
             </div>
             <MudSelect T="string" Label="Moneda"
@@ -70,15 +71,19 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled"
+        <MudButton Variant="Variant.Text"
                    Color="Color.Dark"
-                   OnClick="Cancel">
+                   OnClick="Cancel"
+                   StartIcon="@Icons.Material.Rounded.Cancel">
             Cancelar
         </MudButton>
-        <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+        <MudButton Variant="Variant.Filled"
+                   ButtonType="ButtonType.Submit"
                    Color="Color.Success"
                    OnClick="UpsertEmpresa"
-                   Disabled="Processing">
+                   Disabled="Processing"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Add">
             @if (Processing)
             {
                 <MudProgressCircular Class="ms-n1" Size="Size.Small"
