@@ -4,7 +4,6 @@ using MudBlazor;
 
 namespace BlazorFrontend.Pages.Categoria.Crear;
 
-
 public partial class CrearCategoria
 {
     private CategoriaDto CategoriaDto { get; } = new();
@@ -21,7 +20,7 @@ public partial class CrearCategoria
     [Parameter]
     public TreeItemDataCategoria SelectedValue { get; set; }
 
-    private List<CategoriaDto>? _categorias  = new();
+    private List<CategoriaDto>? _categorias = new();
 
     private async Task CreateCuenta()
     {
@@ -29,12 +28,12 @@ public partial class CrearCategoria
 
         var categoriaDto = new CategoriaDto
         {
-            Nombre        = CategoriaDto.Nombre,
-            IdCategoriaPadre = SelectedValue?.IdCategoria,
-            Descripcion = CategoriaDto.Descripcion,
-            IdEmpresa     = IdEmpresa,
-            IdUsuario = 1,
-            Estado = true
+            Nombre           = CategoriaDto.Nombre,
+            IdCategoriaPadre = SelectedValue.IdCategoria,
+            Descripcion      = CategoriaDto.Descripcion,
+            IdEmpresa        = IdEmpresa,
+            IdUsuario        = 1,
+            Estado           = true
         };
         if (await ValidateName(categoriaDto))
         {

@@ -24,6 +24,7 @@
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Categoria\Articulo\ArticuloOverview.razor" />
   </ItemGroup>
 
   <ItemGroup>

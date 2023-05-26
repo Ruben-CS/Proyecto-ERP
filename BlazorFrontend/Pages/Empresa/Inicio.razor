@@ -9,7 +9,7 @@
 
 <MudAppBar Elevation="5">
     <MudSpacer/>
-    <MudMenu Icon="@Icons.Material.Filled.AccountCircle"
+    <MudMenu Icon="@Icons.Material.Rounded.AccountCircle"
              Color="Color.Inherit"
              Size="Size.Large"
              Edge="Edge.End"
@@ -21,7 +21,7 @@
         </MudText>
         <MudMenuItem IconSize="Size.Small"
                      IconColor="Color.Dark"
-                     Icon="@Icons.Material.Filled.Logout"
+                     Icon="@Icons.Material.Rounded.Logout"
                      OnClick="CerrarSesion">
             Cerrar Sesion
         </MudMenuItem>
@@ -36,7 +36,7 @@
                          @bind-Value="SelectedEmpresaName"
                          SearchFunc="Search"
                          HelperText="Busque una empresa"
-                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         AdornmentIcon="@Icons.Material.Rounded.Search"
                          Variant="Variant.Filled"
                          Dense="false"
                          Class="rounded-pill mb-4" />
@@ -44,7 +44,7 @@
     <MudGridItem>
         <MudGrid Container="true" Justify="Justify.SpaceEvenly">
             <MudButton Color="Color.Success"
-                       StartIcon="@Icons.Material.Filled.Add"
+                       StartIcon="@Icons.Material.Rounded.Add"
                        @onclick="@ShowMudCrearEmpresaModal"
                        Class="rounded-pill"
                        Variant="Variant.Filled"
@@ -55,12 +55,12 @@
                        Variant="Variant.Filled"
                        OnClick="Editar"
                        Size="Size.Large"
-                       StartIcon="@Icons.Material.Filled.Edit"
+                       StartIcon="@Icons.Material.Rounded.Edit"
                        Class="rounded-pill">
                 Editar
             </MudButton>
             <MudButton Color="Color.Error"
-                       StartIcon="@Icons.Material.Filled.Delete"
+                       StartIcon="@Icons.Material.Rounded.Delete"
                        OnClick="Eliminar"
                        Size="Size.Large"
                        Variant="Variant.Filled"
@@ -68,7 +68,7 @@
                 Eliminar
             </MudButton>
             <MudButton Color="Color.Primary"
-                       StartIcon="@Icons.Material.Filled.InsertChart"
+                       StartIcon="@Icons.Material.Rounded.InsertChart"
                        Class="rounded-pill"
                        Size="Size.Large"
                        Disabled="true"
@@ -76,7 +76,7 @@
                 Reporte
             </MudButton>
             <MudButton Color="Color.Info"
-                       StartIcon="@Icons.Material.Filled.Login"
+                       StartIcon="@Icons.Material.Rounded.Login"
                        Class="rounded-pill"
                        OnClick="NavigateToPage"
                        Size="Size.Large"

@@ -11,10 +11,20 @@
         </MudText>
     </TitleContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Dark"
-                   OnClick="Cancel">Cancelar</MudButton>
-        <MudButton Variant="Variant.Filled" Color="Color.Error"
-                   OnClick="DeleteServer">Eliminar</MudButton>
+        <MudButton Variant="Variant.Text"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Cancel">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Error"
+                   OnClick="DeleteServer"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Delete">
+            Eliminar
+        </MudButton>
     </DialogActions>
 </MudDialog>
 

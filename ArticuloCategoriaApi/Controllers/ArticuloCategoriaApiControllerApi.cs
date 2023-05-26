@@ -21,7 +21,7 @@ public class ArticuloCategoriaApiControllerApi : ControllerBase
     }
 
 
-    [HttpPost("addArticuloCategoria")]
+    [HttpPost("addArticuloCategoria/{idArticulo:int}/{idCategoria:int}")]
     public async Task<object> AddArticuloCat([FromBody] ArticuloCategoriaDto dto)
     {
         try
@@ -32,7 +32,7 @@ public class ArticuloCategoriaApiControllerApi : ControllerBase
         catch (Exception e)
         {
             _responseDto.IsSuccess = false;
-            _responseDto.ErrorMessages = new List<string>()
+            _responseDto.ErrorMessages = new List<string>
             {
                 e.ToString()
             };

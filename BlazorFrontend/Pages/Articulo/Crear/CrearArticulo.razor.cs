@@ -82,6 +82,11 @@ public partial class CrearArticulo
         }
     }
 
+    private async Task CrearDetalle()
+    {
+
+    }
+
     public void Closed(MudChip chip)
     {
         var chipText = chip.Text;

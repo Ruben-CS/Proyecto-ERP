@@ -4,7 +4,7 @@
 @inject ISnackbar Snackbar
 @inject CategoriaService CategoriaService
 
-<MudDialog>
+<MudDialog Style="border-radius: 15px;">
     <DialogContent>
         <EditForm Model="CategoriaDto" OnValidSubmit="CreateCuenta">
             <MudTextField Required="true"
@@ -16,15 +16,16 @@
                           Label="Outlined"
                           Variant="Variant.Outlined"
                           @bind-Value="@CategoriaDto.Descripcion"
-                          Lines="3"/>
+                          Lines="2"/>
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled"
+        <MudButton Variant="Variant.Text"
                    StartIcon="@Icons.Material.Filled.Cancel"
                    Color="Color.Dark"
                    OnClick="Cancel"
-                   Size="Size.Medium">
+                   Size="Size.Medium"
+                   Class="rounded-pill">
             Cancelar
         </MudButton>
         <MudButton Variant="Variant.Filled"
@@ -32,7 +33,8 @@
                    ButtonType="ButtonType.Submit"
                    Color="Color.Success"
                    OnClick="CreateCuenta"
-                   Size="Size.Medium">
+                   Size="Size.Medium"
+                   Class="rounded-pill">
             Crear
         </MudButton>
     </DialogActions>
