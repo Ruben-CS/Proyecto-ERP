@@ -70,13 +70,14 @@ public partial class CrearArticulo
             Nombre      = Nombre,
             Descripcion = Descripcion,
             PrecioVenta = Precio!.Value,
-            IdEmpresa = IdEmpresa,
-            IdUsuario = 1
+            IdEmpresa   = IdEmpresa,
+            IdUsuario   = 1
         };
         var response = await HttpClient.PostAsJsonAsync(url, articulo);
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Articulo creado exitosamente", Severity.Success);
+            await CrearDetalle();
             MudDialog!.Close(DialogResult.Ok(response));
             await OnArticuloAdded.InvokeAsync(articulo);
         }
@@ -84,7 +85,24 @@ public partial class CrearArticulo
 
     private async Task CrearDetalle()
     {
-
+        var articuloDtos =
+            await ArticuloService.GetArticulosAsync(IdEmpresa);
+        var lastArticleCreatedId = articuloDtos.Last().IdArticulo;
+        foreach (var nombre in NombreCategorias)
+        {
+            var idCategoria = CategoriaDtos.FirstOrDefault(c => c.Nombre == nombre)!
+                                           .IdCategoria;
+            var articuloCategoria = new ArticuloCategoriaDto
+            {
+                IdArticulo      = lastArticleCreatedId,
+                IdCategoria     = idCategoria,
+                NombreCategoria = nombre
+            };
+            var url =
+                $"https://localhost:44321/articuloCategoria/addArticuloCategoria/{lastArticleCreatedId}/{idCategoria}";
+            var response = await HttpClient.PostAsJsonAsync(url, articuloCategoria);
+            response.EnsureSuccessStatusCode();
+        }
     }
 
     public void Closed(MudChip chip)

@@ -33,7 +33,7 @@ public class ArticuloCategoriaRepository : IArticuloCategoriaRepository
     public async Task<IEnumerable<ArticuloCategoriaDto>> GetArticuloDetalles(
         int idArticulo)
     {
-        var articuloDetalles = await _dbContext.ArticuloCategoriaa.Where(ac =>
+        var articuloDetalles = await _dbContext.ArticuloCategoria.Where(ac =>
             ac.IdArticulo == idArticulo).ToListAsync();
         return await Task.FromResult(
             _mapper.Map<List<ArticuloCategoriaDto>>(articuloDetalles));

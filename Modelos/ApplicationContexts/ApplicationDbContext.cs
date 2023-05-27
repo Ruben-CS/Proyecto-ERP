@@ -27,7 +27,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Nota> Nota { get; set; }
 
-    public DbSet<ArticuloCategoria> ArticuloCategoriaa { get; set; }
+    public DbSet<ArticuloCategoria> ArticuloCategoria { get; set; }
 
     public DbSet<Articulo> Articulo { get; set; }
 
@@ -41,7 +41,7 @@ public class ApplicationDbContext : DbContext
         {
             entity.Property(e => e.Tc)
                   .HasColumnType(
-                      "decimal(18,4)"); // or whatever precision and scale you need
+                      "decimal(18,4)");
         });
 
 
