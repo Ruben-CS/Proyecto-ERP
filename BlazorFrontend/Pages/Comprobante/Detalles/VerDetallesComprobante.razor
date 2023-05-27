@@ -10,19 +10,17 @@
 @inject DetalleComprobanteService DetalleComprobanteService
 @inject NavigationManager NavigationManager
 @inject MonedaService MonedaService
-@inject IJSRuntime JsRuntime
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true"
-          AlignItems="AlignItems.Center"
           Justify="Justify.SpaceBetween"
           Spacing="1">
-    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
-        <MudTooltip Text="Volver a gestion">
+    <MudText Typo="Typo.h5" GutterBottom="true">
+        <MudTooltip Text="Volver al listado">
             <MudIconButton Size="Size.Medium"
-                           Icon="@Icons.Material.Filled.ArrowBack"
+                           Icon="@Icons.Material.Rounded.ArrowBack"
                            Color="Color.Dark"
                            OnClick="@(GoBack)"
                            Style="align-self: center"/>
@@ -35,12 +33,14 @@
                            Size="Size.Large"
                            Color="Color.Default"/>
         </MudTooltip>
-        <MudTooltip Text="Ver Reporte"
+        <MudTooltip Text="Agregar nuevo comprobante"
                     Arrow="true"
-                    Placement="Placement.Top">
-            <MudIconButton Icon="@Icons.Material.Rounded.Feed"
-                           Size="Size.Large"
-                           Color="Color.Default"/>
+                    Placement="Placement.Bottom">
+            <MudFab Icon="@Icons.Material.Rounded.PostAdd"
+                    Size="Size.Small"
+                    Color="Color.Success"
+                    Class="squircle-fab"
+                    OnClick="NavigateToAddComprobante"/>
         </MudTooltip>
     </MudText>
     <div style="display: flex; align-items: center;">
@@ -194,6 +194,11 @@
     .right-aligned-input input {
         text-align: right;
     }
+
+        .squircle-fab {
+            border-radius: 30% !important;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
+        }
 </style>
 
 
@@ -226,13 +231,15 @@
             var uri = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
             var idValue = segments[^1];
-            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
+            var idvalueEmpresa = segments[^2].Trim('/');
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id) &&
+                int.TryParse(idvalueEmpresa, out var idempresa))
             {
                 ComprobanteDto = await ComprobanteService.GetComprobanteByIdAsync(id);
-                Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(id - 1);
-                IdEmpresa = Convert.ToInt32(segments[^2]);
+                Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(id);
+                IdEmpresa = idempresa;
                 Fecha = ComprobanteDto.Fecha;
-                Moneda = await MonedaService.GetMonedaByIdAsync(ComprobanteDto.IdMoneda);
+                Moneda = (await MonedaService.GetMonedaByIdAsync(ComprobanteDto.IdMoneda))!;
             }
             else
             {
@@ -255,8 +262,16 @@
         {
             Snackbar.Add("Comprobante anulado exitosamente", Severity.Info);
             await RefreshList();
+            ComprobanteDto = await ComprobanteService.GetComprobanteByIdAsync(IdComprobante);
         }
     }
+
+    private void NavigateToAddComprobante()
+    {
+        var uri = $"/comprobantegrid/{IdEmpresa}";
+        NavigationManager!.NavigateTo(uri);
+    }
+
 
     private async Task RefreshList()
     {

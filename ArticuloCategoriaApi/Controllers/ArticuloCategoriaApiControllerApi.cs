@@ -8,13 +8,11 @@ namespace ArticuloCategoriaApi.Controllers;
 [Route("articuloCategoria")]
 public class ArticuloCategoriaApiControllerApi : ControllerBase
 {
-
     private readonly IArticuloCategoriaRepository _articuloCategoriaRepository;
     private readonly ResponseDto                  _responseDto;
 
-
-    // GET
-    public ArticuloCategoriaApiControllerApi(IArticuloCategoriaRepository articuloCategoriaRepository)
+    public ArticuloCategoriaApiControllerApi(IArticuloCategoriaRepository
+                                                 articuloCategoriaRepository)
     {
         _articuloCategoriaRepository = articuloCategoriaRepository;
         _responseDto                 = new ResponseDto();
@@ -22,11 +20,14 @@ public class ArticuloCategoriaApiControllerApi : ControllerBase
 
 
     [HttpPost("addArticuloCategoria/{idArticulo:int}/{idCategoria:int}")]
-    public async Task<object> AddArticuloCat([FromBody] ArticuloCategoriaDto dto)
+    public async Task<object> AddArticuloCat([FromBody] ArticuloCategoriaDto dto,
+                                             int idArticulo, int idCategoria)
     {
         try
         {
-            var categoria = await _articuloCategoriaRepository.CreateArticuloCategoria(dto);
+            var categoria =
+                await _articuloCategoriaRepository.CreateArticuloCategoria(dto,
+                    idArticulo, idCategoria);
             _responseDto.Result = categoria;
         }
         catch (Exception e)
@@ -40,4 +41,25 @@ public class ArticuloCategoriaApiControllerApi : ControllerBase
 
         return await Task.FromResult(_responseDto);
     }
+    [HttpGet("getArticuloDetalles/{idArticulo:int}")]
+    public async Task<object> GetArticuloDetalles(int idArticulo)
+    {
+        try
+        {
+            var articuloDetalles =
+                await _articuloCategoriaRepository.GetArticuloDetalles(idArticulo);
+            _responseDto.Result = articuloDetalles;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+
+        return await Task.FromResult(_responseDto);
+    }
+
 }

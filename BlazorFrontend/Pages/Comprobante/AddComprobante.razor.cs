@@ -160,17 +160,17 @@ public partial class AddComprobante
         _detalles.Add(detalleComprobanteDto);
     }
 
-    private async Task PostDetalles(int idComprobante)
+    private async Task PostDetalles()
     {
         await OnSerieChanged();
+        var ultimoIdComprobante = Comprobantes.Last().IdComprobante;
         var url =
-            $"https://localhost:44352/detalleComprobantes/agergarDetalleComprobante/{idComprobante}";
-
+            $"https://localhost:44352/detalleComprobantes/agergarDetalleComprobante/{ultimoIdComprobante}";
         try
         {
             foreach (var detalle in _detalles)
             {
-                detalle.IdComprobante = idComprobante;
+                detalle.IdComprobante = ultimoIdComprobante;
                 var response = await HttpClient.PostAsJsonAsync(url, detalle);
                 response.EnsureSuccessStatusCode();
             }
@@ -277,7 +277,7 @@ public partial class AddComprobante
         var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
         if (response.IsSuccessStatusCode)
         {
-            await PostDetalles(Comprobantes.Last().IdComprobante);
+            await PostDetalles();
             Snackbar.Add("Comprobante agregado exitosamente", Severity.Success,
                 options => { options.CloseAfterNavigation = true; });
             NavigationManager.NavigateTo(

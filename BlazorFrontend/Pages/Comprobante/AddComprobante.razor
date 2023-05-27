@@ -119,8 +119,10 @@
         </MudGrid>
     </MudForm>
 
-    <MudStack Row="true" Class="mt-3 fade-in" Style="align-self: end">
-        <MudTooltip Text="Agregar comprobante" Placement="Placement.Bottom">
+    <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between;"
+              Justify="Justify.SpaceBetween">
+        <MudTooltip Text="Agregar comprobante" Placement="Placement.Right"
+                    Arrow="true">
             <MudFab Color="Color.Success"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Filled.PostAdd"
@@ -129,7 +131,8 @@
                     OnClick="@AgregarComprobante"
                     Disabled="@(!_success)"/>
         </MudTooltip>
-        <MudTooltip Text="Agregar detalle" Placement="Placement.Bottom">
+        <MudTooltip Text="Agregar detalle" Placement="Placement.Left"
+                    Arrow="true">
             <MudFab Color="Color.Info"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Filled.NoteAdd"
