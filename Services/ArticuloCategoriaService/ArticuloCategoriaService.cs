@@ -5,7 +5,7 @@ namespace Services.ArticuloCategoriaService;
 
 public sealed class ArticuloCategoriaService
 {
-    private HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
 
     public ArticuloCategoriaService(HttpClient httpClient)
     {
@@ -16,7 +16,7 @@ public sealed class ArticuloCategoriaService
         await await Task.FromResult(GetArticuloCategoriasAsync<List<ArticuloCategoriaDto>>
             ($"https://localhost:44321/articuloCategoria/getArticuloDetalles/{idArticulo}"));
 
-    public async Task<T> GetArticuloCategoriasAsync<T>(string url)
+    private async Task<T> GetArticuloCategoriasAsync<T>(string url)
     {
         var response = await _httpClient.GetAsync(url);
         response.EnsureSuccessStatusCode();

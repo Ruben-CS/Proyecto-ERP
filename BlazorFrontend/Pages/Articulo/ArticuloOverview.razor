@@ -1,11 +1,13 @@
 @page "/articulo/{idempresa:int}"
 @using global::Services.CategoriaService
 @using global::Services.ArticuloService
+@using global::Services.ArticuloCategoriaService
 @inject CategoriaService CategoriaService
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @inject ArticuloService ArticuloService
+@inject ArticuloCategoriaService ArticuloCategoriaService
 @inject IDialogService DialogService
 @layout MonedaDashBoardLayout
 
@@ -40,7 +42,7 @@
           Elevation="4"
           Loading="IsLoading"
           LoadingProgressColor="Color.Info"
-          RowsPerPage="7"
+          RowsPerPage="5"
           Filter="new Func<ArticuloDto, bool>(FilterFunc1)">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Busque articulos por nombre o descripcion</MudText>
@@ -59,12 +61,35 @@
         <MudTh>Descripcion</MudTh>
         <MudTh>Cantidad</MudTh>
         <MudTh>Precio de Venta</MudTh>
+        <MudTh>Categorias</MudTh>
+        <MudTh>Acciones</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>@context.Nombre</MudTd>
         <MudTd>@context.Descripcion</MudTd>
         <MudTd>@context.Cantidad</MudTd>
         <MudTd>@context.PrecioVenta</MudTd>
+        <MudTd>
+            @{
+                if (_articuloCategorias.TryGetValue(context.IdArticulo, out var categorias))
+                {
+                    foreach (var categoria in categorias)
+                    {
+                        <MudChip Size="Size.Small" Color="Color.Primary">
+                            @categoria
+                        </MudChip>
+                    }
+                }
+            }
+        </MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Rounded.Edit"
+                           Color="Color.Warning"
+                           Size="Size.Small"/>
+            <MudIconButton Icon="@Icons.Material.Rounded.Delete"
+                           Color="Color.Error"
+                           Size="Size.Small"/>
+        </MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager

@@ -21,27 +21,47 @@ public partial class ArticuloOverview
 
     private string SearchString { get; set; } = string.Empty;
 
-    public  bool    IsLoading                            { get; set; }
+    public  bool IsLoading                    { get; set; }
     private bool FilterFunc1(ArticuloDto dto) => FilterFunc2(dto, SearchString);
 
-    private bool FilterFunc2(ArticuloDto dto, string searchString)
+    private readonly Dictionary<int, List<string>> _articuloCategorias = new();
+
+    private List<int> _idArticulos = new();
+
+    private static bool FilterFunc2(ArticuloDto dto, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
-        if (dto.Nombre!.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (dto.Nombre!.Contains(searchString, StringComparison.CurrentCultureIgnoreCase))
             return true;
-        if (dto.Nombre!.Contains(searchString,StringComparison.OrdinalIgnoreCase))
+        if (dto.Nombre!.Contains(searchString, StringComparison.CurrentCultureIgnoreCase))
             return true;
         if ($"{dto.Nombre} {dto.Descripcion}".Contains(searchString))
             return true;
         return false;
     }
 
+    private async Task GetCategoriesForArticles(List<int> articleIds)
+    {
+        _articuloCategorias.Clear();
 
+        foreach (var articuloId in articleIds)
+        {
+            var articuloCategorias =
+                await ArticuloCategoriaService.GetArticuloCategoriasAsync(articuloId);
+            if (articuloCategorias.Count > 0)
+            {
+                var nombresCategorias = articuloCategorias
+                                        .Select(ac => ac.NombreCategoria).ToList();
+                _articuloCategorias.Add(articuloId, nombresCategorias);
+            }
+        }
+
+        StateHasChanged();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-
         try
         {
             IsLoading = true;
@@ -54,6 +74,8 @@ public partial class ArticuloOverview
                 Articulos  = await ArticuloService.GetArticulosAsync(IdEmpresa);
                 Categorias = await CategoriaService.GetCategoriasService(IdEmpresa);
                 await InvokeAsync(StateHasChanged);
+                _idArticulos = Articulos.Select(a => a.IdArticulo).ToList();
+                await GetCategoriesForArticles(_idArticulos);
                 IsLoading = false;
             }
             else
@@ -71,7 +93,6 @@ public partial class ArticuloOverview
 
     private async Task ShowCrearArticulo()
     {
-
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
