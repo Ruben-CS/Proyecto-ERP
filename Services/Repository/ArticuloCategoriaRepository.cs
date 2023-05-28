@@ -38,4 +38,23 @@ public class ArticuloCategoriaRepository : IArticuloCategoriaRepository
         return await Task.FromResult(
             _mapper.Map<List<ArticuloCategoriaDto>>(articuloDetalles));
     }
+
+    public async Task<ArticuloCategoriaDto> EditArticuloCategoria(
+        ArticuloCategoriaDto dto, int idArticulo, int idCategoria)
+    {
+        var articuloCategoria = await _dbContext.ArticuloCategoria
+                                                .Where(ac =>
+                                                    ac.IdArticulo  == idArticulo &&
+                                                    ac.IdCategoria == idCategoria)
+                                                .SingleOrDefaultAsync();
+        if (articuloCategoria is null)
+        {
+            throw new NullReferenceException("ArticuloCategoria no encontrada");
+        }
+        _mapper.Map(dto,articuloCategoria);
+        ;_dbContext.Entry(articuloCategoria).State = EntityState.Modified;
+        await _dbContext.SaveChangesAsync();
+        return await Task.FromResult(
+            _mapper.Map<ArticuloCategoriaDto>(articuloCategoria));
+    }
 }

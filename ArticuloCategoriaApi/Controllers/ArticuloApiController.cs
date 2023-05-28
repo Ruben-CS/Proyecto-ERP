@@ -77,14 +77,14 @@ public class ArticuloApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpPut("editarCategoria/{idCategoria:int}")]
+    [HttpPut("editarArticulo/{idArticulo:int}")]
     public async Task<object> EditArticulo([FromBody]  ArticuloDto articuloDto,
-                                            [FromRoute] int          idCategoria)
+                                            [FromRoute] int          idArticulo)
     {
         try
         {
             var categoria =
-                await _articuloRepository.EditarArticulo(articuloDto, idCategoria);
+                await _articuloRepository.EditarArticulo(articuloDto, idArticulo);
             await Task.FromResult(_responseDto.Result = categoria);
         }
         catch (Exception e)

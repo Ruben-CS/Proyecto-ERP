@@ -62,4 +62,26 @@ public class ArticuloCategoriaApiControllerApi : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
+    [HttpPut("editarArticuloDetalles/{idArticulo:int}/{idCategoria:int}")]
+    public async Task<object> EditarArticuloDetalles([FromBody] ArticuloCategoriaDto dto,
+                                                     int idArticulo, int idCategoria)
+    {
+        try
+        {
+            var articuloDetalles =
+                await _articuloCategoriaRepository.EditArticuloCategoria(dto,
+                    idArticulo, idCategoria);
+            _responseDto.Result = articuloDetalles;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+
+        return await Task.FromResult(_responseDto);
+    }
 }

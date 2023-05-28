@@ -3,6 +3,8 @@
 @inject ArticuloCategoriaService ArticuloCategoriaService
 @inject CategoriaService CategoriaService
 @inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
 <MudDialog Style="border-radius: 15px;">
     <DialogContent>
         <MudForm @ref="_form" @bind-IsValid="_success">

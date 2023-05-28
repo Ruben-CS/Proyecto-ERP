@@ -147,6 +147,7 @@ public partial class ArticuloOverview
     private async Task OnArticuloAdded(ArticuloDto dto)
     {
         Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
+        await GetCategoriesForArticles(_idArticulos);
         await InvokeAsync(StateHasChanged);
     }
 }
