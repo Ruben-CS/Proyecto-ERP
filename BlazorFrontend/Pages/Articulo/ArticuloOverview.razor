@@ -68,14 +68,18 @@
         <MudTd>@context.Nombre</MudTd>
         <MudTd>@context.Descripcion</MudTd>
         <MudTd>@context.Cantidad</MudTd>
-        <MudTd>@context.PrecioVenta</MudTd>
+        <MudTd Style="text-align: right">
+            @context.PrecioVenta.ToString("F2")
+        </MudTd>
         <MudTd>
             @{
                 if (_articuloCategorias.TryGetValue(context.IdArticulo, out var categorias))
                 {
                     foreach (var categoria in categorias)
                     {
-                        <MudChip Size="Size.Small" Color="Color.Primary">
+                        <MudChip Size="Size.Small"
+                                 Color="Color.Primary"
+                                 Variant="Variant.Filled">
                             @categoria
                         </MudChip>
                     }
