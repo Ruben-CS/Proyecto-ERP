@@ -1,4 +1,5 @@
 using BlazorFrontend.Pages.Articulo.Crear;
+using BlazorFrontend.Pages.Articulo.Editar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -26,6 +27,14 @@ public partial class ArticuloOverview
     private readonly Dictionary<int, List<string>> _articuloCategorias = new();
 
     private List<int> _idArticulos = new();
+
+    DialogOptions options = new()
+    {
+        CloseOnEscapeKey     = true,
+        MaxWidth             = MaxWidth.Small,
+        FullWidth            = true,
+        DisableBackdropClick = true
+    };
 
     private static bool FilterFunc2(ArticuloDto dto, string searchString)
     {
@@ -92,13 +101,6 @@ public partial class ArticuloOverview
 
     private async Task ShowCrearArticulo()
     {
-        var options = new DialogOptions
-        {
-            CloseOnEscapeKey     = true,
-            MaxWidth             = MaxWidth.Small,
-            FullWidth            = true,
-            DisableBackdropClick = true
-        };
         var parameters = new DialogParameters
         {
             {
@@ -115,6 +117,31 @@ public partial class ArticuloOverview
 
         await DialogService.ShowAsync<CrearArticulo>
             ("Rellene los datos del articulo", parameters, options);
+    }
+
+    private async Task ShowEditarModal(ArticuloDto dto)
+    {
+        var parameters = new DialogParameters
+        {
+            {
+                "Categorias", Categorias
+            },
+            {
+                "IdEmpresa", IdEmpresa
+            },
+            {
+                "OnArticuloAdded",
+                EventCallback.Factory.Create<ArticuloDto>(this, OnArticuloAdded)
+            },
+            {
+                "Articulo", dto
+            },
+            {
+                "IdArticulo", dto.IdArticulo
+            }
+        };
+        await DialogService.ShowAsync<EditarArticulo>
+            ("Edite los datos del articulo", parameters, options);
     }
 
     private async Task OnArticuloAdded(ArticuloDto dto)

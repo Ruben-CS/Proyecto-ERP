@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Articulo\Editar\" />
     <Folder Include="Pages\Articulo\Eliminar\" />
   </ItemGroup>
 
