@@ -19,73 +19,93 @@
                  GutterBottom="true">
             @Username
         </MudText>
-        <MudMenuItem IconSize="Size.Small"
-                     IconColor="Color.Dark"
-                     Icon="@Icons.Material.Rounded.Logout"
-                     OnClick="CerrarSesion">
-            Cerrar Sesion
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="mb-2"/>
+        <MudMenuItem OnClick="CerrarSesion">
+            <MudText>
+                <MudIcon Icon="@Icons.Material.Filled.Logout"
+                         Color="Color.Default"/>
+                Cerrar Sesion
+            </MudText>
         </MudMenuItem>
     </MudMenu>
 </MudAppBar>
 
 
-<MudGrid Justify="Justify.SpaceBetween">
-    <MudGridItem>
-        <MudAutocomplete T="string"
-                         Label="Lista de empresas"
-                         @bind-Value="SelectedEmpresaName"
-                         SearchFunc="Search"
-                         HelperText="Busque una empresa"
-                         AdornmentIcon="@Icons.Material.Rounded.Search"
-                         Variant="Variant.Filled"
-                         Dense="false"
-                         Class="rounded-pill mb-4" />
-    </MudGridItem>
-    <MudGridItem>
-        <MudGrid Container="true" Justify="Justify.SpaceEvenly">
-            <MudButton Color="Color.Success"
-                       StartIcon="@Icons.Material.Rounded.Add"
-                       @onclick="@ShowMudCrearEmpresaModal"
-                       Class="rounded-pill"
-                       Variant="Variant.Filled"
-                       Size="Size.Large">
-                Agregar
-            </MudButton>
-            <MudButton Color="Color.Warning"
-                       Variant="Variant.Filled"
-                       OnClick="Editar"
-                       Size="Size.Large"
-                       StartIcon="@Icons.Material.Rounded.Edit"
-                       Class="rounded-pill">
-                Editar
-            </MudButton>
-            <MudButton Color="Color.Error"
-                       StartIcon="@Icons.Material.Rounded.Delete"
-                       OnClick="Eliminar"
-                       Size="Size.Large"
-                       Variant="Variant.Filled"
-                       Class="rounded-pill">
-                Eliminar
-            </MudButton>
-            <MudButton Color="Color.Primary"
-                       StartIcon="@Icons.Material.Rounded.InsertChart"
-                       Class="rounded-pill"
-                       Size="Size.Large"
-                       Disabled="true"
-                       Variant="Variant.Filled">
-                Reporte
-            </MudButton>
-            <MudButton Color="Color.Info"
-                       StartIcon="@Icons.Material.Rounded.Login"
-                       Class="rounded-pill"
-                       OnClick="NavigateToPage"
-                       Size="Size.Large"
-                       Variant="Variant.Filled">
-                Ingresar
-            </MudButton>
-        </MudGrid>
-    </MudGridItem>
-</MudGrid>
+<MudPaper Elevation="2" Style="border-radius: 15px; padding: 100px;">
+
+    <MudStack Row="true"
+              AlignItems="AlignItems.Center"
+              Justify="Justify.SpaceBetween"
+              Spacing="6">
+        <MudText Align="Align.Start"
+                 Typo="Typo.h5"
+                 GutterBottom="true">
+            Panel de empresas
+        </MudText>
+    </MudStack>
+
+    <MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="mb-5"/>
+    
+    <MudAutocomplete T="string"
+                     Label="Lista de empresas"
+                     @bind-Value="SelectedEmpresaName"
+                     SearchFunc="Search"
+                     HelperText="Busque una empresa"
+                     AdornmentIcon="@Icons.Material.Rounded.Search"
+                     Variant="Variant.Filled"
+                     Dense="false"
+                     FullWidth="true"
+                     Class="rounded-pill mb-4"/>
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+        <MudButton Color="Color.Success"
+                   StartIcon="@Icons.Material.Rounded.Add"
+                   @onclick="@ShowMudCrearEmpresaModal"
+                   Class="rounded-pill"
+                   Variant="Variant.Filled"
+                   Size="Size.Large">
+            Agregar
+        </MudButton>
+        <MudButton Color="Color.Warning"
+                   Variant="Variant.Filled"
+                   OnClick="Editar"
+                   Size="Size.Large"
+                   StartIcon="@Icons.Material.Rounded.Edit"
+                   Class="rounded-pill">
+            Editar
+        </MudButton>
+        <MudButton Color="Color.Error"
+                   StartIcon="@Icons.Material.Rounded.Delete"
+                   OnClick="Eliminar"
+                   Size="Size.Large"
+                   Variant="Variant.Filled"
+                   Class="rounded-pill">
+            Eliminar
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   StartIcon="@Icons.Material.Rounded.InsertChart"
+                   Class="rounded-pill"
+                   Size="Size.Large"
+                   Disabled="true"
+                   Variant="Variant.Filled">
+            Reporte
+        </MudButton>
+        <MudButton Color="Color.Info"
+                   StartIcon="@Icons.Material.Rounded.Login"
+                   Class="rounded-pill"
+                   OnClick="NavigateToPage"
+                   Size="Size.Large"
+                   Variant="Variant.Filled">
+            Ingresar
+        </MudButton>
+    </MudStack>
+</MudPaper>
+
 @if (IsLoading)
 {
     <MudOverlay Visible="IsLoading" DarkBackground="true" Absolute="true" ZIndex="9999">

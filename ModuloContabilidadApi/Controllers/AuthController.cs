@@ -1,7 +1,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Modelos.Models.Dtos;
-using ModuloContabilidadApi.Repository.Interfaces;
+using ModuloContabilidadApi.Authentication.Interfaces;
 
 namespace ModuloContabilidadApi.Controllers;
 
