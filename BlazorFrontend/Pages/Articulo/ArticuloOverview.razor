@@ -93,7 +93,8 @@
                            OnClick="() => ShowEditarModal(context)"/>
             <MudIconButton Icon="@Icons.Material.Rounded.Delete"
                            Color="Color.Error"
-                           Size="Size.Small"/>
+                           Size="Size.Small"
+                           OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
         </MudTd>
     </RowTemplate>
     <PagerContent>

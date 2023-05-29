@@ -1,5 +1,6 @@
 using BlazorFrontend.Pages.Articulo.Crear;
 using BlazorFrontend.Pages.Articulo.Editar;
+using BlazorFrontend.Pages.Articulo.Eliminar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -141,6 +142,20 @@ public partial class ArticuloOverview
             }
         };
         await DialogService.ShowAsync<EditarArticulo>
+            ("Edite los datos del articulo", parameters, options);
+    }
+
+    private async Task OpenEliminarArticulo(int idArticulo)
+    {
+        var parameters = new DialogParameters()
+        {
+            { "IdArticulo", idArticulo },
+            {
+                "OnArticuloAdded",
+                EventCallback.Factory.Create<ArticuloDto>(this, OnArticuloAdded)
+            }
+        };
+        await DialogService.ShowAsync<EliminarArticulo>
             ("Edite los datos del articulo", parameters, options);
     }
 
