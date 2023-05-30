@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modelos.ApplicationContexts;
 
 #nullable disable
 
-namespace ModuloContabilidadApi.Migrations
+namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530035549_ModdedTipoNotaToEnum")]
+    partial class ModdedTipoNotaToEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,16 +230,16 @@ namespace ModuloContabilidadApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("MontoDebe")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("MontoDebeAlt")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("MontoHaber")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("MontoHaberAlt")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("NombreCuenta")
                         .HasColumnType("nvarchar(max)");
@@ -453,8 +456,9 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int>("NroNota")
                         .HasColumnType("int");
 
-                    b.Property<int>("TipoNota")
-                        .HasColumnType("int");
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Total")
                         .HasColumnType("real");

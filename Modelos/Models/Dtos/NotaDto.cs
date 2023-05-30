@@ -1,3 +1,5 @@
+using Modelos.Models.Enums;
+
 namespace Modelos.Models.Dtos;
 
 public class NotaDto
@@ -7,7 +9,7 @@ public class NotaDto
     public DateTime Fecha         { get; set; }
     public string   Descripcion   { get; set; }
     public float    Total         { get; set; }
-    public string   Tipo          { get; set; }
+    public TipoNota TipoNota      { get; set; }
     public int      IdUsuario     { get; set; }
     public int      IdEmpresa     { get; set; }
     public int      IdComprobante { get; set; }

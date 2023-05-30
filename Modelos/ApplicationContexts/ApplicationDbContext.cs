@@ -44,7 +44,6 @@ public class ApplicationDbContext : DbContext
                       "decimal(18,4)");
         });
 
-
         modelBuilder.Entity<Articulo>(entity =>
         {
             entity.Property(e => e.PrecioVenta)
@@ -54,6 +53,14 @@ public class ApplicationDbContext : DbContext
         {
             entity.Property(e => e.NombreCuenta)
                   .HasColumnType("nvarchar(max)");
+        });
+
+        modelBuilder.Entity<DetalleComprobante>(entity =>
+        {
+            entity.Property(e => e.MontoDebe).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoDebeAlt).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoHaber).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoHaberAlt).HasColumnType("decimal(18,4)");
         });
 
         #region Configuracion Empresa
