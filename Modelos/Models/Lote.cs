@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Modelos.Models.Enums;
 
 namespace Modelos.Models;
 
@@ -17,9 +18,11 @@ public class Lote
 
     public DateTime FechaIngreso { get; set; }
 
-    public DateTime FechaVencimiento { get; set; }
+    public DateTime? FechaVencimiento { get; set; }
 
     public int Cantidad { get; set; }
+
+    public EstadoLote EstadoLote { get; set; }
 
     public decimal PrecioCompra { get; set; }
 

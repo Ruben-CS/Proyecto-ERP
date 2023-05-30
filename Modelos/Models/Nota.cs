@@ -13,13 +13,14 @@ public class Nota
     public DateTime Fecha       { get; set; }
     public string   Descripcion { get; set; }
     public float    Total       { get; set; }
-    public TipoNota TipoNota        { get; set; }
+    public TipoNota TipoNota    { get; set; }
 
     [ForeignKey("Usuario")]
     public int IdUsuario { get; set; }
 
     public Usuario? Usuario { get; set; }
 
+    public EstadoNota EstadoNota { get; set; }
 
     [ForeignKey("Empresa")]
     public int IdEmpresa { get; set; }
