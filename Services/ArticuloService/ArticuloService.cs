@@ -13,8 +13,8 @@ public sealed class ArticuloService
     }
 
     public async Task<List<ArticuloDto>> GetArticulosAsync(int idEmpresa) =>
-        await await Task.FromResult(GetApiResponseAsync<List<ArticuloDto>>
-            ($"https://localhost:44321/articulos/getaArticulos/{idEmpresa}"));
+        await GetApiResponseAsync<List<ArticuloDto>>
+            ($"https://localhost:44321/articulos/getaArticulos/{idEmpresa}");
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {

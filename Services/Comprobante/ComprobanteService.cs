@@ -10,8 +10,8 @@ public sealed class ComprobanteService
     public ComprobanteService(HttpClient httpClient) => _httpClient = httpClient;
 
     public async Task<List<ComprobanteDto>> GetComprobantesAsync(int idEmpresa) =>
-        await await Task.FromResult(GetApiResponseAsync<List<ComprobanteDto>>
-            ($"https://localhost:44352/getcomprobantes/{idEmpresa}"));
+        await GetApiResponseAsync<List<ComprobanteDto>>
+            ($"https://localhost:44352/getcomprobantes/{idEmpresa}");
 
     public async Task<ComprobanteDto> GetComprobanteByIdAsync(int idComprobante) =>
         await await Task.FromResult(
