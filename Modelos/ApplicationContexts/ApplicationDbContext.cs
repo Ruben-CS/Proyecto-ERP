@@ -33,6 +33,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Categoria> Categoria { get; set; }
 
+    public DbSet<Lote> Lotes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -61,6 +63,11 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.MontoDebeAlt).HasColumnType("decimal(18,4)");
             entity.Property(e => e.MontoHaber).HasColumnType("decimal(18,4)");
             entity.Property(e => e.MontoHaberAlt).HasColumnType("decimal(18,4)");
+        });
+        modelBuilder.Entity<Lote>(entity =>
+        {
+            entity.Property(e=> e.PrecioCompra).HasColumnType("decimal(18,4)");
+
         });
 
         #region Configuracion Empresa

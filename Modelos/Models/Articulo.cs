@@ -27,6 +27,8 @@ public class Articulo
 
     public ICollection<ArticuloCategoria>? ArticuloCategorias { get; set; }
 
+    public ICollection<Lote> Lotes { get; set; }
+
     public Articulo()
     {
         ArticuloCategorias = new List<ArticuloCategoria>();
