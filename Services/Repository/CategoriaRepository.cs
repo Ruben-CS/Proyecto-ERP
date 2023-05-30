@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
@@ -10,14 +11,16 @@ namespace Services.Repository;
 public class CategoriaRepository : ICategoriaRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
+    private readonly IMemoryCache         _cache;
 
     private readonly IMapper _mapper;
 
     public CategoriaRepository(ApplicationDbContext applicationDbContext,
-                               IMapper mapper)
+                               IMapper              mapper, IMemoryCache cache)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
+        _cache                = cache;
     }
 
     public async Task<CategoriaDto> CreateCategoria(CategoriaDto dto)
@@ -49,7 +52,9 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<bool> EliminarDto(int idCategoria)
     {
-        var categoria = await _applicationDbContext.Categoria.SingleOrDefaultAsync(c => c.IdCategoria == idCategoria);
+        var categoria =
+            await _applicationDbContext.Categoria.SingleOrDefaultAsync(c =>
+                c.IdCategoria == idCategoria);
 
         if (categoria is null)
         {
@@ -61,13 +66,19 @@ public class CategoriaRepository : ICategoriaRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<IEnumerable<CategoriaDto>> ListarCategoria(int idEmpresa)
+    public async Task<IEnumerable<CategoriaDto>?> ListarCategoria(int idEmpresa)
     {
-        var cuentas = await _applicationDbContext.Categoria
-                                                 .Where(c => c.IdEmpresa == idEmpresa)
-                                                 .ToListAsync();
-
-        return await Task.FromResult(_mapper.Map<List<CategoriaDto>>(cuentas));
+        if (!_cache.TryGetValue($"Categorias-{idEmpresa}",
+                out List<CategoriaDto>? cachedCategorias))
+        {
+            var cuentas = await _applicationDbContext.Categoria
+                                                     .Where(c => c.IdEmpresa == idEmpresa)
+                                                     .ToListAsync();
+            cachedCategorias = _mapper.Map<List<CategoriaDto>>(cuentas);
+            _cache.Set($"Categorias-{idEmpresa}", cachedCategorias,
+                TimeSpan.FromHours(1));
+        }
+        return cachedCategorias;
     }
 
     public async Task<CategoriaDto> GetCategoriaById(int idCategoria)

@@ -27,7 +27,7 @@ builder.Services.AddScoped<IEmpresaMonedaRepository, EmpresaMonedaRepository>();
 builder.Services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
 builder.Services.AddScoped<IDetalleComprobanteRepository, DetalleComprobanteRepository>();
 builder.Services.AddSwaggerGenNewtonsoftSupport();
-
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
