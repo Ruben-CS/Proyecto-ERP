@@ -88,6 +88,14 @@
                     Comprobantes
                 </MudText>
             </MudNavLink>
+
+            <MudNavLink Icon="@Icons.Material.Rounded.Notes"
+                        Match="NavLinkMatch.All"
+                        Href="@NavigateToCompras()">
+                <MudText>
+                    Nota de compras
+                </MudText>
+            </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 
@@ -214,6 +222,9 @@
     private string NavigateToComprobantes() => $"/comprobantes/overview/{IdEmpresa}";
 
     private string NavigateToCategorias() => $"/CategoriaOverview/{IdEmpresa}";
+
+    private string NavigateToCompras() =>
+        $"/notaCompraOverview/{IdEmpresa}";
 
     private string NavigateToArticulo() => $"/articulo/{IdEmpresa}";
 

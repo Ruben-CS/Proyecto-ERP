@@ -15,7 +15,7 @@ public sealed class NotaService
     public async Task<List<NotaDto>?> GetNotasAsync(int idEmpresa) =>
         await GetAsync<List<NotaDto>>($"https://localhost:44321/notas/getNotas/{idEmpresa}");
 
-    private async Task<T?> GetAsync<T>(string url)
+    private async Task<T> GetAsync<T>(string url)
     {
         var response = await _httpClient.GetAsync(url);
         response.EnsureSuccessStatusCode();
@@ -23,14 +23,16 @@ public sealed class NotaService
         var content        = await response.Content.ReadAsStringAsync();
         var responseObject = JsonSerializer.Deserialize<ResponseDto>(content);
 
-        if (responseObject == null)
-            throw new Exception("Unable to process the response.");
-        if (responseObject.IsSuccess && responseObject.Result != null)
+        if (responseObject.IsSuccess)
         {
-            return JsonSerializer.Deserialize<T>(responseObject.Result.ToString() ??
-                                                 string.Empty);
+            // If Result is not null, attempt to deserialize it to the expected type.
+            // Otherwise, create a new instance of the expected type.
+            return responseObject.Result != null
+                ? JsonSerializer.Deserialize<T>(responseObject.Result.ToString())
+                : Activator.CreateInstance<T>();
         }
-        if (responseObject.ErrorMessages != null)
+
+        if(responseObject?.ErrorMessages != null)
         {
             throw new Exception(string.Join(", ", responseObject.ErrorMessages));
         }

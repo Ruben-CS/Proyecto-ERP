@@ -1,0 +1,55 @@
+@page "/notaCompraOverview/{idempresa:int}"
+@using global::Services.NotaService
+@inject NavigationManager NavigationManager
+@inject NotaService NotaService
+@layout ComprobanteLayout
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Nota de compras</MudText>
+</MudStack>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+<MudTable Hover="true"
+          Striped="true"
+          RowsPerPage="7"
+          Items="Notas"
+          Elevation="3"
+          Class="fade-in"
+          Bordered="true"
+          Style="border-radius: 15px;">
+    <HeaderContent>
+        <MudTh>Tipo</MudTh>
+        <MudTh>Nro Nota</MudTh>
+        <MudTh>
+            <MudTableSortLabel InitialDirection="SortDirection.Descending"
+                               SortBy="new Func<NotaDto, object>(x => x.Fecha)">
+                Fecha
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>Total</MudTh>
+        <MudTh>Estado</MudTh>
+        <MudTh Style="text-align: center">Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Tipo">
+            @context.TipoNota
+        </MudTd>
+        <MudTd DataLabel="Nro Nota">
+            @context.NroNota
+        </MudTd>
+        <MudTd DataLabel="Fecha">
+            @context.Fecha.ToShortDateString()
+        </MudTd>
+        <MudTd DataLabel="Total">
+            @context.Total.ToString("C")
+        </MudTd>
+        <MudTd DataLabel="Estado">
+            @context.EstadoNota
+        </MudTd>
+    </RowTemplate>
+</MudTable>
