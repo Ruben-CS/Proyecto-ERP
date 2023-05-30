@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     <PackageReference Include="FluentValidation" Version="11.5.1" />
-    <PackageReference Include="MudBlazor" Version="6.2.5" />
+    <PackageReference Include="MudBlazor" Version="6.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -24,6 +24,7 @@
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudEditarEmpresaModal.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEditarEmpresa.razor" />
     <_ContentIncludedByDefault Remove="Pages\Empresa\Components\_MudFormEmpresa.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Categoria\Articulo\ArticuloOverview.razor" />
   </ItemGroup>
 
 </Project>

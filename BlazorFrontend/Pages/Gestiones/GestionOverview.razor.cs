@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using MudBlazor;
+using Services.Periodo;
 using DialogOptions = MudBlazor.DialogOptions;
 
 namespace BlazorFrontend.Pages.Gestiones;
@@ -18,6 +19,8 @@ public partial class GestionOverview
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private IEnumerable<PeriodoDto> _periodosPorGestion = new List<PeriodoDto>();
 
 
     private bool VerifyGestiones()
@@ -48,8 +51,8 @@ public partial class GestionOverview
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa  = int.Parse(idValue);
-                _gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
+                IdEmpresa           = int.Parse(idValue);
+                _gestiones          = await GestionServices.GetGestionAsync(IdEmpresa);
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -101,6 +104,17 @@ public partial class GestionOverview
 
     private async Task BorrarGestion(GestionDto item)
     {
+        _periodosPorGestion = await PeriodoService.GetPeriodosAsync(item.IdGestion);
+
+        var gestionConPeriodo = _periodosPorGestion.Where(periodo => periodo.IdGestion
+            == item.IdGestion).ToList();
+
+        if (gestionConPeriodo.Count > 0)
+        {
+            Snackbar.Add("No se puede eliminar la gestion por que tiene periodos activos",
+                Severity.Error);
+            return;
+        }
         var parameters = new DialogParameters
         {
             { "Id", item.IdGestion },

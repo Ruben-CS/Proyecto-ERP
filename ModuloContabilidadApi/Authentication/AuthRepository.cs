@@ -2,14 +2,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
-using ModuloContabilidadApi.Models.Dtos;
-using ModuloContabilidadApi.Repository.Interfaces;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
+using ModuloContabilidadApi.Authentication.Interfaces;
 
 namespace ModuloContabilidadApi.Repository;
 
@@ -26,7 +25,7 @@ public class AuthRepository : IAuthRepository
         _dbContext     = dbContext;
         _mapper        = mapper;
         _configuration = configuration;
-        _secretKey     = _configuration.GetValue<string>("ApiSettings:Secret");
+        _secretKey     = _configuration.GetValue<string>("ApiSettings:Secret")!;
     }
 
     public bool IsUnique(string nombre)

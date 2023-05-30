@@ -1,9 +1,8 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Modelos.ApplicationContexts;
-using ModuloContabilidadApi;
+using ModuloContabilidadApi.Authentication.Interfaces;
 using ModuloContabilidadApi.Repository;
-using ModuloContabilidadApi.Repository.Interfaces;
 using Services.MapConfiguration;
 using Services.Repository;
 using Services.Repository.Interfaces;

@@ -1,0 +1,111 @@
+@using global::Services.ArticuloService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject ArticuloService ArticuloService
+
+
+<MudDialog Style="border-radius: 15px">
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_success">
+            <MudGrid>
+                <MudItem xs="12" md="6">
+                    <MudTextField Variant="Variant.Text"
+                                  Immediate="true"
+                                  Label="Nombre"
+                                  @bind-Value="@Nombre"
+                                  Required="true"
+                                  RequiredError="Nombre no puede estar vacio"
+                                  Margin="Margin.Dense"
+                                  T="string"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudTextField Variant="Variant.Text"
+                                  Immediate="true"
+                                  @bind-Value="@PrecioString"
+                                  Required="true"
+                                  RequiredError="Precio no puede estar vacio"
+                                  Label="Precio"
+                                  Margin="Margin.Dense"
+                                  Class="right-aligned-input"
+                                  T="string"
+                                  DebounceInterval="1"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="Variant.Text"
+                                  Immediate="true"
+                                  @bind-Value="@Descripcion"
+                                  Required="true"
+                                  Margin="Margin.Dense"
+                                  RequiredError="La descripcion no puede estar vacia"
+                                  Label="Descripcion"
+                                  T="string"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudSelect T="string"
+                               Label="Categorias"
+                               MultiSelection="true"
+                               @bind-Value="Value"
+                               @bind-SelectedValues="NombreCategorias"
+                               Margin="Margin.Dense"
+                               Dense="true"
+                               Variant="Variant.Outlined"
+                               Required="true"
+                               RequiredError="Debe seleccionar una categoria"
+                               Class="mud-select-value-label mud-input-slot"
+                               HelperText="Seleccione una categoria"
+                               Immediate="true"
+                               AnchorOrigin="Origin.CenterCenter"
+                               TransformOrigin="Origin.CenterCenter">
+                        @foreach (var categoria in CategoriaDtos)
+                        {
+                            <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudChipSet AllClosable="true" OnClose="Closed" Class="mb-2">
+                        @foreach (var categoria in NombreCategorias)
+                        {
+                            <MudChip Text="@categoria"
+                                     Variant="Variant.Filled"
+                                     Color="Color.Primary"/>
+                        }
+                    </MudChipSet>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Text"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   Size="Size.Medium"
+                   Class="mb-2 rounded-pill">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Rounded.FactCheck"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   OnClick="Crear"
+                   Size="Size.Medium"
+                   Class="rounded-pill ml-4 mr-3 mb-2"
+                   Disabled="@(!_success)">
+            Crear
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+
+         .mud-select-value-label input::placeholder {
+              color: transparent !important;
+         }
+            .mud-select-value-label .mud-input-slot {
+                color: transparent !important;
+            }
+</style>

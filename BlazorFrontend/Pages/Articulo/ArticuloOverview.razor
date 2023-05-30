@@ -1,0 +1,106 @@
+@page "/articulo/{idempresa:int}"
+@using global::Services.CategoriaService
+@using global::Services.ArticuloService
+@using global::Services.ArticuloCategoriaService
+@inject CategoriaService CategoriaService
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject ArticuloService ArticuloService
+@inject ArticuloCategoriaService ArticuloCategoriaService
+@inject IDialogService DialogService
+@layout MonedaDashBoardLayout
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
+        Lista de articulos
+    </MudText>
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Success"
+               StartIcon="@Icons.Material.Rounded.LibraryAdd"
+               Class="mb-4 rounded-pill"
+               OnClick="@ShowCrearArticulo"
+               Style="justify-self: flex-end; align-self: center">
+        <MudText Typo="Typo.button">
+            Agregar Articulo
+        </MudText>
+    </MudButton>
+</MudStack>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudTable Items="Articulos"
+          Hover="true"
+          Striped="true"
+          Bordered="true"
+          Style="border-radius: 15px;"
+          Elevation="4"
+          Loading="IsLoading"
+          LoadingProgressColor="Color.Info"
+          RowsPerPage="5"
+          Filter="new Func<ArticuloDto, bool>(FilterFunc1)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Busque articulos por nombre o descripcion</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="SearchString"
+                      Placeholder="Buscar"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Immediate="true"
+                      DebounceInterval="1"
+                      Class="mt-0"/>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Descripcion</MudTh>
+        <MudTh>Cantidad</MudTh>
+        <MudTh>Precio de Venta</MudTh>
+        <MudTh>Categorias</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Nombre</MudTd>
+        <MudTd>@context.Descripcion</MudTd>
+        <MudTd>@context.Cantidad</MudTd>
+        <MudTd Style="text-align: right">
+            @context.PrecioVenta.ToString("F2")
+        </MudTd>
+        <MudTd>
+            @{
+                if (_articuloCategorias.TryGetValue(context.IdArticulo, out var categorias))
+                {
+                    foreach (var categoria in categorias)
+                    {
+                        <MudChip Size="Size.Small"
+                                 Color="Color.Primary"
+                                 Variant="Variant.Filled">
+                            @categoria
+                        </MudChip>
+                    }
+                }
+            }
+        </MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Rounded.Edit"
+                           Color="Color.Warning"
+                           Size="Size.Small"
+                           OnClick="() => ShowEditarModal(context)"/>
+            <MudIconButton Icon="@Icons.Material.Rounded.Delete"
+                           Color="Color.Error"
+                           Size="Size.Small"
+                           OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager
+            HorizontalAlignment="HorizontalAlignment.Left"
+            HidePageNumber="true"
+            HideRowsPerPage="true"/>
+    </PagerContent>
+</MudTable>

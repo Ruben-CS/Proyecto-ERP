@@ -1,0 +1,41 @@
+@using ButtonType = MudBlazor.ButtonType
+@using global::Services.CategoriaService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject CategoriaService CategoriaService
+
+<MudDialog Style="border-radius: 15px;">
+    <DialogContent>
+        <EditForm Model="CategoriaDto" OnValidSubmit="CreateCuenta">
+            <MudTextField Required="true"
+                          Label="Nombre"
+                          @bind-Value="@CategoriaDto.Nombre"
+                          Variant="Variant.Outlined"/>
+
+            <MudTextField T="string"
+                          Label="Outlined"
+                          Variant="Variant.Outlined"
+                          @bind-Value="@CategoriaDto.Descripcion"
+                          Lines="2"/>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Text"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   Size="Size.Medium"
+                   Class="rounded-pill">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   ButtonType="ButtonType.Submit"
+                   Color="Color.Success"
+                   OnClick="CreateCuenta"
+                   Size="Size.Medium"
+                   Class="rounded-pill">
+            Crear
+        </MudButton>
+    </DialogActions>
+</MudDialog>

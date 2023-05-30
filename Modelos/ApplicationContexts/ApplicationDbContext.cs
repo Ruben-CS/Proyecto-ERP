@@ -25,6 +25,13 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Cuenta> Cuentas { get; set; }
 
+    public DbSet<Nota> Nota { get; set; }
+
+    public DbSet<ArticuloCategoria> ArticuloCategoria { get; set; }
+
+    public DbSet<Articulo> Articulo { get; set; }
+
+    public DbSet<Categoria> Categoria { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,13 +40,27 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Comprobante>(entity =>
         {
             entity.Property(e => e.Tc)
-                  .HasColumnType("decimal(18,4)"); // or whatever precision and scale you need
+                  .HasColumnType(
+                      "decimal(18,4)");
         });
 
+        modelBuilder.Entity<Articulo>(entity =>
+        {
+            entity.Property(e => e.PrecioVenta)
+                  .HasColumnType("decimal(18,4");
+        });
         modelBuilder.Entity<DetalleComprobante>(entity =>
         {
             entity.Property(e => e.NombreCuenta)
                   .HasColumnType("nvarchar(max)");
+        });
+
+        modelBuilder.Entity<DetalleComprobante>(entity =>
+        {
+            entity.Property(e => e.MontoDebe).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoDebeAlt).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoHaber).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoHaberAlt).HasColumnType("decimal(18,4)");
         });
 
         #region Configuracion Empresa
@@ -53,23 +74,11 @@ public class ApplicationDbContext : DbContext
 
         #endregion
 
-        #region Configuracion de Usuario
-
-        #endregion
-
-        #region Configruacion Gestion
-
-        #endregion
-
-        #region Configuracion Periodo
-
-        #endregion
-
         #region Configuracion EmpresaMoneda
+
         modelBuilder.Entity<EmpresaMoneda>()
                     .Property(em => em.Cambio)
                     .HasPrecision(18, 2);
-
 
         #endregion
 
@@ -197,5 +206,87 @@ public class ApplicationDbContext : DbContext
                     .OnDelete(DeleteBehavior.NoAction);
 
         #endregion
+
+
+        // Relación de uno a muchos entre Empresa y Categoria
+        modelBuilder.Entity<Categoria>()
+                    .HasOne(categoria => categoria.Empresa)
+                    .WithMany(empresa => empresa.HijosCategorias)
+                    .HasForeignKey(categoria => categoria.IdEmpresa)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+        // Relación recursiva de uno a muchos entre Categoria y Categoria
+        modelBuilder.Entity<Categoria>()
+                    .HasOne(categoria => categoria.IdCategoriaPadreNavigation)
+                    .WithMany(categoria => categoria.HijosCategoria)
+                    .HasForeignKey(categoria => categoria.IdCategoriaPadre)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+        // Relación entre usuario y categoria
+        modelBuilder.Entity<Categoria>()
+                    .HasOne(c => c.Usuario)
+                    .WithMany(u => u.HijosCategorias)
+                    .HasForeignKey(c => c.IdUsuario)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+        // Relación entre Empresa y Usuario
+        modelBuilder.Entity<Empresa>()
+                    .HasOne(e => e.Usuario)
+                    .WithMany(u =>
+                        u.Empresas) // Asegúrate de que "Empresas" es la colección correcta en la entidad Usuario
+                    .HasForeignKey(e => e.IdUsuario)
+                    .OnDelete(DeleteBehavior.NoAction);
+        // Relación entre usuario y categoria
+        modelBuilder.Entity<Usuario>()
+                    .HasMany(u => u.HijosCategorias)
+                    .WithOne(c => c.Usuario)
+                    .HasForeignKey(c => c.IdUsuario)
+                    .OnDelete(DeleteBehavior
+                        .NoAction); // añade esta línea para evitar las eliminaciones en cascada
+
+
+        //configurando articulo
+        modelBuilder.Entity<Usuario>()
+                    .HasMany(u => u.Articulos)
+                    .WithOne(c => c.Usuario)
+                    .HasForeignKey(c => c.IdUsuario)
+                    .OnDelete(DeleteBehavior
+                        .NoAction); // añade esta línea para evitar las eliminaciones en cascada
+        modelBuilder.Entity<Articulo>()
+                    .HasOne(categoria => categoria.Empresa)
+                    .WithMany(empresa => empresa.Articulos)
+                    .HasForeignKey(categoria => categoria.IdEmpresa)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+
+        //configurando articulocategoria
+        modelBuilder.Entity<ArticuloCategoria>()
+                    .HasKey(ac => new { ac.IdArticulo, ac.IdCategoria });
+
+        modelBuilder.Entity<ArticuloCategoria>()
+                    .HasOne(ac => ac.Articulo)
+                    .WithMany(a => a.ArticuloCategorias)
+                    .HasForeignKey(ac => ac.IdArticulo);
+
+        modelBuilder.Entity<ArticuloCategoria>()
+                    .HasOne(ac => ac.Categoria)
+                    .WithMany(c => c.ArticuloCategorias)
+                    .HasForeignKey(ac => ac.IdCategoria);
+
+        modelBuilder.Entity<Usuario>()
+                    .HasMany(u => u.Notas)
+                    .WithOne(c => c.Usuario)
+                    .HasForeignKey(c => c.IdUsuario)
+                    .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<Nota>()
+                    .HasOne(categoria => categoria.Empresa)
+                    .WithMany(empresa => empresa.Notas)
+                    .HasForeignKey(categoria => categoria.IdEmpresa)
+                    .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<Nota>()
+                    .HasOne(categoria => categoria.Comprobante)
+                    .WithMany(empresa => empresa.Notas)
+                    .HasForeignKey(categoria => categoria.IdComprobante)
+                    .OnDelete(DeleteBehavior.NoAction);
     }
 }

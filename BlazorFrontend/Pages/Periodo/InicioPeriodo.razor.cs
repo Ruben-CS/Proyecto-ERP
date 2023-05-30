@@ -33,14 +33,16 @@ public partial class InicioPeriodo
     {
         try
         {
-            var uri = new Uri(NavigationManager.Uri);
-            var segments = uri.Segments;
-            var idValue  = segments[^1];
-            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id))
+            var uri            = new Uri(NavigationManager.Uri);
+            var segments       = uri.Segments;
+            var idValue        = segments[^1];
+            var idvalueEmpresa = segments[^2].Trim('/');
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id)&&
+                int.TryParse(idvalueEmpresa,out var idempresa))
             {
                 _gestionDto = await GestionServices.GetGestionSingleAsync(id);
                 _periodos   = await PeriodoService.GetPeriodosAsync(IdGestion);
-                IdEmpresa   = Convert.ToInt32(segments[^2]);
+                IdEmpresa   = idempresa;
             }
             else
             {

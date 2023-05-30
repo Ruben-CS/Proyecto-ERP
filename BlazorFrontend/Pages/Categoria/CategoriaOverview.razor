@@ -1,0 +1,62 @@
+@page "/CategoriaOverview/{idempresa:int}"
+@using global::Services.CategoriaService
+@layout CuentasOverviewLayout
+@inject CategoriaService CategoriaService
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+
+<NavBarComponent IdEmpresa="IdEmpresa"/>
+
+<MudStack Row="true">
+    <MudPaper Elevation="0">
+        <MudTreeView T="TreeItemDataCategoria"
+                     Hover="true"
+                     @bind-SelectedValue="SelectedValue"
+                     Width="500px">
+            <MudTreeViewItem T="TreeItemDataCategoria" Text="Categorias" Expanded="true"
+                             Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
+                @if (IsLoading)
+                {
+                    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-1"/>
+                }
+                <MudTreeView Items="TreeItems" Hover="true" ExpandOnClick="true"
+                             Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)"
+                             @bind-Expanded="@_folderOneExpanded">
+                    <ItemTemplate>
+                        <TreeItemCategoria Value="@context" Expanded="true"/>
+                    </ItemTemplate>
+                </MudTreeView>
+            </MudTreeViewItem>
+        </MudTreeView>
+    </MudPaper>
+    <MudPaper Elevation="0" id="actionButtons">
+        <MudStack Row="true" Spacing="3">
+            <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
+                       Variant="Variant.Filled"
+                       Color="Color.Success"
+                       OnClick="@ShowCrearCategoria"
+                       Disabled="@IsLoading"
+                       Class="rounded-pill">
+                Agregar
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
+                       Variant="Variant.Filled"
+                       Color="Color.Warning"
+                       OnClick="ShowEditarCategoria"
+                       Disabled="@IsLoading"
+                       Class="rounded-pill">
+                Editar
+            </MudButton>
+            <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
+                       Variant="Variant.Filled"
+                       Color="Color.Error"
+                       OnClick="@ShowEliminarCategoria"
+                       Disabled="@IsLoading"
+                       Class="rounded-pill">
+                Eliminar
+            </MudButton>
+        </MudStack>
+    </MudPaper>
+</MudStack>

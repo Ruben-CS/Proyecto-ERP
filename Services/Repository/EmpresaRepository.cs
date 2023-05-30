@@ -38,7 +38,7 @@ public class EmpresaRepository : IEmpresaRepository
     {
         var empresa = await _applicationDbContext.Empresas.Where(id => id
             .IdEmpresa == modeloId).FirstOrDefaultAsync();
-        return _mapper.Map<EmpresaDto>(empresa);
+        return await Task.FromResult(_mapper.Map<EmpresaDto>(empresa));
     }
 
     public async Task<EmpresaDto> CreateUpdateModelDto(EmpresaDto

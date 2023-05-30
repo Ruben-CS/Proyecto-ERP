@@ -1,7 +1,6 @@
 using Modelos.Models.Dtos;
-using ModuloContabilidadApi.Models.Dtos;
 
-namespace ModuloContabilidadApi.Repository.Interfaces;
+namespace ModuloContabilidadApi.Authentication.Interfaces;
 
 public interface IAuthRepository
 {

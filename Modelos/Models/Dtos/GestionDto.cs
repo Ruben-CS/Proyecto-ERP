@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Modelos.Models.Enums;
-using ModuloContabilidadApi.Models.Dtos;
 
 namespace Modelos.Models.Dtos;
 

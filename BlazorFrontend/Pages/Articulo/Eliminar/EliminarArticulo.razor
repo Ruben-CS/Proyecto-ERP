@@ -1,0 +1,58 @@
+@inject ISnackbar Snackbar
+@inject HttpClient HttpClient
+
+<MudDialog Style="border-radius: 15px;">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Desea elmininar este articulo?
+        </MudText>
+    </TitleContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Text"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   StartIcon="@Icons.Material.Rounded.Cancel"
+                   Class="rounded-pill">
+            Cancelar
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Error"
+                   OnClick="Eliminar"
+                   Class="rounded-pill"
+                   StartIcon="@Icons.Material.Rounded.Delete">
+            Eliminar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    #region Parameters
+
+    [Parameter]
+    public int IdArticulo { get; set; }
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<ArticuloDto> OnArticuloAdded { get; set; }
+
+    #endregion
+
+    private void Cancel() => MudDialog.Close();
+
+
+    private async Task Eliminar()
+    {
+        var url = $"https://localhost:44321/articulos/eliminarArticulo/{IdArticulo}";
+        var response = await HttpClient.DeleteAsync(url);
+        if (!response.IsSuccessStatusCode) return;
+        var deletedArticulo = await response.Content.ReadFromJsonAsync<ArticuloDto>();
+        await OnArticuloAdded.InvokeAsync(deletedArticulo);
+        Snackbar.Add("Articulo borrado exitosamente", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(response));
+    }
+
+}

@@ -8,21 +8,35 @@
                    Edge="Edge.Start"
                    OnClick="@ToggleDrawer"/>
     <MudSpacer/>
-    <MudMenu Icon="@Icons.Material.Filled.AccountCircle"
+    <MudMenu Icon="@Icons.Material.Rounded.AccountCircle"
              Color="Color.Inherit"
              Size="Size.Large"
              Edge="Edge.End"
              AnchorOrigin="Origin.BottomLeft"
-             TransformOrigin="Origin.TopRight">
-        <MudText Typo="Typo.subtitle2" Align="Align.Center"
+             TransformOrigin="Origin.TopRight"
+             Style="border-radius: 15px;">
+        <MudText Typo="Typo.subtitle2"
+                 Align="Align.Center"
                  GutterBottom="true">
-            @Username
+           @Username
         </MudText>
-        <MudMenuItem IconSize="Size.Small"
-                     IconColor="Color.Dark"
-                     Icon="@Icons.Material.Filled.Logout"
-                     OnClick="CerrarSesion">
-            Cerrar Sesion
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="mb-2"/>
+        <MudMenuItem OnClick="CerrarSesion">
+            <MudText>
+                <MudIcon Icon="@Icons.Material.Filled.Logout"
+                         Color="Color.Default"/>
+                Cerrar Sesion
+            </MudText>
+        </MudMenuItem>
+        <MudMenuItem OnClick="CambiarEmpresa">
+            <MudText>
+                <MudIcon Icon="@Icons.Material.Filled.SwapHorizontalCircle"
+                         Color="Color.Default"/>
+                Cambiar Empresa
+            </MudText>
         </MudMenuItem>
     </MudMenu>
 </MudAppBar>
@@ -55,19 +69,11 @@
                 Color="Color.Tertiary"
                 Bordered="true">
 
-        <MudNavGroup Icon="@Icons.Material.Filled.Business"
+        <MudNavGroup Icon="@Icons.Material.Rounded.Business"
                      Title="Contabilidad"
                      Expanded="true">
 
-            <MudNavLink Href="@NavigateToGestiones()"
-                        Icon="@Icons.Material.Filled.CalendarMonth"
-                        Match="NavLinkMatch.Prefix">
-                <MudText>
-                    Gestiones
-                </MudText>
-            </MudNavLink>
-
-            <MudNavLink Icon="@Icons.Material.Filled.AccountBalance"
+            <MudNavLink Icon="@Icons.Material.Rounded.AccountBalance"
                         Href="@NavigateToCuentas()"
                         Match="NavLinkMatch.Prefix">
                 <MudText>
@@ -76,18 +82,10 @@
             </MudNavLink>
 
             <MudNavLink Href="@NavigateToComprobantes()"
-                        Icon="@Icons.Material.Filled.ReceiptLong"
+                        Icon="@Icons.Material.Rounded.ReceiptLong"
                         Match="NavLinkMatch.Prefix">
                 <MudText>
                     Comprobantes
-                </MudText>
-            </MudNavLink>
-
-            <MudNavLink Href="@CambiarEmpresa()"
-                        Icon="@Icons.Material.Filled.SwapHorizontalCircle"
-                        Match="NavLinkMatch.Prefix">
-                <MudText>
-                    Cambiar Empresa
                 </MudText>
             </MudNavLink>
         </MudNavGroup>
@@ -101,18 +99,61 @@
     <MudNavMenu Color="Color.Info"
                 Bordered="true"
                 Rounded="true">
-        <MudNavGroup Icon="@Icons.Material.Filled.Settings"
+        <MudNavGroup Icon="@Icons.Material.Rounded.SettingsApplications"
                      Title="Configuracion"
                      Expanded="true">
+
+
             <MudNavLink Href="@NavigateToMonedas()"
-                        Icon="@Icons.Material.Filled.CurrencyExchange"
+                        Icon="@Icons.Material.Rounded.CurrencyExchange"
                         Match="NavLinkMatch.Prefix">
                 <MudText>
                     Monedas
                 </MudText>
             </MudNavLink>
+
+            <MudNavLink Href="@NavigateToGestiones()"
+                        Icon="@Icons.Material.Rounded.CalendarMonth"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Gestiones
+                </MudText>
+            </MudNavLink>
+
         </MudNavGroup>
     </MudNavMenu>
+
+    <MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="my-1"/>
+
+    <MudNavMenu Color="Color.Default"
+                Bordered="true"
+                Rounded="true">
+        <MudNavGroup Icon="@Icons.Material.Rounded.Inventory"
+                     Title="Inventario"
+                     Expanded="true">
+
+            <MudNavLink Href="@NavigateToCategorias()"
+                        Icon="@Icons.Material.Rounded.Category"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Categorias
+                </MudText>
+            </MudNavLink>
+
+            <MudNavLink Href="@NavigateToArticulo()"
+                        Icon="@Icons.Material.Rounded.LocalMall"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Articulos
+                </MudText>
+            </MudNavLink>
+
+        </MudNavGroup>
+    </MudNavMenu>
+
 </MudDrawer>
 
 @if (IsLoggingOut)
@@ -143,7 +184,7 @@
 
     private bool _open = true;
     private void ToggleDrawer() => _open = !_open;
-    private string CambiarEmpresa() => "/inicio";
+    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
 
     private string GetInitials(string nombreEmpresa)
     {
@@ -171,6 +212,10 @@
     private string NavigateToMonedas() => $"/inicio/configuracion/monedaDashboard/{IdEmpresa}";
 
     private string NavigateToComprobantes() => $"/comprobantes/overview/{IdEmpresa}";
+
+    private string NavigateToCategorias() => $"/CategoriaOverview/{IdEmpresa}";
+
+    private string NavigateToArticulo() => $"/articulo/{IdEmpresa}";
 
     private async Task CerrarSesion()
     {

@@ -11,8 +11,6 @@ namespace BlazorFrontend.Pages.Cuentas;
 
 public partial class CuentasOverview
 {
-    private bool IsExpanded { get; set; }
-
     private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
 
     private TreeItemData? SelectedValue { get; set; }
@@ -22,7 +20,7 @@ public partial class CuentasOverview
 
     private bool _open;
 
-    private bool _folderOneExpanded;
+    private bool _folderOneExpanded = true;
 
     private List<CuentaDto> _cuentas = new();
 
@@ -31,27 +29,16 @@ public partial class CuentasOverview
 
     private HashSet<TreeItemData> TreeItems { get; set; } = new();
 
-    private void ToggleDrawer() => _open = !_open;
-
-    private bool IsCuentaSelected { get; set; } = false;
-
-    private void CambiarEmpresa() => NavigationManager.NavigateTo("/inicio");
-
-
     public class TreeItemData
     {
-        public int     IdCuenta { get; set; }
-        public string? Codigo   { get; set; }
+        public int     IdCuenta { get; }
+        public string? Codigo   { get; }
         public string  Nombre   { get; set; }
 
-        public TipoCuenta TipoCuenta { get; set; }
+        public TipoCuenta TipoCuenta { get; }
 
         public int?                  IdCuentaPadre { get; set; }
-        public HashSet<TreeItemData> CuentasHijas  { get; set; }
-
-        private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
-
-        private TreeItemData SelectedValue { get; set; }
+        public HashSet<TreeItemData> CuentasHijas  { get; init; }
 
         public TreeItemData(CuentaDto cuenta)
         {
@@ -68,14 +55,8 @@ public partial class CuentasOverview
         await Task.FromResult(_cuentas.Any(cuenta =>
             cuenta.IdCuentaPadre == selectedValue.IdCuenta));
 
-    private void CuentaSelected() => IsCuentaSelected = true;
-
-    private static TreeItemData CreateTree(TreeItemData           treeItemData,
-                                           IEnumerable<CuentaDto> allCuentas)
+    private static TreeItemData CreateTree(TreeItemData           treeItemData)
     {
-        var childCuentas = allCuentas.Where(c => c.IdCuentaPadre == treeItemData.IdCuenta)
-                                     .ToList();
-
         return treeItemData;
     }
 
@@ -88,10 +69,9 @@ public partial class CuentasOverview
         {
             if (cuenta.IdCuentaPadre is not null) continue;
             var rootItem = new TreeItemData(cuenta);
-            var children = CreateTree(rootItem, cuentas);
+            var children = CreateTree(rootItem);
             rootItems.Add(rootItem, new HashSet<TreeItemData> { children });
         }
-
         return rootItems;
     }
 
@@ -147,6 +127,8 @@ public partial class CuentasOverview
                 _cuentas  = await CuentaService.GetCuentasAsync(IdEmpresa);
                 TreeItems = BuildTreeItems(_cuentas);
                 await LoadCuentas();
+                Snackbar.Configuration.PositionClass =
+                    Defaults.Classes.Position.BottomRight;
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -164,6 +146,26 @@ public partial class CuentasOverview
 
     private async Task ShowCrearCuenta()
     {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
+            return;
+        }
+
+        var codigoSplitted = SelectedValue.Codigo!.Split('.');
+
+        var lastPartIndex = codigoSplitted.Length - 1;
+        var lastDigit     = codigoSplitted[lastPartIndex];
+
+        var isLastPartDigit = int.TryParse(lastDigit, out var lastPartNumber) &&
+                              lastPartNumber > 0;
+
+        if (isLastPartDigit)
+        {
+            Snackbar.Add("Ya no puede agregar hijos a esta cuenta", Severity.Info);
+            return;
+        }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -191,6 +193,13 @@ public partial class CuentasOverview
 
     private async Task ShowEditarCuenta()
     {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
+            return;
+        }
+
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -218,6 +227,12 @@ public partial class CuentasOverview
 
     private async Task ShowEliminarCuenta()
     {
+        if (SelectedValue is null)
+        {
+            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
+            return;
+        }
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey     = true,
@@ -246,13 +261,6 @@ public partial class CuentasOverview
         }
     }
 
-
-    private void NavigateToGestiones()
-    {
-        if (IdEmpresa is 0) return;
-        var uri = $"/gestion/overview/{IdEmpresa}";
-        NavigationManager.NavigateTo(uri);
-    }
 
     private async Task OnTreeViewChange(CuentaDto cuentaDto)
     {
