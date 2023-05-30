@@ -23,7 +23,7 @@ public sealed class NotaService
         var content        = await response.Content.ReadAsStringAsync();
         var responseObject = JsonSerializer.Deserialize<ResponseDto>(content);
 
-        if (responseObject.IsSuccess)
+        if (responseObject!.IsSuccess)
         {
             // If Result is not null, attempt to deserialize it to the expected type.
             // Otherwise, create a new instance of the expected type.

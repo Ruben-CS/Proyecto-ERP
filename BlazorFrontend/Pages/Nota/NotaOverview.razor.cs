@@ -36,4 +36,9 @@ public partial class NotaOverview
                 $"An error occurred while initializing the component: {ex}");
         }
     }
+
+    public async Task GotoCrearNotaCompra()
+    {
+
+    }
 }
