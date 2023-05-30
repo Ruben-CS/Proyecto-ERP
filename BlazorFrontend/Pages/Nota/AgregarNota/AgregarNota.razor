@@ -1,0 +1,51 @@
+@page "/agregarNota/{idempresa:int}"
+@using global::Services.ArticuloService
+@layout ComprobanteLayout
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject ArticuloService ArticuloService
+@inject IJSRuntime JsRuntime
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudText Typo="Typo.h5" GutterBottom="true">
+    <MudTooltip Text="Volver al listado">
+        <MudIconButton Size="Size.Medium"
+                       Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Dark"
+                       OnClick="@(GoBack)"
+                       Style="align-self: center"/>
+    </MudTooltip>
+    Datos de la nota
+</MudText>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px;">
+    <MudForm @ref="_form" @bind-IsValid="@_success">
+        <MudStack Row="true">
+            <MudTextField Variant="Variant.Outlined"
+                          Disabled="true"
+                          Margin="Margin.Dense"
+                          Label="Nro"
+                          T="string"/>
+            <MudTextField Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="La descripcion no puede estar vacia"
+                          Label="Descripcion"
+                          Margin="Margin.Dense"
+                          T="string"/>
+            <MudDatePicker bind-Date="DateTime.Today"
+                           Label="Fecha"
+                           Required="true"
+                           RequiredError="Debe seleccionar una fecha"
+                           Rounded="true"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"/>
+        </MudStack>
+    </MudForm>
+</MudPaper>

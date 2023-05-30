@@ -1,0 +1,24 @@
+@inject IDialogService DialogService
+
+<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
+    <MudTable Hover="true"
+              Dense="true"
+              RowsPerPage="4"
+              Bordered="true"
+              Elevation="0"
+              Style="border-radius: 15px;"
+              Items="DetalleCompra">
+        <HeaderContent>
+            <MudTh>Articulo</MudTh>
+            <MudTh>Cantidad</MudTh>
+            <MudTh>Precio</MudTh>
+            <MudTh>Subtotal</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Nombre</MudTd>
+            <MudTd>@context.Cantidad</MudTd>
+            <MudTd>@context.PrecioVenta</MudTd>
+            <MudTd>@(context.Cantidad * context.PrecioVenta)</MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>

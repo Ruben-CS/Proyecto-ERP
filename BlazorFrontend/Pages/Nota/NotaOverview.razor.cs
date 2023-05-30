@@ -37,8 +37,9 @@ public partial class NotaOverview
         }
     }
 
-    public async Task GotoCrearNotaCompra()
+    private void GotoCrearNotaCompra()
     {
-
+        var uri = $"/agregarNota/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
     }
 }

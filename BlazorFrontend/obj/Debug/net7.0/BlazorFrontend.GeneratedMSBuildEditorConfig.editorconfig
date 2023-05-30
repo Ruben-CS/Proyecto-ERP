@@ -148,6 +148,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTmF2QmFyQ29tcG9uZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/AgregarNota/AgregarNota.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxBZ3JlZ2FyTm90YVxBZ3JlZ2FyTm90YS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/DetalleNotaTable/DetalleNotaTable.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxEZXRhbGxlTm90YVRhYmxlXERldGFsbGVOb3RhVGFibGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/NotaOverview.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxOb3RhT3ZlcnZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
