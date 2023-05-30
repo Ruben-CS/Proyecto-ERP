@@ -69,6 +69,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(e=> e.PrecioCompra).HasColumnType("decimal(18,4)");
 
         });
+        modelBuilder.Entity<Lote>()
+                    .HasKey(l => new { l.IdLote, l.IdArticulo });
 
         #region Configuracion Empresa
 
