@@ -32,4 +32,6 @@ public class Nota
     public int IdComprobante { get; set; }
 
     public Comprobante? Comprobante { get; set; }
+
+    public ICollection<Lote> Lotes { get; set; }
 }

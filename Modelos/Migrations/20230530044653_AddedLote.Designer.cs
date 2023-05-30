@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modelos.ApplicationContexts;
 
 #nullable disable
 
-namespace ModuloContabilidadApi.Migrations
+namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530044653_AddedLote")]
+    partial class AddedLote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,9 +402,6 @@ namespace ModuloContabilidadApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLote"));
 
-                    b.Property<int>("IdArticulo")
-                        .HasColumnType("int");
-
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
@@ -411,6 +411,9 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<DateTime>("FechaVencimiento")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdArticulo")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdNota")
                         .HasColumnType("int");
 
@@ -418,12 +421,12 @@ namespace ModuloContabilidadApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecioCompra")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
-                    b.HasKey("IdLote", "IdArticulo");
+                    b.HasKey("IdLote");
 
                     b.HasIndex("IdArticulo");
 
