@@ -61,7 +61,12 @@ public partial class AgregarDetalleModal
 
     private void Submit()
     {
+        //Todo validations
 
+        var loteDto = new LoteDto()
+        {
+            Cantidad = Cantidad,
+        };
     }
 
     private void Cancel() => MudDialog!.Cancel();

@@ -12,8 +12,8 @@ using Modelos.ApplicationContexts;
 namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230508172729_EditedDateTimeCreation")]
-    partial class EditedDateTimeCreation
+    [Migration("20230531045425_WTF")]
+    partial class WTF
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,100 @@ namespace Modelos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Modelos.Models.Articulo", b =>
+                {
+                    b.Property<int>("IdArticulo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdArticulo"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(18,4");
+
+                    b.HasKey("IdArticulo");
+
+                    b.HasIndex("IdEmpresa");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Articulo");
+                });
+
+            modelBuilder.Entity("Modelos.Models.ArticuloCategoria", b =>
+                {
+                    b.Property<int>("IdArticulo")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("IdCategoria")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("NombreCategoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdArticulo", "IdCategoria");
+
+                    b.HasIndex("IdCategoria");
+
+                    b.ToTable("ArticuloCategoria");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Categoria", b =>
+                {
+                    b.Property<int>("IdCategoria")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCategoria"));
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("IdCategoriaPadre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdCategoria");
+
+                    b.HasIndex("IdCategoriaPadre");
+
+                    b.HasIndex("IdEmpresa");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Categoria");
+                });
+
             modelBuilder.Entity("Modelos.Models.Comprobante", b =>
                 {
                     b.Property<int>("IdComprobante")
@@ -33,8 +127,8 @@ namespace Modelos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComprobante"));
 
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -43,25 +137,27 @@ namespace Modelos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdMoneda")
                         .HasColumnType("int");
 
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<string>("Serie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Serie")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("Tc")
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("TipoComprobante")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TipoComprobante")
+                        .HasColumnType("int");
 
                     b.HasKey("IdComprobante");
+
+                    b.HasIndex("IdEmpresa");
 
                     b.HasIndex("IdMoneda");
 
@@ -100,8 +196,8 @@ namespace Modelos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoCuenta")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TipoCuenta")
+                        .HasColumnType("int");
 
                     b.HasKey("IdCuenta");
 
@@ -133,17 +229,20 @@ namespace Modelos.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<float>("MontoDebe")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoDebe")
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<float>("MontoDebeAlt")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoDebeAlt")
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<float>("MontoHaber")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoHaber")
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<float>("MontoHaberAlt")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontoHaberAlt")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("NombreCuenta")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Numero")
                         .HasColumnType("int");
@@ -181,7 +280,7 @@ namespace Modelos.Migrations
 
                     b.Property<string>("Nit")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Niveles")
                         .HasColumnType("int");
@@ -201,14 +300,9 @@ namespace Modelos.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.HasIndex("Nit")
-                        .IsUnique();
+                    b.HasIndex("Nombre");
 
-                    b.HasIndex("Nombre")
-                        .IsUnique();
-
-                    b.HasIndex("Sigla")
-                        .IsUnique();
+                    b.HasIndex("Sigla");
 
                     b.ToTable("Empresas");
                 });
@@ -221,8 +315,9 @@ namespace Modelos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEmpresaMoneda"));
 
-                    b.Property<float?>("Cambio")
-                        .HasColumnType("real");
+                    b.Property<decimal?>("Cambio")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
@@ -294,6 +389,50 @@ namespace Modelos.Migrations
                     b.ToTable("Gestiones");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Lote", b =>
+                {
+                    b.Property<int>("IdLote")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLote"));
+
+                    b.Property<int>("IdArticulo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoLote")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaVencimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdNota")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NroLote")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdLote", "IdArticulo");
+
+                    b.HasIndex("IdArticulo");
+
+                    b.HasIndex("IdNota");
+
+                    b.ToTable("Lotes");
+                });
+
             modelBuilder.Entity("Modelos.Models.Moneda", b =>
                 {
                     b.Property<int>("IdMoneda")
@@ -327,6 +466,53 @@ namespace Modelos.Migrations
                     b.HasIndex("IdUsuario");
 
                     b.ToTable("Monedas");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Nota", b =>
+                {
+                    b.Property<int>("IdNota")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdNota"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoNota")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdComprobante")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NroNota")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoNota")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
+
+                    b.HasKey("IdNota");
+
+                    b.HasIndex("IdComprobante");
+
+                    b.HasIndex("IdEmpresa");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Nota");
                 });
 
             modelBuilder.Entity("Modelos.Models.Periodo", b =>
@@ -390,8 +576,78 @@ namespace Modelos.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Articulo", b =>
+                {
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Articulos")
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
+                        .WithMany("Articulos")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Modelos.Models.ArticuloCategoria", b =>
+                {
+                    b.HasOne("Modelos.Models.Articulo", "Articulo")
+                        .WithMany("ArticuloCategorias")
+                        .HasForeignKey("IdArticulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Categoria", "Categoria")
+                        .WithMany("ArticuloCategorias")
+                        .HasForeignKey("IdCategoria")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Categoria", b =>
+                {
+                    b.HasOne("Modelos.Models.Categoria", "IdCategoriaPadreNavigation")
+                        .WithMany("HijosCategoria")
+                        .HasForeignKey("IdCategoriaPadre")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("HijosCategorias")
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
+                        .WithMany("HijosCategorias")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("IdCategoriaPadreNavigation");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("Modelos.Models.Comprobante", b =>
                 {
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Comprobantes")
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Modelos.Models.Moneda", "Moneda")
                         .WithMany()
                         .HasForeignKey("IdMoneda")
@@ -403,6 +659,8 @@ namespace Modelos.Migrations
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Empresa");
 
                     b.Navigation("Moneda");
 
@@ -458,7 +716,8 @@ namespace Modelos.Migrations
                 {
                     b.HasOne("Modelos.Models.Usuario", "Usuario")
                         .WithMany("Empresas")
-                        .HasForeignKey("IdUsuario");
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Usuario");
                 });
@@ -514,6 +773,25 @@ namespace Modelos.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Lote", b =>
+                {
+                    b.HasOne("Modelos.Models.Articulo", "Articulo")
+                        .WithMany("Lotes")
+                        .HasForeignKey("IdArticulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Nota", "Nota")
+                        .WithMany("Lotes")
+                        .HasForeignKey("IdNota")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Nota");
+                });
+
             modelBuilder.Entity("Modelos.Models.Moneda", b =>
                 {
                     b.HasOne("Modelos.Models.EmpresaMoneda", null)
@@ -525,6 +803,33 @@ namespace Modelos.Migrations
                         .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Nota", b =>
+                {
+                    b.HasOne("Modelos.Models.Comprobante", "Comprobante")
+                        .WithMany("Notas")
+                        .HasForeignKey("IdComprobante")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Empresa", "Empresa")
+                        .WithMany("Notas")
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Usuario", "Usuario")
+                        .WithMany("Notas")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Comprobante");
+
+                    b.Navigation("Empresa");
 
                     b.Navigation("Usuario");
                 });
@@ -548,9 +853,25 @@ namespace Modelos.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Articulo", b =>
+                {
+                    b.Navigation("ArticuloCategorias");
+
+                    b.Navigation("Lotes");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Categoria", b =>
+                {
+                    b.Navigation("ArticuloCategorias");
+
+                    b.Navigation("HijosCategoria");
+                });
+
             modelBuilder.Entity("Modelos.Models.Comprobante", b =>
                 {
                     b.Navigation("DetalleComprobantes");
+
+                    b.Navigation("Notas");
                 });
 
             modelBuilder.Entity("Modelos.Models.Cuenta", b =>
@@ -562,11 +883,19 @@ namespace Modelos.Migrations
 
             modelBuilder.Entity("Modelos.Models.Empresa", b =>
                 {
+                    b.Navigation("Articulos");
+
+                    b.Navigation("Comprobantes");
+
                     b.Navigation("Cuentas");
 
                     b.Navigation("EmpresaMonedas");
 
                     b.Navigation("Gestiones");
+
+                    b.Navigation("HijosCategorias");
+
+                    b.Navigation("Notas");
                 });
 
             modelBuilder.Entity("Modelos.Models.EmpresaMoneda", b =>
@@ -579,8 +908,15 @@ namespace Modelos.Migrations
                     b.Navigation("Periodos");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Nota", b =>
+                {
+                    b.Navigation("Lotes");
+                });
+
             modelBuilder.Entity("Modelos.Models.Usuario", b =>
                 {
+                    b.Navigation("Articulos");
+
                     b.Navigation("Comprobantes");
 
                     b.Navigation("DetalleComprobantes");
@@ -591,7 +927,11 @@ namespace Modelos.Migrations
 
                     b.Navigation("Gestiones");
 
+                    b.Navigation("HijosCategorias");
+
                     b.Navigation("Monedas");
+
+                    b.Navigation("Notas");
 
                     b.Navigation("Periodos");
                 });

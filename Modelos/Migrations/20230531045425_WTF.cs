@@ -5,7 +5,7 @@
 namespace Modelos.Migrations
 {
     /// <inheritdoc />
-    public partial class aaaaa : Migration
+    public partial class WTF : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

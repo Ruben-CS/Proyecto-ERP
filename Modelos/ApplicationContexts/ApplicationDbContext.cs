@@ -74,9 +74,8 @@ public class ApplicationDbContext : DbContext
 
         #region Configuracion Empresa
 
-        modelBuilder.Entity<Empresa>().HasIndex(i => i.Nit).IsUnique();
-        modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique();
-        modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique();
+        modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique(false);
+        modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique(false);
         modelBuilder.Entity<Empresa>().Property(i => i.IdUsuario)
                     .IsRequired(false);
         modelBuilder.Entity<Empresa>().HasIndex(i => i.IdUsuario);

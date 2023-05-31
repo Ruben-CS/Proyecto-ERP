@@ -8,7 +8,7 @@ using Modelos.ApplicationContexts;
 
 #nullable disable
 
-namespace ModuloContabilidadApi.Migrations
+namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -277,7 +277,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.Property<string>("Nit")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Niveles")
                         .HasColumnType("int");
@@ -297,14 +297,9 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.HasIndex("Nit")
-                        .IsUnique();
+                    b.HasIndex("Nombre");
 
-                    b.HasIndex("Nombre")
-                        .IsUnique();
-
-                    b.HasIndex("Sigla")
-                        .IsUnique();
+                    b.HasIndex("Sigla");
 
                     b.ToTable("Empresas");
                 });
