@@ -66,24 +66,28 @@ public partial class CrearEmpresa
         if (!await ValidateUniqueNombre())
         {
             Snackbar.Add("Existe una empresa con ese nombre", Severity.Error);
+            Processing = false;
             return;
         }
 
         if (!await ValidateUniqueNit())
         {
             Snackbar.Add("Existe una empresa con el mismo NIT", Severity.Error);
+            Processing = false;
             return;
         }
 
         if (!await ValidateUniqueSigla())
         {
             Snackbar.Add("Existe una empresa con esas siglas", Severity.Error);
+            Processing = false;
             return;
         }
 
         if (await ValidateEmptyEmpresa())
         {
             Snackbar.Add("Rellene los datos esenciales", Severity.Error);
+            Processing = false;
             return;
         }
 
@@ -105,7 +109,7 @@ public partial class CrearEmpresa
 
     private async Task CreateEmpresaMoneda()
     {
-        var empresas   = await EmpresaService.GetEmpresasAsync();
+        var empresas   = await EmpresaService.GetActiveEmpresasAsync();
         var newEmpresa = empresas.Last();
         MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
         var url =
