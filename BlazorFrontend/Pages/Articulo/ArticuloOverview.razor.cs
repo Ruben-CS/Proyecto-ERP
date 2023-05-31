@@ -25,11 +25,11 @@ public partial class ArticuloOverview
     public  bool IsLoading                    { get; set; }
     private bool FilterFunc1(ArticuloDto dto) => FilterFunc2(dto, SearchString);
 
-    private readonly Dictionary<int, List<string>> _articuloCategorias = new();
+    private Dictionary<int, List<string>> _articuloCategorias = new();
 
     private List<int> _idArticulos = new();
 
-    DialogOptions options = new()
+    private readonly DialogOptions _options = new()
     {
         CloseOnEscapeKey     = true,
         MaxWidth             = MaxWidth.Small,
@@ -117,7 +117,7 @@ public partial class ArticuloOverview
         };
 
         await DialogService.ShowAsync<CrearArticulo>
-            ("Rellene los datos del articulo", parameters, options);
+            ("Rellene los datos del articulo", parameters, _options);
     }
 
     private async Task ShowEditarModal(ArticuloDto dto)
@@ -142,7 +142,7 @@ public partial class ArticuloOverview
             }
         };
         await DialogService.ShowAsync<EditarArticulo>
-            ("Edite los datos del articulo", parameters, options);
+            ("Edite los datos del articulo", parameters, _options);
     }
 
     private async Task OpenEliminarArticulo(int idArticulo)
@@ -156,12 +156,13 @@ public partial class ArticuloOverview
             }
         };
         await DialogService.ShowAsync<EliminarArticulo>
-            ("Edite los datos del articulo", parameters, options);
+            ("Edite los datos del articulo", parameters, _options);
     }
 
     private async Task OnArticuloAdded(ArticuloDto dto)
     {
-        Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
+        Articulos    = await ArticuloService.GetArticulosAsync(IdEmpresa);
+        _idArticulos = Articulos.Select(a => a.IdArticulo).ToList();
         await GetCategoriesForArticles(_idArticulos);
         await InvokeAsync(StateHasChanged);
     }

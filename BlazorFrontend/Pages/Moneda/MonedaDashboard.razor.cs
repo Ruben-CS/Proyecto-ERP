@@ -43,6 +43,7 @@ public partial class MonedaDashboard
                 IdEmpresa = int.Parse(idValue);
                 _empresaMonedas =
                     await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+                _empresaMonedas = _empresaMonedas.OrderByDescending(x => x.FechaRegistro).ToList();
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
                 MonedaPrincipal = (await GetMonedaPrincipal())!;
                 IsLoading       = false;
