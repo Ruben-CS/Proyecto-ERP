@@ -311,3 +311,4 @@ C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFronten
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\BlazorFrontend.genruntimeconfig.cache
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\ref\BlazorFrontend.dll
 C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\bin\Debug\net7.0\Blazored.LocalStorage.dll
+C:\Users\ruben\OneDrive\Documents\Repos\ERP-Solultion\Proyecto-ERP\BlazorFrontend\obj\Debug\net7.0\scopedcss\Pages\Categoria\CategoriaOverview.razor.rz.scp.css

@@ -146,23 +146,10 @@ public partial class CuentasOverview
 
     private async Task ShowCrearCuenta()
     {
-        if (SelectedValue is null)
+
+        if (CheckLastHijo())
         {
-            Snackbar.Add("Seleccione una cuenta primero", Severity.Info);
-            return;
-        }
-
-        var codigoSplitted = SelectedValue.Codigo!.Split('.');
-
-        var lastPartIndex = codigoSplitted.Length - 1;
-        var lastDigit     = codigoSplitted[lastPartIndex];
-
-        var isLastPartDigit = int.TryParse(lastDigit, out var lastPartNumber) &&
-                              lastPartNumber > 0;
-
-        if (isLastPartDigit)
-        {
-            Snackbar.Add("Ya no puede agregar hijos a esta cuenta", Severity.Info);
+            Snackbar.Add("Ya no puede crear mas hijos", Severity.Info);
             return;
         }
 
@@ -189,6 +176,23 @@ public partial class CuentasOverview
 
         await DialogService.ShowAsync<CrearCuenta>
             ("Escriba el nombre de la cuenta", parameters, options);
+    }
+
+    private bool CheckLastHijo()
+    {
+        if (SelectedValue is not null)
+        {
+            var codigoSplitted = SelectedValue.Codigo!.Split('.');
+
+            var lastPartIndex = codigoSplitted.Length - 1;
+            var lastDigit     = codigoSplitted[lastPartIndex];
+
+            var isLastPartDigit = int.TryParse(lastDigit, out var lastPartNumber) &&
+                                  lastPartNumber > 0;
+            return isLastPartDigit;
+        }
+
+        return false;
     }
 
     private async Task ShowEditarCuenta()
@@ -252,7 +256,7 @@ public partial class CuentasOverview
         };
         if (await HasChildren(SelectedValue))
         {
-            Snackbar.Add("No puede eliminar una cuenta no vacia", Severity.Error);
+            Snackbar.Add("No puede eliminar una cuenta con hijos", Severity.Error);
         }
         else
         {

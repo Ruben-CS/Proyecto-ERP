@@ -19,8 +19,8 @@
             Light="false"
             Style="border-top-width: 3px;"
             Class="mb-5"/>
-<MudStack Row="true">
-    <MudPaper Elevation="0">
+<MudStack Row="true" Class="stack-container">
+    <MudPaper Elevation="0"  MaxHeight="500px" Class="overflow-y-auto">
         <MudTreeView T="TreeItemData"
                      Hover="true"
                      @bind-SelectedValue="SelectedValue"
@@ -39,7 +39,7 @@
             </MudTreeViewItem>
         </MudTreeView>
     </MudPaper>
-    <MudPaper Elevation="0" id="actionButtons">
+    <MudPaper Elevation="0" id="actionButtons" Class="action-buttons-container">
         <MudStack Row="true" Spacing="3">
             <MudButton StartIcon="@Icons.Material.Rounded.AddCircle"
                        Variant="Variant.Filled"
