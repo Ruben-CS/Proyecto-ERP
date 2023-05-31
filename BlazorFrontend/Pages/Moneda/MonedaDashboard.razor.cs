@@ -25,7 +25,12 @@ public partial class MonedaDashboard
     private string? _previousSelectedMoneda;
     private string? MonedaPrincipalName { get; set; }
 
-    private string? SelectedMoneda { get; set; }
+    private string? SelectedMoneda
+    {
+        get => AppState.SelectedMoneda;
+        set => AppState.SelectedMoneda = value;
+    }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -120,9 +125,6 @@ public partial class MonedaDashboard
                 await OnDataGridChange();
                 Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
             }
-
-            SelectedMoneda = null;
-            Cambio         = null;
         }
     }
 

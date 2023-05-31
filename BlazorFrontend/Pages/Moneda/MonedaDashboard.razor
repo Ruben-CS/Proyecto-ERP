@@ -49,15 +49,15 @@
         @if (IsLoading)
         {
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="227px"
+                         Width="300"
                          Height="56px"
                          Animation="Animation.Wave"/>
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="227px"
+                         Width="300"
                          Height="56px"
                          Animation="Animation.Wave"/>
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="227px"
+                         Width="300"
                          Height="56px"
                          Animation="Animation.Wave"/>
         }
@@ -70,7 +70,7 @@
                           Variant="Variant.Outlined"/>
             <MudSelect T="string" Label="Moneda Alternativa"
                        AnchorOrigin="Origin.BottomCenter"
-                       @bind-Value="@SelectedMoneda"
+                       @bind-Value="@AppState.SelectedMoneda"
                        HelperText="Seleccione una moneda alternativa"
                        Variant="Variant.Outlined">
                 @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
@@ -88,7 +88,8 @@
                           Class="mud-text-field"
                           Variant="Variant.Outlined"
                           HelperText="Ingrese el tipo de cambio"
-                          Format="F2"/>
+                          Format="F2"
+                          Immediate="true"/>
         }
     </MudStack>
 </EditForm>

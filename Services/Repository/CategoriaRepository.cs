@@ -68,17 +68,11 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<IEnumerable<CategoriaDto>?> ListarCategoria(int idEmpresa)
     {
-        if (!_cache.TryGetValue($"Categorias-{idEmpresa}",
-                out List<CategoriaDto>? cachedCategorias))
-        {
-            var cuentas = await _applicationDbContext.Categoria
-                                                     .Where(c => c.IdEmpresa == idEmpresa)
-                                                     .ToListAsync();
-            cachedCategorias = _mapper.Map<List<CategoriaDto>>(cuentas);
-            _cache.Set($"Categorias-{idEmpresa}", cachedCategorias,
-                TimeSpan.FromHours(1));
-        }
-        return cachedCategorias;
+        var listaCategorias = await _applicationDbContext.Categoria.AsNoTracking()
+                                                         .Where(c =>
+                                                             c.IdEmpresa == idEmpresa)
+                                                         .ToListAsync();
+        return _mapper.Map<List<CategoriaDto>>(listaCategorias);
     }
 
     public async Task<CategoriaDto> GetCategoriaById(int idCategoria)

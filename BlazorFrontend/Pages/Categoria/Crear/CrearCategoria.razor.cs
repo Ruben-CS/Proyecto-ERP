@@ -6,6 +6,9 @@ namespace BlazorFrontend.Pages.Categoria.Crear;
 
 public partial class CrearCategoria
 {
+    private bool _success;
+
+    private MudForm?     _form;
     private CategoriaDto CategoriaDto { get; } = new();
 
     [CascadingParameter]
@@ -18,7 +21,7 @@ public partial class CrearCategoria
     public EventCallback<CategoriaDto> OnTreeViewChange { get; set; }
 
     [Parameter]
-    public TreeItemDataCategoria SelectedValue { get; set; }
+    public TreeItemDataCategoria? SelectedValue { get; set; }
 
     private List<CategoriaDto>? _categorias = new();
 
@@ -29,7 +32,7 @@ public partial class CrearCategoria
         var categoriaDto = new CategoriaDto
         {
             Nombre           = CategoriaDto.Nombre,
-            IdCategoriaPadre = SelectedValue.IdCategoria,
+            IdCategoriaPadre = SelectedValue?.IdCategoria,
             IdEmpresa        = IdEmpresa,
             IdUsuario        = 1,
             Estado           = true
