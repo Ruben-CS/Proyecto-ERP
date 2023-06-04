@@ -19,7 +19,8 @@
                               Variant="Variant.Outlined"
                               Immediate="true"
                               Required="true"
-                              RequiredError="Debe ingresar una cantidad"/>
+                              RequiredError="Debe ingresar una cantidad"
+                              Class="right-aligned-input"/>
                 <MudDatePicker @bind-Value="FechaIngreso"
                                Label="Fecha de vencimiento"
                                Variant="Variant.Outlined"
@@ -31,13 +32,15 @@
                               Required="true"
                               RequiredError="Debe colocar un precio"
                               Variant="Variant.Outlined"
+                              Class="right-aligned-input"
                               T="decimal"/>
                 <MudTextField
                     Immediate="true"
                     Value="@SubTotal"
                     Variant="Variant.Outlined"
                     Label="Subtotal"
-                    Disabled="true"/>
+                    Disabled="true"
+                    Class="right-aligned-input"/>
             </MudStack>
         </MudForm>
     </DialogContent>
@@ -60,3 +63,10 @@
         </MudButton>
     </DialogActions>
 </MudDialog>
+
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>
