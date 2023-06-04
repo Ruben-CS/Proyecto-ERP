@@ -58,7 +58,7 @@ public partial class AgregarNotaCompra
 
     private async Task OpenAgregarDetalle()
     {
-        var parameters = new DialogParameters()
+        var parameters = new DialogParameters
         {
             { "FechaVencimiento", Fecha },
             { "Articulos", Articulos },

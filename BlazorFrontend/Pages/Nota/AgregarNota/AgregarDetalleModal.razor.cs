@@ -49,7 +49,7 @@ public partial class AgregarDetalleModal
     {
         var nombreArticulos = Articulos.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
-            return await  Task.FromResult(Enumerable.Empty<string>());
+            return await  Task.FromResult(nombreArticulos);
         return nombreArticulos.Where(a => a.Contains(value,
             StringComparison.InvariantCultureIgnoreCase));
     }
