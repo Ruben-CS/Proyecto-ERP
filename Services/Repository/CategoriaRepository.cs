@@ -11,7 +11,6 @@ namespace Services.Repository;
 public class CategoriaRepository : ICategoriaRepository
 {
     private readonly ApplicationDbContext _applicationDbContext;
-    private readonly IMemoryCache         _cache;
 
     private readonly IMapper _mapper;
 
@@ -20,7 +19,6 @@ public class CategoriaRepository : ICategoriaRepository
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
-        _cache                = cache;
     }
 
     public async Task<CategoriaDto> CreateCategoria(CategoriaDto dto)

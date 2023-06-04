@@ -14,7 +14,7 @@ public class Lote
     public int IdArticulo { get;    set; }
     public Articulo Articulo { get; set; }
 
-    public int NroLote { get; set; }
+    public int? NroLote { get; set; }
 
     public DateTime FechaIngreso { get; set; }
 
