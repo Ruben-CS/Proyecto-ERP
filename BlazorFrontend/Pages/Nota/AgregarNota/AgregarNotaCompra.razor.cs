@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
@@ -27,9 +28,18 @@ public partial class AgregarNotaCompra
 
     private List<NotaDto>? _notas { get; set; } = new();
 
-    public List<ArticuloDto> Articulos { get; set; } = new();
+    private List<ArticuloDto> Articulos { get; set; } = new();
+
+    private ObservableCollection<LoteDto> DetalleParaLote = new();
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
+
+    private readonly DialogOptions _options = new()
+    {
+        MaxWidth             = MaxWidth.Large,
+        DisableBackdropClick = true,
+        Position             = DialogPosition.TopCenter
+    };
 
     protected override async Task OnInitializedAsync()
     {
@@ -44,5 +54,23 @@ public partial class AgregarNotaCompra
     {
         var maxNroNota = _notas.Max(n => n.NroNota);
         return (maxNroNota ?? 0) + 1;
+    }
+
+    private async Task OpenAgregarDetalle()
+    {
+        var parameters = new DialogParameters()
+        {
+            { "FechaVencimiento", Fecha },
+            { "Articulos", Articulos },
+            { "IdEmpresa", IdEmpresa },
+            {"AddNewDetalleLote", EventCallback.Factory.Create<LoteDto>(this, AddNewDetalleLote) }
+        };
+
+        await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles", parameters,_options);
+    }
+
+    private void AddNewDetalleLote(LoteDto lote)
+    {
+        DetalleParaLote.Add(lote);
     }
 }

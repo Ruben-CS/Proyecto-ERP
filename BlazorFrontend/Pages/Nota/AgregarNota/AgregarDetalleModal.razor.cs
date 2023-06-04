@@ -14,7 +14,7 @@ public partial class AgregarDetalleModal
     #region Parameters
 
     [Parameter]
-    public List<ArticuloDto>? ArticuloDtos { get; set; }
+    public List<ArticuloDto>? Articulos { get; set; }
 
     [Parameter]
     public int IdEmpresa { get; set; }
@@ -23,15 +23,16 @@ public partial class AgregarDetalleModal
     private MudDialogInstance? MudDialog { get; set; }
 
     [Parameter]
-    public EventCallback<ArticuloDto> OnArticuloAdded { get; set; }
+    public EventCallback<LoteDto> AddNewDetalleLote { get; set; }
+
+    [Parameter]
+    public DateTime? FechaVencimiento { get; set; }
 
     #endregion
 
     #region Form Fields
 
     private int Cantidad { get; set; }
-
-    private DateTime? FechaVencimiento { get; set; }
 
     private decimal PrecioUnitario { get; set; }
 
@@ -46,7 +47,7 @@ public partial class AgregarDetalleModal
 
     private async Task<IEnumerable<string?>> Search1(string value)
     {
-        var nombreArticulos = ArticuloDtos.Select(a => a.Nombre).ToList();
+        var nombreArticulos = Articulos.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
             return await  Task.FromResult(Enumerable.Empty<string>());
         return nombreArticulos.Where(a => a.Contains(value,
