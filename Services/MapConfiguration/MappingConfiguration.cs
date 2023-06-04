@@ -51,6 +51,9 @@ public static class MappingConfiguration
 
             config.CreateMap<Nota, NotaDto>();
             config.CreateMap<NotaDto, Nota>();
+
+            config.CreateMap<Lote, LoteDto>();
+            config.CreateMap<LoteDto, Lote>();
         });
         return mappingConfig;
     }
