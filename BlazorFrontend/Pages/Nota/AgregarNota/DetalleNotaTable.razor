@@ -15,10 +15,10 @@
             <MudTh>Subtotal</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd>@context.Nombre</MudTd>
+            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
             <MudTd>@context.Cantidad</MudTd>
-            <MudTd>@context.PrecioVenta</MudTd>
-            <MudTd>@(context.Cantidad * context.PrecioVenta)</MudTd>
+            <MudTd>@context.PrecioCompra</MudTd>
+            <MudTd>@(context.Cantidad * context.PrecioCompra)</MudTd>
         </RowTemplate>
     </MudTable>
 </MudPaper>

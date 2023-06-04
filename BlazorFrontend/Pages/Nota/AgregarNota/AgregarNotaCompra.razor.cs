@@ -10,6 +10,7 @@ public partial class AgregarNotaCompra
 {
     private bool     _success;
     private MudForm? _form;
+
     #region Parameters
 
     [Parameter]
@@ -24,6 +25,7 @@ public partial class AgregarNotaCompra
     private string? Descripcion { get; set; }
 
     private DateTime? Fecha { get; set; } = DateTime.Today;
+
     #endregion
 
     private List<NotaDto>? _notas { get; set; } = new();
@@ -31,6 +33,7 @@ public partial class AgregarNotaCompra
     private List<ArticuloDto> Articulos { get; set; } = new();
 
     private ObservableCollection<LoteDto> DetalleParaLote = new();
+
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
 
@@ -60,13 +63,18 @@ public partial class AgregarNotaCompra
     {
         var parameters = new DialogParameters
         {
-            { "FechaVencimiento", Fecha },
+            { "FechaIngreso", Fecha },
             { "Articulos", Articulos },
             { "IdEmpresa", IdEmpresa },
-            {"AddNewDetalleLote", EventCallback.Factory.Create<LoteDto>(this, AddNewDetalleLote) }
+            {
+                "AddNewDetalleLote",
+                EventCallback.Factory.Create<LoteDto>(this, AddNewDetalleLote)
+            },
+            { "NroLote", int.Parse(NroNota) }
         };
 
-        await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles", parameters,_options);
+        await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles",
+            parameters, _options);
     }
 
     private void AddNewDetalleLote(LoteDto lote)

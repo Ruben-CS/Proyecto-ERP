@@ -20,11 +20,11 @@
                               Immediate="true"
                               Required="true"
                               RequiredError="Debe ingresar una cantidad"/>
-                <MudDatePicker @bind-Value="FechaVencimiento"
+                <MudDatePicker @bind-Value="FechaIngreso"
                                Label="Fecha de vencimiento"
                                Variant="Variant.Outlined"
                                Rounded="true"
-                               @bind-Date="FechaVencimiento"/>
+                               @bind-Date="FechaIngreso"/>
                 <MudTextField @bind-Value="PrecioUnitario"
                               Label="Precio Unitario"
                               Immediate="true"
@@ -32,11 +32,12 @@
                               RequiredError="Debe colocar un precio"
                               Variant="Variant.Outlined"
                               T="decimal"/>
-                <MudTextField ReadOnly="true"
-                              Immediate="true"
-                              @bind-Value="@SubtotalString"
-                              Variant="Variant.Outlined"
-                              Label="Subtotal"/>
+                <MudTextField
+                    Immediate="true"
+                    Value="@SubTotal"
+                    Variant="Variant.Outlined"
+                    Label="Subtotal"
+                    Disabled="true"/>
             </MudStack>
         </MudForm>
     </DialogContent>

@@ -26,7 +26,10 @@ public partial class AgregarDetalleModal
     public EventCallback<LoteDto> AddNewDetalleLote { get; set; }
 
     [Parameter]
-    public DateTime? FechaVencimiento { get; set; }
+    public DateTime? FechaIngreso { get; set; }
+
+    [Parameter]
+    public int NroLote { get; set; }
 
     #endregion
 
@@ -36,20 +39,15 @@ public partial class AgregarDetalleModal
 
     private decimal PrecioUnitario { get; set; }
 
-    private decimal SubTotal { get; set; }
+    private decimal SubTotal => Cantidad * PrecioUnitario;
 
-    private string SubtotalString
-    {
-        get => SubTotal.ToString("F2");
-        set => SubTotal = decimal.TryParse(value, out var result) ? result : decimal.Zero;
-    }
     #endregion
 
     private async Task<IEnumerable<string?>> Search1(string value)
     {
         var nombreArticulos = Articulos.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
-            return await  Task.FromResult(nombreArticulos);
+            return await Task.FromResult(nombreArticulos);
         return nombreArticulos.Where(a => a.Contains(value,
             StringComparison.InvariantCultureIgnoreCase));
     }
@@ -60,14 +58,22 @@ public partial class AgregarDetalleModal
         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
     }
 
-    private void Submit()
+    private async Task Submit()
     {
         //Todo validations
 
-        var loteDto = new LoteDto()
+        var idArticulo = Articulos.SingleOrDefault(a => a.Nombre == SelectedArticulo)
+                                  .IdArticulo;
+        var loteDto = new LoteDto
         {
-            Cantidad = Cantidad,
+            Cantidad     = Cantidad,
+            FechaIngreso = FechaIngreso!.Value,
+            Stock        = Cantidad,
+            NroLote      = NroLote,
+            PrecioCompra = PrecioUnitario,
+            IdArticulo = idArticulo
         };
+        await AddNewDetalleLote.InvokeAsync(loteDto);
     }
 
     private void Cancel() => MudDialog!.Cancel();
