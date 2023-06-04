@@ -9,7 +9,7 @@ public class Nota
     [Key]
     public int IdNota { get; set; }
 
-    public int      NroNota     { get; set; }
+    public int?      NroNota     { get; set; }
     public DateTime Fecha       { get; set; }
     public string   Descripcion { get; set; }
     public float    Total       { get; set; }

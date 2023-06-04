@@ -148,16 +148,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxBZ3JlZ2FyTm90YVxBZ3JlZ2FyRGV0YWxsZU1vZGFsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/AgregarNota/AgregarNota.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxBZ3JlZ2FyTm90YVxBZ3JlZ2FyTm90YS5yYXpvcg==
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/AgregarNota/AgregarNotaCompra.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxBZ3JlZ2FyTm90YVxBZ3JlZ2FyTm90YUNvbXByYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/DetalleNotaTable/DetalleNotaTable.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxEZXRhbGxlTm90YVRhYmxlXERldGFsbGVOb3RhVGFibGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/NotaOverview.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxOb3RhT3ZlcnZpZXcucmF6b3I=
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Nota/NotaCompraOverview.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90YVxOb3RhQ29tcHJhT3ZlcnZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Periodo/Crear/CrearPeriodo.razor]

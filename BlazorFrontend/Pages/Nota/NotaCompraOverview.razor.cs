@@ -3,7 +3,7 @@ using Modelos.Models.Dtos;
 
 namespace BlazorFrontend.Pages.Nota;
 
-public partial class NotaOverview
+public partial class NotaCompraOverview
 {
     [Parameter]
     public int IdEmpresa { get; set; }
@@ -21,7 +21,7 @@ public partial class NotaOverview
             {
                 await base.OnInitializedAsync();
                 IdEmpresa = int.Parse(idValue);
-                Notas     = await NotaService.GetNotasAsync(IdEmpresa);
+                Notas     = await NotaService.GetNotaComprasAsync(IdEmpresa);
                 await InvokeAsync(StateHasChanged);
             }
             else
