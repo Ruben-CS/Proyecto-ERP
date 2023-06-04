@@ -38,7 +38,7 @@ public class LoteApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpDelete("anularLote/{idLote:int/{idArticulo:int}")]
+    [HttpDelete("anularLote/{idLote:int}/{idArticulo:int}")]
     public async Task<object> AnularLote([FromRoute] int idLote,
                                          [FromRoute] int idArticulo)
     {

@@ -24,4 +24,9 @@ public partial class AgregarNota
     {
         Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
     }
+
+    private void GetNextNumeroNota()
+    {
+
+    }
 }

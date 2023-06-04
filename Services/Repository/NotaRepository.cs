@@ -40,16 +40,28 @@ public class NotaRepository : INotaRepository
         return true;
     }
 
-    public async Task<IEnumerable<NotaDto>> GetNotas(int idEmpresa)
+    public async Task<IEnumerable<NotaDto>> GetNotaCompra(int idEmpresa)
     {
         // Use AsNoTracking() and project directly onto NotaDto
-        var notas = await _dbContext.Nota
+        var notaCompra = await _dbContext.Nota
                                     .AsNoTracking()
-                                    .Where(n => n.IdEmpresa == idEmpresa)
+                                    .Where(n =>
+                                        n.IdEmpresa == idEmpresa &&
+                                        n.TipoNota  == TipoNota.Compra)
                                     .Select(n => _mapper.Map<NotaDto>(n))
                                     .ToListAsync();
 
-        return notas;
+        return notaCompra;
+    }
+
+    public async Task<IEnumerable<NotaDto>> GetNotaVenta(int idEmpresa)
+    {
+        var notaVenta = await _dbContext.Nota.AsNoTracking().Where(n =>
+                                            n.IdEmpresa == idEmpresa &&
+                                            n.TipoNota  == TipoNota.Venta).Select(n =>
+                                            _mapper.Map<NotaDto>(n))
+                                        .ToListAsync();
+        return notaVenta;
     }
 
     public async Task<NotaDto> GetNota(int notaId)

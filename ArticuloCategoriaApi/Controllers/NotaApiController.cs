@@ -36,12 +36,31 @@ public sealed class NotaApiController : ControllerBase
         return _responseDto;
     }
 
-    [HttpGet("getNotas/{idEmpresa:int}")]
-    public async Task<object> GetNotas([FromRoute] int idEmpresa)
+    [HttpGet("getNotaCompras/{idEmpresa:int}")]
+    public async Task<object> GetNotaCompras([FromRoute] int idEmpresa)
     {
         try
         {
-            var notas = await _notaRepository.GetNotas(idEmpresa);
+            var notas = await _notaRepository.GetNotaCompra(idEmpresa);
+            _responseDto.Result = notas;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+        return _responseDto;
+    }
+
+    [HttpGet("getNotaVenta/{idEmpresa:int}")]
+    public async Task<object> GetNotaVentas([FromRoute] int idEmpresa)
+    {
+        try
+        {
+            var notas = await _notaRepository.GetNotaVenta(idEmpresa);
             _responseDto.Result = notas;
         }
         catch (Exception e)

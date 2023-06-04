@@ -12,8 +12,13 @@ public sealed class NotaService
         _httpClient = httpClient;
     }
 
-    public async Task<List<NotaDto>?> GetNotasAsync(int idEmpresa) =>
-        await GetAsync<List<NotaDto>>($"https://localhost:44321/notas/getNotas/{idEmpresa}");
+    public async Task<List<NotaDto>?> GetNotaComprasAsync(int idEmpresa) =>
+        await GetAsync<List<NotaDto>>(
+            $"https://localhost:44321/notas/getNotaCompras/{idEmpresa}");
+
+    public async Task<List<NotaDto>?> GetNotaVentasAsync(int idEmpresa) =>
+        await GetAsync<List<NotaDto>>(
+            $"https://localhost:44321/notas/getNotaVenta/{idEmpresa}");
 
     private async Task<T> GetAsync<T>(string url)
     {
@@ -32,7 +37,7 @@ public sealed class NotaService
                 : Activator.CreateInstance<T>();
         }
 
-        if(responseObject?.ErrorMessages != null)
+        if (responseObject?.ErrorMessages != null)
         {
             throw new Exception(string.Join(", ", responseObject.ErrorMessages));
         }
