@@ -1,5 +1,6 @@
 using Modelos.Models.Dtos;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Services.NotaService;
 
@@ -26,15 +27,22 @@ public sealed class NotaService
         response.EnsureSuccessStatusCode();
 
         var content        = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonSerializer.Deserialize<ResponseDto>(content);
+        var responseObject = JsonConvert.DeserializeObject<ResponseDto>(content);
 
         if (responseObject!.IsSuccess)
         {
             // If Result is not null, attempt to deserialize it to the expected type.
             // Otherwise, create a new instance of the expected type.
-            return responseObject.Result != null
-                ? JsonSerializer.Deserialize<T>(responseObject.Result.ToString())
-                : Activator.CreateInstance<T>();
+            if (responseObject.Result != null)
+            {
+                var result =
+                    JsonConvert.DeserializeObject<T>(responseObject.Result.ToString());
+                return result;
+            }
+            else
+            {
+                return default(T);
+            }
         }
 
         if (responseObject?.ErrorMessages != null)

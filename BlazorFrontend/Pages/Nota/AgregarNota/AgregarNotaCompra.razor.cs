@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
+using Modelos.Models.Enums;
 using MudBlazor;
 
 namespace BlazorFrontend.Pages.Nota.AgregarNota;
@@ -26,9 +27,12 @@ public partial class AgregarNotaCompra
 
     private DateTime? Fecha { get; set; } = DateTime.Today;
 
+    [CascadingParameter]
+    private MudDialogInstance? MudDialog { get; set; } = new();
+
     #endregion
 
-    private List<NotaDto>? _notas { get; set; } = new();
+    private List<NotaDto> Notas { get; set; } = new();
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
@@ -47,7 +51,7 @@ public partial class AgregarNotaCompra
     protected override async Task OnInitializedAsync()
     {
         Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
-        _notas    = await NotaService.GetNotaComprasAsync(IdEmpresa);
+        Notas    = await NotaService.GetNotaComprasAsync(IdEmpresa);
         var nextNro = GetNextNumeroNota();
         NroNota = nextNro.ToString();
         await InvokeAsync(StateHasChanged);
@@ -55,7 +59,7 @@ public partial class AgregarNotaCompra
 
     private int GetNextNumeroNota()
     {
-        var maxNroNota = _notas.Max(n => n.NroNota);
+        var maxNroNota = Notas.Max(n => n.NroNota);
         return (maxNroNota ?? 0) + 1;
     }
 
@@ -80,5 +84,38 @@ public partial class AgregarNotaCompra
     private void AddNewDetalleLote(LoteDto lote)
     {
         DetalleParaLote.Add(lote);
+    }
+
+    private async Task AgregarCompra()
+    {
+        if (DetalleParaLote.Count == 0)
+        {
+            Snackbar.Add("Debe agregar al menos un articulo",Severity.Info);
+            return;
+        }
+        var          total   = DetalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
+        const string url     = "https://localhost:44321/notas/agregarNota";
+        var          nroNota = GetNextNumeroNota();
+        var nota = new NotaDto()
+        {
+            NroNota       = nroNota,
+            Fecha         = Fecha!.Value,
+            Descripcion   = Descripcion!,
+            Total         = total,
+            IdEmpresa     = IdEmpresa,
+            IdUsuario     = 1,
+            IdComprobante = null,
+            TipoNota = TipoNota.Compra
+        };
+        var response = await HttpClient.PostAsJsonAsync(url,nota);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Nota agregada exitosamente", Severity.Success);
+        }
+    }
+
+    private async Task AgregarLote()
+    {
+
     }
 }

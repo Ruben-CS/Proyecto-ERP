@@ -8,6 +8,8 @@
 @inject ArticuloService ArticuloService
 @inject NotaService NotaService
 @inject IJSRuntime JsRuntime
+@inject ISnackbar Snackbar
+
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
@@ -61,7 +63,8 @@
                     StartIcon="@Icons.Material.Rounded.PostAdd"
                     Size="Size.Small"
                     Class="squircle-fab"
-                    Disabled="@(!_success)"/>
+                    Disabled="@(!_success)"
+                    OnClick="AgregarCompra"/>
         </MudTooltip>
         <MudTooltip Text="Agregar detalles">
             <MudFab Color="Color.Info"

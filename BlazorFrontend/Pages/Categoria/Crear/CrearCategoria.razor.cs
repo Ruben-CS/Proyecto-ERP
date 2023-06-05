@@ -28,7 +28,6 @@ public partial class CrearCategoria
     private async Task CreateCuenta()
     {
         const string url = "https://localhost:44321/categorias/agregarCategoria";
-            //TODO error here wtf!!!!
         var categoriaDto = new CategoriaDto
         {
             Nombre           = CategoriaDto.Nombre,

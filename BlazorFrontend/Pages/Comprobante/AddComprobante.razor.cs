@@ -89,7 +89,7 @@ public partial class AddComprobante
         var gestionesActivas =
             Gestiones.Where(g => g.Estado == EstadosGestion.Abierto).ToList();
         var periodoActivoAlt = new List<PeriodoDto>();
-
+        //Throws an error if no gestion exists
         var periodoActivo =
             await PeriodoService.GetPeriodosAsync(gestionesActivas.First().IdGestion);
         if (gestionesActivas.Count != 1)

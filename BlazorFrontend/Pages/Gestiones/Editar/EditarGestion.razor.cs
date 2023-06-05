@@ -4,10 +4,11 @@ using Modelos.Models.Enums;
 using MudBlazor;
 
 namespace BlazorFrontend.Pages.Gestiones.Editar;
+
 public partial class EditarGestion
 {
-     [CascadingParameter]
-     private MudDialogInstance? MudDialog { get; set; }
+    [CascadingParameter]
+    private MudDialogInstance? MudDialog { get; set; }
 
     private readonly bool _click = false;
     private          bool _focus = false;
@@ -27,7 +28,7 @@ public partial class EditarGestion
 
     protected override async Task OnInitializedAsync()
     {
-        _gestionDtos = await GestionServices.GetGestionAsync(GestionDto.IdEmpresa);
+        _gestionDtos        = await GestionServices.GetGestionAsync(GestionDto.IdEmpresa);
         _periodosPorGestion = await PeriodoService.GetPeriodosAsync(Id);
         await base.OnInitializedAsync();
     }
@@ -39,11 +40,11 @@ public partial class EditarGestion
 
         var editedGestion = new GestionDto
         {
-            IdGestion = Id,
-            Nombre = GestionDto.Nombre,
+            IdGestion   = Id,
+            Nombre      = GestionDto.Nombre,
             FechaInicio = GestionDto.FechaInicio,
-            FechaFin = GestionDto.FechaFin,
-            IdEmpresa = GestionDto.IdEmpresa
+            FechaFin    = GestionDto.FechaFin,
+            IdEmpresa   = GestionDto.IdEmpresa
         };
         if (ValidateEmptyPeriodoInGestion())
         {
@@ -52,35 +53,42 @@ public partial class EditarGestion
                 Snackbar.Add("Ya existe una gestion con ese nombre", Severity.Error);
                 return;
             }
+
             await Edit(editedGestion, url);
             return;
         }
+
         if (await ValidateFechaInicioAndFechaFin())
         {
             Snackbar.Add("La fecha de inicio no puede ser mayor a la fecha final",
                 Severity.Error);
             return;
         }
+
         if (await ValidateUniqueNombre(editedGestion))
         {
             Snackbar.Add("Ya existe una gestion con ese nombre", Severity.Error);
             return;
         }
+
         if (await ValidateEqualDates())
         {
             Snackbar.Add("Las fechas no pueden ser iguales", Severity.Error);
             return;
         }
+
         if (await FechasNoSolapadan(editedGestion))
         {
             Snackbar.Add("Las fechas solapan con una gestion activa", Severity.Error);
             return;
         }
+
         if (await ValidateClosedGestion(editedGestion))
         {
             Snackbar.Add("No puede editar una gestion cerrada", Severity.Error);
             return;
         }
+
         await Edit(editedGestion, url);
     }
 
@@ -92,14 +100,13 @@ public partial class EditarGestion
         MudDialog!.Close(DialogResult.Ok(response));
     }
 
-    //todo fix the null check
     private async Task<bool> FechasNoSolapadan(GestionDto gestionDto)
     {
         var gestionActiva = _gestionDtos.SingleOrDefault(gestion =>
-            gestion.IdEmpresa == gestionDto.IdEmpresa
-            && gestion.Estado == EstadosGestion.Abierto
+            gestion.IdEmpresa    == gestionDto.IdEmpresa
+            && gestion.Estado    == EstadosGestion.Abierto
             && gestion.IdGestion != gestionDto.IdGestion
-            );
+        );
 
         if (gestionActiva is null)
         {
@@ -134,10 +141,10 @@ public partial class EditarGestion
     {
         return await Task.FromResult(_gestionDtos.Any(gestion =>
             string.Equals(gestion.Nombre, gestionDto.Nombre,
-                StringComparison.OrdinalIgnoreCase) &&
+                StringComparison.OrdinalIgnoreCase)   &&
             gestion.IdGestion != gestionDto.IdGestion &&
             gestion.IdEmpresa == gestionDto.IdEmpresa
-            ));
+        ));
     }
 
     private async Task<bool> ValidateFechaInicioAndFechaFin() =>

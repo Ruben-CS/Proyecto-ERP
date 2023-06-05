@@ -7,7 +7,8 @@
               Bordered="true"
               Elevation="0"
               Style="border-radius: 15px;"
-              Items="DetalleCompra">
+              Items="DetalleCompra"
+              Striped="true">
         <HeaderContent>
             <MudTh>Articulo</MudTh>
             <MudTh>Cantidad</MudTh>
@@ -20,5 +21,11 @@
             <MudTd>@context.PrecioCompra</MudTd>
             <MudTd>@(context.Cantidad * context.PrecioCompra)</MudTd>
         </RowTemplate>
+        <FooterContent>
+            <MudTh/>
+            <MudTh/>
+            <MudTh/>
+            <MudTh>Total: @Total</MudTh>
+        </FooterContent>
     </MudTable>
 </MudPaper>

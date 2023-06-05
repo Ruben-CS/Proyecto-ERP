@@ -12,7 +12,7 @@ public class Nota
     public int?      NroNota     { get; set; }
     public DateTime Fecha       { get; set; }
     public string   Descripcion { get; set; }
-    public float    Total       { get; set; }
+    public decimal    Total       { get; set; }
     public TipoNota TipoNota    { get; set; }
 
     [ForeignKey("Usuario")]
@@ -30,7 +30,7 @@ public class Nota
 
 
     [ForeignKey("Comprobante")]
-    public int IdComprobante { get; set; }
+    public int? IdComprobante { get; set; }
 
     public Comprobante? Comprobante { get; set; }
 

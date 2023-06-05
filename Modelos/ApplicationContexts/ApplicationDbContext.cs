@@ -72,6 +72,10 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Lote>()
                     .HasKey(l => new { l.IdLote, l.IdArticulo });
 
+        modelBuilder.Entity<Nota>()
+                    .Property(n => n.IdComprobante)
+                    .IsRequired(false);
+
         #region Configuracion Empresa
 
         modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique(false);

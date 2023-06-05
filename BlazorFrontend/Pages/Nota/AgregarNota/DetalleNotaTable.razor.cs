@@ -19,6 +19,7 @@ public partial class DetalleNotaTable
 
     #endregion
 
+    private decimal Total => DetalleCompra.Sum(d => d.PrecioCompra * d.Cantidad);
 
     private string GetArticuloName(int idArticulo) =>
         Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;

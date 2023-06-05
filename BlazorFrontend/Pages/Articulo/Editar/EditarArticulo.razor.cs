@@ -92,7 +92,6 @@ public partial class EditarArticulo
 
     private async Task EditDetalles()
     {
-        //TODO make condition to check if the hashset has not changed to reduce workload on the api
         foreach (var nombre in NombreCategorias)
         {
             var idCategoria = Categorias.FirstOrDefault(c => c.Nombre == nombre)!
