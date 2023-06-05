@@ -18,7 +18,7 @@
         <MudText Typo="Typo.subtitle2"
                  Align="Align.Center"
                  GutterBottom="true">
-           @Username
+            @Username
         </MudText>
         <MudDivider DividerType="DividerType.Middle"
                     Light="false"
@@ -89,6 +89,39 @@
                 </MudText>
             </MudNavLink>
 
+
+        </MudNavGroup>
+    </MudNavMenu>
+
+    <MudDivider DividerType="DividerType.Middle"
+                Light="false"
+                Style="border-top-width: 3px;"
+                Class="my-1"/>
+
+
+    <MudNavMenu Color="Color.Default"
+                Bordered="true"
+                Rounded="true">
+        <MudNavGroup Icon="@Icons.Material.Rounded.Inventory"
+                     Title="Inventario"
+                     Expanded="true">
+
+            <MudNavLink Href="@NavigateToCategorias()"
+                        Icon="@Icons.Material.Rounded.Category"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Categorias
+                </MudText>
+            </MudNavLink>
+
+            <MudNavLink Href="@NavigateToArticulo()"
+                        Icon="@Icons.Material.Rounded.LocalMall"
+                        Match="NavLinkMatch.Prefix">
+                <MudText>
+                    Articulos
+                </MudText>
+            </MudNavLink>
+
             <MudNavLink Icon="@Icons.Material.Rounded.Notes"
                         Match="NavLinkMatch.All"
                         Href="@NavigateToCompras()">
@@ -96,6 +129,7 @@
                     Nota de compras
                 </MudText>
             </MudNavLink>
+
         </MudNavGroup>
     </MudNavMenu>
 
@@ -125,37 +159,6 @@
                         Match="NavLinkMatch.Prefix">
                 <MudText>
                     Gestiones
-                </MudText>
-            </MudNavLink>
-
-        </MudNavGroup>
-    </MudNavMenu>
-
-    <MudDivider DividerType="DividerType.Middle"
-                Light="false"
-                Style="border-top-width: 3px;"
-                Class="my-1"/>
-
-    <MudNavMenu Color="Color.Default"
-                Bordered="true"
-                Rounded="true">
-        <MudNavGroup Icon="@Icons.Material.Rounded.Inventory"
-                     Title="Inventario"
-                     Expanded="true">
-
-            <MudNavLink Href="@NavigateToCategorias()"
-                        Icon="@Icons.Material.Rounded.Category"
-                        Match="NavLinkMatch.Prefix">
-                <MudText>
-                    Categorias
-                </MudText>
-            </MudNavLink>
-
-            <MudNavLink Href="@NavigateToArticulo()"
-                        Icon="@Icons.Material.Rounded.LocalMall"
-                        Match="NavLinkMatch.Prefix">
-                <MudText>
-                    Articulos
                 </MudText>
             </MudNavLink>
 

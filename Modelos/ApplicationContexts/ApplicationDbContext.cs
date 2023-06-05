@@ -35,6 +35,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Lote> Lotes { get; set; }
 
+    public DbSet<Detalle> Detalle { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -42,14 +44,13 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Comprobante>(entity =>
         {
             entity.Property(e => e.Tc)
-                  .HasColumnType(
-                      "decimal(18,4)");
+                  .HasPrecision(18, 4);
         });
 
         modelBuilder.Entity<Articulo>(entity =>
         {
             entity.Property(e => e.PrecioVenta)
-                  .HasColumnType("decimal(18,4");
+                  .HasPrecision(18, 4);
         });
         modelBuilder.Entity<DetalleComprobante>(entity =>
         {
@@ -59,14 +60,15 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<DetalleComprobante>(entity =>
         {
-            entity.Property(e => e.MontoDebe).HasColumnType("decimal(18,4)");
-            entity.Property(e => e.MontoDebeAlt).HasColumnType("decimal(18,4)");
-            entity.Property(e => e.MontoHaber).HasColumnType("decimal(18,4)");
-            entity.Property(e => e.MontoHaberAlt).HasColumnType("decimal(18,4)");
+            entity.Property(e => e.MontoDebe).HasPrecision(18, 4);
+            entity.Property(e => e.MontoDebeAlt).HasPrecision(18, 4);
+            entity.Property(e => e.MontoHaber).HasPrecision(18, 4);
+            entity.Property(e => e.MontoHaberAlt).HasPrecision(18, 4);
         });
+
         modelBuilder.Entity<Lote>(entity =>
         {
-            entity.Property(e=> e.PrecioCompra).HasColumnType("decimal(18,4)");
+            entity.Property(e=> e.PrecioCompra).HasPrecision(18, 4);
 
         });
         modelBuilder.Entity<Lote>()
@@ -75,6 +77,35 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Nota>()
                     .Property(n => n.IdComprobante)
                     .IsRequired(false);
+
+        modelBuilder.Entity<Detalle>()
+                    .HasKey(d => new { d.IdArticulo, d.NroLote, d.IdNota });
+
+        modelBuilder.Entity<Nota>()
+                    .Property(n => n.Total)
+                    .HasPrecision(18, 4);
+
+        modelBuilder.Entity<Detalle>()
+                    .Property(d => d.PrecioVenta)
+                    .HasPrecision(18, 4);
+
+        modelBuilder.Entity<Detalle>()
+                    .HasOne(d => d.Articulo)
+                    .WithMany()
+                    .HasForeignKey(d => d.IdArticulo)
+                    .OnDelete(DeleteBehavior.Restrict); // Set cascade behavior to restrict
+
+        modelBuilder.Entity<Detalle>()
+                    .HasOne(d => d.Lote)
+                    .WithMany()
+                    .HasForeignKey(d => new { d.NroLote, d.IdArticulo })
+                    .OnDelete(DeleteBehavior.Restrict); // Set cascade behavior to restrict
+
+        modelBuilder.Entity<Detalle>()
+                    .HasOne(d => d.Nota)
+                    .WithMany()
+                    .HasForeignKey(d => d.IdNota)
+                    .OnDelete(DeleteBehavior.Restrict);
 
         #region Configuracion Empresa
 

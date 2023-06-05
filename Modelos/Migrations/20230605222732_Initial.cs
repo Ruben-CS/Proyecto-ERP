@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Modelos.Migrations
 {
     /// <inheritdoc />
-    public partial class IDK : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -306,15 +306,15 @@ namespace Modelos.Migrations
                 {
                     IdNota = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NroNota = table.Column<int>(type: "int", nullable: false),
+                    NroNota = table.Column<int>(type: "int", nullable: true),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Total = table.Column<float>(type: "real", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     TipoNota = table.Column<int>(type: "int", nullable: false),
                     IdUsuario = table.Column<int>(type: "int", nullable: false),
                     EstadoNota = table.Column<int>(type: "int", nullable: false),
                     IdEmpresa = table.Column<int>(type: "int", nullable: false),
-                    IdComprobante = table.Column<int>(type: "int", nullable: false)
+                    IdComprobante = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -343,7 +343,7 @@ namespace Modelos.Migrations
                     IdLote = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdArticulo = table.Column<int>(type: "int", nullable: false),
-                    NroLote = table.Column<int>(type: "int", nullable: false),
+                    NroLote = table.Column<int>(type: "int", nullable: true),
                     FechaIngreso = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
@@ -367,6 +367,39 @@ namespace Modelos.Migrations
                         principalTable: "Nota",
                         principalColumn: "IdNota",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Detalle",
+                columns: table => new
+                {
+                    IdArticulo = table.Column<int>(type: "int", nullable: false),
+                    NroLote = table.Column<int>(type: "int", nullable: false),
+                    IdNota = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    PrecioVenta = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Detalle", x => new { x.IdArticulo, x.NroLote, x.IdNota });
+                    table.ForeignKey(
+                        name: "FK_Detalle_Articulo_IdArticulo",
+                        column: x => x.IdArticulo,
+                        principalTable: "Articulo",
+                        principalColumn: "IdArticulo",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Detalle_Lotes_NroLote_IdArticulo",
+                        columns: x => new { x.NroLote, x.IdArticulo },
+                        principalTable: "Lotes",
+                        principalColumns: new[] { "IdLote", "IdArticulo" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Detalle_Nota_IdNota",
+                        column: x => x.IdNota,
+                        principalTable: "Nota",
+                        principalColumn: "IdNota",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -482,6 +515,16 @@ namespace Modelos.Migrations
                 name: "IX_Cuentas_IdEmpresa",
                 table: "Cuentas",
                 column: "IdEmpresa");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Detalle_IdNota",
+                table: "Detalle",
+                column: "IdNota");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Detalle_NroLote_IdArticulo",
+                table: "Detalle",
+                columns: new[] { "NroLote", "IdArticulo" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetalleComprobantes_IdComprobante",
@@ -640,10 +683,10 @@ namespace Modelos.Migrations
                 name: "ArticuloCategoria");
 
             migrationBuilder.DropTable(
-                name: "DetalleComprobantes");
+                name: "Detalle");
 
             migrationBuilder.DropTable(
-                name: "Lotes");
+                name: "DetalleComprobantes");
 
             migrationBuilder.DropTable(
                 name: "Periodos");
@@ -652,16 +695,19 @@ namespace Modelos.Migrations
                 name: "Categoria");
 
             migrationBuilder.DropTable(
+                name: "Lotes");
+
+            migrationBuilder.DropTable(
                 name: "Cuentas");
+
+            migrationBuilder.DropTable(
+                name: "Gestiones");
 
             migrationBuilder.DropTable(
                 name: "Articulo");
 
             migrationBuilder.DropTable(
                 name: "Nota");
-
-            migrationBuilder.DropTable(
-                name: "Gestiones");
 
             migrationBuilder.DropTable(
                 name: "Comprobantes");

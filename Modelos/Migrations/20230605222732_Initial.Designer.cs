@@ -12,8 +12,8 @@ using Modelos.ApplicationContexts;
 namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230531045348_IDK")]
-    partial class IDK
+    [Migration("20230605222732_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,7 @@ namespace Modelos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(18,4");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("IdArticulo");
 
@@ -206,6 +206,35 @@ namespace Modelos.Migrations
                     b.HasIndex("IdEmpresa");
 
                     b.ToTable("Cuentas");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Detalle", b =>
+                {
+                    b.Property<int>("IdArticulo")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("NroLote")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("IdNota")
+                        .HasColumnType("int")
+                        .HasColumnOrder(3);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(18, 4)");
+
+                    b.HasKey("IdArticulo", "NroLote", "IdNota");
+
+                    b.HasIndex("IdNota");
+
+                    b.HasIndex("NroLote", "IdArticulo");
+
+                    b.ToTable("Detalle");
                 });
 
             modelBuilder.Entity("Modelos.Models.DetalleComprobante", b =>
@@ -415,7 +444,7 @@ namespace Modelos.Migrations
                     b.Property<int>("IdNota")
                         .HasColumnType("int");
 
-                    b.Property<int>("NroLote")
+                    b.Property<int?>("NroLote")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecioCompra")
@@ -486,7 +515,7 @@ namespace Modelos.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdComprobante")
+                    b.Property<int?>("IdComprobante")
                         .HasColumnType("int");
 
                     b.Property<int>("IdEmpresa")
@@ -495,14 +524,14 @@ namespace Modelos.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<int>("NroNota")
+                    b.Property<int?>("NroNota")
                         .HasColumnType("int");
 
                     b.Property<int>("TipoNota")
                         .HasColumnType("int");
 
-                    b.Property<float>("Total")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18, 4)");
 
                     b.HasKey("IdNota");
 
@@ -685,6 +714,33 @@ namespace Modelos.Migrations
                     b.Navigation("IdCuentaPadreNavigation");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Detalle", b =>
+                {
+                    b.HasOne("Modelos.Models.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("IdArticulo")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Nota", "Nota")
+                        .WithMany()
+                        .HasForeignKey("IdNota")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Lote", "Lote")
+                        .WithMany()
+                        .HasForeignKey("NroLote", "IdArticulo")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Lote");
+
+                    b.Navigation("Nota");
+                });
+
             modelBuilder.Entity("Modelos.Models.DetalleComprobante", b =>
                 {
                     b.HasOne("Modelos.Models.Comprobante", "Comprobante")
@@ -812,8 +868,7 @@ namespace Modelos.Migrations
                     b.HasOne("Modelos.Models.Comprobante", "Comprobante")
                         .WithMany("Notas")
                         .HasForeignKey("IdComprobante")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Modelos.Models.Empresa", "Empresa")
                         .WithMany("Notas")
