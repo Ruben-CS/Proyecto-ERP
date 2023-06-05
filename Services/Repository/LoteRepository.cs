@@ -32,11 +32,11 @@ public class LoteRepository : ILoteRepository
         return _mapper.Map<Lote, LoteDto>(lote);
     }
 
-    public async Task<IEnumerable<LoteDto>> GetLotes(int idArticulo)
+    public async Task<IEnumerable<LoteDto>> GetLotes(int idNota)
     {
         var listaLotes = await _applicationDbContext.Lotes
                                                     .Where(l =>
-                                                        l.IdArticulo == idArticulo)
+                                                        l.IdNota == idNota)
                                                     .ToListAsync();
         return _mapper.Map<List<LoteDto>>(listaLotes);
     }

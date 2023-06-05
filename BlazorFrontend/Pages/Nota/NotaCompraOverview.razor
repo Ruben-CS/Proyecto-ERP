@@ -12,10 +12,10 @@
         <MudButton ButtonType="ButtonType.Button"
                    Color="Color.Success"
                    Variant="Variant.Filled"
-                   OnClick="GotoCrearNotaCompra"
+                   OnClick="NavigateToCrearNotaCompra"
                    Style="justify-self: flex-end; align-self: center"
                    Class="mb-4 rounded-pill">
-            <MudText Typo="Typo.button">Agregar Nota Comprar</MudText>
+            <MudText Typo="Typo.button">Agregar Nota Compra</MudText>
         </MudButton>
     </div>
 </MudStack>
@@ -34,12 +34,15 @@
           Style="border-radius: 15px;">
     <HeaderContent>
         <MudTh>Tipo</MudTh>
-        <MudTh>Nro Nota</MudTh>
         <MudTh>
             <MudTableSortLabel InitialDirection="SortDirection.Descending"
-                               SortBy="new Func<NotaDto, object>(x => x.Fecha)">
-                Fecha
+                               SortBy="new Func<NotaDto, object>(x => x.NroNota)">
+                Nro Nota
             </MudTableSortLabel>
+
+        </MudTh>
+        <MudTh>
+            Fecha
         </MudTh>
         <MudTh>Total</MudTh>
         <MudTh>Estado</MudTh>
@@ -66,7 +69,8 @@
                 <MudIconButton
                     Size="Size.Small"
                     Icon="@Icons.Material.Filled.Preview"
-                    Color="Color.Default"/>
+                    Color="Color.Default"
+                    OnClick="() => NavigateToDetalleNota(context.IdNota)"/>
             </MudTooltip>
         </MudTd>
     </RowTemplate>

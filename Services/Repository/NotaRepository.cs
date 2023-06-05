@@ -42,7 +42,6 @@ public class NotaRepository : INotaRepository
 
     public async Task<IEnumerable<NotaDto>> GetNotaCompra(int idEmpresa)
     {
-        // Use AsNoTracking() and project directly onto NotaDto
         var notaCompra = await _dbContext.Nota
                                     .AsNoTracking()
                                     .Where(n =>

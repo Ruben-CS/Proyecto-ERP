@@ -10,6 +10,7 @@ using Services.Cuenta;
 using Services.DetalleComprobante;
 using Services.EmpresaMonedaService;
 using Services.Gestion;
+using Services.LoteService;
 using Services.Moneda;
 using Services.NotaService;
 using Services.Periodo;
@@ -34,6 +35,7 @@ builder.Services.AddScoped<CategoriaService>();
 builder.Services.AddScoped<ArticuloService>();
 builder.Services.AddScoped<ArticuloCategoriaService>();
 builder.Services.AddScoped<NotaService>();
+builder.Services.AddScoped<LoteService>();
 builder.Services.AddBlazoredLocalStorage();
 var app = builder.Build();
 

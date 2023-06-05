@@ -96,7 +96,7 @@ public partial class AgregarNotaCompra
         var          total   = DetalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
         const string url     = "https://localhost:44321/notas/agregarNota";
         var          nroNota = GetNextNumeroNota();
-        var nota = new NotaDto()
+        var nota = new NotaDto
         {
             NroNota       = nroNota,
             Fecha         = Fecha!.Value,
@@ -112,6 +112,7 @@ public partial class AgregarNotaCompra
         {
             Snackbar.Add("Nota agregada exitosamente", Severity.Success);
             await AgregarLote();
+            NavigationManager.NavigateTo($"/anularNotaCompra/{IdEmpresa}/{Notas.Last().IdNota}");
         }
     }
 

@@ -38,12 +38,33 @@ public class LoteApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpDelete("anularLote/{idLote:int}/{idNota:int}")]
+    [HttpDelete("anularLote/{idNota:int}")]
     public async Task<object> AnularLote([FromRoute] int idNota)
     {
         try
         {
             var lote = await _loteRepository.EliminarLote(idNota);
+
+            _responseDto.Result = lote;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+
+        return _responseDto;
+    }
+
+    [HttpGet("getLotes/{idNota:int}")]
+    public async Task<object> GetLotes([FromRoute] int idNota)
+    {
+        try
+        {
+            var lote = await _loteRepository.GetLotes(idNota);
 
             _responseDto.Result = lote;
         }

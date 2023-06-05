@@ -1,29 +1,20 @@
 using Modelos.Models.Dtos;
-using System.Text.Json;
 using Newtonsoft.Json;
 
-namespace Services.NotaService;
+namespace Services.LoteService;
 
-public sealed class NotaService
+public sealed class LoteService
 {
     private readonly HttpClient _httpClient;
 
-    public NotaService(HttpClient httpClient)
+    public LoteService(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public async Task<List<NotaDto>?> GetNotaComprasAsync(int idEmpresa) =>
-        await GetAsync<List<NotaDto>>(
-            $"https://localhost:44321/notas/getNotaCompras/{idEmpresa}");
-
-    public async Task<List<NotaDto>?> GetNotaVentasAsync(int idEmpresa) =>
-        await GetAsync<List<NotaDto>>(
-            $"https://localhost:44321/notas/getNotaVenta/{idEmpresa}");
-
-    public async Task<NotaDto> GetNotaAsync(int idNota) =>
-        await GetAsync<NotaDto>(
-            $"https://localhost:44321/notas/getNota/{idNota}");
+    public async Task<List<LoteDto>?> GetLotesAsync(int idNota) =>
+        await GetAsync<List<LoteDto>>(
+            $"https://localhost:44321/lotes/getLotes/{idNota}");
 
     private async Task<T> GetAsync<T>(string url)
     {
