@@ -29,6 +29,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IArticuloRepository, ArticuloRepository>();
 builder.Services.AddScoped<IArticuloCategoriaRepository,ArticuloCategoriaRepository>();
+builder.Services.AddScoped<INotaRepository, NotaRepository>();
+builder.Services.AddScoped<ILoteRepository, LoteRepository>();
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 

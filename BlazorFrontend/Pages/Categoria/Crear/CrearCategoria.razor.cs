@@ -6,6 +6,9 @@ namespace BlazorFrontend.Pages.Categoria.Crear;
 
 public partial class CrearCategoria
 {
+    private bool _success;
+
+    private MudForm?     _form;
     private CategoriaDto CategoriaDto { get; } = new();
 
     [CascadingParameter]
@@ -18,19 +21,17 @@ public partial class CrearCategoria
     public EventCallback<CategoriaDto> OnTreeViewChange { get; set; }
 
     [Parameter]
-    public TreeItemDataCategoria SelectedValue { get; set; }
+    public TreeItemDataCategoria? SelectedValue { get; set; }
 
     private List<CategoriaDto>? _categorias = new();
 
     private async Task CreateCuenta()
     {
         const string url = "https://localhost:44321/categorias/agregarCategoria";
-
         var categoriaDto = new CategoriaDto
         {
             Nombre           = CategoriaDto.Nombre,
-            IdCategoriaPadre = SelectedValue.IdCategoria,
-            Descripcion      = CategoriaDto.Descripcion,
+            IdCategoriaPadre = SelectedValue?.IdCategoria,
             IdEmpresa        = IdEmpresa,
             IdUsuario        = 1,
             Estado           = true

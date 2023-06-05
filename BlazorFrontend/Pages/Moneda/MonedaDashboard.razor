@@ -49,15 +49,15 @@
         @if (IsLoading)
         {
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="227px"
+                         Width="300"
                          Height="56px"
                          Animation="Animation.Wave"/>
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="227px"
+                         Width="300"
                          Height="56px"
                          Animation="Animation.Wave"/>
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="227px"
+                         Width="300"
                          Height="56px"
                          Animation="Animation.Wave"/>
         }
@@ -70,7 +70,7 @@
                           Variant="Variant.Outlined"/>
             <MudSelect T="string" Label="Moneda Alternativa"
                        AnchorOrigin="Origin.BottomCenter"
-                       @bind-Value="@SelectedMoneda"
+                       @bind-Value="@AppState.SelectedMoneda"
                        HelperText="Seleccione una moneda alternativa"
                        Variant="Variant.Outlined">
                 @foreach (var moneda in _monedas.Where(m => m.IdMoneda !=
@@ -88,7 +88,8 @@
                           Class="mud-text-field"
                           Variant="Variant.Outlined"
                           HelperText="Ingrese el tipo de cambio"
-                          Format="F2"/>
+                          Format="F2"
+                          Immediate="true"/>
         }
     </MudStack>
 </EditForm>
@@ -98,7 +99,7 @@
             Style="border-top-width: 3px;"
             Class="mb-5 mt-5"/>
 
-<MudTable Items="@_empresaMonedas.Where(em => em.IdMonedaAlternativa != null)"
+<MudTable Items="@_empresaMonedas"
           Hover="true"
           Breakpoint="Breakpoint.Sm"
           Bordered="true"
@@ -132,10 +133,24 @@
         </MudTd>
         <MudTd DataLabel="MonedaAlternativa"
                Style="text-align: center">
-            @GetMonedaAlternativaName(context.IdMonedaAlternativa)
+            @if (@context.IdMonedaAlternativa is null)
+            {
+                <MudIcon Icon="@Icons.Material.Rounded.HorizontalRule" Style="align-self: center"/>
+            }
+            else
+            {
+                @GetMonedaAlternativaName(context.IdMonedaAlternativa)
+            }
         </MudTd>
         <MudTd DataLabel="Cambio" Style="text-align: right">
-            @(context.Cambio.HasValue ? context.Cambio.Value.ToString("F2") : "")
+            @if (context.Cambio is null)
+            {
+                <MudIcon Icon="@Icons.Material.Rounded.HorizontalRule"/>
+            }
+            else
+            {
+                @(context.Cambio.HasValue ? context.Cambio.Value.ToString("F2") : "")
+            }
         </MudTd>
         <MudTd DataLabel="Estado" Style="text-align: center">
             @if (context.Estado == EstadoEmpresaMoneda.Abierto)

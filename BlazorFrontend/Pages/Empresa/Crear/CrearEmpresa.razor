@@ -7,20 +7,19 @@
 
 <MudDialog Style="border-radius: 15px;">
     <DialogContent>
-        <EditForm Model="@EmpresaDto"
-                  OnValidSubmit="UpsertEmpresa">
-            <DataAnnotationsValidator/>
+        <MudForm @ref="_form" @bind-IsValid="_success">
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <MudTextField Required="true"
                                   Label="Nombre"
                                   @bind-Value="@EmpresaDto.Nombre"
-                                  For="@(() => EmpresaDto.Nombre)"/>
+                                  RequiredError="Nombre no puede estar vacio"/>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <MudTextField Required="true" Label="NIT"
+                    <MudTextField Required="true"
+                                  Label="NIT"
                                   @bind-Value="@EmpresaDto.Nit"
-                                  For="@(() => EmpresaDto.Nit)"/>
+                                  RequiredError="NIT no puede estar vacio"/>
                 </div>
             </div>
             <div class="row">
@@ -28,18 +27,17 @@
                     <MudTextField Required="true"
                                   Label="Sigla"
                                   @bind-Value="@EmpresaDto.Sigla"
-                                  For="@(() => EmpresaDto.Sigla)"/>
+                                  RequiredError="Sigla no puede estar vacia"/>
                 </div>
                 <div class="col-md-6 mb-4">
                     <MudTextField Label="Telefono"
-                                  @bind-Value="@EmpresaDto.Telefono"
-                                  For="@(() => EmpresaDto.Telefono)"/>
+                                  @bind-Value="@EmpresaDto.Telefono"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <MudTextField Label="Direccion" @bind-Value="@EmpresaDto.Direccion"
-                                  For="@(() => EmpresaDto.Direccion)"/>
+                    <MudTextField Label="Direccion"
+                                  @bind-Value="@EmpresaDto.Direccion"/>
                 </div>
                 <div class="col-md-6 md-4">
                     <MudSelect @bind-Value="EmpresaDto.Niveles"
@@ -53,50 +51,52 @@
                             </MudSelectItem>
                         }
                     </MudSelect>
-                    <ValidationMessage For="@(() => EmpresaDto.Niveles)"/>
                 </div>
             </div>
             <MudSelect T="string" Label="Moneda"
                        AnchorOrigin="Origin.BottomCenter"
                        @bind-Value="@SelectedMoneda"
                        HelperText="Seleccione una moneda"
-                       Variant="Variant.Text">
+                       Variant="Variant.Text"
+                       RequiredError="Debe seleccionar una empresa"
+                       Required="true">
                 @foreach (var moneda in _monedas)
                 {
                     <MudSelectItem Value="@moneda.Nombre">@moneda.Nombre</MudSelectItem>
                 }
             </MudSelect>
-            <MudTextField Label="Correo" @bind-Value="@EmpresaDto.Correo"
-                          For="@(() => EmpresaDto.Correo)"/>
-        </EditForm>
+            <MudTextField Label="Correo"
+                          @bind-Value="@EmpresaDto.Correo"/>
+        </MudForm>
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Text"
                    Color="Color.Dark"
                    OnClick="Cancel"
                    StartIcon="@Icons.Material.Rounded.Cancel"
-                    Class="rounded-pill">
+                   Class="rounded-pill">
             Cancelar
         </MudButton>
-        <MudButton Variant="Variant.Filled"
-                   ButtonType="ButtonType.Submit"
-                   Color="Color.Success"
-                   OnClick="UpsertEmpresa"
-                   Disabled="Processing"
-                   Class="rounded-pill"
-                   StartIcon="@Icons.Material.Rounded.Add">
-            @if (Processing)
-            {
-                <MudProgressCircular Class="ms-n1" Size="Size.Small"
-                                     Indeterminate="true"
-                                     Color="Color.Success"/>
-            }
-            else
-            {
+        @if (Processing)
+        {
+            <MudProgressCircular Class="ms-n1" Size="Size.Small"
+                                 Indeterminate="true"
+                                 Color="Color.Success"/>
+        }
+        else
+        {
+            <MudButton Variant="Variant.Filled"
+                       ButtonType="ButtonType.Submit"
+                       Color="Color.Success"
+                       OnClick="UpsertEmpresa"
+                       Disabled="@(!_success)"
+                       Class="rounded-pill"
+                       StartIcon="@Icons.Material.Rounded.Add">
+
                 <MudText Align="Align.Center">
                     Agregar
                 </MudText>
-            }
-        </MudButton>
+            </MudButton>
+        }
     </DialogActions>
 </MudDialog>

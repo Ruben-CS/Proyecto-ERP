@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
@@ -14,7 +15,7 @@ public class CategoriaRepository : ICategoriaRepository
     private readonly IMapper _mapper;
 
     public CategoriaRepository(ApplicationDbContext applicationDbContext,
-                               IMapper mapper)
+                               IMapper              mapper, IMemoryCache cache)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
@@ -49,7 +50,9 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<bool> EliminarDto(int idCategoria)
     {
-        var categoria = await _applicationDbContext.Categoria.SingleOrDefaultAsync(c => c.IdCategoria == idCategoria);
+        var categoria =
+            await _applicationDbContext.Categoria.SingleOrDefaultAsync(c =>
+                c.IdCategoria == idCategoria);
 
         if (categoria is null)
         {
@@ -61,13 +64,13 @@ public class CategoriaRepository : ICategoriaRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<IEnumerable<CategoriaDto>> ListarCategoria(int idEmpresa)
+    public async Task<IEnumerable<CategoriaDto>?> ListarCategoria(int idEmpresa)
     {
-        var cuentas = await _applicationDbContext.Categoria
-                                                 .Where(c => c.IdEmpresa == idEmpresa)
-                                                 .ToListAsync();
-
-        return await Task.FromResult(_mapper.Map<List<CategoriaDto>>(cuentas));
+        var listaCategorias = await _applicationDbContext.Categoria.AsNoTracking()
+                                                         .Where(c =>
+                                                             c.IdEmpresa == idEmpresa)
+                                                         .ToListAsync();
+        return _mapper.Map<List<CategoriaDto>>(listaCategorias);
     }
 
     public async Task<CategoriaDto> GetCategoriaById(int idCategoria)

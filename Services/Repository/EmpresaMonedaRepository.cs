@@ -63,7 +63,7 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
 
         var listaEmpresaMonedas =
             _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa);
-        await listaEmpresaMonedas.Skip(1).ForEachAsync(em =>
+        await listaEmpresaMonedas.ForEachAsync(em =>
             em.Estado = EstadoEmpresaMoneda.Cerrado);
 
         await _applicationDbContext.EmpresaMonedas.AddAsync(empresaMonedaDb);

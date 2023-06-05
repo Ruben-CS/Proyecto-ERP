@@ -1,83 +1,51 @@
 @using BlazorFrontend.Services
+@using global::Services.EmpresaMonedaService
+@using global::Services.Moneda
 @using ButtonType = MudBlazor.ButtonType
 @inject EmpresaService EmpresaService
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
+@inject MonedaService MonedaService
+@inject EmpresaMonedaService EmpresaMonedaService
 
 <MudDialog Style="border-radius: 15px;">
     <DialogContent>
-        <EditForm Model="@EmpresaDto" SelectedEmpresaId="@SelectedEmpresaId" OnValidSubmit="EditarEmpresaAsync">
-            <DataAnnotationsValidator/>
-            <ValidationSummary/>
+        <MudForm SelectedEmpresaId="@SelectedEmpresaId" @ref="_form" @bind-isValid="_success">
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Nombre</label>
-                        <InputText @bind-Value="EmpresaDto.Nombre" class="form-control">
-                            @EmpresaDto.Nombre
-                        </InputText>
-                        <ValidationMessage For="@(() => EmpresaDto!.Nombre)"/>
-                    </div>
+                    <MudTextField @bind-Value="EmpresaDto.Nombre" Label="Nombre"/>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Nit</label>
-                        <InputText @bind-Value="EmpresaDto.Nit" class="form-control">
-                            @EmpresaDto.Nit
-                        </InputText>
-                        <ValidationMessage For="@(() => EmpresaDto!.Nit)"/>
-                    </div>
+                    <MudTextField @bind-Value="EmpresaDto.Nit" Label="NIT"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Sigla</label>
-                        <InputText @bind-Value="EmpresaDto.Sigla" class="form-control">
-                            @EmpresaDto.Sigla
-                        </InputText>
-                        <ValidationMessage For="@(() => EmpresaDto!.Sigla)"/>
-                    </div>
+                    <MudTextField @bind-Value="EmpresaDto.Sigla" Label="Sigla"/>
                 </div>
 
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Telefono</label>
-                        <InputText @bind-Value="EmpresaDto.Telefono"
-                                   class="form-control">
-                            @EmpresaDto.Telefono
-                        </InputText>
-                        <ValidationMessage For="@(() => EmpresaDto.Telefono)"/>
-                    </div>
+                    <MudTextField @bind-Value="EmpresaDto.Telefono"
+                                  Label="Telefono"/>
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <label>Direccion</label>
-                        <InputText @bind-Value="EmpresaDto.Direccion" class="form-control">
-                            @EmpresaDto.Direccion
-                        </InputText>
-                        <ValidationMessage For="@(() => EmpresaDto.Direccion)"/>
-                    </div>
+                    <MudTextField @bind-Value="EmpresaDto.Direccion" Label="Direccion"/>
                 </div>
                 <div class="col-md-6 md-4">
-                    <div class="form-outline">
-                        <label>Niveles</label>
-                        <InputSelect @bind-Value="EmpresaDto.Niveles" class="form-select" aria-label="Default select example">
-                            @foreach (var item in _listaNiveles)
-                            {
-                                <option value="@item">@item</option>
-                            }
-                        </InputSelect>
-                        <ValidationMessage For="@(() => EmpresaDto.Niveles)"/>
-                    </div>
+                    <MudSelect @bind-Value="EmpresaDto.Niveles" Label="Niveles" HelperText="Seleccione el nivel de la empresa" Variant="Variant.Text">
+                        @foreach (var item in _listaNiveles)
+                        {
+                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                        }
+                    </MudSelect>
                 </div>
             </div>
             <label>Correo</label>
-            <InputText @bind-Value="EmpresaDto.Correo" class="form-control">@EmpresaDto.Correo</InputText>
-            <ValidationMessage For="@(() => EmpresaDto.Correo)"/>
-        </EditForm>
+            <MudTextField @bind-Value="EmpresaDto.Correo" InputType="InputType.Email"/>
+        </MudForm>
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Text"
@@ -102,6 +70,10 @@
 
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; } = null!;
+
+    private bool _success;
+
+    private MudForm? _form;
 
     [Parameter]
     public int SelectedEmpresaId { get; set; }

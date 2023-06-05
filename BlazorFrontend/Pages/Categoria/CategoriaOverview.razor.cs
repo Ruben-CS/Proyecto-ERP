@@ -125,10 +125,6 @@ public partial class CategoriaOverview
 
     private async Task ShowCrearCategoria()
     {
-        if (IsSelectedEmpty())
-        {
-            return;
-        }
 
         var options = new DialogOptions
         {

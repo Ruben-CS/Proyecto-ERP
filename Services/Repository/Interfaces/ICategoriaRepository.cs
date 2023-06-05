@@ -10,7 +10,7 @@ public interface ICategoriaRepository
 
     public Task<bool> EliminarDto(int idCategoria);
 
-    public Task<IEnumerable<CategoriaDto>> ListarCategoria(int idEmpresa);
+    public Task<IEnumerable<CategoriaDto>?> ListarCategoria(int idEmpresa);
 
     public Task<CategoriaDto> GetCategoriaById(int idCategoria);
 }

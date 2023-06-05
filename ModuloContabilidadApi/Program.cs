@@ -38,6 +38,8 @@ builder.Services.AddScoped<IGestionRepository, GestionRepository>();
 builder.Services.AddScoped<IPeriodoRepository, PeriodoRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<ICuentaRepository, CuentaRepository>();
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

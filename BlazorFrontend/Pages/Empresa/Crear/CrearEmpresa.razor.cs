@@ -9,6 +9,10 @@ public partial class CrearEmpresa
     [Inject]
     private ISnackbar Snackbar { get; set; } = null!;
 
+    private bool _success;
+
+    private MudForm? _form;
+
     [Parameter]
     public EventCallback<EmpresaDto> OnEmpresaListChange { get; set; }
 
@@ -62,38 +66,50 @@ public partial class CrearEmpresa
         if (!await ValidateUniqueNombre())
         {
             Snackbar.Add("Existe una empresa con ese nombre", Severity.Error);
+            Processing = false;
+            return;
         }
-        else if (!await ValidateUniqueNit())
+
+        if (!await ValidateUniqueNit())
         {
             Snackbar.Add("Existe una empresa con el mismo NIT", Severity.Error);
+            Processing = false;
+            return;
         }
-        else if (!await ValidateUniqueSigla())
+
+        if (!await ValidateUniqueSigla())
         {
             Snackbar.Add("Existe una empresa con esas siglas", Severity.Error);
+            Processing = false;
+            return;
         }
-        else if (await ValidateEmptyEmpresa())
+
+        if (await ValidateEmptyEmpresa())
         {
             Snackbar.Add("Rellene los datos esenciales", Severity.Error);
+            Processing = false;
+            return;
         }
-        else
+
+        var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
+        if (response.IsSuccessStatusCode)
         {
-            var response = await HttpClient.PostAsJsonAsync(url, empresaDto);
-            Snackbar.Add("Empresa creada exitosamente", Severity.Success, options =>
-            {
-                options.CloseAfterNavigation = true;
-            });
+            Snackbar.Add("Empresa creada exitosamente", Severity.Success,
+                options => { options.CloseAfterNavigation = true; });
             var addedEmpresa = await response.Content.ReadFromJsonAsync<EmpresaDto>();
             await OnEmpresaListChange.InvokeAsync(addedEmpresa);
             await CreateEmpresaMoneda();
             await CreateDefaultCuentas();
-            MudDialog!.Close(DialogResult.Ok(response));
             Processing = false;
+            MudDialog!.Close(DialogResult.Ok(response));
         }
+
+        Processing = false;
     }
 
     private async Task CreateEmpresaMoneda()
     {
-        var empresas   = await EmpresaService.GetEmpresasAsync();
+        var empresas   = await EmpresaService.GetActiveEmpresasAsync();
         var newEmpresa = empresas.Last();
         MonedaDto = _monedas.Single(m => m.Nombre == SelectedMoneda);
         var url =

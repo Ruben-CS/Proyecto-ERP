@@ -1,0 +1,91 @@
+@page "/agregarNota/{idempresa:int}"
+@using global::Services.ArticuloService
+@using global::Services.NotaService
+@layout ComprobanteLayout
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject ArticuloService ArticuloService
+@inject NotaService NotaService
+@inject IJSRuntime JsRuntime
+@inject ISnackbar Snackbar
+
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudText Typo="Typo.h5" GutterBottom="true">
+    <MudTooltip Text="Volver al listado">
+        <MudIconButton Size="Size.Medium"
+                       Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Dark"
+                       OnClick="@(GoBack)"
+                       Style="align-self: center"/>
+    </MudTooltip>
+    Datos de la nota
+</MudText>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px;">
+    <MudForm @ref="_form" @bind-IsValid="@_success">
+        <MudStack Row="true">
+            <MudTextField Variant="Variant.Outlined"
+                          Disabled="true"
+                          Margin="Margin.Dense"
+                          Label="Nro"
+                          T="string"
+                          @bind-Text="NroNota"/>
+            <MudTextField Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="La descripcion no puede estar vacia"
+                          Label="Descripcion"
+                          Margin="Margin.Dense"
+                          T="string"
+                          @bind-Text="Descripcion"
+                          Immediate="true"/>
+            <MudDatePicker bind-Date="DateTime.Today"
+                           Label="Fecha"
+                           Required="true"
+                           RequiredError="Debe seleccionar una fecha"
+                           Rounded="true"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           @bind-Date="Fecha"/>
+        </MudStack>
+    </MudForm>
+    <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between">
+        <MudTooltip Text="Agregar nota de compra" Placement="Placement.Right">
+            <MudFab Color="Color.Success"
+                    IconSize="Size.Small"
+                    StartIcon="@Icons.Material.Rounded.PostAdd"
+                    Size="Size.Small"
+                    Class="squircle-fab"
+                    Disabled="@(!_success)"
+                    OnClick="AgregarCompra"/>
+        </MudTooltip>
+        <MudTooltip Text="Agregar detalles">
+            <MudFab Color="Color.Info"
+                    IconSize="Size.Small"
+                    StartIcon="@Icons.Material.Rounded.NoteAdd"
+                    Size="Size.Small"
+                    Class="squircle-fab"
+                    OnClick="OpenAgregarDetalle"/>
+        </MudTooltip>
+    </MudStack>
+</MudPaper>
+
+<DetalleNotaTable DetalleCompra="DetalleParaLote" IdEmpresa="IdEmpresa" Articulos="Articulos"/>
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+
+    .squircle-fab {
+        border-radius: 30% !important;
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
+    }
+</style>

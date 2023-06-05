@@ -14,7 +14,7 @@ public class EmpresaRepository : IEmpresaRepository
     private readonly IMapper _mapper;
 
     public EmpresaRepository(ApplicationDbContext applicationDbContext,
-                             IMapper mapper)
+                             IMapper              mapper)
     {
         _applicationDbContext = applicationDbContext;
         _mapper               = mapper;
@@ -29,8 +29,9 @@ public class EmpresaRepository : IEmpresaRepository
     public async Task<IEnumerable<EmpresaDto>> GetNonDeletedModels()
     {
         var activeEmpresas = await _applicationDbContext.Empresas
-                                                  .Where(e => e.IsDeleted == false)
-                                                  .ToListAsync();
+                                                        .Where(e => e.IsDeleted == false)
+                                                        .AsNoTracking()
+                                                        .ToListAsync();
         return await Task.FromResult(_mapper.Map<List<EmpresaDto>>(activeEmpresas));
     }
 
@@ -76,7 +77,8 @@ public class EmpresaRepository : IEmpresaRepository
         try
         {
             var empresa = await _applicationDbContext.Empresas
-                .FirstOrDefaultAsync(e => e.IdEmpresa == modeloId);
+                                                     .FirstOrDefaultAsync(e =>
+                                                         e.IdEmpresa == modeloId);
             if (empresa is null)
             {
                 return false;

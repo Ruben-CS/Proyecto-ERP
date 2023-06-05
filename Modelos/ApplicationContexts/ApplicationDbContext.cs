@@ -33,6 +33,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Categoria> Categoria { get; set; }
 
+    public DbSet<Lote> Lotes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -62,12 +64,22 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.MontoHaber).HasColumnType("decimal(18,4)");
             entity.Property(e => e.MontoHaberAlt).HasColumnType("decimal(18,4)");
         });
+        modelBuilder.Entity<Lote>(entity =>
+        {
+            entity.Property(e=> e.PrecioCompra).HasColumnType("decimal(18,4)");
+
+        });
+        modelBuilder.Entity<Lote>()
+                    .HasKey(l => new { l.IdLote, l.IdArticulo });
+
+        modelBuilder.Entity<Nota>()
+                    .Property(n => n.IdComprobante)
+                    .IsRequired(false);
 
         #region Configuracion Empresa
 
-        modelBuilder.Entity<Empresa>().HasIndex(i => i.Nit).IsUnique();
-        modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique();
-        modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique();
+        modelBuilder.Entity<Empresa>().HasIndex(i => i.Sigla).IsUnique(false);
+        modelBuilder.Entity<Empresa>().HasIndex(i => i.Nombre).IsUnique(false);
         modelBuilder.Entity<Empresa>().Property(i => i.IdUsuario)
                     .IsRequired(false);
         modelBuilder.Entity<Empresa>().HasIndex(i => i.IdUsuario);

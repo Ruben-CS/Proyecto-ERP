@@ -25,7 +25,12 @@ public partial class MonedaDashboard
     private string? _previousSelectedMoneda;
     private string? MonedaPrincipalName { get; set; }
 
-    private string? SelectedMoneda { get; set; }
+    private string? SelectedMoneda
+    {
+        get => AppState.SelectedMoneda;
+        set => AppState.SelectedMoneda = value;
+    }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -38,6 +43,7 @@ public partial class MonedaDashboard
                 IdEmpresa = int.Parse(idValue);
                 _empresaMonedas =
                     await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
+                _empresaMonedas = _empresaMonedas.OrderByDescending(x => x.FechaRegistro).ToList();
                 _monedas        = (await MonedaService.GetMonedasAsync())!;
                 MonedaPrincipal = (await GetMonedaPrincipal())!;
                 IsLoading       = false;
@@ -120,9 +126,6 @@ public partial class MonedaDashboard
                 await OnDataGridChange();
                 Snackbar.Add("Moneda agregada exitosamente", Severity.Success);
             }
-
-            SelectedMoneda = null;
-            Cambio         = null;
         }
     }
 

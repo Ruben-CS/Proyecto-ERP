@@ -1,0 +1,72 @@
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<MudDialog Style="border-radius:15px;">
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_succes">
+            <MudStack Row="true">
+                <MudAutocomplete @bind-Value="SelectedArticulo"
+                                 T="string"
+                                 Label="Aritculos"
+                                 HelperText="Seleccione un articulo"
+                                 Required="true"
+                                 RequiredError="Debe seleccionar un articulo"
+                                 SearchFunc="Search1"
+                                 Variant="Variant.Outlined"/>
+                <MudTextField T="int"
+                              @bind-Value="Cantidad"
+                              Label="Cantidad"
+                              Variant="Variant.Outlined"
+                              Immediate="true"
+                              Required="true"
+                              RequiredError="Debe ingresar una cantidad"
+                              Class="right-aligned-input"/>
+                <MudDatePicker @bind-Value="FechaIngreso"
+                               Label="Fecha de vencimiento"
+                               Variant="Variant.Outlined"
+                               Rounded="true"
+                               @bind-Date="FechaIngreso"/>
+                <MudTextField @bind-Value="PrecioUnitario"
+                              Label="Precio Unitario"
+                              Immediate="true"
+                              Required="true"
+                              RequiredError="Debe colocar un precio"
+                              Variant="Variant.Outlined"
+                              Class="right-aligned-input"
+                              T="decimal"/>
+                <MudTextField
+                    Immediate="true"
+                    Value="@SubTotal"
+                    Variant="Variant.Outlined"
+                    Label="Subtotal"
+                    Disabled="true"
+                    Class="right-aligned-input"/>
+            </MudStack>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Text"
+                   Size="Size.Small"
+                   Color="Color.Dark"
+                   Class="mb-2 mr-2"
+                   Style="width: 100px;">
+            Cerrar
+        </MudButton>
+        <MudButton Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Size="Size.Small"
+                   OnClick="Submit"
+                   Class="rounded-pill mb-2 mr-2"
+                   Style="width: 100px;">
+            Agregar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>

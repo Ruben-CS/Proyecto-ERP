@@ -8,7 +8,7 @@ using Modelos.ApplicationContexts;
 
 #nullable disable
 
-namespace ModuloContabilidadApi.Migrations
+namespace Modelos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -277,7 +277,7 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.Property<string>("Nit")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Niveles")
                         .HasColumnType("int");
@@ -297,14 +297,9 @@ namespace ModuloContabilidadApi.Migrations
 
                     b.HasIndex("IdUsuario");
 
-                    b.HasIndex("Nit")
-                        .IsUnique();
+                    b.HasIndex("Nombre");
 
-                    b.HasIndex("Nombre")
-                        .IsUnique();
-
-                    b.HasIndex("Sigla")
-                        .IsUnique();
+                    b.HasIndex("Sigla");
 
                     b.ToTable("Empresas");
                 });
@@ -391,6 +386,50 @@ namespace ModuloContabilidadApi.Migrations
                     b.ToTable("Gestiones");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Lote", b =>
+                {
+                    b.Property<int>("IdLote")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLote"));
+
+                    b.Property<int>("IdArticulo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoLote")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaVencimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdNota")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NroLote")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdLote", "IdArticulo");
+
+                    b.HasIndex("IdArticulo");
+
+                    b.HasIndex("IdNota");
+
+                    b.ToTable("Lotes");
+                });
+
             modelBuilder.Entity("Modelos.Models.Moneda", b =>
                 {
                     b.Property<int>("IdMoneda")
@@ -438,10 +477,13 @@ namespace ModuloContabilidadApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EstadoNota")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdComprobante")
+                    b.Property<int?>("IdComprobante")
                         .HasColumnType("int");
 
                     b.Property<int>("IdEmpresa")
@@ -450,14 +492,14 @@ namespace ModuloContabilidadApi.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<int>("NroNota")
+                    b.Property<int?>("NroNota")
                         .HasColumnType("int");
 
                     b.Property<int>("TipoNota")
                         .HasColumnType("int");
 
-                    b.Property<float>("Total")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("IdNota");
 
@@ -728,6 +770,25 @@ namespace ModuloContabilidadApi.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Modelos.Models.Lote", b =>
+                {
+                    b.HasOne("Modelos.Models.Articulo", "Articulo")
+                        .WithMany("Lotes")
+                        .HasForeignKey("IdArticulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Modelos.Models.Nota", "Nota")
+                        .WithMany("Lotes")
+                        .HasForeignKey("IdNota")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Nota");
+                });
+
             modelBuilder.Entity("Modelos.Models.Moneda", b =>
                 {
                     b.HasOne("Modelos.Models.EmpresaMoneda", null)
@@ -748,8 +809,7 @@ namespace ModuloContabilidadApi.Migrations
                     b.HasOne("Modelos.Models.Comprobante", "Comprobante")
                         .WithMany("Notas")
                         .HasForeignKey("IdComprobante")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Modelos.Models.Empresa", "Empresa")
                         .WithMany("Notas")
@@ -792,6 +852,8 @@ namespace ModuloContabilidadApi.Migrations
             modelBuilder.Entity("Modelos.Models.Articulo", b =>
                 {
                     b.Navigation("ArticuloCategorias");
+
+                    b.Navigation("Lotes");
                 });
 
             modelBuilder.Entity("Modelos.Models.Categoria", b =>
@@ -840,6 +902,11 @@ namespace ModuloContabilidadApi.Migrations
             modelBuilder.Entity("Modelos.Models.Gestion", b =>
                 {
                     b.Navigation("Periodos");
+                });
+
+            modelBuilder.Entity("Modelos.Models.Nota", b =>
+                {
+                    b.Navigation("Lotes");
                 });
 
             modelBuilder.Entity("Modelos.Models.Usuario", b =>
