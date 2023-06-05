@@ -202,7 +202,7 @@ public partial class AddComprobante
 
         return await Task.FromResult(EmpresaMonedas.Single(em =>
             em.IdMonedaAlternativa == idMonedaAlternativa
-            && em.Estado           == EstadoEmpresaMoneda.Abierto).Cambio);
+            && em.Estado           == EstadoEmpresaMoneda.Activo).Cambio);
     }
 
     private async Task OpenAgregarDetalleModal()

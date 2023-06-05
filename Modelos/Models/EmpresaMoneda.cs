@@ -16,7 +16,7 @@ public sealed class EmpresaMoneda
 
     public decimal? Cambio { get; set; }
 
-    public EstadoEmpresaMoneda Estado { get; set; } = EstadoEmpresaMoneda.Abierto;
+    public EstadoEmpresaMoneda Estado { get; set; } = EstadoEmpresaMoneda.Activo;
 
     public DateTime FechaRegistro { get; set; }
 
