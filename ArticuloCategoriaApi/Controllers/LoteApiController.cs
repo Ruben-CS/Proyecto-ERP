@@ -17,13 +17,13 @@ public class LoteApiController : ControllerBase
         _responseDto    = new ResponseDto();
     }
 
-    [HttpPost("agregarLote/{idArticulo:int}")]
+    [HttpPost("agregarLote/{idNota:int}")]
     public async Task<object> AgregarLote([FromBody]  LoteDto loteDto,
-                                          [FromRoute] int     idArticulo)
+                                          [FromRoute] int     idNota)
     {
         try
         {
-            var lote = await _loteRepository.CrearLote(loteDto, idArticulo);
+            var lote = await _loteRepository.CrearLote(loteDto, idNota);
             _responseDto.Result = lote;
         }
         catch (Exception e)
@@ -38,13 +38,12 @@ public class LoteApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpDelete("anularLote/{idLote:int}/{idArticulo:int}")]
-    public async Task<object> AnularLote([FromRoute] int idLote,
-                                         [FromRoute] int idArticulo)
+    [HttpDelete("anularLote/{idLote:int}/{idNota:int}")]
+    public async Task<object> AnularLote([FromRoute] int idNota)
     {
         try
         {
-            var lote = await _loteRepository.EliminarLote(idLote, idArticulo);
+            var lote = await _loteRepository.EliminarLote(idNota);
 
             _responseDto.Result = lote;
         }

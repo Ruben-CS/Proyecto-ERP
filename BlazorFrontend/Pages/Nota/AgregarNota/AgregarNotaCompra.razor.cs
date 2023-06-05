@@ -41,6 +41,9 @@ public partial class AgregarNotaCompra
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
 
+    private void AddNewDetalleLote(LoteDto lote) => DetalleParaLote.Add(lote);
+
+
     private readonly DialogOptions _options = new()
     {
         MaxWidth             = MaxWidth.Large,
@@ -51,7 +54,7 @@ public partial class AgregarNotaCompra
     protected override async Task OnInitializedAsync()
     {
         Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
-        Notas    = await NotaService.GetNotaComprasAsync(IdEmpresa);
+        await GetNotaCompras();
         var nextNro = GetNextNumeroNota();
         NroNota = nextNro.ToString();
         await InvokeAsync(StateHasChanged);
@@ -81,18 +84,15 @@ public partial class AgregarNotaCompra
             parameters, _options);
     }
 
-    private void AddNewDetalleLote(LoteDto lote)
-    {
-        DetalleParaLote.Add(lote);
-    }
 
     private async Task AgregarCompra()
     {
         if (DetalleParaLote.Count == 0)
         {
-            Snackbar.Add("Debe agregar al menos un articulo",Severity.Info);
+            Snackbar.Add("Debe agregar al menos un articulo", Severity.Info);
             return;
         }
+
         var          total   = DetalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
         const string url     = "https://localhost:44321/notas/agregarNota";
         var          nroNota = GetNextNumeroNota();
@@ -105,17 +105,39 @@ public partial class AgregarNotaCompra
             IdEmpresa     = IdEmpresa,
             IdUsuario     = 1,
             IdComprobante = null,
-            TipoNota = TipoNota.Compra
+            TipoNota      = TipoNota.Compra
         };
-        var response = await HttpClient.PostAsJsonAsync(url,nota);
+        var response = await HttpClient.PostAsJsonAsync(url, nota);
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Nota agregada exitosamente", Severity.Success);
+            await AgregarLote();
         }
     }
 
+    private async Task GetNotaCompras() =>
+        Notas = (await NotaService.GetNotaComprasAsync(IdEmpresa))!;
+
     private async Task AgregarLote()
     {
+        await GetNotaCompras();
+        var ultimoIdNota = Notas.Last().IdNota;
+        var url          = $"https://localhost:44321/lotes/agregarLote/{ultimoIdNota}";
+        try
+        {
+            foreach (var lote in DetalleParaLote)
 
+            {
+                lote.IdNota = ultimoIdNota;
+                var response = await HttpClient.PostAsJsonAsync(url, lote);
+                response.EnsureSuccessStatusCode();
+            }
+            Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error occurred while posting details: {e.Message}");
+            Snackbar.Add("Error al guardar los detalles", Severity.Error);
+        }
     }
 }

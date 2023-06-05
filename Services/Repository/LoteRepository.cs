@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Modelos.ApplicationContexts;
 using Modelos.Models;
 using Modelos.Models.Dtos;
@@ -40,17 +41,17 @@ public class LoteRepository : ILoteRepository
         return _mapper.Map<List<LoteDto>>(listaLotes);
     }
 
-    public async Task<bool> EliminarLote(int idLote, int idArticulo)
+    public async Task<bool> EliminarLote(int idNota)
     {
-        var lotePorArticulo = await _applicationDbContext.Lotes.FirstOrDefaultAsync(l =>
-            l.IdArticulo == idArticulo &&
-            l.IdLote     == idLote);
-        if (lotePorArticulo is null)
+        var lotePorArticulo = await _applicationDbContext.Lotes
+                                                         .Where(l => l.IdNota == idNota)
+                                                         .ToListAsync();
+        if (lotePorArticulo.IsNullOrEmpty())
         {
             return false;
         }
 
-        lotePorArticulo.EstadoLote = EstadoLote.Anulado;
+        lotePorArticulo.ForEach(l => l.EstadoLote = EstadoLote.Anulado);
         await _applicationDbContext.SaveChangesAsync();
         return true;
     }
