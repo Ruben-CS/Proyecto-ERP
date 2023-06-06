@@ -4,6 +4,7 @@ using BlazorFrontend.Pages.Articulo.Eliminar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
+using Services.LoteService;
 
 namespace BlazorFrontend.Pages.Articulo;
 
@@ -22,12 +23,18 @@ public partial class ArticuloOverview
 
     private string SearchString { get; set; } = string.Empty;
 
-    public  bool IsLoading                    { get; set; }
+    private bool IsLoading                    { get; set; }
     private bool FilterFunc1(ArticuloDto dto) => FilterFunc2(dto, SearchString);
 
-    private Dictionary<int, List<string>> _articuloCategorias = new();
+    private readonly Dictionary<int, List<string>> _articuloCategorias = new();
+
+
+    [Inject]
+    private LoteService LoteService { get; set; } = null!;
 
     private List<int> _idArticulos = new();
+
+    private List<LoteDto>? Lotes { get; set; } = new();
 
     private readonly DialogOptions _options = new()
     {
@@ -161,6 +168,8 @@ public partial class ArticuloOverview
 
     private async Task OpenLotePerArticulo(int idArticulo)
     {
+        Lotes = await LoteService.GetLotesPerArticleIdAsync(idArticulo);
+
         DialogOptions options = new()
         {
             CloseOnEscapeKey     = true,
@@ -171,7 +180,7 @@ public partial class ArticuloOverview
         };
         var parameters = new DialogParameters()
         {
-            { "IdArticulo", idArticulo }
+            { "Lotes", Lotes }
         };
         await DialogService.ShowAsync<VerLoteDeArticulo>(string.Empty, parameters,
             options);

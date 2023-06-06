@@ -48,18 +48,21 @@
                           T="string"
                           @bind-Text="Descripcion"
                           Immediate="true"/>
-            <MudDatePicker bind-Date="DateTime.Today"
-                           Label="Fecha"
-                           Required="true"
-                           RequiredError="Debe seleccionar una fecha"
-                           Rounded="true"
+            <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                           DateFormat="dd/MM/yyyy"
+                           Editable="true"
+                           Label="Fecha de ingreso"
+                           @bind-Date="@Fecha"
+                           Placeholder="dd/MM/yyyy"
                            Variant="Variant.Outlined"
                            Margin="Margin.Dense"
-                           @bind-Date="Fecha"/>
+                           Rounded="true"/>
         </MudStack>
     </MudForm>
     <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between">
-        <MudTooltip Text="Agregar nota de compra" Placement="Placement.Right">
+        <MudTooltip Text="Agregar nota de compra"
+                    ShowOnClick="false"
+                    ShowOnFocus="false">
             <MudFab Color="Color.Success"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Rounded.PostAdd"
@@ -68,7 +71,9 @@
                     Disabled="@(!_success)"
                     OnClick="AgregarCompra"/>
         </MudTooltip>
-        <MudTooltip Text="Agregar detalles">
+        <MudTooltip Text="Agregar detalles"
+                    ShowOnClick="false"
+                    ShowOnFocus="false">
             <MudFab Color="Color.Info"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Rounded.NoteAdd"

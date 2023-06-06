@@ -36,7 +36,7 @@
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Nro Lote">@context.NroLote</MudTd>
-                    <MudTd DataLabel="Fecha Ingreso">@context.FechaIngreso</MudTd>
+                    <MudTd DataLabel="Fecha Ingreso">@context.FechaIngreso.ToShortDateString()</MudTd>
                     <MudTd DataLabel="Fecha Vencimiento">@context.FechaVencimiento</MudTd>
                     <MudTd DataLabel="Cantidad">@context.Cantidad</MudTd>
                     <MudTd DataLabel="Stock">@context.Stock</MudTd>
@@ -62,14 +62,11 @@
     [Parameter]
     public int IdArticulo { get; set; }
 
-    private List<LoteDto>? Lotes { get; set; } = new();
+    [Parameter]
+    public List<LoteDto>? Lotes { get; set; } = new();
 
     [CascadingParameter]
     private MudDialogInstance? MudDialog { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        Lotes = await LoteService.GetLotesPerArticleIdAsync(IdArticulo);
-    }
     private void Cancel() => MudDialog!.Cancel();
 }

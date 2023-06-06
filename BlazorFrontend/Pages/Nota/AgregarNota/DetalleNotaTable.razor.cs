@@ -23,4 +23,6 @@ public partial class DetalleNotaTable
 
     private string GetArticuloName(int idArticulo) =>
         Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
+
+    private void DeleteEntry(LoteDto loteDto) => DetalleCompra.Remove(loteDto);
 }
