@@ -1,0 +1,233 @@
+@page "/anularNotaVenta/{idempresa:int}/{idnota:int}"
+@using global::Services.LoteService
+@using global::Services.NotaService
+@using global::Services.ArticuloService
+@using Modelos.Models.Enums
+@inject NavigationManager NavigationManager
+@inject LoteService LoteService
+@inject NotaService NotaService
+@inject ArticuloService ArticuloService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@layout ComprobanteLayout
+
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<MudStack Row="true"
+          Justify="Justify.SpaceBetween"
+          Spacing="1">
+    <MudText Typo="Typo.h5" GutterBottom="true">
+        <MudTooltip Text="Volver al listado">
+            <MudIconButton Size="Size.Medium"
+                           Icon="@Icons.Material.Rounded.ArrowBack"
+                           Color="Color.Dark"
+                           OnClick="NavigateToNotaOverview"
+                           Style="align-self: center"/>
+        </MudTooltip>
+        Nota de compra
+        <MudTooltip Text="Imprimir nota"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                           Size="Size.Large"
+                           Color="Color.Default"/>
+        </MudTooltip>
+        <MudTooltip Text="Agregar nueva nota de compra"
+                    Arrow="true"
+                    Placement="Placement.Bottom">
+            <MudFab Icon="@Icons.Material.Rounded.PostAdd"
+                    Size="Size.Small"
+                    Color="Color.Success"
+                    Class="squircle-fab"
+                    OnClick="NavigateToAgregar"/>
+        </MudTooltip>
+    </MudText>
+    <div style="display: flex; align-items: center;">
+        <MudTooltip Text="La nota ya esta anulada"
+                    ShowOnClick="@(IsAnulado())"
+                    ShowOnHover="@(IsAnulado())"
+                    ShowOnFocus="@IsAnulado()">
+            <MudButton ButtonType="ButtonType.Button"
+                       Color="Color.Error"
+                       Variant="Variant.Filled"
+                       OnClick="AnularNota"
+                       Style="justify-self: flex-end; align-self: center"
+                       Class="mb-4"
+                       Disabled="@(IsAnulado())">
+                <MudText>Anular nota de compra</MudText>
+            </MudButton>
+        </MudTooltip>
+    </div>
+</MudStack>
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+
+<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px;">
+    <MudForm>
+        <MudStack Row="true">
+            <MudTextField Variant="Variant.Outlined"
+                          Disabled="true"
+                          Margin="Margin.Dense"
+                          Label="Nro"
+                          T="int?"
+                          Value="@Nota.NroNota"/>
+            <MudTextField Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="La descripcion no puede estar vacia"
+                          Label="Descripcion"
+                          Margin="Margin.Dense"
+                          T="string"
+                          @bind-Text="@Nota.Descripcion"
+                          Disabled="true"/>
+            <MudDatePicker bind-Date="DateTime.Today"
+                           Label="Fecha"
+                           Required="true"
+                           RequiredError="Debe seleccionar una fecha"
+                           Rounded="true"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           Date="@Nota.Fecha"
+                           Disabled="true"/>
+        </MudStack>
+    </MudForm>
+</MudPaper>
+
+
+<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
+    <MudTable Hover="true"
+              Dense="true"
+              RowsPerPage="4"
+              Bordered="true"
+              Elevation="0"
+              Style="border-radius: 15px;"
+              Items="Lotes"
+              Striped="true">
+        <HeaderContent>
+            <MudTh>Articulo</MudTh>
+            <MudTh>Cantidad</MudTh>
+            <MudTh Style="text-align: right">Precio</MudTh>
+            <MudTh Style="text-align: right">Subtotal</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+            <MudTd>@context.Cantidad</MudTd>
+            <MudTd Style="text-align: right">
+                @context.PrecioCompra.ToString("F2")
+            </MudTd>
+            <MudTd Style="text-align: right">
+                @(context.Cantidad * context.PrecioCompra)
+            </MudTd>
+        </RowTemplate>
+        <FooterContent>
+            <MudTh/>
+            <MudTh/>
+            <MudTh/>
+            <MudTh Style="text-align: right">
+                <MudText Typo="Typo.subtitle2">Total: </MudText> @Total.ToString("F2")
+            </MudTh>
+        </FooterContent>
+    </MudTable>
+</MudPaper>
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+
+        .squircle-fab {
+            border-radius: 30% !important;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
+        }
+</style>
+
+
+@code {
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    private List<LoteDto> Lotes { get; set; } = new();
+
+    private NotaDto Nota { get; set; } = new();
+
+    private List<ArticuloDto> Articulos { get; set; } = new();
+
+    [Parameter]
+    public int IdNota { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue = segments[^1];
+            var idvalueEmpresa = segments[^2].Trim('/');
+
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id) &&
+                int.TryParse(idvalueEmpresa, out var idempresa))
+            {
+                IdEmpresa = idempresa;
+                IdNota = id;
+                Lotes = (await LoteService.GetLotesAsync(IdNota))!;
+                Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
+                Nota = await NotaService.GetNotaAsync(IdNota);
+            }
+            else
+            {
+                throw new ArgumentException
+                    ("The 'idgestion' parameter is missing or invalid.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private void NavigateToNotaOverview()
+    {
+        var uri = $"/notaCompraOverview/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private void NavigateToAgregar()
+    {
+        var uri = $"/agregarNota/{IdEmpresa}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+    private async Task AnularNota()
+    {
+        var uriAnularLote = $"https://localhost:44321/lotes/anularLote/{IdNota}";
+        var uriAnularNota = $"https://localhost:44321/notas/anularNota/{IdNota}";
+
+        var responseLote = await HttpClient.DeleteAsync(uriAnularLote);
+        var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
+
+        if (responseLote.IsSuccessStatusCode && responseNota.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Nota anulada exitosamente", Severity.Success);
+            await RefreshList();
+            Nota = await NotaService.GetNotaAsync(IdNota);
+        }
+    }
+
+    private async Task RefreshList()
+    {
+        Lotes = (await LoteService.GetLotesAsync(IdNota))!;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private bool IsAnulado() => Nota.EstadoNota == EstadoNota.Anulado;
+
+    private decimal Total => Lotes.Sum(d => d.PrecioCompra * d.Cantidad);
+
+    private string GetArticuloName(int idArticulo) =>
+        Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
+
+}
