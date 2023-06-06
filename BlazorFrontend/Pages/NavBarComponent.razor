@@ -129,7 +129,13 @@
                     Nota de compras
                 </MudText>
             </MudNavLink>
-
+            <MudNavLink Icon="@Icons.Material.Rounded.PointOfSale"
+                        Match="NavLinkMatch.All"
+                        Href="@NavigateToVentas()">
+                <MudText>
+                    Nota de ventas
+                </MudText>
+            </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 
@@ -229,6 +235,8 @@
     private string NavigateToCompras() =>
         $"/notaCompraOverview/{IdEmpresa}";
 
+    private string NavigateToVentas() =>
+        $"/notaVentaOverview/{IdEmpresa}";
     private string NavigateToArticulo() => $"/articulo/{IdEmpresa}";
 
     private async Task CerrarSesion()

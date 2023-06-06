@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 
-namespace BlazorFrontend.Pages.Nota;
+namespace BlazorFrontend.Pages.NotaVenta;
 
 public partial class NotaVentaOverview
 {
@@ -24,7 +24,7 @@ public partial class NotaVentaOverview
             {
                 await base.OnInitializedAsync();
                 IdEmpresa = int.Parse(idValue);
-                Notas     = await NotaService.GetNotaComprasAsync(IdEmpresa);
+                Notas     = await NotaService.GetNotaVentasAsync(IdEmpresa);
                 IsLoading = false;
                 await InvokeAsync(StateHasChanged);
             }
