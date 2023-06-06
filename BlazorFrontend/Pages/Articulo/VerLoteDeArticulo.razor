@@ -1,0 +1,75 @@
+@using global::Services.LoteService
+@using Microsoft.IdentityModel.Tokens
+@inject LoteService LoteService
+
+<MudDialog Style="border-radius: 15px;">
+    <DialogContent>
+        @if (Lotes.IsNullOrEmpty())
+        {
+            <MudStack Justify="Justify.Center" Row="true"
+                      AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.Rounded.Warning"
+                         Color="Color.Warning"
+                         Size="Size.Large"/>
+                <MudText Typo="Typo.h4" Align="Align.Center">
+                    No existen lotes para este articulo!
+                </MudText>
+            </MudStack>
+        }
+        else
+        {
+            <MudTable Items="Lotes"
+                      Dense="true"
+                      Striped="true"
+                      Hover="true"
+                      Bordered="true"
+                      Elevation="0"
+                      ReadOnly="true"
+                      Style="border-radius: 15px;">
+                <HeaderContent>
+                    <MudTh>Nro Lote</MudTh>
+                    <MudTh>Fecha Ingreso</MudTh>
+                    <MudTh>Fecha Vencimiento</MudTh>
+                    <MudTh>Cantidad</MudTh>
+                    <MudTh>Stock</MudTh>
+                    <MudTh>Estado</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Nro Lote">@context.NroLote</MudTd>
+                    <MudTd DataLabel="Fecha Ingreso">@context.FechaIngreso</MudTd>
+                    <MudTd DataLabel="Fecha Vencimiento">@context.FechaVencimiento</MudTd>
+                    <MudTd DataLabel="Cantidad">@context.Cantidad</MudTd>
+                    <MudTd DataLabel="Stock">@context.Stock</MudTd>
+                    <MudTd DataLabel="EstadoLote">@context.EstadoLote</MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Text"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Dark"
+                   OnClick="Cancel"
+                   Size="Size.Medium"
+                   Class="mb-2 rounded-pill">
+            <MudText Typo="Typo.button">Cerrar</MudText>
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [Parameter]
+    public int IdArticulo { get; set; }
+
+    private List<LoteDto>? Lotes { get; set; } = new();
+
+    [CascadingParameter]
+    private MudDialogInstance? MudDialog { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Lotes = await LoteService.GetLotesPerArticleIdAsync(IdArticulo);
+    }
+    private void Cancel() => MudDialog!.Cancel();
+}

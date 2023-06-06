@@ -7,6 +7,7 @@ public interface IArticuloRepository
     public Task<ArticuloDto>              CrearArticulo(ArticuloDto  dto);
     public Task<IEnumerable<ArticuloDto>> ListarArticulo(int         idEmpresa);
     public Task<ArticuloDto>              EditarArticulo(ArticuloDto dto, int idArticulo);
+    public Task<bool> EditarCantidadArticulo(int idArticulo, int cantidad);
     public Task<ArticuloDto>              GetSingleArticulo(int      idArticulo);
     public Task<bool>                     BorrarArticulo(int         idArticulo);
 }

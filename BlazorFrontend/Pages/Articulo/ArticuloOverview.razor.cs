@@ -159,6 +159,24 @@ public partial class ArticuloOverview
             ("Edite los datos del articulo", parameters, _options);
     }
 
+    private async Task OpenLotePerArticulo(int idArticulo)
+    {
+        DialogOptions options = new()
+        {
+            CloseOnEscapeKey     = true,
+            MaxWidth             = MaxWidth.Medium,
+            FullWidth            = true,
+            DisableBackdropClick = true,
+            Position             = DialogPosition.TopCenter
+        };
+        var parameters = new DialogParameters()
+        {
+            { "IdArticulo", idArticulo }
+        };
+        await DialogService.ShowAsync<VerLoteDeArticulo>(string.Empty, parameters,
+            options);
+    }
+
     private async Task OnArticuloAdded(ArticuloDto dto)
     {
         Articulos    = await ArticuloService.GetArticulosAsync(IdEmpresa);

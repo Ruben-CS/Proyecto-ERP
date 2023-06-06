@@ -1,5 +1,6 @@
 @page "/agregarNota/{idempresa:int}"
 @using global::Services.ArticuloService
+@using global::Services.LoteService
 @using global::Services.NotaService
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
@@ -9,6 +10,7 @@
 @inject NotaService NotaService
 @inject IJSRuntime JsRuntime
 @inject ISnackbar Snackbar
+@inject LoteService LoteService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>

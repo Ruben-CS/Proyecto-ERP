@@ -95,6 +95,10 @@
                            Color="Color.Error"
                            Size="Size.Small"
                            OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
+            <MudIconButton Icon="@Icons.Material.Rounded.Notes"
+                           Color="Color.Dark"
+                           Size="Size.Small"
+                           OnClick="() => OpenLotePerArticulo(context.IdArticulo)"/>
         </MudTd>
     </RowTemplate>
     <PagerContent>

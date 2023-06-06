@@ -30,6 +30,17 @@ public class NotaRepository : INotaRepository
     public async Task<bool> AnularNota(int notaId)
     {
         var nota = await _dbContext.Nota.FirstOrDefaultAsync(n => n.IdNota == notaId);
+
+        var lotes = await _dbContext.Lotes.Where(x => x.IdNota == notaId).ToListAsync();
+
+        lotes.ForEach(l =>
+        {
+            var articulo =
+                _dbContext.Articulo.Single(a => a.IdArticulo == l.IdArticulo);
+            articulo.Cantidad -= l.Cantidad;
+            l.EstadoLote      =  EstadoLote.Anulado;
+        });
+
         if (nota is null)
         {
             return false;
@@ -43,12 +54,12 @@ public class NotaRepository : INotaRepository
     public async Task<IEnumerable<NotaDto>> GetNotaCompra(int idEmpresa)
     {
         var notaCompra = await _dbContext.Nota
-                                    .AsNoTracking()
-                                    .Where(n =>
-                                        n.IdEmpresa == idEmpresa &&
-                                        n.TipoNota  == TipoNota.Compra)
-                                    .Select(n => _mapper.Map<NotaDto>(n))
-                                    .ToListAsync();
+                                         .AsNoTracking()
+                                         .Where(n =>
+                                             n.IdEmpresa == idEmpresa &&
+                                             n.TipoNota  == TipoNota.Compra)
+                                         .Select(n => _mapper.Map<NotaDto>(n))
+                                         .ToListAsync();
 
         return notaCompra;
     }

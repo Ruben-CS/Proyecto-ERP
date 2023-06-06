@@ -69,9 +69,8 @@ public partial class AgregarDetalleModal
             Cantidad     = Cantidad,
             FechaIngreso = FechaIngreso!.Value,
             Stock        = Cantidad,
-            NroLote      = NroLote,
             PrecioCompra = PrecioUnitario,
-            IdArticulo = idArticulo
+            IdArticulo   = idArticulo
         };
         await AddNewDetalleLote.InvokeAsync(loteDto);
     }

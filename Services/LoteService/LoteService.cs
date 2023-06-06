@@ -16,6 +16,10 @@ public sealed class LoteService
         await GetAsync<List<LoteDto>>(
             $"https://localhost:44321/lotes/getLotes/{idNota}");
 
+    public async Task<List<LoteDto>?> GetLotesPerArticleIdAsync(int idArticulo) =>
+        await GetAsync<List<LoteDto>>(
+            $"https://localhost:44321/lotes/getLotesPorArticulo/{idArticulo}");
+
     private async Task<T> GetAsync<T>(string url)
     {
         var response = await _httpClient.GetAsync(url);

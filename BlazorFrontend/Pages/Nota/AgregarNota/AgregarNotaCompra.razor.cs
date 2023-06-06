@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
+using System.Text;
 using Microsoft.AspNetCore.Components;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
@@ -112,7 +114,8 @@ public partial class AgregarNotaCompra
         {
             Snackbar.Add("Nota agregada exitosamente", Severity.Success);
             await AgregarLote();
-            NavigationManager.NavigateTo($"/anularNotaCompra/{IdEmpresa}/{Notas.Last().IdNota}");
+            NavigationManager.NavigateTo(
+                $"/anularNotaCompra/{IdEmpresa}/{Notas.Last().IdNota}");
         }
     }
 
@@ -124,15 +127,24 @@ public partial class AgregarNotaCompra
         await GetNotaCompras();
         var ultimoIdNota = Notas.Last().IdNota;
         var url          = $"https://localhost:44321/lotes/agregarLote/{ultimoIdNota}";
+        var emptyContent = new StringContent("", Encoding.UTF8, "application/json");
         try
         {
             foreach (var lote in DetalleParaLote)
-
             {
                 lote.IdNota = ultimoIdNota;
+                var nroLote = await CheckIfLoteHasExistingArticulo(lote.IdArticulo);
+                lote.NroLote = nroLote;
+                var urlEditarCantidadArticulo =
+                    $"https://localhost:44321/articulos/editarArticuloCantidad/{lote.IdArticulo}/{lote.Cantidad}";
                 var response = await HttpClient.PostAsJsonAsync(url, lote);
+                var responseEditar =
+                    await HttpClient.PutAsJsonAsync(urlEditarCantidadArticulo,
+                        emptyContent);
                 response.EnsureSuccessStatusCode();
+                responseEditar.EnsureSuccessStatusCode();
             }
+
             Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
         }
         catch (Exception e)
@@ -140,5 +152,13 @@ public partial class AgregarNotaCompra
             Console.WriteLine($"Error occurred while posting details: {e.Message}");
             Snackbar.Add("Error al guardar los detalles", Severity.Error);
         }
+    }
+
+    private async Task<int?> CheckIfLoteHasExistingArticulo(int idArticulo)
+    {
+        var lotePorArticulo = await LoteService.GetLotesPerArticleIdAsync(idArticulo);
+        if (lotePorArticulo.IsNullOrEmpty())
+            return 1;
+        return lotePorArticulo!.Max(n => n.NroLote) + 1;
     }
 }
