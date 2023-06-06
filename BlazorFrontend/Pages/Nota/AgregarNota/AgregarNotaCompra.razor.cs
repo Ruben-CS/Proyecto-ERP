@@ -38,12 +38,12 @@ public partial class AgregarNotaCompra
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
-    private ObservableCollection<LoteDto> DetalleParaLote = new();
+    private readonly ObservableCollection<LoteDto> _detalleParaLote = new();
 
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
 
-    private void AddNewDetalleLote(LoteDto lote) => DetalleParaLote.Add(lote);
+    private void AddNewDetalleLote(LoteDto lote) => _detalleParaLote.Add(lote);
 
 
     private readonly DialogOptions _options = new()
@@ -79,7 +79,7 @@ public partial class AgregarNotaCompra
                 "AddNewDetalleLote",
                 EventCallback.Factory.Create<LoteDto>(this, AddNewDetalleLote)
             },
-            { "NroLote", int.Parse(NroNota) }
+            {"_detalleParaLote", _detalleParaLote}
         };
 
         await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles",
@@ -89,13 +89,13 @@ public partial class AgregarNotaCompra
 
     private async Task AgregarCompra()
     {
-        if (DetalleParaLote.Count == 0)
+        if (_detalleParaLote.Count == 0)
         {
             Snackbar.Add("Debe agregar al menos un articulo", Severity.Info);
             return;
         }
 
-        var          total   = DetalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
+        var          total   = _detalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
         const string url     = "https://localhost:44321/notas/agregarNota";
         var          nroNota = GetNextNumeroNota();
         var nota = new NotaDto
@@ -130,7 +130,7 @@ public partial class AgregarNotaCompra
         var emptyContent = new StringContent("", Encoding.UTF8, "application/json");
         try
         {
-            foreach (var lote in DetalleParaLote)
+            foreach (var lote in _detalleParaLote)
             {
                 lote.IdNota = ultimoIdNota;
                 var nroLote = await CheckIfLoteHasExistingArticulo(lote.IdArticulo);

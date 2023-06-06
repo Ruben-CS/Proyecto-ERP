@@ -1,4 +1,3 @@
-@inject HttpClient HttpClient
 @inject ISnackbar Snackbar
 
 <MudDialog Style="border-radius:15px;">
@@ -12,28 +11,33 @@
                                  Required="true"
                                  RequiredError="Debe seleccionar un articulo"
                                  SearchFunc="Search1"
-                                 Variant="Variant.Outlined"/>
-                <MudTextField T="int"
+                                 Variant="Variant.Outlined"
+                                 Clearable="true"/>
+                <MudTextField T="int?"
                               @bind-Value="Cantidad"
                               Label="Cantidad"
                               Variant="Variant.Outlined"
                               Immediate="true"
                               Required="true"
                               RequiredError="Debe ingresar una cantidad"
+                              ErrorText="No se permiten palabras o numeros"
                               Class="right-aligned-input"/>
-                <MudDatePicker @bind-Value="FechaIngreso"
+                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
                                Label="Fecha de vencimiento"
-                               Variant="Variant.Outlined"
-                               Rounded="true"
-                               @bind-Date="FechaIngreso"/>
+                               @bind-Date="@FechaVencimiento"
+                               HelperText="(Opcional- dd/MM/yyy)"
+                               Variant="Variant.Outlined"/>
                 <MudTextField @bind-Value="PrecioUnitario"
                               Label="Precio Unitario"
                               Immediate="true"
                               Required="true"
                               RequiredError="Debe colocar un precio"
+                              ErrorText="No se permiten palabras o numeros"
                               Variant="Variant.Outlined"
                               Class="right-aligned-input"
-                              T="decimal"/>
+                              T="decimal?"/>
                 <MudTextField
                     Immediate="true"
                     Value="@SubTotal"
@@ -58,7 +62,8 @@
                    Size="Size.Small"
                    OnClick="Submit"
                    Class="rounded-pill mb-2 mr-2"
-                   Style="width: 100px;">
+                   Style="width: 100px;"
+                   Disabled="@(!_succes)">
             Agregar
         </MudButton>
     </DialogActions>

@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -9,7 +10,7 @@ public partial class AgregarDetalleModal
     private MudForm? _form;
     private bool     _succes;
 
-    private string SelectedArticulo { get; set; } = string.Empty;
+    private string? SelectedArticulo { get; set; }
 
     #region Parameters
 
@@ -29,23 +30,30 @@ public partial class AgregarDetalleModal
     public DateTime? FechaIngreso { get; set; }
 
     [Parameter]
-    public int NroLote { get; set; }
+    public ObservableCollection<LoteDto> _detalleParaLote { get; set; }
 
     #endregion
 
     #region Form Fields
 
-    private int Cantidad { get; set; }
+    private int? Cantidad { get; set; }
 
-    private decimal PrecioUnitario { get; set; }
+    private decimal? PrecioUnitario { get; set; }
 
-    private decimal SubTotal => Cantidad * PrecioUnitario;
+    private DateTime? FechaVencimiento { get; set; }
+
+    private decimal? SubTotal => Cantidad.HasValue && PrecioUnitario.HasValue
+        ? Cantidad.Value * PrecioUnitario.Value
+        : null;
+
+
+    private List<ArticuloDto>? _privateArticulos = new();
 
     #endregion
 
     private async Task<IEnumerable<string?>> Search1(string value)
     {
-        var nombreArticulos = Articulos.Select(a => a.Nombre).ToList();
+        var nombreArticulos = _privateArticulos.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
             return await Task.FromResult(nombreArticulos);
         return nombreArticulos.Where(a => a.Contains(value,
@@ -56,22 +64,31 @@ public partial class AgregarDetalleModal
     protected override void OnInitialized()
     {
         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+        _privateArticulos                    = Articulos;
     }
 
     private async Task Submit()
     {
-        //Todo validations
+        var articulo =
+            _privateArticulos!.SingleOrDefault(a => a.Nombre == SelectedArticulo);
+        if (_detalleParaLote.Any(d => d.IdArticulo == articulo.IdArticulo))
+        {
+            Snackbar.Add("No puede agregar el mismo articulo", Severity.Error);
+            return;
+        }
 
-        var idArticulo = Articulos.SingleOrDefault(a => a.Nombre == SelectedArticulo)
-                                  .IdArticulo;
         var loteDto = new LoteDto
         {
-            Cantidad     = Cantidad,
-            FechaIngreso = FechaIngreso!.Value,
-            Stock        = Cantidad,
-            PrecioCompra = PrecioUnitario,
-            IdArticulo   = idArticulo
+            Cantidad         = Cantidad!.Value,
+            FechaIngreso     = FechaIngreso!.Value,
+            Stock            = Cantidad.Value,
+            PrecioCompra     = PrecioUnitario!.Value,
+            FechaVencimiento = FechaVencimiento,
+            IdArticulo       = articulo!.IdArticulo
         };
+        Cantidad         = null;
+        PrecioUnitario   = null;
+        SelectedArticulo = null;
         await AddNewDetalleLote.InvokeAsync(loteDto);
     }
 
