@@ -8,6 +8,7 @@ using Services.CategoriaService;
 using Services.Comprobante;
 using Services.Cuenta;
 using Services.DetalleComprobante;
+using Services.DetalleVentaService;
 using Services.EmpresaMonedaService;
 using Services.Gestion;
 using Services.LoteService;
@@ -36,6 +37,7 @@ builder.Services.AddScoped<ArticuloService>();
 builder.Services.AddScoped<ArticuloCategoriaService>();
 builder.Services.AddScoped<NotaService>();
 builder.Services.AddScoped<LoteService>();
+builder.Services.AddScoped<DetalleVentaService>();
 builder.Services.AddBlazoredLocalStorage();
 var app = builder.Build();
 

@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Text;
 using BlazorFrontend.Pages.Nota.AgregarNota;
 using Microsoft.AspNetCore.Components;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
@@ -115,36 +114,27 @@ public partial class AgregarNotaVenta
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Nota agregada exitosamente", Severity.Success);
-            await AgregarLote();
+            await AgregarNota();
             NavigationManager.NavigateTo(
-                $"/anularNotaCompra/{IdEmpresa}/{Notas.Last().IdNota}");
+                $"/anularNotaVenta/{IdEmpresa}/{Notas.Last().IdNota}");
         }
     }
 
     private async Task GetNotaCompras() =>
         Notas = (await NotaService.GetNotaVentasAsync(IdEmpresa))!;
 
-    private async Task AgregarLote()
+    private async Task AgregarNota()
     {
         await GetNotaCompras();
         var ultimoIdNota = Notas.Last().IdNota;
-        var url          = $"https://localhost:44321/lotes/agregarLote/{ultimoIdNota}";
-        var emptyContent = new StringContent("", Encoding.UTF8, "application/json");
+        const string url = "https://localhost:44321/detalleVentas/agregarDetalleVenta";
         try
         {
-            foreach (var lote in _detalleParaVenta)
+            foreach (var detalle in _detalleParaVenta)
             {
-                lote.IdNota = ultimoIdNota;
-                var nroLote = await CheckIfLoteHasExistingArticulo();
-                lote.NroLote = nroLote!.Value;
-                var urlEditarCantidadArticulo =
-                    $"https://localhost:44321/articulos/editarArticuloCantidad/{lote.IdArticulo}/{lote.Cantidad}";
-                var response = await HttpClient.PostAsJsonAsync(url, lote);
-                var responseEditar =
-                    await HttpClient.PutAsJsonAsync(urlEditarCantidadArticulo,
-                        emptyContent);
+                detalle.IdNota = ultimoIdNota;
+                var response = await HttpClient.PostAsJsonAsync(url, detalle);
                 response.EnsureSuccessStatusCode();
-                responseEditar.EnsureSuccessStatusCode();
             }
 
             Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
@@ -154,13 +144,5 @@ public partial class AgregarNotaVenta
             Console.WriteLine($"Error occurred while posting details: {e.Message}");
             Snackbar.Add("Error al guardar los detalles", Severity.Error);
         }
-    }
-
-    private async Task<int?> CheckIfLoteHasExistingArticulo()
-    {
-        var lotePorArticulo = await NotaService.GetNotaVentasAsync(IdEmpresa);
-        if (lotePorArticulo.IsNullOrEmpty())
-            return 1;
-        return lotePorArticulo!.Max(n => n.NroNota) + 1;
     }
 }

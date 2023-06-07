@@ -35,4 +35,23 @@ public class DetalleVentaApiController : ControllerBase
         }
         return await Task.FromResult(_responseDto);
     }
+
+    [HttpGet("getDetalleVentas/{idNota:int}")]
+    public async Task<object> AgregarDetalleVenta([FromRoute] int idNota)
+    {
+        try
+        {
+            var result = await _detalleRepository.ListarDetalles(idNota);
+            _responseDto.Result = result;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>()
+            {
+                e.ToString()
+            };
+        }
+        return await Task.FromResult(_responseDto);
+    }
 }

@@ -47,4 +47,12 @@ public class DetalleRepository : IDetalleRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<IEnumerable<DetalleDto>> ListarDetalles(int idNota)
+    {
+        var detalleVenta = await _applicationDbContext.Detalle
+                                                      .Where(d => d.IdNota == idNota)
+                                                      .ToListAsync();
+        return _mapper.Map<List<DetalleDto>>(detalleVenta);
+    }
 }
