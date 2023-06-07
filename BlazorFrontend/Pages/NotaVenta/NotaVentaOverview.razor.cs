@@ -49,7 +49,7 @@ public partial class NotaVentaOverview
 
     private void NavigateToDetalleNota(int idNota)
     {
-        var uri = $" /anularNotaCompra/{IdEmpresa}/{idNota}";
+        var uri = $" /anularNotaVenta/{IdEmpresa}/{idNota}";
         NavigationManager.NavigateTo(uri);
     }
 }

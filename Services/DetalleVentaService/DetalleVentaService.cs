@@ -9,10 +9,10 @@ public sealed class DetalleVentaService
 
     public DetalleVentaService(HttpClient httpClient) => _httpClient = httpClient;
 
-    public async Task<List<DetalleDto>> GetDetalleComprobantesAsync(
-        int idComprobante) =>
+    public async Task<List<DetalleDto>> GetDetalleVentaAsync(
+        int idNota) =>
         await await Task.FromResult(GetApiResponseAsync<List<DetalleDto>>
-            ($"https://localhost:44352/detalleComprobantes/getDetallesById/{idComprobante}"));
+            ($"https://localhost:44321/detalleVentas/getDetalleVentas/{idNota}"));
 
     private async Task<T> GetApiResponseAsync<T>(string url)
     {

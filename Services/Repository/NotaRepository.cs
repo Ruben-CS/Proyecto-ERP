@@ -27,11 +27,11 @@ public class NotaRepository : INotaRepository
         return _mapper.Map<Nota, NotaDto>(nota);
     }
 
-    public async Task<bool> AnularNota(int notaId)
+    public async Task<bool> AnularNota(int idNota)
     {
-        var nota = await _dbContext.Nota.FirstOrDefaultAsync(n => n.IdNota == notaId);
+        var nota = await _dbContext.Nota.FirstOrDefaultAsync(n => n.IdNota == idNota);
 
-        var lotes = await _dbContext.Lotes.Where(x => x.IdNota == notaId).ToListAsync();
+        var lotes = await _dbContext.Lotes.Where(x => x.IdNota == idNota).ToListAsync();
 
         lotes.ForEach(l =>
         {
@@ -74,11 +74,11 @@ public class NotaRepository : INotaRepository
         return notaVenta;
     }
 
-    public async Task<NotaDto> GetNota(int notaId)
+    public async Task<NotaDto> GetNota(int idNota)
     {
         var nota = await _dbContext.Nota
                                    .AsNoTracking()
-                                   .FirstOrDefaultAsync(n => n.IdNota == notaId);
+                                   .FirstOrDefaultAsync(n => n.IdNota == idNota);
 
         if (nota == null)
         {
@@ -88,5 +88,46 @@ public class NotaRepository : INotaRepository
         var notaDto = _mapper.Map<NotaDto>(nota);
 
         return notaDto;
+    }
+
+    //todo optimize this code
+    public async Task<bool> AnularNotaVenta(int idNota)
+    {
+        var notaDeVenta =
+            await _dbContext.Nota.SingleOrDefaultAsync(x => x.IdNota == idNota);
+        var detalleDeVenta =
+            await _dbContext.Detalle.Where(x => x.IdNota == idNota).ToListAsync();
+
+        notaDeVenta!.EstadoNota = EstadoNota.Anulado;
+
+        foreach (var detalle in detalleDeVenta)
+        {
+            var restablecerCantidad = detalle.Cantidad;
+            var articulo =
+                await _dbContext.Articulo.SingleOrDefaultAsync(g =>
+                    g.IdArticulo == detalle.IdArticulo);
+            var lote = await _dbContext.Lotes.SingleOrDefaultAsync(g =>
+                g.NroLote == detalle.NroLote && g.IdArticulo == detalle.IdArticulo);
+
+            if (articulo != null)
+            {
+                articulo.Cantidad                += restablecerCantidad;
+                _dbContext.Entry(articulo).State =  EntityState.Modified;
+            }
+
+            if (lote != null)
+            {
+                lote.Stock += restablecerCantidad;
+                lote.EstadoLote = lote.Stock < 1 ? EstadoLote.Agotado : EstadoLote.Activo;
+                _dbContext.Entry(lote).State = EntityState.Modified;
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        _dbContext.Entry(notaDeVenta).State = EntityState.Modified;
+        await _dbContext.SaveChangesAsync();
+
+        return true;
     }
 }

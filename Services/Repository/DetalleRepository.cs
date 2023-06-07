@@ -24,24 +24,28 @@ public class DetalleRepository : IDetalleRepository
     {
         var detalleVenta = _mapper.Map<DetalleDto, Detalle>(dto);
 
-        var aritculo = await _applicationDbContext.Articulo.SingleAsync(a =>
+        var articulo = await _applicationDbContext.Articulo.SingleAsync(a =>
             a.IdArticulo == dto.IdArticulo);
 
-        aritculo.Cantidad -= dto.Cantidad;
+        articulo.Cantidad -= dto.Cantidad;
+        _applicationDbContext.Entry(articulo).State = EntityState.Modified; // <-- Mark as Modified
 
         var lotes = await _applicationDbContext.Lotes.Where(
             l => l.NroLote    == dto.NroLote &&
                  l.IdArticulo == dto.IdArticulo).ToListAsync();
 
-        lotes.First().Stock -= dto.Cantidad;
+        var lote = lotes.First();
+        lote.Stock -= dto.Cantidad;
 
-        if (lotes.First().Stock < 1)
-            lotes.First().EstadoLote = EstadoLote.Agotado;
+        if (lote.Stock < 1)
+            lote.EstadoLote = EstadoLote.Agotado;
+
+        _applicationDbContext.Entry(lote).State = EntityState.Modified; // <-- Mark as Modified
 
         await _applicationDbContext.AddAsync(detalleVenta);
         await _applicationDbContext.SaveChangesAsync();
         return _mapper.Map<Detalle, DetalleDto>(detalleVenta);
-    }
+     }
 
     public Task<bool> EliminarDetalleVenta(DetalleDto dto)
     {
@@ -51,8 +55,11 @@ public class DetalleRepository : IDetalleRepository
     public async Task<IEnumerable<DetalleDto>> ListarDetalles(int idNota)
     {
         var detalleVenta = await _applicationDbContext.Detalle
+                                                      .AsNoTracking()
                                                       .Where(d => d.IdNota == idNota)
+                                                      .Select(d =>
+                                                          _mapper.Map<DetalleDto>(d))
                                                       .ToListAsync();
-        return _mapper.Map<List<DetalleDto>>(detalleVenta);
+        return detalleVenta;
     }
 }

@@ -2,9 +2,10 @@
 @using global::Services.LoteService
 @using global::Services.NotaService
 @using global::Services.ArticuloService
+@using global::Services.DetalleVentaService
 @using Modelos.Models.Enums
 @inject NavigationManager NavigationManager
-@inject LoteService LoteService
+@inject DetalleVentaService DetalleVentaService
 @inject NotaService NotaService
 @inject ArticuloService ArticuloService
 @inject HttpClient HttpClient
@@ -22,10 +23,10 @@
             <MudIconButton Size="Size.Medium"
                            Icon="@Icons.Material.Rounded.ArrowBack"
                            Color="Color.Dark"
-                           OnClick="NavigateToNotaOverview"
+                           OnClick="NavigateToNotaVentaOverview"
                            Style="align-self: center"/>
         </MudTooltip>
-        Nota de compra
+        Nota de venta
         <MudTooltip Text="Imprimir nota"
                     Arrow="true"
                     Placement="Placement.Top">
@@ -53,7 +54,7 @@
                        Variant="Variant.Filled"
                        OnClick="AnularNota"
                        Style="justify-self: flex-end; align-self: center"
-                       Class="mb-4"
+                       Class="mb-4 rounded-pill"
                        Disabled="@(IsAnulado())">
                 <MudText>Anular nota de compra</MudText>
             </MudButton>
@@ -98,39 +99,38 @@
 
 
 <MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Dense="true"
-              RowsPerPage="4"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;"
-              Items="Lotes"
-              Striped="true">
-        <HeaderContent>
-            <MudTh>Articulo</MudTh>
-            <MudTh>Cantidad</MudTh>
-            <MudTh Style="text-align: right">Precio</MudTh>
-            <MudTh Style="text-align: right">Subtotal</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
-            <MudTd>@context.Cantidad</MudTd>
-            <MudTd Style="text-align: right">
-                @context.PrecioCompra.ToString("F2")
-            </MudTd>
-            <MudTd Style="text-align: right">
-                @(context.Cantidad * context.PrecioCompra)
-            </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTh/>
-            <MudTh/>
-            <MudTh/>
-            <MudTh Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: </MudText> @Total.ToString("F2")
-            </MudTh>
-        </FooterContent>
-    </MudTable>
+      <MudTable Hover="true"
+                Dense="true"
+                RowsPerPage="4"
+                Bordered="true"
+                Elevation="0"
+                Style="border-radius: 15px;"
+                Items="Detalles"
+                Striped="true">
+          <HeaderContent>
+              <MudTh>Articulo</MudTh>
+              <MudTh>Lote</MudTh>
+              <MudTh>Cantidad</MudTh>
+              <MudTh>Precio</MudTh>
+              <MudTh>Subtotal</MudTh>
+          </HeaderContent>
+          <RowTemplate>
+              <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+              <MudTd>@context.NroLote</MudTd>
+              <MudTd>@context.Cantidad</MudTd>
+              <MudTd>@context.PrecioVenta</MudTd>
+              <MudTd>
+                  @(context.Cantidad * context.PrecioVenta)
+              </MudTd>
+          </RowTemplate>
+          <FooterContent>
+              <MudTh/>
+              <MudTh/>
+              <MudTh/>
+              <MudTh/>
+              <MudTh>Total: @Total</MudTh>
+          </FooterContent>
+      </MudTable>
 </MudPaper>
 <style>
     .right-aligned-input input {
@@ -149,7 +149,7 @@
     [Parameter]
     public int IdEmpresa { get; set; }
 
-    private List<LoteDto> Lotes { get; set; } = new();
+    private List<DetalleDto> Detalles { get; set; } = new();
 
     private NotaDto Nota { get; set; } = new();
 
@@ -172,7 +172,7 @@
             {
                 IdEmpresa = idempresa;
                 IdNota = id;
-                Lotes = (await LoteService.GetLotesAsync(IdNota))!;
+                Detalles = (await DetalleVentaService.GetDetalleVentaAsync(IdNota))!;
                 Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
                 Nota = await NotaService.GetNotaAsync(IdNota);
             }
@@ -189,9 +189,9 @@
         }
     }
 
-    private void NavigateToNotaOverview()
+    private void NavigateToNotaVentaOverview()
     {
-        var uri = $"/notaCompraOverview/{IdEmpresa}";
+        var uri = $"/notaVentaOverview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
 
@@ -203,13 +203,11 @@
 
     private async Task AnularNota()
     {
-        var uriAnularLote = $"https://localhost:44321/lotes/anularLote/{IdNota}";
-        var uriAnularNota = $"https://localhost:44321/notas/anularNota/{IdNota}";
+        var uriAnularNota = $"https://localhost:44321/notas/anularNotaVenta/{IdNota}";
 
-        var responseLote = await HttpClient.DeleteAsync(uriAnularLote);
         var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
 
-        if (responseLote.IsSuccessStatusCode && responseNota.IsSuccessStatusCode)
+        if (responseNota.IsSuccessStatusCode)
         {
             Snackbar.Add("Nota anulada exitosamente", Severity.Success);
             await RefreshList();
@@ -219,13 +217,13 @@
 
     private async Task RefreshList()
     {
-        Lotes = (await LoteService.GetLotesAsync(IdNota))!;
+        Detalles = (await DetalleVentaService.GetDetalleVentaAsync(IdNota))!;
         await InvokeAsync(StateHasChanged);
     }
 
     private bool IsAnulado() => Nota.EstadoNota == EstadoNota.Anulado;
 
-    private decimal Total => Lotes.Sum(d => d.PrecioCompra * d.Cantidad);
+    private decimal Total => Detalles.Sum(d => d.PrecioVenta * d.Cantidad);
 
     private string GetArticuloName(int idArticulo) =>
         Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
