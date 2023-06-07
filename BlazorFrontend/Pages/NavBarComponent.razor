@@ -168,6 +168,17 @@
                 </MudText>
             </MudNavLink>
 
+            <MudNavLink Href="@NavitgateToIntegCuentas()"
+                        Icon="@Icons.Material.Rounded.AccountTree"
+                        Match="NavLinkMatch.Prefix">
+                <MudTooltip Text="Integracion de cuentas"
+                            ShowOnClick="false"
+                            ShowOnFocus="false">
+                    <MudText>
+                        Integracion
+                    </MudText>
+                </MudTooltip>
+            </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 
@@ -239,6 +250,8 @@
         $"/notaVentaOverview/{IdEmpresa}";
 
     private string NavigateToArticulo() => $"/articulo/{IdEmpresa}";
+
+    private string NavitgateToIntegCuentas() => $"/integracionCuentas/{IdEmpresa}";
 
     private async Task CerrarSesion()
     {

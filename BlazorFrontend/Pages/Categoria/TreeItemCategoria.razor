@@ -10,7 +10,7 @@
                      Icon="@(_folderTwoExpanded ?
                                Icons.Custom.Uncategorized.FolderOpen :
                                Icons.Custom.Uncategorized.Folder)"
-                     @bind-Expanded="@_folderTwoExpanded"
+                     Expanded="true"
                      OnClick="@(() => OnItemClick(Value))">
         @if (Value.CuentasHijas.Count > 0)
         {

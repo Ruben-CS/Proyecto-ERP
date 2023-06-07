@@ -1,0 +1,264 @@
+@page "/integracionCuentas/{idempresa:int}"
+@using global::Services.Cuenta
+@using BlazorFrontend.Services
+@layout MonedaDashBoardLayout
+@inject NavigationManager NavigationManager
+@inject CuentaService CuentaService
+@inject EmpresaService EmpresaService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<NavBarComponent IdEmpresa="IdEmpresa"/>
+
+<MudStack Row="true"
+          AlignItems="AlignItems.Baseline"
+          Justify="Justify.SpaceBetween"
+          Spacing="6">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
+        Configuracion de integracion
+    </MudText>
+    <div style="display: flex; align-items: center;">
+        <MudSwitch @bind-Checked="Configurar"
+                   Label="Activar configuracion"
+                   Size="Size.Large"
+                   Color="Color.Success"/>
+        <MudButton ButtonType="ButtonType.Button"
+                   Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Style="justify-self: flex-end; align-self: center"
+                   Class="ml-4 rounded-pill"
+                   OnClick="GuardarConfiguracion">
+            <MudText Typo="Typo.button">Guardar Configuracion</MudText>
+        </MudButton>
+    </div>
+</MudStack>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudPaper Style="padding:15px; border-radius:15px;">
+    <MudStack AlignItems="AlignItems.Center"
+              Justify="Justify.SpaceEvenly"
+              Spacing="2">
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta1"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Caja"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta2"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Credito Fiscal"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta3"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Debito Fiscal"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta4"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Compras"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta5"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="IT"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta6"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Venta"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta7"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="IT por Pagar"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+    </MudStack>
+</MudPaper>
+
+@code {
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    private List<CuentaDto> Cuentas { get; set; } = new();
+
+    private bool Configurar { get; set; }
+
+    public EmpresaDto Empresa { get; set; } = new();
+
+    #region Fields
+
+    private string? Cuenta1 { get; set; }
+
+    private string? Cuenta2 { get; set; }
+
+    private string? Cuenta3 { get; set; }
+
+    private string? Cuenta4 { get; set; }
+
+    private string? Cuenta5 { get; set; }
+
+    private string? Cuenta6 { get; set; }
+
+    private string? Cuenta7 { get; set; }
+
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
+            {
+                IdEmpresa = int.Parse(idValue);
+                Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
+                Empresa = (await EmpresaService.GetEmpresaByIdAsync(IdEmpresa))!;
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                throw new KeyNotFoundException(
+                    "The 'id' parameter was not found in the query string.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"An error occurred while initializing the component: {ex}");
+        }
+    }
+
+    public async Task GuardarConfiguracion()
+    {
+        var properties = new[]
+        {
+            Cuenta1, Cuenta2, Cuenta3, Cuenta4, Cuenta5, Cuenta6, Cuenta7
+        };
+        var codigosCuenta = new List<int>();
+        var uri = $"https://localhost:44378/ingtegracion/agregarConfiguracion/{IdEmpresa}";
+
+        if (properties.Any(string.IsNullOrEmpty))
+        {
+            Snackbar.Add("No pueden haber campos vacios", Severity.Error);
+            return;
+        }
+        if (properties.Distinct().Count() != properties.Length)
+        {
+            Snackbar.Add("No pueden haber campos duplicados", Severity.Error);
+            return;
+        }
+        foreach (var nombreCuentas in properties)
+        {
+            var codigoCuenta = ExtractCodigo(nombreCuentas!);
+            var idCuenta = Cuentas.SingleOrDefault(c => c.Codigo == codigoCuenta)!.IdCuenta;
+            codigosCuenta.Add(idCuenta);
+        }
+
+        Empresa.Cuenta1 = codigosCuenta.First();
+        Empresa.Cuenta2 = codigosCuenta[2];
+        Empresa.Cuenta3 = codigosCuenta[3];
+        Empresa.Cuenta4 = codigosCuenta[4];
+        Empresa.Cuenta5 = codigosCuenta[5];
+        Empresa.Cuenta6 = codigosCuenta[6];
+        Empresa.Cuenta7 = codigosCuenta.Last();
+
+        var response = await HttpClient.PutAsJsonAsync(uri,Empresa);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Configuracion guardada exitosamente", Severity.Success);
+        }
+
+    }
+
+    private async Task<IEnumerable<string>> SearchCuenta(string value)
+    {
+        IEnumerable<string> nombreCuentas =
+            Cuentas.Select(c => $"{c.Codigo} - {c.Nombre}").ToList();
+        if (string.IsNullOrEmpty(value))
+        {
+            return await Task.FromResult(nombreCuentas);
+        }
+        return nombreCuentas.Where(c =>
+            c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private static string ExtractCodigo(string nombreCuenta)
+    {
+        var separatorIndex = nombreCuenta.IndexOf(" - ", StringComparison.Ordinal);
+
+        if (separatorIndex == -1)
+            return string.Empty;
+        var numberPart = nombreCuenta[..separatorIndex].Trim();
+
+        return IsValidNumberPart(numberPart) ? numberPart : string.Empty;
+    }
+
+    private static bool IsValidNumberPart(string numberPart)
+    {
+        var segments = numberPart.Split('.');
+        if (segments.Any(segment => !int.TryParse(segment, out _)))
+        {
+            return false;
+        }
+
+        return segments.Length >= 3 && segments.Length <= 7;
+    }
+
+}

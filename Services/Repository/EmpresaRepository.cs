@@ -77,26 +77,19 @@ public class EmpresaRepository : IEmpresaRepository
     {
         var empresa = await _applicationDbContext.Empresas.FirstOrDefaultAsync(x =>
             x.IdEmpresa == idEmpresa && x.IsDeleted == false);
-        var cuentas = new[]
-        {
-            dto.Cuenta1, dto.Cuenta2, dto.Cuenta3, dto.Cuenta4,
-            dto.Cuenta5, dto.Cuenta6, dto.Cuenta7
-        };
-        var distinctCuentas = cuentas.Distinct();
-        if (cuentas.Length != distinctCuentas.Count())
-        {
-            return false;
-        }
-        empresa.Cuenta1 = dto.Cuenta1;
-        empresa.Cuenta2 = dto.Cuenta2;
-        empresa.Cuenta3 = dto.Cuenta3;
-        empresa.Cuenta4 = dto.Cuenta4;
-        empresa.Cuenta5 = dto.Cuenta5;
-        empresa.Cuenta6 = dto.Cuenta6;
-        empresa.Cuenta7 = dto.Cuenta7;
-        _applicationDbContext.Empresas.Attach(empresa);
+
+        if (empresa == null) return false;
+        empresa.Cuenta1                            = dto.Cuenta1;
+        empresa.Cuenta2                            = dto.Cuenta2;
+        empresa.Cuenta3                            = dto.Cuenta3;
+        empresa.Cuenta4                            = dto.Cuenta4;
+        empresa.Cuenta5                            = dto.Cuenta5;
+        empresa.Cuenta6                            = dto.Cuenta6;
+        empresa.Cuenta7                            = dto.Cuenta7;
+        _applicationDbContext.Entry(empresa).State = EntityState.Modified;
         await _applicationDbContext.SaveChangesAsync();
         return true;
+
     }
 
     public async Task<bool> CambiarEstadoDeIntegracionTrue(EmpresaDto  dto, int idEmpresa)

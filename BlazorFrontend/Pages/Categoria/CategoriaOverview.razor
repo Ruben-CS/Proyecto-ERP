@@ -15,7 +15,9 @@
                      Hover="true"
                      @bind-SelectedValue="SelectedValue"
                      Width="500px">
-            <MudTreeViewItem T="TreeItemDataCategoria" Text="Categorias" Expanded="true"
+            <MudTreeViewItem T="TreeItemDataCategoria"
+                             Text="Categorias"
+                             Expanded="true"
                              Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
                 @if (IsLoading)
                 {

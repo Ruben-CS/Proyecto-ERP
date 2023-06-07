@@ -140,6 +140,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VzaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Integracion/IntegracionCuentas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW50ZWdyYWNpb25cSW50ZWdyYWNpb25DdWVudGFzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Moneda/MonedaDashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9uZWRhXE1vbmVkYURhc2hib2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
