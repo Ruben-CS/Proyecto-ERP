@@ -41,9 +41,9 @@ public partial class NotaVentaOverview
         }
     }
 
-    private void NavigateToCrearNotaCompra()
+    private void NavigateToCrearNotaVenta()
     {
-        var uri = $"/agregarNota/{IdEmpresa}";
+        var uri = $"/agregarNotaVenta/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
 

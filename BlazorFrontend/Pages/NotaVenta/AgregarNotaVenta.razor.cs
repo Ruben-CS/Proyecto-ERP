@@ -121,7 +121,7 @@ public partial class AgregarNotaVenta
     }
 
     private async Task GetNotaCompras() =>
-        Notas = (await NotaService.GetNotaComprasAsync(IdEmpresa))!;
+        Notas = (await NotaService.GetNotaVentasAsync(IdEmpresa))!;
 
     private async Task AgregarLote()
     {
@@ -134,7 +134,7 @@ public partial class AgregarNotaVenta
             foreach (var lote in _detalleParaVenta)
             {
                 lote.IdNota = ultimoIdNota;
-                var nroLote = await CheckIfLoteHasExistingArticulo(lote.IdArticulo);
+                var nroLote = await CheckIfLoteHasExistingArticulo();
                 lote.NroLote = nroLote!.Value;
                 var urlEditarCantidadArticulo =
                     $"https://localhost:44321/articulos/editarArticuloCantidad/{lote.IdArticulo}/{lote.Cantidad}";
@@ -155,11 +155,11 @@ public partial class AgregarNotaVenta
         }
     }
 
-    private async Task<int?> CheckIfLoteHasExistingArticulo(int idArticulo)
+    private async Task<int?> CheckIfLoteHasExistingArticulo()
     {
-        var lotePorArticulo = await LoteService.GetLotesPerArticleIdAsync(idArticulo);
+        var lotePorArticulo = await NotaService.GetNotaVentasAsync(IdEmpresa);
         if (lotePorArticulo.IsNullOrEmpty())
             return 1;
-        return lotePorArticulo!.Max(n => n.NroLote) + 1;
+        return lotePorArticulo!.Max(n => n.NroNota) + 1;
     }
 }

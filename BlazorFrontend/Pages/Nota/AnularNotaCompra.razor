@@ -191,7 +191,7 @@
 
     private void NavigateToNotaOverview()
     {
-        var uri = $"/notaCompraOverview/{IdEmpresa}";
+        var uri = $"/notaVentaOverview/{IdEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
 
@@ -203,13 +203,11 @@
 
     private async Task AnularNota()
     {
-        var uriAnularLote = $"https://localhost:44321/lotes/anularLote/{IdNota}";
         var uriAnularNota = $"https://localhost:44321/notas/anularNota/{IdNota}";
 
-        var responseLote = await HttpClient.DeleteAsync(uriAnularLote);
         var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
 
-        if (responseLote.IsSuccessStatusCode && responseNota.IsSuccessStatusCode)
+        if (responseNota.IsSuccessStatusCode)
         {
             Snackbar.Add("Nota anulada exitosamente", Severity.Success);
             await RefreshList();
