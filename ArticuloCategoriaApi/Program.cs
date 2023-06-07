@@ -31,6 +31,7 @@ builder.Services.AddScoped<IArticuloRepository, ArticuloRepository>();
 builder.Services.AddScoped<IArticuloCategoriaRepository,ArticuloCategoriaRepository>();
 builder.Services.AddScoped<INotaRepository, NotaRepository>();
 builder.Services.AddScoped<ILoteRepository, LoteRepository>();
+builder.Services.AddScoped<IDetalleRepository, DetalleRepository>();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();

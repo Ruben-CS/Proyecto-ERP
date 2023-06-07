@@ -43,7 +43,7 @@ public class ArticuloRepository : IArticuloRepository
 
         if (articulo is null)
         {
-            throw new NullReferenceException("Cuenta no encontrada");
+            throw new NullReferenceException("Articulo no encontrado");
         }
 
         dto.IdEmpresa = articulo.IdEmpresa;
@@ -51,6 +51,23 @@ public class ArticuloRepository : IArticuloRepository
         _applicationDbContext.Entry(articulo).State = EntityState.Modified;
         await _applicationDbContext.SaveChangesAsync();
         return await Task.FromResult(_mapper.Map<ArticuloDto>(articulo));
+    }
+
+    //Todo fix this security risk goddamit but it'll do for now
+    public async Task<bool> EditarCantidadArticulo(int idArticulo, int cantidad)
+    {
+        var articulo =
+            await _applicationDbContext.Articulo.SingleOrDefaultAsync(a =>
+                a.IdArticulo == idArticulo);
+        if (articulo is null)
+        {
+            return await Task.FromResult(false);
+        }
+
+        articulo.Cantidad                           += cantidad;
+        _applicationDbContext.Entry(articulo).State =  EntityState.Modified;
+        await _applicationDbContext.SaveChangesAsync();
+        return await Task.FromResult(true);
     }
 
     public async Task<ArticuloDto> GetSingleArticulo(int idArticulo)

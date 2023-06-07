@@ -48,4 +48,14 @@ public class Empresa
     public Usuario? Usuario { get; set; }
 
     public List<Comprobante>? Comprobantes { get; set; }
+
+    public bool? TieneIntegracion { get; set; } = false;
+
+    public int? Cuenta1 { get; set; }
+    public int? Cuenta2 { get; set; }
+    public int? Cuenta3 { get; set; }
+    public int? Cuenta4 { get; set; }
+    public int? Cuenta5 { get; set; }
+    public int? Cuenta6 { get; set; }
+    public int? Cuenta7 { get; set; }
 }

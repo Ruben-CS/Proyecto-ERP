@@ -1,7 +1,6 @@
 using Modelos.Models.Dtos;
 using Newtonsoft.Json;
 
-
 namespace Services.DetalleComprobante;
 
 public class DetalleComprobanteService

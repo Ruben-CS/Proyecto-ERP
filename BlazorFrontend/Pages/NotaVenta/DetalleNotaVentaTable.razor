@@ -1,0 +1,46 @@
+@using Color = MudBlazor.Color
+@using Size = MudBlazor.Size
+
+<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
+    <MudTable Hover="true"
+              Dense="true"
+              RowsPerPage="4"
+              Bordered="true"
+              Elevation="0"
+              Style="border-radius: 15px;"
+              Items="DetalleCompra"
+              Striped="true">
+        <HeaderContent>
+            <MudTh>Articulo</MudTh>
+            <MudTh>Lote</MudTh>
+            <MudTh>Cantidad</MudTh>
+            <MudTh>Precio</MudTh>
+            <MudTh>Subtotal</MudTh>
+            <MudTh>Acciones</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+            <MudTd>@context.NroLote</MudTd>
+            <MudTd>@context.Cantidad</MudTd>
+            <MudTd>@context.PrecioVenta</MudTd>
+            <MudTd>
+                @(context.Cantidad * context.PrecioVenta)
+            </MudTd>
+            <MudTd>
+                <MudTooltip Text="Eliminar">
+                <MudIconButton Size="Size.Small"
+                               Icon="@Icons.Material.Rounded.Delete"
+                               Color="Color.Error"
+                               OnClick="() => DeleteEntry(context)"/>
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+        <FooterContent>
+            <MudTh/>
+            <MudTh/>
+            <MudTh/>
+            <MudTh/>
+            <MudTh>Total: @Total</MudTh>
+        </FooterContent>
+    </MudTable>
+</MudPaper>

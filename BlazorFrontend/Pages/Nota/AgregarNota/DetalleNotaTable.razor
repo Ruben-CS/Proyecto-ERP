@@ -1,3 +1,6 @@
+@using System.Drawing
+@using Color = MudBlazor.Color
+@using Size = MudBlazor.Size
 @inject IDialogService DialogService
 
 <MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
@@ -14,12 +17,21 @@
             <MudTh>Cantidad</MudTh>
             <MudTh>Precio</MudTh>
             <MudTh>Subtotal</MudTh>
+            <MudTh>Acciones</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
             <MudTd>@context.Cantidad</MudTd>
             <MudTd>@context.PrecioCompra</MudTd>
             <MudTd>@(context.Cantidad * context.PrecioCompra)</MudTd>
+            <MudTd>
+                <MudTooltip Text="Eliminar">
+                <MudIconButton Size="Size.Small"
+                               Icon="@Icons.Material.Rounded.Delete"
+                               Color="Color.Error"
+                               OnClick="() => DeleteEntry(context)"/>
+                </MudTooltip>
+            </MudTd>
         </RowTemplate>
         <FooterContent>
             <MudTh/>

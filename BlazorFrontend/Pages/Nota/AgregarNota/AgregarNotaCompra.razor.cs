@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
+using System.Text;
 using Microsoft.AspNetCore.Components;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
@@ -36,12 +38,12 @@ public partial class AgregarNotaCompra
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
-    private ObservableCollection<LoteDto> DetalleParaLote = new();
+    private readonly ObservableCollection<LoteDto> _detalleParaLote = new();
 
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
 
-    private void AddNewDetalleLote(LoteDto lote) => DetalleParaLote.Add(lote);
+    private void AddNewDetalleLote(LoteDto lote) => _detalleParaLote.Add(lote);
 
 
     private readonly DialogOptions _options = new()
@@ -77,7 +79,7 @@ public partial class AgregarNotaCompra
                 "AddNewDetalleLote",
                 EventCallback.Factory.Create<LoteDto>(this, AddNewDetalleLote)
             },
-            { "NroLote", int.Parse(NroNota) }
+            {"_detalleParaLote", _detalleParaLote}
         };
 
         await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles",
@@ -87,13 +89,13 @@ public partial class AgregarNotaCompra
 
     private async Task AgregarCompra()
     {
-        if (DetalleParaLote.Count == 0)
+        if (_detalleParaLote.Count == 0)
         {
             Snackbar.Add("Debe agregar al menos un articulo", Severity.Info);
             return;
         }
 
-        var          total   = DetalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
+        var          total   = _detalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
         const string url     = "https://localhost:44321/notas/agregarNota";
         var          nroNota = GetNextNumeroNota();
         var nota = new NotaDto
@@ -112,7 +114,8 @@ public partial class AgregarNotaCompra
         {
             Snackbar.Add("Nota agregada exitosamente", Severity.Success);
             await AgregarLote();
-            NavigationManager.NavigateTo($"/anularNotaCompra/{IdEmpresa}/{Notas.Last().IdNota}");
+            NavigationManager.NavigateTo(
+                $"/anularNotaCompra/{IdEmpresa}/{Notas.Last().IdNota}");
         }
     }
 
@@ -124,15 +127,24 @@ public partial class AgregarNotaCompra
         await GetNotaCompras();
         var ultimoIdNota = Notas.Last().IdNota;
         var url          = $"https://localhost:44321/lotes/agregarLote/{ultimoIdNota}";
+        var emptyContent = new StringContent("", Encoding.UTF8, "application/json");
         try
         {
-            foreach (var lote in DetalleParaLote)
-
+            foreach (var lote in _detalleParaLote)
             {
                 lote.IdNota = ultimoIdNota;
+                var nroLote = await CheckIfLoteHasExistingArticulo(lote.IdArticulo);
+                lote.NroLote = nroLote;
+                var urlEditarCantidadArticulo =
+                    $"https://localhost:44321/articulos/editarArticuloCantidad/{lote.IdArticulo}/{lote.Cantidad}";
                 var response = await HttpClient.PostAsJsonAsync(url, lote);
+                var responseEditar =
+                    await HttpClient.PutAsJsonAsync(urlEditarCantidadArticulo,
+                        emptyContent);
                 response.EnsureSuccessStatusCode();
+                responseEditar.EnsureSuccessStatusCode();
             }
+
             Snackbar.Add("Detalles guardados exitosamente", Severity.Success);
         }
         catch (Exception e)
@@ -140,5 +152,13 @@ public partial class AgregarNotaCompra
             Console.WriteLine($"Error occurred while posting details: {e.Message}");
             Snackbar.Add("Error al guardar los detalles", Severity.Error);
         }
+    }
+
+    private async Task<int?> CheckIfLoteHasExistingArticulo(int idArticulo)
+    {
+        var lotePorArticulo = await LoteService.GetLotesPerArticleIdAsync(idArticulo);
+        if (lotePorArticulo.IsNullOrEmpty())
+            return 1;
+        return lotePorArticulo!.Max(n => n.NroLote) + 1;
     }
 }

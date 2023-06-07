@@ -64,7 +64,7 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
         var listaEmpresaMonedas =
             _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa);
         await listaEmpresaMonedas.ForEachAsync(em =>
-            em.Estado = EstadoEmpresaMoneda.Cerrado);
+            em.Estado = EstadoEmpresaMoneda.Inactivo);
 
         await _applicationDbContext.EmpresaMonedas.AddAsync(empresaMonedaDb);
         await _applicationDbContext.SaveChangesAsync();
@@ -96,7 +96,7 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
     public async Task<List<EmpresaMonedaDto>> GetMonedaAlternativasPerEmpresa(int idEmpresa)
     {
         var empresaMonedasActivas = await _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa &&
-            em.Estado == EstadoEmpresaMoneda.Abierto).ToListAsync();
+            em.Estado == EstadoEmpresaMoneda.Activo).ToListAsync();
         return await Task.FromResult(_mapper.Map<List<EmpresaMonedaDto>>(empresaMonedasActivas));
     }
 }

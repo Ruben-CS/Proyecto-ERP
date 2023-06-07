@@ -1,5 +1,6 @@
 @page "/notaCompraOverview/{idempresa:int}"
 @using global::Services.NotaService
+@using Modelos.Models.Enums
 @inject NavigationManager NavigationManager
 @inject NotaService NotaService
 @layout ComprobanteLayout
@@ -24,45 +25,65 @@
             Light="false"
             Style="border-top-width: 3px;"
             Class="mb-5"/>
+
 <MudTable Hover="true"
           Striped="true"
-          RowsPerPage="7"
+          RowsPerPage="6"
           Items="Notas"
           Elevation="3"
           Class="fade-in"
           Bordered="true"
-          Style="border-radius: 15px;">
+          Style="border-radius: 15px;"
+          LoadingProgressColor="Color.Dark"
+          Loading="IsLoading">
     <HeaderContent>
-        <MudTh>Tipo</MudTh>
-        <MudTh>
+        <MudTh Style="text-align: center;">
             <MudTableSortLabel InitialDirection="SortDirection.Descending"
                                SortBy="new Func<NotaDto, object>(x => x.NroNota)">
                 Nro Nota
             </MudTableSortLabel>
 
         </MudTh>
-        <MudTh>
+        <MudTh Style="text-align: center">
             Fecha
         </MudTh>
-        <MudTh>Total</MudTh>
-        <MudTh>Estado</MudTh>
-        <MudTh Style="text-align: center">Acciones</MudTh>
+        <MudTh Style="text-align: right">
+            Total
+        </MudTh>
+        <MudTh Style="text-align: center">
+            Estado
+        </MudTh>
+        <MudTh Style="text-align: center">
+            Acciones
+        </MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Tipo">
-            @context.TipoNota
-        </MudTd>
-        <MudTd DataLabel="Nro Nota">
+        <MudTd DataLabel="Nro Nota" Style="width: 180px; text-align: center">
             @context.NroNota
         </MudTd>
-        <MudTd DataLabel="Fecha">
+        <MudTd DataLabel="Fecha" Style="text-align: center">
             @context.Fecha.ToShortDateString()
         </MudTd>
-        <MudTd DataLabel="Total">
+        <MudTd DataLabel="Total" Style="text-align: right">
             @context.Total.ToString("F2")
         </MudTd>
-        <MudTd DataLabel="Estado">
-            @context.EstadoNota
+        <MudTd DataLabel="Estado" Style="text-align: center">
+            @if (context.EstadoNota == EstadoNota.Activo)
+            {
+                <MudChip Variant="Variant.Text"
+                         Color="Color.Secondary"
+                         Size="Size.Small">
+                    @context.EstadoNota
+                </MudChip>
+            }
+            else
+            {
+                <MudChip Variant="Variant.Text"
+                         Color="Color.Dark"
+                         Size="Size.Small">
+                    @context.EstadoNota
+                </MudChip>
+            }
         </MudTd>
         <MudTd Style="text-align: center">
             <MudTooltip Text="Ver detalles" Arrow="true" Placement="Placement.Bottom">
@@ -74,4 +95,9 @@
             </MudTooltip>
         </MudTd>
     </RowTemplate>
+    <PagerContent>
+        <MudTablePager HorizontalAlignment="HorizontalAlignment.Left"
+                       HidePageNumber="true"
+                       HideRowsPerPage="true"/>
+    </PagerContent>
 </MudTable>

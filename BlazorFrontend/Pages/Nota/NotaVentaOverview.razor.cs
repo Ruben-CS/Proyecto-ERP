@@ -3,15 +3,18 @@ using Modelos.Models.Dtos;
 
 namespace BlazorFrontend.Pages.Nota;
 
-public partial class NotaCompraOverview
+public partial class NotaVentaOverview
 {
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private bool IsLoading { get; set; }
 
     private List<NotaDto>? Notas { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
+        IsLoading = true;
         try
         {
             var uri      = new Uri(NavigationManager.Uri);
@@ -22,6 +25,7 @@ public partial class NotaCompraOverview
                 await base.OnInitializedAsync();
                 IdEmpresa = int.Parse(idValue);
                 Notas     = await NotaService.GetNotaComprasAsync(IdEmpresa);
+                IsLoading = false;
                 await InvokeAsync(StateHasChanged);
             }
             else

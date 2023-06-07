@@ -89,23 +89,7 @@ public class ApplicationDbContext : DbContext
                     .Property(d => d.PrecioVenta)
                     .HasPrecision(18, 4);
 
-        modelBuilder.Entity<Detalle>()
-                    .HasOne(d => d.Articulo)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdArticulo)
-                    .OnDelete(DeleteBehavior.Restrict); // Set cascade behavior to restrict
 
-        modelBuilder.Entity<Detalle>()
-                    .HasOne(d => d.Lote)
-                    .WithMany()
-                    .HasForeignKey(d => new { d.NroLote, d.IdArticulo })
-                    .OnDelete(DeleteBehavior.Restrict); // Set cascade behavior to restrict
-
-        modelBuilder.Entity<Detalle>()
-                    .HasOne(d => d.Nota)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdNota)
-                    .OnDelete(DeleteBehavior.Restrict);
 
         #region Configuracion Empresa
 

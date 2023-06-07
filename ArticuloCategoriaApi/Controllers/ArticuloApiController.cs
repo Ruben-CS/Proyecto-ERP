@@ -79,12 +79,34 @@ public class ArticuloApiController : ControllerBase
 
     [HttpPut("editarArticulo/{idArticulo:int}")]
     public async Task<object> EditArticulo([FromBody]  ArticuloDto articuloDto,
-                                            [FromRoute] int          idArticulo)
+                                           [FromRoute] int         idArticulo)
     {
         try
         {
             var categoria =
                 await _articuloRepository.EditarArticulo(articuloDto, idArticulo);
+            await Task.FromResult(_responseDto.Result = categoria);
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
+
+        return await Task.FromResult(_responseDto);
+    }
+
+    [HttpPut("editarArticuloCantidad/{idArticulo:int}/{cantidad:int}")]
+    public async Task<object> EditArticuloCanitdad([FromRoute] int idArticulo,
+                                                   [FromRoute] int cantidad)
+    {
+        try
+        {
+            var categoria =
+                await _articuloRepository.EditarCantidadArticulo(idArticulo, cantidad);
             await Task.FromResult(_responseDto.Result = categoria);
         }
         catch (Exception e)

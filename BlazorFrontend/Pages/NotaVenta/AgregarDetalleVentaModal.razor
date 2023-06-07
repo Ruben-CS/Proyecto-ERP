@@ -1,0 +1,85 @@
+@using global::Services.LoteService
+@inject ISnackbar Snackbar
+@inject LoteService LoteService
+
+<MudDialog Style="border-radius:15px;">
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_succes">
+            <MudStack Row="true">
+                <MudAutocomplete Value="SelectedArticulo"
+                                 T="string"
+                                 Label="Aritculos"
+                                 HelperText="Seleccione un articulo"
+                                 Required="true"
+                                 RequiredError="Debe seleccionar un articulo"
+                                 SearchFunc="Search1"
+                                 ValueChanged="@(v => UpdateSelectedArticulo(v))"
+                                 Variant="Variant.Outlined"
+                                 Clearable="true"/>
+                <MudSelect T="int?"
+                           @bind-Value="SelectedNroLote"
+                           Label="Nro Lote"
+                           Variant="Variant.Outlined"
+                           Immediate="true"
+                           Style="width: 150px;">
+                    @if (NroLotes != null)
+                    {
+                        @foreach (var nroLote in NroLotes)
+                        {
+                            <MudSelectItem Value="@nroLote">@nroLote</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+                <MudTextField T="int?"
+                              @bind-Value="Cantidad"
+                              Label="Cantidad"
+                              Variant="Variant.Outlined"
+                              Immediate="true"
+                              Required="true"
+                              RequiredError="Debe ingresar una cantidad"
+                              ErrorText="No se permiten palabras o numeros"
+                              Class="right-aligned-input"
+                              HelperText="@StockMessage"/>
+                <MudTextField @bind-Value="PrecioDelArticulo"
+                              Label="Precio"
+                              Immediate="true"
+                              Variant="Variant.Outlined"
+                              Class="right-aligned-input"
+                              Disabled="true"
+                              T="decimal?"/>
+                <MudTextField Immediate="true"
+                              Value="@SubTotal"
+                              Variant="Variant.Outlined"
+                              Label="Subtotal"
+                              Disabled="true"
+                              Class="right-aligned-input"/>
+            </MudStack>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Text"
+                   Size="Size.Small"
+                   Color="Color.Dark"
+                   Class="mb-2 mr-2"
+                   Style="width: 100px;">
+            Cerrar
+        </MudButton>
+        <MudButton Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Size="Size.Small"
+                   OnClick="Submit"
+                   Class="rounded-pill mb-2 mr-2"
+                   Style="width: 100px;"
+                   Disabled="@(!_succes)">
+            Agregar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+<style>
+    .right-aligned-input input {
+        text-align: right;
+    }
+</style>

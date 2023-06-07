@@ -38,12 +38,12 @@ public class LoteApiController : ControllerBase
         return await Task.FromResult(_responseDto);
     }
 
-    [HttpDelete("anularLote/{idNota:int}")]
-    public async Task<object> AnularLote([FromRoute] int idNota)
+    [HttpGet("getLotes/{idNota:int}")]
+    public async Task<object> GetLotes([FromRoute] int idNota)
     {
         try
         {
-            var lote = await _loteRepository.EliminarLote(idNota);
+            var lote = await _loteRepository.GetLotes(idNota);
 
             _responseDto.Result = lote;
         }
@@ -59,12 +59,12 @@ public class LoteApiController : ControllerBase
         return _responseDto;
     }
 
-    [HttpGet("getLotes/{idNota:int}")]
-    public async Task<object> GetLotes([FromRoute] int idNota)
+    [HttpGet("getLotesPorArticulo/{idArticulo:int}")]
+    public async Task<object> GetLotesPorArticulo([FromRoute] int idArticulo)
     {
         try
         {
-            var lote = await _loteRepository.GetLotes(idNota);
+            var lote = await _loteRepository.GetLotesPorArticulo(idArticulo);
 
             _responseDto.Result = lote;
         }

@@ -46,6 +46,7 @@ namespace Modelos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PrecioVenta")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.HasKey("IdArticulo");
@@ -147,6 +148,7 @@ namespace Modelos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Tc")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("TipoComprobante")
@@ -208,28 +210,27 @@ namespace Modelos.Migrations
             modelBuilder.Entity("Modelos.Models.Detalle", b =>
                 {
                     b.Property<int>("IdArticulo")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     b.Property<int>("NroLote")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
+                        .HasColumnType("int");
 
                     b.Property<int>("IdNota")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
+                        .HasColumnType("int");
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdDetalleVenta")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("IdArticulo", "NroLote", "IdNota");
 
                     b.HasIndex("IdNota");
-
-                    b.HasIndex("NroLote", "IdArticulo");
 
                     b.ToTable("Detalle");
                 });
@@ -256,15 +257,19 @@ namespace Modelos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("MontoDebe")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("MontoDebeAlt")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("MontoHaber")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("MontoHaberAlt")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("NombreCuenta")
@@ -295,6 +300,27 @@ namespace Modelos.Migrations
                     b.Property<string>("Correo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Cuenta1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cuenta2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cuenta3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cuenta4")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cuenta5")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cuenta6")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cuenta7")
+                        .HasColumnType("int");
+
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(max)");
 
@@ -321,6 +347,9 @@ namespace Modelos.Migrations
 
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("TieneIntegracion")
+                        .HasColumnType("bit");
 
                     b.HasKey("IdEmpresa");
 
@@ -445,6 +474,7 @@ namespace Modelos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecioCompra")
+                        .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("Stock")
@@ -528,7 +558,8 @@ namespace Modelos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("IdNota");
 
@@ -716,24 +747,16 @@ namespace Modelos.Migrations
                     b.HasOne("Modelos.Models.Articulo", "Articulo")
                         .WithMany()
                         .HasForeignKey("IdArticulo")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Modelos.Models.Nota", "Nota")
                         .WithMany()
                         .HasForeignKey("IdNota")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Modelos.Models.Lote", "Lote")
-                        .WithMany()
-                        .HasForeignKey("NroLote", "IdArticulo")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Articulo");
-
-                    b.Navigation("Lote");
 
                     b.Navigation("Nota");
                 });

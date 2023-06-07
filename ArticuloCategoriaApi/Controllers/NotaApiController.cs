@@ -36,6 +36,8 @@ public sealed class NotaApiController : ControllerBase
         return _responseDto;
     }
 
+
+
     [HttpGet("getNotaCompras/{idEmpresa:int}")]
     public async Task<object> GetNotaCompras([FromRoute] int idEmpresa)
     {
@@ -110,6 +112,25 @@ public sealed class NotaApiController : ControllerBase
             };
         }
 
+        return _responseDto;
+    }
+
+    [HttpDelete("anularNotaVenta/{notaId:int}")]
+    public async Task<object> AnularNotaVenta([FromRoute] int notaId)
+    {
+        try
+        {
+            var result = await _notaRepository.AnularNotaVenta(notaId);
+            _responseDto.Result = result;
+        }
+        catch (Exception e)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.ErrorMessages = new List<string>
+            {
+                e.ToString()
+            };
+        }
         return _responseDto;
     }
 }

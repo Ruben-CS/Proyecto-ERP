@@ -1,5 +1,6 @@
 @page "/agregarNota/{idempresa:int}"
 @using global::Services.ArticuloService
+@using global::Services.LoteService
 @using global::Services.NotaService
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
@@ -9,6 +10,7 @@
 @inject NotaService NotaService
 @inject IJSRuntime JsRuntime
 @inject ISnackbar Snackbar
+@inject LoteService LoteService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
@@ -46,18 +48,21 @@
                           T="string"
                           @bind-Text="Descripcion"
                           Immediate="true"/>
-            <MudDatePicker bind-Date="DateTime.Today"
-                           Label="Fecha"
-                           Required="true"
-                           RequiredError="Debe seleccionar una fecha"
-                           Rounded="true"
+            <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
+                           DateFormat="dd/MM/yyyy"
+                           Editable="true"
+                           Label="Fecha de ingreso"
+                           @bind-Date="@Fecha"
+                           Placeholder="dd/MM/yyyy"
                            Variant="Variant.Outlined"
                            Margin="Margin.Dense"
-                           @bind-Date="Fecha"/>
+                           Rounded="true"/>
         </MudStack>
     </MudForm>
     <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between">
-        <MudTooltip Text="Agregar nota de compra" Placement="Placement.Right">
+        <MudTooltip Text="Agregar nota de compra"
+                    ShowOnClick="false"
+                    ShowOnFocus="false">
             <MudFab Color="Color.Success"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Rounded.PostAdd"
@@ -66,7 +71,9 @@
                     Disabled="@(!_success)"
                     OnClick="AgregarCompra"/>
         </MudTooltip>
-        <MudTooltip Text="Agregar detalles">
+        <MudTooltip Text="Agregar detalles"
+                    ShowOnClick="false"
+                    ShowOnFocus="false">
             <MudFab Color="Color.Info"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Rounded.NoteAdd"
@@ -77,7 +84,7 @@
     </MudStack>
 </MudPaper>
 
-<DetalleNotaTable DetalleCompra="DetalleParaLote" IdEmpresa="IdEmpresa" Articulos="Articulos"/>
+<DetalleNotaTable DetalleCompra="_detalleParaLote" IdEmpresa="IdEmpresa" Articulos="Articulos"/>
 
 <style>
     .right-aligned-input input {

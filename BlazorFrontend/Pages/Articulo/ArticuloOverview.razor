@@ -59,7 +59,7 @@
     <HeaderContent>
         <MudTh>Nombre</MudTh>
         <MudTh>Descripcion</MudTh>
-        <MudTh>Cantidad</MudTh>
+        <MudTh>Stock</MudTh>
         <MudTh>Precio de Venta</MudTh>
         <MudTh>Categorias</MudTh>
         <MudTh>Acciones</MudTh>
@@ -95,6 +95,10 @@
                            Color="Color.Error"
                            Size="Size.Small"
                            OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
+            <MudIconButton Icon="@Icons.Material.Rounded.Notes"
+                           Color="Color.Dark"
+                           Size="Size.Small"
+                           OnClick="() => OpenLotePerArticulo(context.IdArticulo)"/>
         </MudTd>
     </RowTemplate>
     <PagerContent>

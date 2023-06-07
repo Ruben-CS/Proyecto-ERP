@@ -53,7 +53,7 @@
                        Variant="Variant.Filled"
                        OnClick="AnularNota"
                        Style="justify-self: flex-end; align-self: center"
-                       Class="mb-4"
+                       Class="mb-4 rounded-pill"
                        Disabled="@(IsAnulado())">
                 <MudText>Anular nota de compra</MudText>
             </MudButton>
@@ -203,13 +203,11 @@
 
     private async Task AnularNota()
     {
-        var uriAnularLote = $"https://localhost:44321/lotes/anularLote/{IdNota}";
         var uriAnularNota = $"https://localhost:44321/notas/anularNota/{IdNota}";
 
-        var responseLote = await HttpClient.DeleteAsync(uriAnularLote);
         var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
 
-        if (responseLote.IsSuccessStatusCode && responseNota.IsSuccessStatusCode)
+        if (responseNota.IsSuccessStatusCode)
         {
             Snackbar.Add("Nota anulada exitosamente", Severity.Success);
             await RefreshList();
