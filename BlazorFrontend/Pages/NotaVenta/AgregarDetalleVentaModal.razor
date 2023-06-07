@@ -1,18 +1,35 @@
+@using global::Services.LoteService
 @inject ISnackbar Snackbar
+@inject LoteService LoteService
 
 <MudDialog Style="border-radius:15px;">
     <DialogContent>
         <MudForm @ref="_form" @bind-IsValid="_succes">
             <MudStack Row="true">
-                <MudAutocomplete @bind-Value="SelectedArticulo"
+                <MudAutocomplete Value="SelectedArticulo"
                                  T="string"
                                  Label="Aritculos"
                                  HelperText="Seleccione un articulo"
                                  Required="true"
                                  RequiredError="Debe seleccionar un articulo"
                                  SearchFunc="Search1"
+                                 ValueChanged="@(v => UpdateSelectedArticulo(v))"
                                  Variant="Variant.Outlined"
                                  Clearable="true"/>
+                <MudSelect T="int?"
+                           @bind-Value="SelectedNroLote"
+                           Label="Nro Lote"
+                           Variant="Variant.Outlined"
+                           Immediate="true"
+                           Style="width: 150px;">
+                    @if (NroLotes != null)
+                    {
+                        @foreach (var nroLote in NroLotes)
+                        {
+                            <MudSelectItem Value="@nroLote">@nroLote</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
                 <MudTextField T="int?"
                               @bind-Value="Cantidad"
                               Label="Cantidad"
@@ -21,22 +38,14 @@
                               Required="true"
                               RequiredError="Debe ingresar una cantidad"
                               ErrorText="No se permiten palabras o numeros"
-                              Class="right-aligned-input"/>
-                <MudDatePicker Mask="@(new DateMask("dd/MM/yyyy"))"
-                               DateFormat="dd/MM/yyyy"
-                               Editable="true"
-                               Label="Fecha de vencimiento"
-                               @bind-Date="@FechaVencimiento"
-                               HelperText="(Opcional- dd/MM/yyy)"
-                               Variant="Variant.Outlined"/>
-                <MudTextField @bind-Value="PrecioUnitario"
-                              Label="Precio Unitario"
+                              Class="right-aligned-input"
+                              HelperText="@StockMessage"/>
+                <MudTextField @bind-Value="PrecioDelArticulo"
+                              Label="Precio"
                               Immediate="true"
-                              Required="true"
-                              RequiredError="Debe colocar un precio"
-                              ErrorText="No se permiten palabras o numeros"
                               Variant="Variant.Outlined"
                               Class="right-aligned-input"
+                              Disabled="true"
                               T="decimal?"/>
                 <MudTextField Immediate="true"
                               Value="@SubTotal"

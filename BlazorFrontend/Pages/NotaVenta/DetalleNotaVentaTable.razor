@@ -12,6 +12,7 @@
               Striped="true">
         <HeaderContent>
             <MudTh>Articulo</MudTh>
+            <MudTh>Lote</MudTh>
             <MudTh>Cantidad</MudTh>
             <MudTh>Precio</MudTh>
             <MudTh>Subtotal</MudTh>
@@ -19,6 +20,7 @@
         </HeaderContent>
         <RowTemplate>
             <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+            <MudTd>@context.NroLote</MudTd>
             <MudTd>@context.Cantidad</MudTd>
             <MudTd>@context.PrecioVenta</MudTd>
             <MudTd>
@@ -34,6 +36,7 @@
             </MudTd>
         </RowTemplate>
         <FooterContent>
+            <MudTh/>
             <MudTh/>
             <MudTh/>
             <MudTh/>

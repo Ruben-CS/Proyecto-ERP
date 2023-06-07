@@ -42,7 +42,9 @@ public partial class AgregarNotaVenta
     private readonly ObservableCollection<DetalleDto> _detalleParaVenta = new();
 
     private async Task GoBack() =>
-        await Task.FromResult(JSRuntimeExtensions.InvokeVoidAsync(JsRuntime, "blazorBrowserHistory.goBack"));
+        await Task.FromResult(
+            JSRuntimeExtensions.InvokeVoidAsync(JsRuntime,
+                "blazorBrowserHistory.goBack"));
 
     private void AddNewDetalleLote(DetalleDto lote) => _detalleParaVenta.Add(lote);
 
@@ -73,17 +75,16 @@ public partial class AgregarNotaVenta
     {
         var parameters = new DialogParameters
         {
-            { "FechaIngreso", Fecha },
             { "Articulos", Articulos },
             { "IdEmpresa", IdEmpresa },
             {
                 "AddNewDetalleLote",
                 EventCallback.Factory.Create<DetalleDto>(this, AddNewDetalleLote)
             },
-            {"_detalleParaLote", _detalleParaVenta}
+            { "DetalleParaVenta", _detalleParaVenta }
         };
 
-        await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles",
+        await DialogService.ShowAsync<AgregarDetalleVentaModal>("Ingrese los detalles",
             parameters, _options);
     }
 
