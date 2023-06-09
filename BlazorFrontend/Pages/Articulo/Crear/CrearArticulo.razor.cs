@@ -57,9 +57,10 @@ public partial class CrearArticulo
 
     #endregion
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+        return Task.CompletedTask;
     }
 
     private async Task Crear()

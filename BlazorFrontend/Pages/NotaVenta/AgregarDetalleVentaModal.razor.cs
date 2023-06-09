@@ -76,7 +76,7 @@ public partial class AgregarDetalleVentaModal
 
     private List<ArticuloDto>? _privateArticulos = new();
 
-    private IEnumerable<int?> NroLotes { get; set; }
+    private IEnumerable<int?>? NroLotes { get; set; }
 
     private int? SelectedNroLote { get; set; }
 
@@ -89,11 +89,11 @@ public partial class AgregarDetalleVentaModal
 
     private async Task<IEnumerable<string?>> Search1(string value)
     {
-        var nombreArticulos = _privateArticulos.Select(a => a.Nombre).ToList();
+        var nombreArticulos = _privateArticulos!.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
             return await Task.FromResult(nombreArticulos);
         return nombreArticulos.Where(a =>
-            a.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            a!.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
     protected override async Task OnInitializedAsync()

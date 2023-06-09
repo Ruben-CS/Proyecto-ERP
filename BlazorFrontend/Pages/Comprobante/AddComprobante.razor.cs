@@ -139,7 +139,7 @@ public partial class AddComprobante
         var idMonedaAlternativa = EmpresaMonedas.Last().IdMonedaAlternativa;
         TipoDeCambio = await SetTipoCambio(idMonedaAlternativa);
         MonedasDeLaEmpresa = MonedasDeLaEmpresa
-                             .Where(m => m.IdMoneda == idMonedaPrincipal ||
+                             .Where(m => m!.IdMoneda == idMonedaPrincipal ||
                                          m.IdMoneda == idMonedaAlternativa)
                              .ToList();
 
@@ -200,7 +200,7 @@ public partial class AddComprobante
             return default;
         }
 
-        return await Task.FromResult(EmpresaMonedas.Single(em =>
+        return await Task.FromResult(EmpresaMonedas!.Single(em =>
             em.IdMonedaAlternativa == idMonedaAlternativa
             && em.Estado           == EstadoEmpresaMoneda.Activo).Cambio);
     }

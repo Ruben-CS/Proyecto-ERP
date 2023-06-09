@@ -2,7 +2,6 @@ using BlazorFrontend.Pages.Cuentas.Crear;
 using BlazorFrontend.Pages.Cuentas.Editar;
 using BlazorFrontend.Pages.Cuentas.Eliminar;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using MudBlazor;
@@ -11,14 +10,12 @@ namespace BlazorFrontend.Pages.Cuentas;
 
 public partial class CuentasOverview
 {
-    private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
+    private Dictionary<TreeItemData, HashSet<TreeItemData>>? RootItems { get; set; }
 
     private TreeItemData? SelectedValue { get; set; }
 
     [Parameter]
     public EventCallback<TreeItemData> OnItemClicked { get; set; }
-
-    private bool _open;
 
     private bool _folderOneExpanded = true;
 

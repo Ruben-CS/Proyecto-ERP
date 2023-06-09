@@ -57,7 +57,7 @@ public partial class CategoriaOverview
     {
         get;
         set;
-    }
+    } = null!;
 
     private static TreeItemDataCategoria CreateTree(TreeItemDataCategoria treeItemData)
     {

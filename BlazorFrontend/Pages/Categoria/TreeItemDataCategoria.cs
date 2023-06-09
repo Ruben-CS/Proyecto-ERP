@@ -12,14 +12,6 @@ public class TreeItemDataCategoria
     public string?                        Descripcion  { get; }
     public HashSet<TreeItemDataCategoria> CuentasHijas { get; set; }
 
-    private Dictionary<TreeItemDataCategoria, HashSet<TreeItemDataCategoria>> RootItems
-    {
-        get;
-        set;
-    }
-
-    private TreeItemDataCategoria SelectedValue { get; set; }
-
     public TreeItemDataCategoria(CategoriaDto categoriaDto)
     {
         IdCategoria      = categoriaDto.IdCategoria;

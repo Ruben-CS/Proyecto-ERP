@@ -16,7 +16,7 @@ public partial class Inicio
     private IEnumerable<EmpresaDto> _empresas = new List<EmpresaDto>();
     private int                     SelectedEmpresaId { get; set; }
 
-    public string Username { get; set; }
+    private string? Username { get; set; }
 
     private string? SelectedEmpresaName { get; set; }
 
