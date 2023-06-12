@@ -50,6 +50,8 @@ public partial class AgregarNotaCompra
 
     private readonly ObservableCollection<LoteDto> _detalleParaLote = new();
 
+    public bool IsLoading { get; set; }
+
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
 
@@ -163,6 +165,7 @@ public partial class AgregarNotaCompra
 
     private async Task CreateComprobante()
     {
+        IsLoading = true;
         var empresaMonedas =
             await EmpresaMonedaService.GetEmpresaMonedasActiveAsync(IdEmpresa);
         var tipoCambio = empresaMonedas.Last().Cambio!.Value;
@@ -182,6 +185,7 @@ public partial class AgregarNotaCompra
         if (response.IsSuccessStatusCode)
         {
             await AgregarComprobanteSiTieneConfig();
+            IsLoading = false;
         }
     }
 

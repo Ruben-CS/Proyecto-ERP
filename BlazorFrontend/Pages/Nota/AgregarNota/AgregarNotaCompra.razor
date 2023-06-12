@@ -68,17 +68,26 @@
         </MudStack>
     </MudForm>
     <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between">
-        <MudTooltip Text="Agregar nota de compra"
-                    ShowOnClick="false"
-                    ShowOnFocus="false">
-            <MudFab Color="Color.Success"
-                    IconSize="Size.Small"
-                    StartIcon="@Icons.Material.Rounded.PostAdd"
-                    Size="Size.Small"
-                    Class="squircle-fab"
-                    Disabled="@(!_success)"
-                    OnClick="AgregarCompra"/>
-        </MudTooltip>
+        @if (IsLoading)
+        {
+            <MudProgressCircular Color="Color.Dark"
+                                 Size="Size.Small"
+                                 Indeterminate="true"/>
+        }
+        else
+        {
+            <MudTooltip Text="Agregar nota de compra"
+                        ShowOnClick="false"
+                        ShowOnFocus="false">
+                <MudFab Color="Color.Success"
+                        IconSize="Size.Small"
+                        StartIcon="@Icons.Material.Rounded.PostAdd"
+                        Size="Size.Small"
+                        Class="squircle-fab"
+                        Disabled="@(!_success)"
+                        OnClick="AgregarCompra"/>
+            </MudTooltip>
+        }
         <MudTooltip Text="Agregar detalles"
                     ShowOnClick="false"
                     ShowOnFocus="false">
