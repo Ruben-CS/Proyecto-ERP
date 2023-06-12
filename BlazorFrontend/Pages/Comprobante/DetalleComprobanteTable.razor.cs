@@ -7,7 +7,7 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteTable
 {
-    private MudTable<DetalleComprobanteDto> table;
+    private MudTable<DetalleComprobanteDto> _table;
 
 
     [Parameter]
