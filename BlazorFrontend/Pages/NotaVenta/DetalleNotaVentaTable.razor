@@ -1,5 +1,7 @@
 @using Color = MudBlazor.Color
 @using Size = MudBlazor.Size
+@using global::Services.LoteService
+@inject LoteService LoteService
 
 <MudTable Hover="true"
           Dense="true"
@@ -7,9 +9,15 @@
           Bordered="true"
           Elevation="2"
           Class="p-3 mt-4 fade-in"
+          Height="250px"
+          ApplyButtonPosition="TableApplyButtonPosition.Start"
+          EditTrigger="TableEditTrigger.RowClick"
           Style="border-radius: 15px;"
           Items="DetalleCompra"
-          Striped="true">
+          CommitEditTooltip="Guardar cambios"
+          CancelEditTooltip="Cancelar cambios"
+          IsEditRowSwitchingBlocked="true"
+          CanCancelEdit="true">
     <HeaderContent>
         <MudTh>Articulo</MudTh>
         <MudTh>Lote</MudTh>
@@ -35,11 +43,58 @@
             </MudTooltip>
         </MudTd>
     </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd>
+            <MudAutocomplete Value="SelectedArticulo"
+                             T="string"
+                             Label="Aritculos"
+                             HelperText="Seleccione un articulo"
+                             Required="true"
+                             RequiredError="Debe seleccionar un articulo"
+                             SearchFunc="Search1"
+                             ValueChanged="@(v => UpdateSelectedArticulo(v))"
+                             Variant="Variant.Text"
+                             Clearable="true"
+                             Margin="Margin.Dense"/>
+        </MudTd>
+        <MudTd>
+            <MudSelect T="int"
+                       @bind-Value="@context.NroLote"
+                       Label="Nro Lote"
+                       Variant="Variant.Text"
+                       Immediate="true"
+                       Style="width: 150px;"
+                       Margin="Margin.Dense">
+                @if (NroLotes != null)
+                {
+                    @foreach (var nroLote in NroLotes)
+                    {
+                        <MudSelectItem Value="@nroLote">
+                            @nroLote
+                        </MudSelectItem>
+                    }
+                }
+            </MudSelect>
+        </MudTd>
+        <MudTd>
+            <MudTextField T="int"
+                          @bind-Value="@context.Cantidad"
+                          Label="Cantidad"
+                          Variant="Variant.Text"
+                          Immediate="true"
+                          Required="true"
+                          RequiredError="Debe ingresar una cantidad"
+                          ErrorText="No se permiten palabras o numeros"
+                          Class="right-aligned-input"
+                          HelperText="@StockMessage"
+                          Margin="Margin.Dense"/>
+        </MudTd>
+    </RowEditingTemplate>
     <FooterContent>
         <MudTh/>
         <MudTh/>
         <MudTh/>
         <MudTh/>
-        <MudTh>Total: @Total</MudTh>
+        <MudTh>Total: @Total.ToString("F2")</MudTh>
     </FooterContent>
 </MudTable>
