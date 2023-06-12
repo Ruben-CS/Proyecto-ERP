@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Modelos.Models;
@@ -96,7 +95,7 @@ public class EmpresaRepository : IEmpresaRepository
     {
         var empresa = _applicationDbContext.Empresas.FirstOrDefault(x =>
             x.IdEmpresa == idEmpresa && x.IsDeleted == false);
-        empresa.TieneIntegracion = dto.TieneIntegracion;
+        empresa.TieneIntegracion = true;
         _applicationDbContext.Empresas.Attach(empresa);
         await _applicationDbContext.SaveChangesAsync();
         return true;
@@ -106,7 +105,7 @@ public class EmpresaRepository : IEmpresaRepository
     {
         var empresa = _applicationDbContext.Empresas.FirstOrDefault(x =>
             x.IdEmpresa == idEmpresa && x.IsDeleted == false);
-        empresa.TieneIntegracion = dto.TieneIntegracion;
+        empresa.TieneIntegracion = false;
         _applicationDbContext.Empresas.Attach(empresa);
         await _applicationDbContext.SaveChangesAsync();
         return true;
