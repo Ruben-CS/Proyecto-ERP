@@ -1,7 +1,11 @@
 @page "/agregarNota/{idempresa:int}"
 @using global::Services.ArticuloService
+@using global::Services.Comprobante
 @using global::Services.LoteService
 @using global::Services.NotaService
+@using BlazorFrontend.Services
+@using global::Services.Cuenta
+@using global::Services.EmpresaMonedaService
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -11,6 +15,10 @@
 @inject IJSRuntime JsRuntime
 @inject ISnackbar Snackbar
 @inject LoteService LoteService
+@inject ComprobanteService ComprobanteService
+@inject EmpresaService EmpresaService
+@inject EmpresaMonedaService EmpresaMonedaService
+@inject CuentaService CuentaService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>

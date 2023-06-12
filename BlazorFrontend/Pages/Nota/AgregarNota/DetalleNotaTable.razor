@@ -15,15 +15,15 @@
         <HeaderContent>
             <MudTh>Articulo</MudTh>
             <MudTh>Cantidad</MudTh>
-            <MudTh>Precio</MudTh>
-            <MudTh>Subtotal</MudTh>
+            <MudTh Style="text-align: right">Precio</MudTh>
+            <MudTh Style="text-align: right">Subtotal</MudTh>
             <MudTh>Acciones</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
             <MudTd>@context.Cantidad</MudTd>
-            <MudTd>@context.PrecioCompra</MudTd>
-            <MudTd>@(context.Cantidad * context.PrecioCompra)</MudTd>
+            <MudTd Style="text-align: right">@context.PrecioCompra</MudTd>
+            <MudTd Style="text-align: right">@(context.Cantidad * context.PrecioCompra)</MudTd>
             <MudTd>
                 <MudTooltip Text="Eliminar">
                 <MudIconButton Size="Size.Small"
@@ -37,7 +37,7 @@
             <MudTh/>
             <MudTh/>
             <MudTh/>
-            <MudTh>Total: @Total</MudTh>
+            <MudTh Style="text-align: right">Total: @Total</MudTh>
         </FooterContent>
     </MudTable>
 </MudPaper>

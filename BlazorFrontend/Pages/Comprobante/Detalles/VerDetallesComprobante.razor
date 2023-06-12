@@ -149,12 +149,19 @@
               Dense="true"
               Bordered="true"
               Elevation="0"
-              Style="border-radius: 15px;">
+              Style="border-radius: 15px;"
+              FixedFooter="true"
+              FixedHeader="true"
+              Height="250px">
 
         <HeaderContent>
             <MudTh Style="text-align: left">Cuenta</MudTh>
             <MudTh Style="text-align: left">Glosa</MudTh>
-            <MudTh Style="text-align: right">Monto Debe</MudTh>
+            <MudTableSortLabel Class="my-table-sort-label"
+                               InitialDirection="SortDirection.Descending"
+                               SortBy="new Func<DetalleComprobanteDto, object>(x => x.MontoDebe)">
+                <MudTh>Monto Debe</MudTh>
+            </MudTableSortLabel>
             <MudTh Style="text-align: right">Monto Haber</MudTh>
         </HeaderContent>
         <RowTemplate>
@@ -181,12 +188,6 @@
                 <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
             </MudTd>
         </FooterContent>
-        <PagerContent>
-            <MudTablePager
-                HorizontalAlignment="HorizontalAlignment.Left"
-                HidePageNumber="true"
-                HideRowsPerPage="true"/>
-        </PagerContent>
     </MudTable>
 </MudPaper>
 
@@ -198,6 +199,12 @@
         .squircle-fab {
             border-radius: 30% !important;
             box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
+        }
+
+        .my-table-sort-label {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
 </style>
 

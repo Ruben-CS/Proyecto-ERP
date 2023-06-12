@@ -11,7 +11,10 @@
               Dense="true"
               Bordered="true"
               Elevation="0"
-              Style="border-radius: 15px;">
+              Style="border-radius: 15px;"
+              FixedFooter="true"
+              FixedHeader="true"
+              Height="250px">
 
         <HeaderContent>
             <MudTh Style="text-align: left">Cuenta</MudTh>
@@ -55,18 +58,12 @@
             <MudTd/>
             <MudTd/>
             <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
+                <MudText Align="Align.Right" Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
             </MudTd>
             <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+                <MudText Align="Align.Right" Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
             </MudTd>
             <MudTd/>
         </FooterContent>
-        <PagerContent>
-            <MudTablePager
-                HorizontalAlignment="HorizontalAlignment.Left"
-                HidePageNumber="true"
-                HideRowsPerPage="true"/>
-        </PagerContent>
     </MudTable>
 </MudPaper>
