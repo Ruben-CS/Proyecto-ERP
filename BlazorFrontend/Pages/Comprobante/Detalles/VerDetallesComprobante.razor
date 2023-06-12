@@ -1,5 +1,6 @@
 @page "/VerDetallesComprobante/{idempresa:int}/{idcomprobante:int}"
 @using global::Services.Comprobante
+@using global::Services.Cuenta
 @using global::Services.DetalleComprobante
 @using global::Services.Moneda
 @using Modelos.Models.Enums
@@ -10,7 +11,6 @@
 @inject DetalleComprobanteService DetalleComprobanteService
 @inject NavigationManager NavigationManager
 @inject MonedaService MonedaService
-
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
@@ -227,7 +227,7 @@
 
     private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
 
-    public MonedaDto Moneda { get; set; } = new();
+    private MonedaDto Moneda { get; set; } = new();
 
     private bool IsAnulado() => ComprobanteDto.Estado == EstadoComprobante.Anulado;
 

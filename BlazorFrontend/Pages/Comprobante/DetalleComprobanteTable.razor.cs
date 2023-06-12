@@ -8,6 +8,8 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteTable
 {
+    private MudTable<DetalleComprobanteDto> table;
+
 
     [Parameter]
     public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = new();
@@ -18,6 +20,7 @@ public partial class DetalleComprobanteTable
     [Parameter]
     public List<CuentaDto> Cuentas { get; set; } = null!;
 
+    private DetalleComprobanteDto elementBeforeEdit;
 
     private readonly DialogOptions _options = new()
     {
@@ -33,6 +36,20 @@ public partial class DetalleComprobanteTable
     private void DeleteDetalle(DetalleComprobanteDto dto) => Detalles.Remove(dto);
 
 
+    private async Task<IEnumerable<string>> SearchCuenta(string value)
+    {
+        Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
+        IEnumerable<string> nombreCuentas =
+            Cuentas.Select(c => $"{c.Codigo} - {c.Nombre}").ToList();
+        if (string.IsNullOrEmpty(value))
+        {
+            return await Task.FromResult(nombreCuentas);
+        }
+
+        return nombreCuentas.Where(c =>
+            c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
     private async Task ShowEditDetalleModal(DetalleComprobanteDto dto)
     {
         var indexOfDto = Detalles.IndexOf(dto);
@@ -42,11 +59,37 @@ public partial class DetalleComprobanteTable
             { "DetalleComprobanteDto", dto },
             { "IndexOfDetalle", indexOfDto },
             { "IdEmpresa", IdEmpresa },
-            { "Detalles", Detalles  }
+            { "Detalles", Detalles }
         };
         await DialogService.ShowAsync<EditarDetalle>(
             "Edite los detalles del comprobante", parameters,
             _options);
     }
 
+
+    private void OnRowEditPreview(object detalleObj)
+    {
+        var detalle = detalleObj as DetalleComprobanteDto;
+        elementBeforeEdit = new DetalleComprobanteDto
+        {
+            NombreCuenta = detalle.NombreCuenta,
+            Glosa        = detalle.Glosa,
+            MontoDebe    = detalle.MontoDebe,
+            MontoHaber   = detalle.MontoHaber
+        };
+    }
+
+    private void OnRowEditCommit(object detalleObj)
+    {
+        StateHasChanged();
+    }
+
+    public void OnRowEditCancel(object detalleObj)
+    {
+        var detalle = detalleObj as DetalleComprobanteDto;
+        detalle.NombreCuenta = elementBeforeEdit.NombreCuenta;
+        detalle.Glosa        = elementBeforeEdit.Glosa;
+        detalle.MontoDebe    = detalle.MontoDebe;
+        detalle.MontoHaber   = elementBeforeEdit.MontoHaber;
+    }
 }
