@@ -5,7 +5,7 @@ using Services.Repository.Interfaces;
 namespace ModuloContabilidadApi.Controllers;
 
 [ApiController]
-[Route("ingtegracion")]
+[Route("integracion")]
 public class IntegracionApiController : ControllerBase
 {
     private readonly IEmpresaRepository _empresaRepository;
