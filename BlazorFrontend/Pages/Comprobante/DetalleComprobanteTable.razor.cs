@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using BlazorFrontend.Pages.Comprobante.Editar;
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
 using MudBlazor;
@@ -50,22 +49,6 @@ public partial class DetalleComprobanteTable
             c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    private async Task ShowEditDetalleModal(DetalleComprobanteDto dto)
-    {
-        var indexOfDto = Detalles.IndexOf(dto);
-
-        var parameters = new DialogParameters
-        {
-            { "DetalleComprobanteDto", dto },
-            { "IndexOfDetalle", indexOfDto },
-            { "IdEmpresa", IdEmpresa },
-            { "Detalles", Detalles }
-        };
-        await DialogService.ShowAsync<EditarDetalle>(
-            "Edite los detalles del comprobante", parameters,
-            _options);
-    }
-
 
     private void OnRowEditPreview(object detalleObj)
     {
@@ -84,7 +67,7 @@ public partial class DetalleComprobanteTable
         StateHasChanged();
     }
 
-    public void OnRowEditCancel(object detalleObj)
+    private void OnRowEditCancel(object detalleObj)
     {
         var detalle = detalleObj as DetalleComprobanteDto;
         detalle.NombreCuenta = elementBeforeEdit.NombreCuenta;
