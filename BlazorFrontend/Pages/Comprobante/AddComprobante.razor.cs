@@ -142,6 +142,7 @@ public partial class AddComprobante
                              .Where(m => m!.IdMoneda == idMonedaPrincipal ||
                                          m.IdMoneda == idMonedaAlternativa)
                              .ToList();
+        SelectedEmpresaMoneda = MonedasDeLaEmpresa.Last()!.Nombre;
 
         #region Snackbar Config
 
@@ -285,11 +286,9 @@ public partial class AddComprobante
         }
     }
 
-    private bool HasExistingComprobanteApertura(TipoComprobante tipoComprobante)
-    {
-        return Comprobantes.Any(d => d.TipoComprobante == TipoComprobante.Apertura &&
-                                     tipoComprobante   == TipoComprobante.Apertura);
-    }
+    private bool HasExistingComprobanteApertura(TipoComprobante tipoComprobante) =>
+        Comprobantes.Any(d => d.TipoComprobante == TipoComprobante.Apertura &&
+                              tipoComprobante   == TipoComprobante.Apertura);
 
     private async Task OnSerieChanged()
     {

@@ -8,6 +8,9 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteModal
 {
+    private bool isDebeFocused  = false;
+    private bool isHaberFocused = false;
+
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; } = null!;
 
@@ -27,9 +30,9 @@ public partial class DetalleComprobanteModal
     [Parameter]
     public string? Glosa { get; set; }
 
-    private decimal? Debe { get; set; }
+    private decimal Debe { get; set; } = decimal.Zero;
 
-    private decimal? Haber { get; set; }
+    private decimal Haber { get; set; } = decimal.Zero;
 
     private string? SelectedCuenta { get; set; }
 
@@ -61,9 +64,9 @@ public partial class DetalleComprobanteModal
     {
         if (IsDebeOrHaberNull(Debe, Haber))
             return;
-        if (ValidateNegatives(Debe!.Value, Haber!.Value))
+        if (ValidateNegatives(Debe, Haber))
             return;
-        if (IsHaberOrDebeZero(Debe.Value, Haber.Value))
+        if (IsHaberOrDebeZero(Debe, Haber))
             return;
         if (CuentaHasMoreExistingDetalle())
             return;
@@ -77,16 +80,16 @@ public partial class DetalleComprobanteModal
         {
             NombreCuenta  = SelectedCuenta,
             Glosa         = Glosa!,
-            MontoDebe     = Debe.Value,
-            MontoHaber    = Haber.Value,
+            MontoDebe     = Debe,
+            MontoHaber    = Haber,
             IdCuenta      = idCuenta,
             IdUsuario     = 1,
             MontoHaberAlt = default,
             MontoDebeAlt  = default
         };
         await AddNewDetalleComprobante.InvokeAsync(detalleComprobante);
-        Debe           = null;
-        Haber          = null;
+        Debe           = decimal.Zero;
+        Haber          = decimal.Zero;
         SelectedCuenta = null;
     }
 

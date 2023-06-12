@@ -76,10 +76,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcRGV0YWxsZXNcVmVyRGV0YWxsZXNDb21wcm9iYW50ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/Editar/EditarDetalle.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcRWRpdGFyXEVkaXRhckRldGFsbGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Cuentas/Crear/CrearCuenta.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VlbnRhc1xDcmVhclxDcmVhckN1ZW50YS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

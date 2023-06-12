@@ -4,102 +4,87 @@
 @inject IDialogService DialogService
 @inject CuentaService CuentaService
 
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Striped="true"
-              RowsPerPage="4"
-              Items="Detalles"
-              Dense="true"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;"
-              FixedFooter="true"
-              FixedHeader="true"
-              Height="250px"
-              ApplyButtonPosition="TableApplyButtonPosition.End"
-              RowEditPreview="OnRowEditPreview"
-              RowEditCommit="OnRowEditCommit"
-              RowEditCancel="OnRowEditCancel"
-              EditTrigger="TableEditTrigger.RowClick"
-              CommitEditTooltip="Guardar cambios"
-              CancelEditTooltip="Cancelar cambios"
-              IsEditRowSwitchingBlocked="true"
-              CanCancelEdit="true">
-
-        <HeaderContent>
-            <MudTh Style="text-align: left">Cuenta</MudTh>
-            <MudTh Style="text-align: left">Glosa</MudTh>
-            <MudTh Style="text-align: right">Monto Debe</MudTh>
-            <MudTh Style="text-align: right">Monto Haber</MudTh>
-            <MudTh>Acciones</MudTh>
-        </HeaderContent>
-        <RowTemplate Context="context">
-            <MudTd DataLabel="Nombre Cuenta">
-                @context.NombreCuenta
-            </MudTd>
-            <MudTd DataLabel="Glosa">
-                @context.Glosa
-            </MudTd>
-            <MudTd DataLabel="Monto Debe" Style="text-align: right">
-                @(context.MontoDebe.ToString("F2"))
-            </MudTd>
-            <MudTd DataLabel="Monto Haber" Style="text-align: right">
-                @context.MontoHaber.ToString("F2")
-            </MudTd>
-            <MudTd>
-                <MudIconButton Color="Color.Error"
-                               Icon="@Icons.Material.Filled.Delete"
-                               Size="Size.Small"
-                               OnClick="@(() => DeleteDetalle(context))"/>
-            </MudTd>
-        </RowTemplate>
-        <RowEditingTemplate>
-            <MudTd DataLabel="Nombre Cuenta">
-                <MudAutocomplete T="string"
-                                 @bind-Value="@context.NombreCuenta"
-                                 SearchFunc="SearchCuenta"
-                                 AdornmentIcon="@Icons.Material.Filled.Search"
-                                 TransformOrigin="Origin.BottomCenter"
-                                 AnchorOrigin="Origin.CenterCenter"
-                                 Dense="true"
-                                 Margin="Margin.Dense"/>
-            </MudTd>
-            <MudTd DataLabel="Glosa">
-                <MudTextField @bind-Value="@context.Glosa" Margin="Margin.Dense"/>
-            </MudTd>
-            <MudTd DataLabel="Monto Debe" Style="text-align: right">
-                <MudNumericField @bind-Value="@context.MontoDebe" Margin="Margin.Dense"/>
-            </MudTd>
-            <MudTd DataLabel="Monto Haber" Style="text-align: right">
-                <MudNumericField @bind-Value="@context.MontoHaber" Margin="Margin.Dense"/>
-            </MudTd>
-        </RowEditingTemplate>
-        <FooterContent>
-            <MudTd/>
-            <MudTd/>
-            <MudTd Style="text-align: right">
-                <MudText Align="Align.Right" Typo="Typo.subtitle2">
-                    Total: @TotalDebe.ToString("F2")
-                </MudText>
-            </MudTd>
-            <MudTd Style="text-align: right">
-                <MudText Align="Align.Right" Typo="Typo.subtitle2">
-                    Total: @TotalHaber.ToString("F2")
-                </MudText>
-            </MudTd>
-            <MudTd/>
-        </FooterContent>
-        <EditButtonContent Context="button">
-            <MudTooltip Text="Editar detalle"
-                        ShowOnClick="false"
-                        ShowOnFocus="false">
-                <MudIconButton Size="@Size.Small"
-                               Icon="@Icons.Material.Rounded.Edit"
-                               Class="pa-0"
-                               Color="Color.Warning"
-                               OnClick="@button.ButtonAction"
-                               Disabled="@button.ButtonDisabled"/>
-            </MudTooltip>
-        </EditButtonContent>
-    </MudTable>
-</MudPaper>
+<MudTable Hover="true"
+          Striped="false"
+          Items="Detalles"
+          Dense="true"
+          Bordered="false"
+          Elevation="2"
+          Style="border-radius: 15px;"
+          FixedFooter="true"
+          FixedHeader="true"
+          Height="250px"
+          ApplyButtonPosition="TableApplyButtonPosition.Start"
+          RowEditPreview="OnRowEditPreview"
+          RowEditCommit="OnRowEditCommit"
+          RowEditCancel="OnRowEditCancel"
+          EditTrigger="TableEditTrigger.RowClick"
+          CommitEditTooltip="Guardar cambios"
+          CancelEditTooltip="Cancelar cambios"
+          IsEditRowSwitchingBlocked="true"
+          CanCancelEdit="true"
+          Class="p-3 mt-4 fade-in">
+    <HeaderContent>
+        <MudTh Style="text-align: left">Cuenta</MudTh>
+        <MudTh Style="text-align: left">Glosa</MudTh>
+        <MudTh Style="text-align: right">Monto Debe</MudTh>
+        <MudTh Style="text-align: right">Monto Haber</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre Cuenta">
+            @context.NombreCuenta
+        </MudTd>
+        <MudTd DataLabel="Glosa">
+            @context.Glosa
+        </MudTd>
+        <MudTd DataLabel="Monto Debe" Style="text-align: right">
+            @(context.MontoDebe.ToString("F2"))
+        </MudTd>
+        <MudTd DataLabel="Monto Haber" Style="text-align: right">
+            @context.MontoHaber.ToString("F2")
+        </MudTd>
+        <MudTd>
+            <MudIconButton Color="Color.Error"
+                           Icon="@Icons.Material.Filled.Delete"
+                           Size="Size.Small"
+                           OnClick="@(() => DeleteDetalle(context))"/>
+        </MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd DataLabel="Nombre Cuenta">
+            <MudAutocomplete T="string"
+                             @bind-Value="@context.NombreCuenta"
+                             SearchFunc="SearchCuenta"
+                             AdornmentIcon="@Icons.Material.Filled.Search"
+                             TransformOrigin="Origin.BottomCenter"
+                             AnchorOrigin="Origin.CenterCenter"
+                             Dense="true"
+                             Margin="Margin.Dense"
+                             Clearable="true"/>
+        </MudTd>
+        <MudTd DataLabel="Glosa">
+            <MudTextField @bind-Value="@context.Glosa" Margin="Margin.Dense"/>
+        </MudTd>
+        <MudTd DataLabel="Monto Debe" Style="text-align: right">
+            <MudNumericField @bind-Value="@context.MontoDebe" Margin="Margin.Dense"/>
+        </MudTd>
+        <MudTd DataLabel="Monto Haber" Style="text-align: right">
+            <MudNumericField @bind-Value="@context.MontoHaber" Margin="Margin.Dense"/>
+        </MudTd>
+    </RowEditingTemplate>
+    <FooterContent>
+        <MudTd/>
+        <MudTd/>
+        <MudTd Style="text-align: right">
+            <MudText Align="Align.Right" Typo="Typo.subtitle2">
+                Total: @TotalDebe.ToString("F2")
+            </MudText>
+        </MudTd>
+        <MudTd Style="text-align: right">
+            <MudText Align="Align.Right" Typo="Typo.subtitle2">
+                Total: @TotalHaber.ToString("F2")
+            </MudText>
+        </MudTd>
+    </FooterContent>
+</MudTable>

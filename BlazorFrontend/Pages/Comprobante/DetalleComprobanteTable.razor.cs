@@ -19,7 +19,7 @@ public partial class DetalleComprobanteTable
     [Parameter]
     public List<CuentaDto> Cuentas { get; set; } = null!;
 
-    private DetalleComprobanteDto elementBeforeEdit;
+    private DetalleComprobanteDto _elementBeforeEdit = null!;
 
     private readonly DialogOptions _options = new()
     {
@@ -53,7 +53,7 @@ public partial class DetalleComprobanteTable
     private void OnRowEditPreview(object detalleObj)
     {
         var detalle = detalleObj as DetalleComprobanteDto;
-        elementBeforeEdit = new DetalleComprobanteDto
+        _elementBeforeEdit = new DetalleComprobanteDto
         {
             NombreCuenta = detalle.NombreCuenta,
             Glosa        = detalle.Glosa,
@@ -70,9 +70,9 @@ public partial class DetalleComprobanteTable
     private void OnRowEditCancel(object detalleObj)
     {
         var detalle = detalleObj as DetalleComprobanteDto;
-        detalle.NombreCuenta = elementBeforeEdit.NombreCuenta;
-        detalle.Glosa        = elementBeforeEdit.Glosa;
+        detalle.NombreCuenta = _elementBeforeEdit.NombreCuenta;
+        detalle.Glosa        = _elementBeforeEdit.Glosa;
         detalle.MontoDebe    = detalle.MontoDebe;
-        detalle.MontoHaber   = elementBeforeEdit.MontoHaber;
+        detalle.MontoHaber   = _elementBeforeEdit.MontoHaber;
     }
 }
