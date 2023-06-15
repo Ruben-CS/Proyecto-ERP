@@ -41,7 +41,8 @@
           Loading="IsLoading"
           LoadingProgressColor="Color.Info"
           RowsPerPage="5"
-          Filter="new Func<ArticuloDto, bool>(FilterFunc1)">
+          Filter="new Func<ArticuloDto, bool>(FilterFunc1)"
+          @ref="@_table">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Busque articulos por nombre o descripcion</MudText>
         <MudSpacer/>
@@ -85,24 +86,31 @@
             }
         </MudTd>
         <MudTd>
-            <MudIconButton Icon="@Icons.Material.Rounded.Edit"
-                           Color="Color.Warning"
-                           Size="Size.Small"
-                           OnClick="() => ShowEditarModal(context)"/>
-            <MudIconButton Icon="@Icons.Material.Rounded.Delete"
-                           Color="Color.Error"
-                           Size="Size.Small"
-                           OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
-            <MudIconButton Icon="@Icons.Material.Rounded.Notes"
-                           Color="Color.Dark"
-                           Size="Size.Small"
-                           OnClick="() => OpenLotePerArticulo(context.IdArticulo)"/>
+            <MudTooltip Text="Editar" ShowOnClick="false" ShowOnFocus="false">
+                <MudIconButton Icon="@Icons.Material.Rounded.Edit"
+                               Color="Color.Warning"
+                               Size="Size.Small"
+                               OnClick="() => ShowEditarModal(context)"/>
+            </MudTooltip>
+            <MudTooltip Text="Eliminar articulo" ShowOnClick="false" ShowOnFocus="false">
+                <MudIconButton Icon="@Icons.Material.Rounded.Delete"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
+            </MudTooltip>
+            <MudTooltip Text="Ver lotes" ShowOnClick="false" ShowOnFocus="false">
+                <MudIconButton Icon="@Icons.Material.Rounded.Notes"
+                               Color="Color.Dark"
+                               Size="Size.Small"
+                               OnClick="() => OpenLotePerArticulo(context.IdArticulo)"/>
+            </MudTooltip>
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager
-            HorizontalAlignment="HorizontalAlignment.Left"
-            HidePageNumber="true"
-            HideRowsPerPage="true"/>
+        <MudPagination SelectedChanged="PageChanged"
+                       Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                       Class="pa-4"
+                       ShowFirstButton="true"
+                       ShowLastButton="true"/>
     </PagerContent>
 </MudTable>

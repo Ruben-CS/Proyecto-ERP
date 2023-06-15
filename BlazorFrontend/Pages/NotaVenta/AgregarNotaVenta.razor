@@ -1,7 +1,11 @@
 @page "/agregarNotaVenta/{idempresa:int}"
 @using global::Services.ArticuloService
+@using global::Services.Comprobante
 @using global::Services.LoteService
 @using global::Services.NotaService
+@using BlazorFrontend.Services
+@using global::Services.Cuenta
+@using global::Services.EmpresaMonedaService
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -11,6 +15,10 @@
 @inject IJSRuntime JsRuntime
 @inject ISnackbar Snackbar
 @inject LoteService LoteService
+@inject ComprobanteService ComprobanteService
+@inject EmpresaService EmpresaService
+@inject CuentaService CuentaService
+@inject EmpresaMonedaService EmpresaMonedaService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
@@ -32,7 +40,7 @@
             Class="mb-5"/>
 
 <MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px;">
-    <MudForm @ref="_form" @bind-IsValid="@_success">
+    <MudForm @bind-IsValid="@_success">
         <MudStack Row="true">
             <MudTextField Variant="Variant.Outlined"
                           Disabled="true"
@@ -70,7 +78,7 @@
                     Size="Size.Small"
                     Class="squircle-fab"
                     Disabled="@(!_success)"
-                    OnClick="AgregarVenta"/>
+                    OnClick="@AgregarVenta"/>
         </MudTooltip>
         <MudTooltip Text="Agregar detalles"
                     ShowOnClick="false"
@@ -80,7 +88,7 @@
                     StartIcon="@Icons.Material.Rounded.NoteAdd"
                     Size="Size.Small"
                     Class="squircle-fab"
-                    OnClick="OpenAgregarDetalle"/>
+                    OnClick="@OpenAgregarDetalle"/>
         </MudTooltip>
     </MudStack>
 </MudPaper>

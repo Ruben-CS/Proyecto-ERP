@@ -43,7 +43,6 @@ public partial class DetalleNotaVentaTable
 
     private int? Cantidad { get; set; }
 
-
     private decimal? PrecioDelArticulo { get; set; }
 
     private decimal? SubTotal => Cantidad.HasValue && PrecioDelArticulo.HasValue

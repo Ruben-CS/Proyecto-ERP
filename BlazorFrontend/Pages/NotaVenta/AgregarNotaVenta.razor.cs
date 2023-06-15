@@ -1,6 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Text;
-using BlazorFrontend.Pages.Nota.AgregarNota;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
@@ -36,6 +34,8 @@ public partial class AgregarNotaVenta
 
     private List<NotaDto> Notas { get; set; } = new();
 
+    private EmpresaDto Empresa { get; set; } = null!;
+
     private List<ArticuloDto> Articulos { get; set; } = new();
 
     private readonly ObservableCollection<DetalleDto> _detalleParaVenta = new();
@@ -58,9 +58,10 @@ public partial class AgregarNotaVenta
     protected override async Task OnInitializedAsync()
     {
         Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
-        await GetNotaCompras();
+        await GetNotaVentas();
         var nextNro = GetNextNumeroNota();
         NroNota = nextNro.ToString();
+        Empresa = (await EmpresaService.GetEmpresaByIdAsync(IdEmpresa))!;
         await InvokeAsync(StateHasChanged);
     }
 
@@ -87,6 +88,133 @@ public partial class AgregarNotaVenta
             parameters, _options);
     }
 
+    private decimal GetTotalVenta() =>
+        _detalleParaVenta.Sum(d => d.PrecioVenta * d.Cantidad);
+
+
+    private async Task AgregarComprobanteSiTieneConfig()
+    {
+        var comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
+        var ultimoIdComprobante = comprobantes.Last().IdComprobante;
+        var total = GetTotalVenta();
+        var url =
+            $"https://localhost:44352/detalleComprobantes/agergarDetalleComprobante/{ultimoIdComprobante}";
+        var detalles = new List<DetalleComprobanteDto>();
+
+        var detalleCaja = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa!.Cuenta1!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta1.Value),
+            Glosa         = "Venta de mercaderias",
+            MontoDebe     = total,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaber    = decimal.Zero,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+
+        var detalleIt = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa!.Cuenta5!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta5.Value),
+            Glosa         = "Venta de mercaderias",
+            MontoDebe     = total * 0.03m,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaber    = decimal.Zero,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+        var detalleDebitoFiscal = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa!.Cuenta3!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta3.Value),
+            Glosa         = "Venta de mercaderias",
+            MontoDebe     = decimal.Zero,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaber    = total * 0.13m,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+        var detalleVentas = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa!.Cuenta6!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta6.Value),
+            Glosa         = "Venta de mercaderias",
+            MontoDebe     = decimal.Zero,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaber    = detalleCaja.MontoDebe - detalleDebitoFiscal.MontoHaber,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+        var detalleItPorPagar = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa!.Cuenta7!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta7.Value),
+            Glosa         = "Venta de mercaderias",
+            MontoDebe     = decimal.Zero,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaber    = total * 0.03m,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+        detalles.Add(detalleCaja);
+        detalles.Add(detalleIt);
+        detalles.Add(detalleVentas);
+        detalles.Add(detalleDebitoFiscal);
+        detalles.Add(detalleItPorPagar);
+
+
+        foreach (var detalle in detalles)
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, detalle);
+            response.EnsureSuccessStatusCode();
+        }
+
+        Snackbar.Add("Se ha generado un comprobante", Severity.Info,
+            options => { options.ShowTransitionDuration = 2; });
+    }
+
+    private async Task CreateComprobante()
+    {
+        var empresaMonedas =
+            await EmpresaMonedaService.GetEmpresaMonedasActiveAsync(IdEmpresa);
+        var tipoCambio = empresaMonedas.Last().Cambio!.Value;
+        var url        = $"https://localhost:44352/agregarcomprobante/{IdEmpresa}";
+        var comprobanteDto = new ComprobanteDto
+        {
+            Glosa           = "Venta de mercaderias",
+            Fecha           = Fecha!.Value,
+            Tc              = tipoCambio,
+            TipoComprobante = TipoComprobante.Egreso,
+            IdMoneda        = empresaMonedas.Last().IdMonedaPrincipal,
+            IdEmpresa       = IdEmpresa,
+            IdUsuario       = 1
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
+        if (response.IsSuccessStatusCode)
+        {
+            await AgregarComprobanteSiTieneConfig();
+        }
+    }
+
+    private async Task<string> SearchCuenta(int idCuenta)
+    {
+        var cuentas = await CuentaService.GetCuentasAsync(IdEmpresa);
+        var nombreCuenta =
+            cuentas.SingleOrDefault(c => c.IdCuenta == idCuenta);
+        if (nombreCuenta is null)
+        {
+            return await Task.FromResult(string.Empty);
+        }
+
+        return await Task.FromResult($"{nombreCuenta.Codigo} - {nombreCuenta.Nombre}");
+    }
 
     private async Task AgregarVenta()
     {
@@ -96,7 +224,12 @@ public partial class AgregarNotaVenta
             return;
         }
 
-        var          total   = _detalleParaVenta.Sum(d => d.PrecioVenta * d.Cantidad);
+        if (Empresa.TieneIntegracion!.Value)
+        {
+            await CreateComprobante();
+        }
+
+        var          total   = GetTotalVenta();
         const string url     = "https://localhost:44321/notas/agregarNota";
         var          nroNota = GetNextNumeroNota();
         var nota = new NotaDto
@@ -114,19 +247,19 @@ public partial class AgregarNotaVenta
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Nota agregada exitosamente", Severity.Success);
-            await AgregarNota();
+            await AgregarDetalleVenta();
             NavigationManager.NavigateTo(
                 $"/anularNotaVenta/{IdEmpresa}/{Notas.Last().IdNota}");
         }
     }
 
-    private async Task GetNotaCompras() =>
+    private async Task GetNotaVentas() =>
         Notas = (await NotaService.GetNotaVentasAsync(IdEmpresa))!;
 
-    private async Task AgregarNota()
+    private async Task AgregarDetalleVenta()
     {
-        await GetNotaCompras();
-        var ultimoIdNota = Notas.Last().IdNota;
+        await GetNotaVentas();
+        var          ultimoIdNota = Notas.Last().IdNota;
         const string url = "https://localhost:44321/detalleVentas/agregarDetalleVenta";
         try
         {

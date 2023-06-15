@@ -141,55 +141,54 @@
     </MudForm>
 </MudPaper>
 
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Striped="true"
-              RowsPerPage="4"
-              Items="Detalles"
-              Dense="true"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;"
-              FixedFooter="true"
-              FixedHeader="true"
-              Height="250px">
+<MudTable Hover="true"
+          Striped="true"
+          RowsPerPage="4"
+          Items="Detalles"
+          Dense="true"
+          Bordered="true"
+          Elevation="2"
+          Style="border-radius: 15px;"
+          FixedFooter="true"
+          FixedHeader="true"
+          Height="300px"
+          Class="mt-4 fade-in">
 
-        <HeaderContent>
-            <MudTh Style="text-align: left">Cuenta</MudTh>
-            <MudTh Style="text-align: left">Glosa</MudTh>
-            <MudTableSortLabel Class="my-table-sort-label"
-                               InitialDirection="SortDirection.Descending"
-                               SortBy="new Func<DetalleComprobanteDto, object>(x => x.MontoDebe)">
-                <MudTh>Monto Debe</MudTh>
-            </MudTableSortLabel>
-            <MudTh Style="text-align: right">Monto Haber</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Nombre Cuenta">
-                @context.NombreCuenta
-            </MudTd>
-            <MudTd DataLabel="Glosa">
-                @context.Glosa
-            </MudTd>
-            <MudTd DataLabel="Monto Debe" Style="text-align: right">
-                @(context.MontoDebe.ToString("F2"))
-            </MudTd>
-            <MudTd DataLabel="Monto Haber" Style="text-align: right">
-                @context.MontoHaber.ToString("F2")
-            </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTd/>
-            <MudTd/>
-            <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2") </MudText>
-            </MudTd>
-            <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
-            </MudTd>
-        </FooterContent>
-    </MudTable>
-</MudPaper>
+    <HeaderContent>
+        <MudTh Style="text-align: left">Cuenta</MudTh>
+        <MudTh Style="text-align: left">Glosa</MudTh>
+        <MudTableSortLabel Class="my-table-sort-label"
+                           InitialDirection="SortDirection.Descending"
+                           SortBy="new Func<DetalleComprobanteDto, object>(x => x.MontoDebe)">
+            <MudTh>Monto Debe</MudTh>
+        </MudTableSortLabel>
+        <MudTh Style="text-align: right">Monto Haber</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre Cuenta">
+            @context.NombreCuenta
+        </MudTd>
+        <MudTd DataLabel="Glosa">
+            @context.Glosa
+        </MudTd>
+        <MudTd DataLabel="Monto Debe" Style="text-align: right">
+            @(context.MontoDebe.ToString("F2"))
+        </MudTd>
+        <MudTd DataLabel="Monto Haber" Style="text-align: right">
+            @context.MontoHaber.ToString("F2")
+        </MudTd>
+    </RowTemplate>
+    <FooterContent>
+        <MudTd/>
+        <MudTd/>
+        <MudTd Style="text-align: right">
+            <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2") </MudText>
+        </MudTd>
+        <MudTd Style="text-align: right">
+            <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+        </MudTd>
+    </FooterContent>
+</MudTable>
 
 <style>
     .right-aligned-input input {

@@ -6,18 +6,21 @@
 
 <MudTable Hover="true"
           Dense="true"
-          RowsPerPage="4"
           Elevation="2"
+          Bordered="true"
+          Striped="true"
           Style="border-radius: 15px;"
           Items="DetalleCompra"
-          Height="250px"
+          Height="300px"
+          FixedFooter="true"
+          FixedHeader="true"
           ApplyButtonPosition="TableApplyButtonPosition.Start"
           EditTrigger="TableEditTrigger.RowClick"
           CommitEditTooltip="Guardar cambios"
           CancelEditTooltip="Cancelar cambios"
           IsEditRowSwitchingBlocked="true"
           CanCancelEdit="true"
-          Class="p-3 mt-4 fade-in">
+          Class="mt-4 fade-in">
     <HeaderContent>
         <MudTh>Articulo</MudTh>
         <MudTh>Cantidad</MudTh>
@@ -29,10 +32,13 @@
         <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
         <MudTd>@context.Cantidad</MudTd>
         <MudTd Style="text-align: right">@context.PrecioCompra.ToString("F2")</MudTd>
-        <MudTd Style="text-align: right">@((context.Cantidad * context.PrecioCompra).ToString("F2"))</MudTd>
+        <MudTd Style="text-align: right">
+            @((context.Cantidad * context.PrecioCompra).ToString("F2"))
+        </MudTd>
 
         <MudTd>
-            <MudTooltip Text="Eliminar">
+            <MudTooltip Text="Eliminar fila"
+                        ShowOnClick="false">
                 <MudIconButton Size="Size.Small"
                                Icon="@Icons.Material.Rounded.Delete"
                                Color="Color.Error"
@@ -74,11 +80,14 @@
                           Margin="Margin.Dense"
                           T="decimal"/>
         </MudTd>
+        <MudTd/>
+        <MudTd/>
     </RowEditingTemplate>
     <FooterContent>
         <MudTh/>
         <MudTh/>
         <MudTh/>
         <MudTh Style="text-align: right">Total: @Total.ToString("F2")</MudTh>
+        <MudTh/>
     </FooterContent>
 </MudTable>

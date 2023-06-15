@@ -139,8 +139,8 @@ public partial class AgregarNotaCompra
 
         var detalleCompras = new DetalleComprobanteDto
         {
-            IdCuenta      = Empresa.Cuenta3!.Value,
-            NombreCuenta  =  await SearchCuenta(Empresa.Cuenta3.Value),
+            IdCuenta      = Empresa.Cuenta4!.Value,
+            NombreCuenta  =  await SearchCuenta(Empresa.Cuenta4.Value),
             Glosa         = "Compra de mercaderias",
             MontoDebe     = detalleCaja.MontoHaber - detalleCreditoFiscal.MontoDebe,
             MontoHaber    = decimal.Zero,
@@ -261,16 +261,16 @@ public partial class AgregarNotaCompra
         }
     }
 
-    private async Task<string> SearchCuenta(int idCuenta)
+    private Task<string> SearchCuenta(int idCuenta)
     {
         var nombreCuenta =
             Cuentas!.SingleOrDefault(c => c.IdCuenta == idCuenta);
         if (nombreCuenta is null)
         {
-            return string.Empty;
+            return Task.FromResult(string.Empty);
         }
 
-        return $"{nombreCuenta.Codigo} - {nombreCuenta.Nombre}";
+        return Task.FromResult($"{nombreCuenta.Codigo} - {nombreCuenta.Nombre}");
     }
 
     private async Task<int?> CheckIfLoteHasExistingArticulo(int idArticulo)

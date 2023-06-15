@@ -96,42 +96,42 @@
     </MudForm>
 </MudPaper>
 
-
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Dense="true"
-              RowsPerPage="4"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;"
-              Items="Lotes"
-              Striped="true">
-        <HeaderContent>
-            <MudTh>Articulo</MudTh>
-            <MudTh>Cantidad</MudTh>
-            <MudTh Style="text-align: right">Precio</MudTh>
-            <MudTh Style="text-align: right">Subtotal</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
-            <MudTd>@context.Cantidad</MudTd>
-            <MudTd Style="text-align: right">
-                @context.PrecioCompra.ToString("F2")
-            </MudTd>
-            <MudTd Style="text-align: right">
-                @(context.Cantidad * context.PrecioCompra)
-            </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTh/>
-            <MudTh/>
-            <MudTh/>
-            <MudTh Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: </MudText> @Total.ToString("F2")
-            </MudTh>
-        </FooterContent>
-    </MudTable>
-</MudPaper>
+<MudTable Hover="true"
+          Dense="true"
+          FixedFooter="true"
+          FixedHeader="true"
+          Height="300px"
+          Bordered="true"
+          Elevation="2"
+          Style="border-radius: 15px;"
+          Items="Lotes"
+          Striped="true"
+          Class="mt-4 fade-in">
+    <HeaderContent>
+        <MudTh>Articulo</MudTh>
+        <MudTh>Cantidad</MudTh>
+        <MudTh Style="text-align: right">Precio</MudTh>
+        <MudTh Style="text-align: right">Subtotal</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+        <MudTd>@context.Cantidad</MudTd>
+        <MudTd Style="text-align: right">
+            @context.PrecioCompra.ToString("F2")
+        </MudTd>
+        <MudTd Style="text-align: right">
+            @(context.Cantidad * context.PrecioCompra)
+        </MudTd>
+    </RowTemplate>
+    <FooterContent>
+        <MudTh/>
+        <MudTh/>
+        <MudTh/>
+        <MudTh Style="text-align: right">
+            <MudText Typo="Typo.subtitle2">Total: </MudText> @Total.ToString("F2")
+        </MudTh>
+    </FooterContent>
+</MudTable>
 <style>
     .right-aligned-input input {
         text-align: right;

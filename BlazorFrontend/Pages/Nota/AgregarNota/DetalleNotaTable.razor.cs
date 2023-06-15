@@ -21,14 +21,12 @@ public partial class DetalleNotaTable
 
     private LoteDto _elementBeforeEdit = null!;
 
-    public string NombreArticulo { get; set; }
+    private string? NombreArticulo { get; set; }
 
     private decimal Total => DetalleCompra.Sum(d => d.PrecioCompra * d.Cantidad);
 
-    private string GetArticuloName(int idArticulo)
-    {
-        return Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
-    }
+    private string GetArticuloName(int idArticulo) =>
+        Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
 
     private void DeleteEntry(LoteDto loteDto) => DetalleCompra.Remove(loteDto);
 
@@ -43,7 +41,6 @@ public partial class DetalleNotaTable
 
     private void OnRowEditPreview(object detalleObj)
     {
-
         var idArticulo = Articulos.Single(a => a.Nombre == NombreArticulo).IdArticulo;
         NombreArticulo = Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
 
@@ -51,7 +48,7 @@ public partial class DetalleNotaTable
         _elementBeforeEdit = new LoteDto
         {
             IdArticulo   = idArticulo,
-            Cantidad     = detalle.Cantidad,
+            Cantidad     = detalle!.Cantidad,
             PrecioCompra = detalle.PrecioCompra,
         };
     }
@@ -65,9 +62,9 @@ public partial class DetalleNotaTable
     {
         var idArticulo = Articulos.Single(a => a.Nombre == NombreArticulo).IdArticulo;
         NombreArticulo = Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
-        var detalle    = detalleObj as LoteDto;
-        detalle!.IdArticulo = idArticulo;
-        detalle.Cantidad    = _elementBeforeEdit.Cantidad;
-        detalle.PrecioCompra    = _elementBeforeEdit.PrecioCompra;
+        var detalle = detalleObj as LoteDto;
+        detalle!.IdArticulo  = idArticulo;
+        detalle.Cantidad     = _elementBeforeEdit.Cantidad;
+        detalle.PrecioCompra = _elementBeforeEdit.PrecioCompra;
     }
 }

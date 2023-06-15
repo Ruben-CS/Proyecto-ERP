@@ -5,10 +5,10 @@
 @inject CuentaService CuentaService
 
 <MudTable Hover="true"
-          Striped="false"
+          Striped="true"
           Items="Detalles"
           Dense="true"
-          Bordered="false"
+          Bordered="true"
           Elevation="2"
           Style="border-radius: 15px;"
           FixedFooter="true"
@@ -23,7 +23,7 @@
           CancelEditTooltip="Cancelar cambios"
           IsEditRowSwitchingBlocked="true"
           CanCancelEdit="true"
-          Class="p-3 mt-4 fade-in">
+          Class="mt-4 fade-in">
     <HeaderContent>
         <MudTh Style="text-align: left">Cuenta</MudTh>
         <MudTh Style="text-align: left">Glosa</MudTh>
@@ -45,10 +45,14 @@
             @context.MontoHaber.ToString("F2")
         </MudTd>
         <MudTd>
-            <MudIconButton Color="Color.Error"
-                           Icon="@Icons.Material.Filled.Delete"
-                           Size="Size.Small"
-                           OnClick="@(() => DeleteDetalle(context))"/>
+            <MudTooltip Text="Eliminar fila"
+                        ShowOnClick="false"
+                        ShowOnFocus="false">
+                <MudIconButton Color="Color.Error"
+                               Icon="@Icons.Material.Filled.Delete"
+                               Size="Size.Small"
+                               OnClick="@(() => DeleteDetalle(context))"/>
+            </MudTooltip>
         </MudTd>
     </RowTemplate>
     <RowEditingTemplate>
