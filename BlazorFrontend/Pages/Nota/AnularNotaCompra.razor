@@ -120,7 +120,7 @@
             @context.PrecioCompra.ToString("F2")
         </MudTd>
         <MudTd Style="text-align: right">
-            @(context.Cantidad * context.PrecioCompra)
+            @((context.Cantidad * context.PrecioCompra).ToString("F2"))
         </MudTd>
     </RowTemplate>
     <FooterContent>

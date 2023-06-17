@@ -8,7 +8,8 @@
           RowsPerPage="4"
           Bordered="true"
           Elevation="2"
-          Class="p-3 mt-4 fade-in"
+          Striped="true"
+          Class="mt-4 fade-in"
           Height="250px"
           ApplyButtonPosition="TableApplyButtonPosition.Start"
           EditTrigger="TableEditTrigger.RowClick"
@@ -22,17 +23,19 @@
         <MudTh>Articulo</MudTh>
         <MudTh>Lote</MudTh>
         <MudTh>Cantidad</MudTh>
-        <MudTh>Precio</MudTh>
-        <MudTh>Subtotal</MudTh>
+        <MudTh Style="text-align: right">Precio</MudTh>
+        <MudTh Style="text-align: right">Subtotal</MudTh>
         <MudTh>Acciones</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
         <MudTd>@context.NroLote</MudTd>
         <MudTd>@context.Cantidad</MudTd>
-        <MudTd>@context.PrecioVenta</MudTd>
-        <MudTd>
-            @(context.Cantidad * context.PrecioVenta)
+        <MudTd Style="text-align: right">
+            @context.PrecioVenta.ToString("F2")
+        </MudTd>
+        <MudTd Style="text-align: right;">
+            @((context.Cantidad * context.PrecioVenta).ToString("F2"))
         </MudTd>
         <MudTd>
             <MudTooltip Text="Eliminar">
@@ -89,12 +92,18 @@
                           HelperText="@StockMessage"
                           Margin="Margin.Dense"/>
         </MudTd>
+        <MudTd/>
+        <MudTd/>
+        <MudTd/>
     </RowEditingTemplate>
     <FooterContent>
         <MudTh/>
         <MudTh/>
         <MudTh/>
         <MudTh/>
-        <MudTh>Total: @Total.ToString("F2")</MudTh>
+        <MudTh Style="text-align: right">
+            Total: @Total.ToString("F2")
+        </MudTh>
+        <MudTh/>
     </FooterContent>
 </MudTable>
