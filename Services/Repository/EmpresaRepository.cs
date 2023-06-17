@@ -37,8 +37,10 @@ public class EmpresaRepository : IEmpresaRepository
 
     public async Task<EmpresaDto> GetModelo(int modeloId)
     {
-        var empresa = await _applicationDbContext.Empresas.Where(id => id
-            .IdEmpresa == modeloId).FirstOrDefaultAsync();
+        var empresa = await _applicationDbContext.Empresas
+                                                 .AsNoTracking()
+                                                 .Where(id => id.IdEmpresa == modeloId)
+                                                 .FirstOrDefaultAsync();
         return await Task.FromResult(_mapper.Map<EmpresaDto>(empresa));
     }
 
@@ -58,7 +60,7 @@ public class EmpresaRepository : IEmpresaRepository
                 e.IdEmpresa == modeloDto.IdEmpresa);
         if (empresa is null)
         {
-            throw new ArgumentNullException();
+            throw new NullReferenceException("Empresa no encontrada");
         }
 
         _applicationDbContext.Entry(empresa).State = EntityState.Detached;

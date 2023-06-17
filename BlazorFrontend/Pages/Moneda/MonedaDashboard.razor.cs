@@ -6,6 +6,10 @@ namespace BlazorFrontend.Pages.Moneda;
 
 public partial class MonedaDashboard
 {
+    private MudTable<EmpresaMonedaDto> _table;
+
+    private void PageChanged(int i) => _table.NavigateTo(i - 1);
+
     [Parameter]
     public int IdEmpresa { get; set; }
 

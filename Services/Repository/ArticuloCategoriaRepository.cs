@@ -33,8 +33,10 @@ public class ArticuloCategoriaRepository : IArticuloCategoriaRepository
     public async Task<IEnumerable<ArticuloCategoriaDto>> GetArticuloDetalles(
         int idArticulo)
     {
-        var articuloDetalles = await _dbContext.ArticuloCategoria.Where(ac =>
-            ac.IdArticulo == idArticulo).ToListAsync();
+        var articuloDetalles = await _dbContext.ArticuloCategoria
+                                               .AsNoTracking()
+                                               .Where(ac => ac.IdArticulo == idArticulo)
+                                               .ToListAsync();
         return await Task.FromResult(
             _mapper.Map<List<ArticuloCategoriaDto>>(articuloDetalles));
     }
@@ -51,8 +53,10 @@ public class ArticuloCategoriaRepository : IArticuloCategoriaRepository
         {
             throw new NullReferenceException("ArticuloCategoria no encontrada");
         }
-        _mapper.Map(dto,articuloCategoria);
-        ;_dbContext.Entry(articuloCategoria).State = EntityState.Modified;
+
+        _mapper.Map(dto, articuloCategoria);
+        ;
+        _dbContext.Entry(articuloCategoria).State = EntityState.Modified;
         await _dbContext.SaveChangesAsync();
         return await Task.FromResult(
             _mapper.Map<ArticuloCategoriaDto>(articuloCategoria));

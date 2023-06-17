@@ -49,7 +49,8 @@
           Elevation="3"
           Class="fade-in"
           Style="border-radius: 15px;"
-          RowsPerPage="6">
+          RowsPerPage="6"
+          @ref="_table">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>
@@ -93,9 +94,12 @@
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager
-            HorizontalAlignment="HorizontalAlignment.Left"
-            HidePageNumber="true"
-            HideRowsPerPage="true"/>
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudPagination SelectedChanged="PageChanged"
+                           Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                           Class="pa-4"
+                           ShowFirstButton="true"
+                           ShowLastButton="true"/>
+        </MudStack>
     </PagerContent>
 </MudTable>

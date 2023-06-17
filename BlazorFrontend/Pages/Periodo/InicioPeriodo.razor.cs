@@ -10,12 +10,16 @@ namespace BlazorFrontend.Pages.Periodo;
 
 public partial class InicioPeriodo
 {
+    private MudTable<PeriodoDto> _table;
+
     [Parameter]
     public int IdGestion { get; set; }
 
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private void PageChanged(int i) => _table.NavigateTo(i - 1);
 
 
     private IEnumerable<PeriodoDto> _periodos   = new List<PeriodoDto>();
