@@ -8,7 +8,6 @@
 @inject IDialogService DialogService
 @inject IJSRuntime JsRuntime
 
-
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true"
@@ -29,6 +28,14 @@
         Administracion del periodo de la gestion: @_gestionDto.Nombre
     </MudText>
     <div style="display: flex; align-items: center;">
+        <MudTooltip Text="Imprimir Comprobante"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                           Size="Size.Large"
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
+        </MudTooltip>
         <MudButton Class="ma-4 rounded-pill"
                    Color="Color.Success"
                    StartIcon="@Icons.Material.Filled.Add"

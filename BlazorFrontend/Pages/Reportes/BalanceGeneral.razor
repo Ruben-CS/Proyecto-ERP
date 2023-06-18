@@ -21,16 +21,16 @@
         <MudText Typo="Typo.h4"
                  Align="Align.Center"
                  GutterBottom="true">
-
             Balance General
         </MudText>
-        <MudForm @ref="_form">
+        <MudForm @ref="_form" @bind-IsValid="@IsSuccess">
             <MudStack>
                 <MudSelect Variant="Variant.Outlined"
                            T="string"
                            @bind-Value="SelectedGestion"
                            Label="Gestion"
-                           HelperText="Seleccione una gestion">
+                           HelperText="Seleccione una gestion"
+                           Required="true">
                     @foreach (var gestion in Gestiones)
                     {
                         <MudSelectItem Value="@gestion.Nombre">
@@ -43,7 +43,8 @@
                            T="string"
                            @bind-Value="SelectedMoneda"
                            Label="Moneda"
-                           HelperText="Seleccione una moneda">
+                           HelperText="Seleccione una moneda"
+                           Required="true">
                     @foreach (var moneda in _monedas.Where(moneda => moneda is not null))
                     {
                         <MudSelectItem Value="@moneda.Nombre">
@@ -52,7 +53,10 @@
                     }
                 </MudSelect>
                 <MudButton Variant="Variant.Filled"
-                           Class="rounded-pill">
+                           Class="rounded-pill"
+                           Disabled="@(!IsSuccess)"
+                           Color="Color.Primary"
+                           OnClick="GenerateReport">
                     <MudText Typo="Typo.button">Generar Reporte</MudText>
                 </MudButton>
             </MudStack>
@@ -62,6 +66,8 @@
 
 @code {
     private MudForm _form = null!;
+
+    public bool IsSuccess { get; set; }
 
     [Parameter]
     public int IdEmpresa { get; set; }
@@ -109,6 +115,12 @@
             Console.WriteLine(
                 $"An error occurred while initializing the component: {ex}");
         }
+    }
+
+    private void GenerateReport()
+    {
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteGestiones?IdEmpresa={IdEmpresa}";
+        NavigationManager.NavigateTo(url);
     }
 
     private void AddMonedasToList()
