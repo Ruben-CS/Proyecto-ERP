@@ -1,7 +1,6 @@
 @page "/agregarNotaVenta/{idempresa:int}"
 @using global::Services.ArticuloService
 @using global::Services.Comprobante
-@using global::Services.LoteService
 @using global::Services.NotaService
 @using BlazorFrontend.Services
 @using global::Services.Cuenta
@@ -14,7 +13,6 @@
 @inject NotaService NotaService
 @inject IJSRuntime JsRuntime
 @inject ISnackbar Snackbar
-@inject LoteService LoteService
 @inject ComprobanteService ComprobanteService
 @inject EmpresaService EmpresaService
 @inject CuentaService CuentaService
@@ -69,7 +67,7 @@
         </MudStack>
     </MudForm>
     <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between">
-        <MudTooltip Text="Agregar nota de compra"
+        <MudTooltip Text="Agregar nota de venta"
                     ShowOnClick="false"
                     ShowOnFocus="false">
             <MudFab Color="Color.Success"

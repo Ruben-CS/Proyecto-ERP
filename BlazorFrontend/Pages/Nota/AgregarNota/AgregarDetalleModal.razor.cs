@@ -8,7 +8,7 @@ namespace BlazorFrontend.Pages.Nota.AgregarNota;
 public partial class AgregarDetalleModal
 {
     private MudForm? _form;
-    private bool     _succes;
+    public  bool     Succes { get; set; }
 
     private string? SelectedArticulo { get; set; }
 
@@ -53,7 +53,7 @@ public partial class AgregarDetalleModal
 
     private async Task<IEnumerable<string?>> Search1(string value)
     {
-        var nombreArticulos = _privateArticulos.Select(a => a.Nombre).ToList();
+        var nombreArticulos = _privateArticulos!.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
             return await Task.FromResult(nombreArticulos);
         return nombreArticulos.Where(a => a.Contains(value,
@@ -86,9 +86,8 @@ public partial class AgregarDetalleModal
             FechaVencimiento = FechaVencimiento,
             IdArticulo       = articulo!.IdArticulo
         };
-        Cantidad         = null;
-        PrecioUnitario   = null;
-        SelectedArticulo = null;
+        await _form!.ResetAsync();
+        _form!.ResetValidation();
         await AddNewDetalleLote.InvokeAsync(loteDto);
     }
 
