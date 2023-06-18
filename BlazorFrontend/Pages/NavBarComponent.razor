@@ -182,23 +182,56 @@
         </MudNavGroup>
     </MudNavMenu>
 </MudDrawer>
-    <MudDrawer
-        @bind-Open="IsOpen"
-        Fixed="true"
-        Elevation="2"
-        Variant="@DrawerVariant.Mini"
-        OpenMiniOnHover="true"
-        Anchor="Anchor.End"
-        ClipMode="DrawerClipMode.Docked"
-        Breakpoint="Breakpoint.Lg"
-        PreserveOpenState="true"
-         Style="border-bottom-right-radius: 10px; border-top-right-radius: 10px">
-        <MudNavMenu>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Store">Store</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LibraryBooks">Library</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Group">Community</MudNavLink>
-        </MudNavMenu>
-    </MudDrawer>
+<MudDrawer
+    @bind-Open="IsOpen"
+    Fixed="true"
+    Elevation="2"
+    Variant="@DrawerVariant.Mini"
+    OpenMiniOnHover="true"
+    Anchor="Anchor.End"
+    ClipMode="DrawerClipMode.Docked"
+    Breakpoint="Breakpoint.Lg"
+    PreserveOpenState="true"
+    Style="border-bottom-right-radius: 10px; border-top-right-radius: 10px">
+    <MudNavMenu>
+        @if (IsOpen)
+        {
+            <MudDrawerHeader>
+                <MudText Typo="Typo.h6"> Reportes</MudText>
+            </MudDrawerHeader>
+        }
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.Balance"
+                    OnClick="() => NavigateToBalance()">
+            <MudText>Balance General</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.AutoStories">
+            <MudText> Libro Diario</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.PriceCheck">
+            <MudText> Suma y Saldo</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.BarChart">
+            <MudText>Estado de Resultados</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+    </MudNavMenu>
+</MudDrawer>
 @if (IsLoggingOut)
 {
     <MudOverlay Visible="IsLoggingOut" DarkBackground="true" Absolute="false" ZIndex="9999">
@@ -252,6 +285,8 @@
             StateHasChanged();
         }
     }
+
+    private void NavigateToBalance() => NavigationManager.NavigateTo($"/BalanceGeneral/{IdEmpresa}");
 
     private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";
 
