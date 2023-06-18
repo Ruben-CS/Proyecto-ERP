@@ -11,9 +11,14 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="6"
-          Justify="Justify.SpaceBetween">
-    <MudText Typo="Typo.h5" Align="Align.Start" GutterBottom="true">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Spacing="6"
+          Justify="Justify.SpaceBetween"
+          Style="margin-right: 0;">
+    <MudText Typo="Typo.h5"
+             Align="Align.Center"
+             GutterBottom="true">
         <MudTooltip Text="Volver a gestion">
             <MudIconButton Size="Size.Medium"
                            Icon="@Icons.Material.Filled.ArrowBack"
@@ -24,7 +29,6 @@
         Administracion del periodo de la gestion: @_gestionDto.Nombre
     </MudText>
     <div style="display: flex; align-items: center;">
-
         <MudButton Class="ma-4 rounded-pill"
                    Color="Color.Success"
                    StartIcon="@Icons.Material.Filled.Add"
@@ -48,7 +52,7 @@
           Striped="true"
           Elevation="3"
           Class="fade-in"
-          Style="border-radius: 15px;"
+          Style="border-radius: 15px; margin-right: 0;"
           RowsPerPage="6"
           @ref="_table">
     <HeaderContent>

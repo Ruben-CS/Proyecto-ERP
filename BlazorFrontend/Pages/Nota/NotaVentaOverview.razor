@@ -7,7 +7,11 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="6"
+          Style="margin-right: 0;">
     <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Notas de compra</MudText>
     <div style="display: flex; align-items: center;">
         <MudButton ButtonType="ButtonType.Button"
@@ -33,7 +37,7 @@
           Elevation="3"
           Class="fade-in"
           Bordered="true"
-          Style="border-radius: 15px;"
+          Style="border-radius: 15px; margin-right: 0;"
           LoadingProgressColor="Color.Dark"
           Loading="IsLoading"
           @ref="@_table">

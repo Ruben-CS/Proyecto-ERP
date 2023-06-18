@@ -14,7 +14,8 @@
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true" AlignItems="AlignItems.Center"
-          Justify="Justify.SpaceBetween" Spacing="6">
+          Justify="Justify.SpaceBetween" Spacing="6"
+          Style="margin-right: 0;">
     <MudText Align="Align.Start"
              Typo="Typo.h5"
              GutterBottom="true">
@@ -27,7 +28,7 @@
                    OnClick="AddMonedaAlternativa"
                    StartIcon="@Icons.Material.Rounded.AddCircleOutline"
                    Size="Size.Medium"
-                   Style="justify-self: flex-end; align-self: center"
+                   Style="justify-self: flex-end; align-self: center; margin-right: 0;"
                    Class="mb-4 rounded-pill"
                    Disabled="@IsLoading">
             <MudText Typo="Typo.button">
@@ -101,14 +102,14 @@
 
 <MudTable Items="@_empresaMonedas"
           Hover="true"
-          Breakpoint="Breakpoint.Sm"
+          Breakpoint="Breakpoint.Xs"
           Bordered="true"
           Striped="true"
           Loading="@IsLoading"
           Elevation="3"
           Class="mt-1"
           RowsPerPage="4"
-          Style="border-radius: 15px;"
+          Style="border-radius: 15px; margin-right: 0;"
           @ref="_table">
     <HeaderContent>
         <MudTh Style="text-align: center">
