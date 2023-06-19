@@ -25,9 +25,7 @@
                            OnClick="@(GoBack)"
                            Style="align-self: center"/>
         </MudTooltip>
-        Administracion del periodo de la gestion: @_gestionDto.Nombre
-    </MudText>
-    <div style="display: flex; align-items: center;">
+            Periodo de la gestion: @_gestionDto.Nombre
         <MudTooltip Text="Imprimir Comprobante"
                     Arrow="true"
                     Placement="Placement.Top">
@@ -36,6 +34,9 @@
                            Color="Color.Default"
                            OnClick="GenerateReport"/>
         </MudTooltip>
+    </MudText>
+    <div style="display: flex; align-items: center;">
+
         <MudButton Class="ma-4 rounded-pill"
                    Color="Color.Success"
                    StartIcon="@Icons.Material.Filled.Add"

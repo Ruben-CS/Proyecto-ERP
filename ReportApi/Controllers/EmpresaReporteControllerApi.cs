@@ -194,5 +194,65 @@ namespace ReportApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet("ListarNotaDeCompraXML/{IdNota}")]
+        [Produces(MediaTypeNames.Application.Xml)]
+        public async Task<IActionResult> ListarNotaDeCompraXML([FromRoute] int IdNota)
+        {
+            try
+            {
+                var nota = await _context.Nota
+                                         .Include(n => n.Lotes)
+                                         .FirstOrDefaultAsync(n => n.IdNota == IdNota);
+                var notaIdEmpresa = nota.IdEmpresa;
+                var notaEstado    = nota.EstadoNota;
+                var empresa = await _context.Empresas
+                                            .Where(x => x.IdEmpresa == notaIdEmpresa)
+                                            .ToListAsync();
+                var nEmpresa = empresa[0].Nombre;
+                if (nota is null)
+                {
+                    return StatusCode(404);
+                }
+
+                var reporteNc = new List<ReporteNotaCompra>();
+
+                foreach (var lote in nota.Lotes)
+                {
+                    var reporte = new ReporteNotaCompra
+                    {
+                        Subtotal       = lote.Cantidad * lote.PrecioCompra,
+                        Estado         = notaEstado,
+                        NombreEmpresa  = nEmpresa,
+                        IdNota         = nota.IdNota,
+                        NroNota        = nota.NroNota!.Value,
+                        Descripcion    = nota.Descripcion,
+                        Fecha          = nota.Fecha,
+                        Total          = nota.Total,
+                        Tipo           = TipoNota.Venta,
+                        NombreArticulo = await GetAritculoName(lote.IdArticulo),
+                        Cantidad       = lote.Cantidad,
+                        Precio         = lote.PrecioCompra,
+                    };
+                    reporteNc.Add(reporte);
+                }
+
+                {
+                    return Ok(reporteNc);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private async Task<string> GetAritculoName(int idArticulo)
+        {
+            return await Task.FromResult(_context.Articulo
+                                                 .FirstOrDefaultAsync(a =>
+                                                     a.IdArticulo == idArticulo)
+                                                 .Result!.Nombre ?? string.Empty);
+        }
     }
 }

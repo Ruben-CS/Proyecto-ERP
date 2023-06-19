@@ -5,13 +5,14 @@ namespace BlazorFrontend.Pages.Integracion;
 
 public partial class IntegracionCuentas
 {
-      [Parameter]
+    [Parameter]
     public int IdEmpresa { get; set; }
 
     private List<CuentaDto> Cuentas { get; set; } = new();
 
     private bool _configurar;
-    public bool Configurar
+
+    private bool Configurar
     {
         get => _configurar;
         set
@@ -24,12 +25,11 @@ public partial class IntegracionCuentas
         }
     }
 
-    public EmpresaDto Empresa { get; set; } = new();
+    private EmpresaDto Empresa { get; set; } = new();
 
     #region Fields
 
     private string? Cuenta1 { get; set; }
-
     private string? Cuenta2 { get; set; }
 
     private string? Cuenta3 { get; set; }
@@ -50,13 +50,15 @@ public partial class IntegracionCuentas
 
         if (!Configurar)
         {
-            var uriDesactivar = $"https://localhost:44378/integracion/desactivarConfiguracion/{IdEmpresa}";
+            var uriDesactivar =
+                $"https://localhost:44378/integracion/desactivarConfiguracion/{IdEmpresa}";
             await HttpClient.PutAsJsonAsync(uriDesactivar, Empresa);
             Snackbar.Add("Integracion desactivada", MudBlazor.Severity.Info);
         }
         else
         {
-            var uriActivar = $"https://localhost:44378/integracion/activarConfiguracion/{IdEmpresa}"; // Note: You should change 'desactivarConfiguracion' to 'activarConfiguracion' in this URL.
+            var uriActivar =
+                $"https://localhost:44378/integracion/activarConfiguracion/{IdEmpresa}"; // Note: You should change 'desactivarConfiguracion' to 'activarConfiguracion' in this URL.
             await HttpClient.PutAsJsonAsync(uriActivar, Empresa);
             Snackbar.Add("Integracion activada", MudBlazor.Severity.Info);
         }
@@ -66,15 +68,23 @@ public partial class IntegracionCuentas
     {
         try
         {
-            var uri = new Uri(NavigationManager.Uri);
+            var uri      = new Uri(NavigationManager.Uri);
             var segments = uri.Segments;
-            var idValue = segments[^1];
+            var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                IdEmpresa = int.Parse(idValue);
-                Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
-                Empresa = (await EmpresaService.GetEmpresaByIdAsync(IdEmpresa))!;
-                Configurar = Empresa.TieneIntegracion!.Value;
+                IdEmpresa   = int.Parse(idValue);
+                Cuentas     = await CuentaService.GetCuentasDetalle(IdEmpresa);
+                Empresa     = (await EmpresaService.GetEmpresaByIdAsync(IdEmpresa))!;
+                Configurar  = Empresa.TieneIntegracion!.Value;
+                Cuenta1     = GetNombreCuenta(Empresa.Cuenta1.Value);
+                Cuenta2     = GetNombreCuenta(Empresa.Cuenta2.Value);
+                Cuenta3     = GetNombreCuenta(Empresa.Cuenta3.Value);
+                Cuenta4     = GetNombreCuenta(Empresa.Cuenta4.Value);
+                Cuenta5     = GetNombreCuenta(Empresa.Cuenta5.Value);
+                Cuenta6     = GetNombreCuenta(Empresa.Cuenta6.Value);
+                Cuenta7     = GetNombreCuenta(Empresa.Cuenta7.Value);
+                _configurar = Empresa.TieneIntegracion.Value;
                 await InvokeAsync(StateHasChanged);
             }
             else
@@ -90,7 +100,7 @@ public partial class IntegracionCuentas
         }
     }
 
-    public async Task GuardarConfiguracion()
+    private async Task GuardarConfiguracion()
     {
         var properties = new[]
         {
@@ -104,30 +114,34 @@ public partial class IntegracionCuentas
             Snackbar.Add("No pueden haber campos vacios", MudBlazor.Severity.Error);
             return;
         }
+
         if (properties.Distinct().Count() != properties.Length)
         {
             Snackbar.Add("No pueden haber campos duplicados", MudBlazor.Severity.Error);
             return;
         }
+
         foreach (var nombreCuentas in properties)
         {
             var codigoCuenta = ExtractCodigo(nombreCuentas!);
-            var idCuenta = Cuentas.SingleOrDefault(c => c.Codigo == codigoCuenta)!.IdCuenta;
+            var idCuenta = Cuentas.SingleOrDefault(c => c.Codigo == codigoCuenta)!
+                                  .IdCuenta;
             codigosCuenta.Add(idCuenta);
         }
 
         Empresa.Cuenta1 = codigosCuenta.First();
-        Empresa.Cuenta2 = codigosCuenta[2];
-        Empresa.Cuenta3 = codigosCuenta[3];
-        Empresa.Cuenta4 = codigosCuenta[4];
-        Empresa.Cuenta5 = codigosCuenta[5];
-        Empresa.Cuenta6 = codigosCuenta[6];
+        Empresa.Cuenta2 = codigosCuenta[1];
+        Empresa.Cuenta3 = codigosCuenta[2];
+        Empresa.Cuenta4 = codigosCuenta[3];
+        Empresa.Cuenta5 = codigosCuenta[4];
+        Empresa.Cuenta6 = codigosCuenta[5];
         Empresa.Cuenta7 = codigosCuenta.Last();
 
         var response = await HttpClient.PutAsJsonAsync(uri, Empresa);
         if (response.IsSuccessStatusCode)
         {
-            Snackbar.Add("Configuracion guardada exitosamente", MudBlazor.Severity.Success);
+            Snackbar.Add("Configuracion guardada exitosamente",
+                MudBlazor.Severity.Success);
         }
     }
 
@@ -139,8 +153,18 @@ public partial class IntegracionCuentas
         {
             return await Task.FromResult(nombreCuentas);
         }
+
         return nombreCuentas.Where(c =>
             c.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private string GetNombreCuenta(int? idCuenta)
+    {
+        var nombreCuenta = Cuentas
+                           .Where(C => C.IdCuenta == idCuenta)
+                           .Select(c => $"{c.Codigo} - {c.Nombre}")
+                           .FirstOrDefault();
+        return nombreCuenta ?? string.Empty;
     }
 
     private static string ExtractCodigo(string nombreCuenta)

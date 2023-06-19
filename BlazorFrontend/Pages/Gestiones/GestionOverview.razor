@@ -17,15 +17,16 @@
           Style="margin-right: 0;">
     <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">
         Lista de gestiones
+        <MudTooltip Text="Imprimir Comprobante"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                           Size="Size.Large"
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
+        </MudTooltip>
     </MudText>
-    <MudTooltip Text="Imprimir Comprobante"
-                Arrow="true"
-                Placement="Placement.Top">
-        <MudIconButton Icon="@Icons.Material.Rounded.Print"
-                       Size="Size.Large"
-                       Color="Color.Default"
-                       OnClick="GenerateReport"/>
-    </MudTooltip>
+
     <div style="display: flex; align-items: center;">
         <MudTooltip Text="Borre una gestion para agregar una nueva"
                     ShowOnHover="@(VerifyGestiones())"

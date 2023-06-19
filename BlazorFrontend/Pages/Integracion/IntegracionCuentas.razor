@@ -13,7 +13,8 @@
 <MudStack Row="true"
           AlignItems="AlignItems.Baseline"
           Justify="Justify.SpaceBetween"
-          Spacing="6">
+          Spacing="6"
+          Style="margin-right: 0">
     <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
         Configuracion de integracion
     </MudText>
@@ -38,10 +39,11 @@
             Style="border-top-width: 3px;"
             Class="mb-5"/>
 
-<MudPaper Style="padding:15px; border-radius:15px;">
+<MudPaper Style="padding:15px; border-radius:15px; margin-right: 0 ">
     <MudStack AlignItems="AlignItems.Center"
               Justify="Justify.SpaceEvenly"
-              Spacing="2">
+              Spacing="2"
+              Style="margin-right: 0">
         <MudAutocomplete T="string"
                          @bind-Value="Cuenta1"
                          SearchFunc="SearchCuenta"

@@ -223,8 +223,11 @@
                     Light="false"
                     Style="border-top-width: 3px;"
                     Class="my-1"/>
-        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.BarChart">
-            <MudText>Estado de Resultados</MudText>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.BarChart">
+            <MudText Class="fixed-width-text">
+                Estado de Resultados
+            </MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
                     Light="false"
@@ -239,6 +242,12 @@
     </MudOverlay>
 }
 
+<style>
+    .fixed-width-text {
+      width: 160px;
+    }
+
+</style>
 @code {
 
     [Parameter]
