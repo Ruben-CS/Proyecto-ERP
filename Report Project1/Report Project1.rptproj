@@ -51,6 +51,7 @@
   <ItemGroup>
     <Report Include="ListarEmpresas.rdl" />
     <Report Include="ListarPeriodos.rdl" />
+    <Report Include="ReporteComprobante.rdl" />
     <Report Include="ReporteGestiones.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

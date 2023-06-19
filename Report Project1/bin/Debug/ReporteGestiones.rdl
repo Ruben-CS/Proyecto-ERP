@@ -14,10 +14,10 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="GestionAPI">
+    <DataSource Name="ComprobanteAPI">
       <ConnectionProperties>
         <DataProvider>XML</DataProvider>
-        <ConnectString>="https://localhost:44396/ListarGestiones/" &amp; Parameters!IdEmpresa.Value</ConnectString>
+        <ConnectString>="https://localhost:44396/ListarComprobantes/" &amp; Parameters!IdEmpresa.Value</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -27,7 +27,7 @@
   <DataSets>
     <DataSet Name="GestionDataSet">
       <Query>
-        <DataSourceName>GestionAPI</DataSourceName>
+        <DataSourceName>ComprobanteAPI</DataSourceName>
         <CommandText />
       </Query>
       <Fields>
@@ -134,7 +134,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Reporte de Gestiones</Value>
+                    <Value>Reporte de Comprobante</Value>
                     <Style>
                       <FontSize>18pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -467,7 +467,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>GestionDataSet</DataSetName>
-            <Top>1.92167in</Top>
+            <Top>2.73834in</Top>
             <Left>0.18in</Left>
             <Height>0.5in</Height>
             <Width>5.47832in</Width>
@@ -508,7 +508,7 @@
             <Top>0.62444in</Top>
             <Left>0.18in</Left>
             <Height>0.35in</Height>
-            <Width>5.43667in</Width>
+            <Width>5.47832in</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>

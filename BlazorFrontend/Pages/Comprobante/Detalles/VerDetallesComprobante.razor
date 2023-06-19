@@ -32,7 +32,8 @@
                     Placement="Placement.Top">
             <MudIconButton Icon="@Icons.Material.Rounded.Print"
                            Size="Size.Large"
-                           Color="Color.Default"/>
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
         </MudTooltip>
         <MudTooltip Text="Agregar nuevo comprobante"
                     Arrow="true"
@@ -230,6 +231,12 @@
     private MonedaDto Moneda { get; set; } = new();
 
     private bool IsAnulado() => ComprobanteDto.Estado == EstadoComprobante.Anulado;
+
+    private void GenerateReport()
+    {
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteComprobante?IdEmpresa={IdComprobante}";
+        NavigationManager.NavigateTo(url);
+    }
 
     protected override async Task OnInitializedAsync()
     {
