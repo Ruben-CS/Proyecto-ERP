@@ -167,7 +167,7 @@
             var idMonedaSeleccionada = _monedas.Single(m => m.Nombre.Equals(SelectedMoneda)).IdMoneda;
             if (idMonedaSeleccionada == EmpresaMonedas.Last().IdMonedaAlternativa)
             {
-                var urlMon = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroDiarioAlt?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
+                var urlMon = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroMayorAlt?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
                 NavigationManager.NavigateTo(urlMon);
                 return;
             }

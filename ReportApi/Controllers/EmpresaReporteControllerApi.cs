@@ -1048,6 +1048,131 @@ public class EmpresaReporteControllerApi : Controller
         }
     }
 
+    [HttpGet("LibroMayorAlt/{IdGestion}/{IdPeriodo}")]
+    [Produces(MediaTypeNames.Application.Xml)]
+    public async Task<IActionResult> LibroMayorAlt(
+        [FromRoute] int IdGestion, [FromRoute] int? IdPeriodo)
+    {
+        try
+        {
+            var gestiones = await _context.Gestiones.Include(g => g.Periodos)
+                                          .Where(x => x.IdGestion == IdGestion)
+                                          .ToListAsync();
+            var IdEmpresa = gestiones[0].IdEmpresa;
+
+            var comprobantes = await _context.Comprobantes
+                                             .Include(c => c.DetalleComprobantes)
+                                             .Where(x => x.IdEmpresa == IdEmpresa)
+                                             .ToListAsync();
+
+            if (comprobantes.Count == 0)
+            {
+                return StatusCode(404);
+            }
+
+            var saldosPorCuenta = new Dictionary<int, decimal>();
+            var comprobantesConDetalles =
+                new List<ComprobanteMayorConDetalles>();
+            foreach (var gestion in gestiones)
+            {
+                foreach (var p in gestion.Periodos)
+                {
+                    var Nperiodo = p.Nombre;
+
+                    if (IdPeriodo == 0 || p.IdPeriodo == IdPeriodo)
+                    {
+                        var NGestion = gestion.Nombre;
+                        foreach (var c in comprobantes)
+                        {
+                            var NMoneda  = await GetMonedaName(c.IdMoneda);
+                            var NEmpresa = await GetEmpresaName(c.IdEmpresa);
+                            if (c.Estado == EstadoComprobante.Abierto &&
+                                c.Fecha  >= p.FechaInicio             &&
+                                c.Fecha  <= p.FechaFin)
+                            {
+                                var cuentas =
+                                    await _context.Cuentas.ToDictionaryAsync(c =>
+                                        c.IdCuenta);
+
+                                foreach (var detalle in c.DetalleComprobantes)
+                                {
+                                    if (!cuentas.TryGetValue(detalle.IdCuenta,
+                                            out var cuenta))
+                                    {
+                                        continue;
+                                    }
+
+                                    var cu = cuenta.IdCuenta;
+                                    var comprobante =
+                                        comprobantesConDetalles.FirstOrDefault(x =>
+                                            x.IdComprobante == cu);
+                                    if (comprobante == null)
+                                    {
+                                        comprobante = new ComprobanteMayorConDetalles
+                                        {
+                                            IdComprobante = cu,
+                                            Detalles      = new List<LibroMayorReporte>()
+                                        };
+                                        comprobantesConDetalles.Add(comprobante);
+                                    }
+
+                                    if (!saldosPorCuenta.ContainsKey(cu))
+                                    {
+                                        saldosPorCuenta[cu] = 0;
+                                    }
+
+                                    if (detalle.MontoHaberAlt > 0)
+                                    {
+                                        saldosPorCuenta[cu] += detalle.MontoDebeAlt;
+                                    }
+                                    else
+                                    {
+                                        saldosPorCuenta[cu] -= detalle.MontoHaberAlt;
+                                    }
+
+                                    var libromayor = new LibroMayorReporte
+                                    {
+                                        NombreGestion = NGestion,
+                                        NombreEmpresa = NEmpresa,
+                                        NombrePeriodo =
+                                            IdPeriodo == 0 ? "Todos" : Nperiodo,
+                                        NombreMoneda = NMoneda,
+                                        Debe         = detalle.MontoDebeAlt,
+                                        Haber        = detalle.MontoHaberAlt,
+                                        NombreCuenta = detalle.NombreCuenta,
+                                        Fecha        = c.Fecha,
+                                        Glosa        = detalle.Glosa,
+                                        Nro          = c.Serie,
+                                        Tipo         = c.TipoComprobante.GetDisplayName(),
+                                        Saldo        = saldosPorCuenta[cu],
+                                    };
+
+                                    comprobante.Detalles.Add(libromayor);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (comprobantesConDetalles != null && comprobantesConDetalles.Count > 0)
+            {
+                return Ok(new ResultadoLibroMayor
+                {
+                    Comprobantes = comprobantesConDetalles,
+                });
+            }
+            else
+            {
+                return StatusCode(404);
+            }
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
+
     private async Task<List<int>> GetAllChildCategories(int IdCategoria)
     {
         var allCategories = new List<int> { IdCategoria };
