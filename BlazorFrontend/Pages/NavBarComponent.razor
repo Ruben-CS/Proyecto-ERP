@@ -230,7 +230,7 @@
                     Class="my-1"/>
         <MudNavLink Match="NavLinkMatch.All"
                     Icon="@Icons.Material.Rounded.Inventory2"
-                    OnClick="() => NavigateToSaldo()">
+                    OnClick="() => NavigateToStock()">
             <MudText>Inventario</MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
@@ -321,6 +321,8 @@
     private void NavigateToEstado() => NavigationManager.NavigateTo($"/EstadoResultado/{IdEmpresa}");
 
     private void NavigateToLibroMayot() => NavigationManager.NavigateTo($"/LibroMayor/{IdEmpresa}");
+
+    private void NavigateToStock() => NavigationManager.NavigateTo($"/Stock/{IdEmpresa}");
 
 
     private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";

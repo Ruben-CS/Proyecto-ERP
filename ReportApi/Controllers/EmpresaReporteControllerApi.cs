@@ -1173,6 +1173,8 @@ public class EmpresaReporteControllerApi : Controller
         }
     }
 
+
+
     private async Task<List<int>> GetAllChildCategories(int IdCategoria)
     {
         var allCategories = new List<int> { IdCategoria };

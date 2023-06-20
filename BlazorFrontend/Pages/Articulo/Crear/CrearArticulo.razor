@@ -54,7 +54,8 @@
                                Immediate="true"
                                AnchorOrigin="Origin.CenterCenter"
                                TransformOrigin="Origin.CenterCenter"
-                               Label="Seleccione de la lista de categorias">
+                               Label="Seleccione categorias"
+                               DisableUnderLine="true">
                         @foreach (var categoria in CategoriaDtos)
                         {
                             <MudSelectItem T="string" Value="@categoria.Nombre">@categoria.Nombre</MudSelectItem>

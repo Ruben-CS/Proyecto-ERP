@@ -51,6 +51,7 @@
   <ItemGroup>
     <Report Include="ListarEmpresas.rdl" />
     <Report Include="ListarPeriodos.rdl" />
+    <Report Include="Reporte Stock.rdl" />
     <Report Include="ReporteComprobante.rdl" />
     <Report Include="ReporteEstadoResultado.rdl" />
     <Report Include="ReporteGestiones.rdl" />
