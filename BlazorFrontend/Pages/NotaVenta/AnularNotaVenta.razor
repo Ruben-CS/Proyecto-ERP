@@ -33,7 +33,8 @@
                     Placement="Placement.Top">
             <MudIconButton Icon="@Icons.Material.Rounded.Print"
                            Size="Size.Large"
-                           Color="Color.Default"/>
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
         </MudTooltip>
         <MudTooltip Text="Agregar nueva nota de compra"
                     Arrow="true"
@@ -216,6 +217,12 @@
             await RefreshList();
             Nota = await NotaService.GetNotaAsync(IdNota);
         }
+    }
+
+    private void GenerateReport()
+    {
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteNotaVenta?IdEmpresa={IdNota}";
+        NavigationManager.NavigateTo(url);
     }
 
     private async Task RefreshList()

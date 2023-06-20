@@ -10,8 +10,7 @@ public class Detalle
 
     public int       IdArticulo { get; set; }
     public Articulo? Articulo   { get; set; }
-
-    public int NroLote { get; set; }
+    public int       NroLote    { get; set; }
 
     [ForeignKey("Nota")]
     public int IdNota { get; set; }

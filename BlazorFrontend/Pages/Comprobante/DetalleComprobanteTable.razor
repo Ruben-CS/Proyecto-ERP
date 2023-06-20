@@ -70,26 +70,40 @@
         <MudTd DataLabel="Glosa">
             <MudTextField @bind-Value="@context.Glosa" Margin="Margin.Dense"/>
         </MudTd>
-        <MudTd DataLabel="Monto Debe" Style="text-align: right">
-            <MudNumericField @bind-Value="@context.MontoDebe" Margin="Margin.Dense"/>
-        </MudTd>
-        <MudTd DataLabel="Monto Haber" Style="text-align: right">
-            <MudNumericField @bind-Value="@context.MontoHaber" Margin="Margin.Dense"/>
-        </MudTd>
+        @if (IsPrincipal)
+        {
+            <MudTd DataLabel="Monto Debe" Style="text-align: right">
+                <MudNumericField @bind-Value="@context.MontoDebe" Margin="Margin.Dense"/>
+            </MudTd>
+            <MudTd DataLabel="Monto Haber" Style="text-align: right">
+                <MudNumericField @bind-Value="@context.MontoHaber" Margin="Margin.Dense"/>
+            </MudTd>
+        }
+        else
+        {
+            <MudTd DataLabel="Monto Debe" Style="text-align: right">
+                <MudNumericField @bind-Value="@context.MontoDebeAlt" Margin="Margin.Dense"/>
+            </MudTd>
+            <MudTd DataLabel="Monto Haber" Style="text-align: right">
+                <MudNumericField @bind-Value="@context.MontoHaberAlt" Margin="Margin.Dense"/>
+            </MudTd>
+        }
     </RowEditingTemplate>
     <FooterContent>
         <MudTd/>
         <MudTd/>
-        <MudTd Style="text-align: right">
-            <MudText Align="Align.Right" Typo="Typo.subtitle2">
-                Total: @TotalDebe.ToString("F2")
-            </MudText>
-        </MudTd>
-        <MudTd Style="text-align: right">
-            <MudText Align="Align.Right" Typo="Typo.subtitle2">
-                Total: @TotalHaber.ToString("F2")
-            </MudText>
-        </MudTd>
+
+            <MudTd Style="text-align: right">
+                <MudText Align="Align.Right" Typo="Typo.subtitle2">
+                    Total: @TotalDebe.ToString("F2")
+                </MudText>
+            </MudTd>
+            <MudTd Style="text-align: right">
+                <MudText Align="Align.Right" Typo="Typo.subtitle2">
+                    Total: @TotalHaber.ToString("F2")
+                </MudText>
+            </MudTd>
+
         <MudTd/>
     </FooterContent>
 </MudTable>

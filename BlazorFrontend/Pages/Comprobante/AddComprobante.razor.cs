@@ -32,6 +32,8 @@ public partial class AddComprobante
 
     private decimal? TipoDeCambio { get; set; }
 
+    private bool IsMonedaPrincipal { get; set; }
+
     private string TipoDeCambioString
     {
         get => TipoDeCambio?.ToString("F2") ?? string.Empty;
@@ -126,7 +128,7 @@ public partial class AddComprobante
         Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
 
     protected override async Task OnInitializedAsync()
-    {
+        {
         EmpresaMonedas     = await EmpresaMonedaService.GetEmpresasMonedaAsync(IdEmpresa);
         MonedasDeLaEmpresa = (await MonedaService.GetMonedasAsync())!;
         Comprobantes       = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
@@ -140,9 +142,9 @@ public partial class AddComprobante
         TipoDeCambio = await SetTipoCambio(idMonedaAlternativa);
         MonedasDeLaEmpresa = MonedasDeLaEmpresa
                              .Where(m => m!.IdMoneda == idMonedaPrincipal ||
-                                         m.IdMoneda == idMonedaAlternativa)
+                                         m.IdMoneda  == idMonedaAlternativa)
                              .ToList();
-        SelectedEmpresaMoneda = MonedasDeLaEmpresa.Last()!.Nombre;
+        SelectedEmpresaMoneda = MonedasDeLaEmpresa.First()!.Nombre;
 
         #region Snackbar Config
 
@@ -208,6 +210,23 @@ public partial class AddComprobante
 
     private async Task OpenAgregarDetalleModal()
     {
+        var idMonedaPrincipal   = EmpresaMonedas!.Last().IdMonedaPrincipal;
+        var idMonedaAlternativa = EmpresaMonedas!.Last().IdMonedaAlternativa;
+
+        if (MonedasDeLaEmpresa.Single(e => e.IdMoneda == idMonedaPrincipal)
+                              .Nombre == SelectedEmpresaMoneda)
+        {
+            IsMonedaPrincipal = true;
+        }
+        else if (idMonedaAlternativa is null)
+        {
+            IsMonedaPrincipal = true;
+        }
+        else
+        {
+            IsMonedaPrincipal = false;
+        }
+
         var parameters = new DialogParameters
         {
             { "IdEmpresa", IdEmpresa },
@@ -217,7 +236,9 @@ public partial class AddComprobante
                 EventCallback.Factory.Create<DetalleComprobanteDto>(this,
                     AddNewDetalleComprobante)
             },
-            { "Detalles", _detalles }
+            { "Detalles", _detalles },
+            { "IsMonedaPrincipal", IsMonedaPrincipal },
+            { "TipoDeCambio", TipoDeCambio }
         };
         await DialogService.ShowAsync<DetalleComprobanteModal>(
             "Ingrese los detalles del comprobante", parameters,

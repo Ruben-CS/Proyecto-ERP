@@ -9,6 +9,8 @@ public partial class DetalleComprobanteTable
 {
     private MudTable<DetalleComprobanteDto> _table;
 
+    [Parameter]
+    public bool IsPrincipal { get; set; }
 
     [Parameter]
     public ObservableCollection<DetalleComprobanteDto> Detalles { get; set; } = new();
@@ -29,7 +31,7 @@ public partial class DetalleComprobanteTable
     };
 
     private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
-
+    
     private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
 
     private void DeleteDetalle(DetalleComprobanteDto dto) => Detalles.Remove(dto);

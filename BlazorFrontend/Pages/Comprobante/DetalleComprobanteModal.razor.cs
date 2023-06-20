@@ -8,8 +8,6 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteModal
 {
-    private bool isDebeFocused  = false;
-    private bool isHaberFocused = false;
 
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; } = null!;
@@ -19,6 +17,12 @@ public partial class DetalleComprobanteModal
 
     [Parameter]
     public EventCallback<DetalleComprobanteDto> AddNewDetalleComprobante { get; set; }
+
+    [Parameter]
+    public bool IsMonedaPrincipal { get; set; }
+
+    [Parameter]
+    public decimal TipoDeCambio { get; set; }
 
     public List<CuentaDto> Cuentas { get; set; } = new();
 
@@ -62,6 +66,11 @@ public partial class DetalleComprobanteModal
 
     private async Task Submit()
     {
+        decimal debe;
+        decimal haber;
+        decimal debeAlt;
+        decimal haberAlt;
+
         if (IsDebeOrHaberNull(Debe, Haber))
             return;
         if (ValidateNegatives(Debe, Haber))
@@ -73,6 +82,21 @@ public partial class DetalleComprobanteModal
         if (IsGlosaNullOrEmpty(Glosa))
             return;
 
+        if (IsMonedaPrincipal)
+        {
+            debe     = Debe;
+            haber    = Haber;
+            debeAlt  = Debe  / TipoDeCambio;
+            haberAlt = Haber / TipoDeCambio;
+        }
+        else
+        {
+            debe     = Debe  * TipoDeCambio;
+            haber    = Haber * TipoDeCambio;
+            debeAlt  = Debe;
+            haberAlt = Haber;
+        }
+
         var selectedCuentaCodigo = ExtractCodigo(SelectedCuenta!);
         var idCuenta = Cuentas.SingleOrDefault(c => c.Codigo == selectedCuentaCodigo)!
                               .IdCuenta;
@@ -80,12 +104,12 @@ public partial class DetalleComprobanteModal
         {
             NombreCuenta  = SelectedCuenta,
             Glosa         = Glosa!,
-            MontoDebe     = Debe,
-            MontoHaber    = Haber,
+            MontoDebe     = debe,
+            MontoHaber    = haber,
             IdCuenta      = idCuenta,
             IdUsuario     = 1,
-            MontoHaberAlt = default,
-            MontoDebeAlt  = default
+            MontoHaberAlt = haberAlt,
+            MontoDebeAlt  = debeAlt
         };
         await AddNewDetalleComprobante.InvokeAsync(detalleComprobante);
         Debe           = decimal.Zero;

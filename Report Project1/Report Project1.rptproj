@@ -54,6 +54,7 @@
     <Report Include="ReporteComprobante.rdl" />
     <Report Include="ReporteGestiones.rdl" />
     <Report Include="ReporteNotaCompra.rdl" />
+    <Report Include="ReporteNotaVenta.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
 </Project>
