@@ -9,15 +9,15 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.6.33801.468</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-06-20T03:53:28.7014918Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-06-20T04:24:59.8027018Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="SumaSaldoAPI">
+    <DataSource Name="SumaSaldoAltAPI">
       <ConnectionProperties>
         <DataProvider>XML</DataProvider>
-        <ConnectString>="https://localhost:44396/SumasYSaldosPrincipal/" &amp; Parameters!IdEmpresa.Value</ConnectString>
+        <ConnectString>="https://localhost:44396/SumasYSaldosAlternativa/" &amp; Parameters!IdEmpresa.Value</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -27,7 +27,7 @@
   <DataSets>
     <DataSet Name="NotaCompraDataSet">
       <Query>
-        <DataSourceName>SumaSaldoAPI</DataSourceName>
+        <DataSourceName>SumaSaldoAltAPI</DataSourceName>
         <CommandText />
       </Query>
       <Fields>
@@ -987,7 +987,7 @@
             <Top>2.255in</Top>
             <Left>0.12501in</Left>
             <Height>1in</Height>
-            <Width>6.74166in</Width>
+            <Width>6.74165in</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>

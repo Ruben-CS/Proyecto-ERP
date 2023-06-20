@@ -1,4 +1,4 @@
-@page "/BalanceGeneral/{idempresa:int}"
+@page "/SumaSaldo/{idempresa:int}"
 @using global::Services.Gestion
 @using global::Services.EmpresaMonedaService
 @using global::Services.Moneda
@@ -21,7 +21,7 @@
         <MudText Typo="Typo.h4"
                  Align="Align.Center"
                  GutterBottom="true">
-            Balance General
+            Sumas y Saldos
         </MudText>
         <MudForm @ref="_form" @bind-IsValid="@IsSuccess">
             <MudStack>
@@ -119,7 +119,8 @@
 
     private void GenerateReport()
     {
-        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteGestiones?IdEmpresa={IdEmpresa}";
+        var idGestion = Gestiones.Single(g => g.Nombre.Equals(SelectedGestion)).IdGestion;
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteSumaSaldo?IdEmpresa={idGestion}";
         NavigationManager.NavigateTo(url);
     }
 

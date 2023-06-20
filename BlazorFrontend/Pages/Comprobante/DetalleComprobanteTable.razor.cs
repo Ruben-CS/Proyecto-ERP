@@ -31,7 +31,7 @@ public partial class DetalleComprobanteTable
     };
 
     private decimal TotalDebe => Detalles.Sum(x => x.MontoDebe);
-    
+
     private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
 
     private void DeleteDetalle(DetalleComprobanteDto dto) => Detalles.Remove(dto);

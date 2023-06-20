@@ -201,8 +201,7 @@
             </MudDrawerHeader>
         }
         <MudNavLink Match="NavLinkMatch.All"
-                    Icon="@Icons.Material.Rounded.Balance"
-                    OnClick="() => NavigateToBalance()">
+                    Icon="@Icons.Material.Rounded.Balance">
             <MudText>Balance General</MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
@@ -216,7 +215,9 @@
                     Light="false"
                     Style="border-top-width: 3px;"
                     Class="my-1"/>
-        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.PriceCheck">
+        <MudNavLink Match="NavLinkMatch.All" 
+                    Icon="@Icons.Material.Rounded.PriceCheck"
+                    OnClick="() => NavigateToSaldo()">
             <MudText> Suma y Saldo</MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
@@ -295,7 +296,7 @@
         }
     }
 
-    private void NavigateToBalance() => NavigationManager.NavigateTo($"/BalanceGeneral/{IdEmpresa}");
+    private void NavigateToSaldo() => NavigationManager.NavigateTo($"/SumaSaldo/{IdEmpresa}");
 
     private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";
 
