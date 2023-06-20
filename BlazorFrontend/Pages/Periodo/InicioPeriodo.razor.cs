@@ -21,6 +21,9 @@ public partial class InicioPeriodo
 
     private void PageChanged(int i) => _table.NavigateTo(i - 1);
 
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
 
     private IEnumerable<PeriodoDto> _periodos   = new List<PeriodoDto>();
     private GestionDto              _gestionDto = new();
@@ -120,6 +123,12 @@ public partial class InicioPeriodo
     {
         var url =
             $"http://localhost:80/Reports/report/Report%20Project1/ListarPeriodos?IdEmpresa={IdGestion}";
-        NavigationManager.NavigateTo(url);
+        OpenUrlInNewTab(url);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
     }
 }

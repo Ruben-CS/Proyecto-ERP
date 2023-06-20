@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.6.33801.468</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-06-20T07:59:49.7146382Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-06-20T18:49:28.2813610Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -17,7 +17,7 @@
     <DataSource Name="ReporteLibroDiario">
       <ConnectionProperties>
         <DataProvider>XML</DataProvider>
-        <ConnectString>="https://localhost:44396/LibroDiarioPrincipal/" &amp; Parameters!IdComprobante.Value &amp; "/" &amp; Parameters!IdPeriodo.Value</ConnectString>
+        <ConnectString>="https://localhost:44396/LibroDiarioAlternativo/" &amp; Parameters!IdComprobante.Value &amp; "/" &amp; Parameters!IdPeriodo.Value</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -795,7 +795,7 @@ ResultadoLibroDiario
           <BackgroundColor>White</BackgroundColor>
         </Style>
       </Body>
-      <Width>23.41389cm</Width>
+      <Width>15.90932cm</Width>
       <Page>
         <PageFooter>
           <Height>0.7615cm</Height>
@@ -853,12 +853,10 @@ ResultadoLibroDiario
     <ReportParameter Name="IdComprobante">
       <DataType>String</DataType>
       <Prompt>id</Prompt>
-      <Hidden>true</Hidden>
     </ReportParameter>
     <ReportParameter Name="IdPeriodo">
       <DataType>String</DataType>
       <Prompt>IdPeriodo</Prompt>
-      <Hidden>true</Hidden>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>

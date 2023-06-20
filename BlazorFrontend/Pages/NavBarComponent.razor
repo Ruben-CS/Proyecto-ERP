@@ -193,7 +193,9 @@
     Breakpoint="Breakpoint.Lg"
     PreserveOpenState="true"
     Style="border-bottom-right-radius: 10px; border-top-right-radius: 10px">
-    <MudNavMenu>
+    <MudNavMenu Bordered="true"
+                Rounded="true"
+                Color="Color.Primary">
         @if (IsOpen)
         {
             <MudDrawerHeader>
@@ -226,25 +228,11 @@
                     Light="false"
                     Style="border-top-width: 3px;"
                     Class="my-1"/>
-
-        <MudNavLink Match="NavLinkMatch.All"
-                    Icon="@Icons.Material.Rounded.BarChart"
-                    OnClick="NavigateToEstado">
-            @if (IsOpen)
-            {
-                <MudText Typo="Typo.body2">Estado de Resultados</MudText>
-            }
-        </MudNavLink>
-        <MudDivider DividerType="DividerType.Middle"
-                    Light="false"
-                    Style="border-top-width: 3px;"
-                    Class="my-1"/>
         <MudNavLink Match="NavLinkMatch.All"
                     Icon="@Icons.Material.Rounded.Inventory2"
                     OnClick="() => NavigateToSaldo()">
             <MudText>Inventario</MudText>
         </MudNavLink>
-
         <MudDivider DividerType="DividerType.Middle"
                     Light="false"
                     Style="border-top-width: 3px;"
@@ -253,6 +241,15 @@
                     Icon="@Icons.Material.Rounded.MenuBook"
                     OnClick="() => NavigateToLibroMayot()">
             <MudText>Libro Mayor</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.BarChart"
+                    OnClick="NavigateToEstado">
+                <MudText> Estado de Resultados</MudText>
         </MudNavLink>
     </MudNavMenu>
 </MudDrawer>

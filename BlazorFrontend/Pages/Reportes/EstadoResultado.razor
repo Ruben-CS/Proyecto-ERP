@@ -88,6 +88,9 @@
 
     #endregion
 
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -121,7 +124,7 @@
     {
         var idGestion = Gestiones.Single(g => g.Nombre.Equals(SelectedGestion)).IdGestion;
         var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteEstadoResultado?IdEmpresa={idGestion}";
-        NavigationManager.NavigateTo(url);
+        OpenUrlInNewTab(url);
     }
 
     private void AddMonedasToList()
@@ -132,4 +135,9 @@
         _monedas.TryAdd(Monedas.FirstOrDefault(m => m.IdMoneda == idMonedaAlternativa) ?? null);
     }
 
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
 }

@@ -373,25 +373,25 @@ ResultadoLibroMayor/Comprobantes/ComprobanteMayorConDetalles/Detalles/LibroMayor
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.61474cm</Width>
+                  <Width>2.97496cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.40579cm</Width>
+                  <Width>1.0859cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.18011cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.92028cm</Width>
+                  <Width>3.60039cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.4365cm</Width>
+                  <Width>2.11661cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5635cm</Width>
+                  <Width>2.24361cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.18011cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1154,7 +1154,7 @@ ResultadoLibroMayor/Comprobantes/ComprobanteMayorConDetalles/Detalles/LibroMayor
             <DataSetName>Prueba</DataSetName>
             <Top>4.84319cm</Top>
             <Height>2.2795cm</Height>
-            <Width>19.02019cm</Width>
+            <Width>16.46108cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
@@ -1168,7 +1168,7 @@ ResultadoLibroMayor/Comprobantes/ComprobanteMayorConDetalles/Detalles/LibroMayor
           <BackgroundColor>White</BackgroundColor>
         </Style>
       </Body>
-      <Width>20.0553cm</Width>
+      <Width>16.4611cm</Width>
       <Page>
         <PageFooter>
           <Height>0.7615cm</Height>

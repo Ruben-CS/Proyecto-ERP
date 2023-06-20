@@ -2,6 +2,7 @@ using BlazorFrontend.Pages.Gestiones.Crear;
 using BlazorFrontend.Pages.Gestiones.Editar;
 using BlazorFrontend.Pages.Gestiones.Eliminar;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Modelos.Models.Dtos;
 using Modelos.Models.Enums;
 using MudBlazor;
@@ -21,6 +22,9 @@ public partial class GestionOverview
     public int IdEmpresa { get; set; }
 
     private IEnumerable<PeriodoDto> _periodosPorGestion = new List<PeriodoDto>();
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
 
 
     private bool VerifyGestiones()
@@ -149,6 +153,11 @@ public partial class GestionOverview
     private void GenerateReport()
     {
         var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteGestiones?IdEmpresa={IdEmpresa}";
-        NavigationManager.NavigateTo(url);
+        OpenUrlInNewTab(url);
+    }
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
     }
 }

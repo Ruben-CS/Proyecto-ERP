@@ -111,6 +111,10 @@
 
     private string SelectedPeriodo { get; set; } = null!;
 
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+
     #endregion
 
 
@@ -159,7 +163,7 @@
         if (SelectedPeriodo.Equals("Todos los periodos"))
         {
             var urlAlt = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroMayor?IdComprobante={idGestion} &IdPeriodo={0}";
-            NavigationManager.NavigateTo(urlAlt);
+            OpenUrlInNewTab(urlAlt);
         }
         else
         {
@@ -168,11 +172,11 @@
             if (idMonedaSeleccionada == EmpresaMonedas.Last().IdMonedaAlternativa)
             {
                 var urlMon = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroMayorAlt?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
-                NavigationManager.NavigateTo(urlMon);
+                OpenUrlInNewTab(urlMon);
                 return;
             }
             var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroMayor?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
-            NavigationManager.NavigateTo(url);
+            OpenUrlInNewTab(url);
         }
     }
 
@@ -182,5 +186,11 @@
         var idMonedaAlternativa = EmpresaMonedas.First().IdMonedaAlternativa;
         _monedas.Add(Monedas.First(m => m.IdMoneda == idMonedaPrincipal));
         _monedas.TryAdd(Monedas.FirstOrDefault(m => m.IdMoneda == idMonedaAlternativa) ?? null);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
     }
 }

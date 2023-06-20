@@ -160,6 +160,9 @@
     [Parameter]
     public int IdNota { get; set; }
 
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -234,6 +237,12 @@
     {
         var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteNotaCompra?IdEmpresa={IdNota}";
         NavigationManager.NavigateTo(url);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
     }
 
 }

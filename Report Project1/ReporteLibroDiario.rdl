@@ -17,7 +17,7 @@
     <DataSource Name="ReporteLibroDiario">
       <ConnectionProperties>
         <DataProvider>XML</DataProvider>
-        <ConnectString>="https://localhost:44396/LibroDiarioAlternativo/" &amp; Parameters!IdComprobante.Value &amp; "/" &amp; Parameters!IdPeriodo.Value</ConnectString>
+        <ConnectString>="https://localhost:44396/LibroDiarioPrincipal/" &amp; Parameters!IdComprobante.Value &amp; "/" &amp; Parameters!IdPeriodo.Value</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
