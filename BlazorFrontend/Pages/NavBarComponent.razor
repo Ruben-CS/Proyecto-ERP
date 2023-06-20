@@ -208,7 +208,9 @@
                     Light="false"
                     Style="border-top-width: 3px;"
                     Class="my-1"/>
-        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.AutoStories">
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.AutoStories"
+                    OnClick="NavigateToLibro">
             <MudText> Libro Diario</MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
@@ -297,6 +299,9 @@
     }
 
     private void NavigateToSaldo() => NavigationManager.NavigateTo($"/SumaSaldo/{IdEmpresa}");
+
+    private void NavigateToLibro() => NavigationManager.NavigateTo($"/LibroDiario/{IdEmpresa}");
+
 
     private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";
 

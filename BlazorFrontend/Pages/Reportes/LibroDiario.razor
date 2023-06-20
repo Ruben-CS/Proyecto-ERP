@@ -1,0 +1,167 @@
+@page "/LibroDiario/{idempresa:int}"
+@using global::Services.Gestion
+@using global::Services.EmpresaMonedaService
+@using global::Services.Moneda
+@using AutoMapper.Internal
+@using global::Services.Periodo
+@inject NavigationManager NavigationManager
+@inject GestionServices GestionServices
+@inject EmpresaMonedaService EmpresaMonedaService
+@inject MonedaService MonedaService
+@inject PeriodoService PeriodoService
+@layout ComprobanteLayout
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<div class="d-flex justify-content-center align-items-center mr-0">
+    <MudPaper Elevation="2"
+              Class="p-3 fade-in"
+              Style="border-radius: 15px; margin-right: 0;"
+              Width="800px"
+              MaxWidth="1000px"
+              Height="500px;">
+        <MudText Typo="Typo.h4"
+                 Align="Align.Center"
+                 GutterBottom="true">
+            Libro Diario
+        </MudText>
+        <MudForm @ref="_form" @bind-IsValid="@IsSuccess">
+            <MudStack>
+                <MudSelect Variant="Variant.Outlined"
+                           T="string"
+                           Value="@SelectedGestion"
+                           Label="Gestion"
+                           HelperText="Seleccione una gestion"
+                           Required="true"
+                           ValueChanged="HandleGestionChanged">
+                    @foreach (var gestion in Gestiones)
+                    {
+                        <MudSelectItem Value="@gestion.Nombre">
+                            @gestion.Nombre
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+
+
+                <MudSelect Variant="Variant.Outlined"
+                           T="string"
+                           @bind-Value="SelectedPeriodo"
+                           Label="Periodo"
+                           HelperText="Seleccione un periodo"
+                           Required="true">
+                    @foreach (var periodo in Periodos)
+                    {
+                        <MudSelectItem Value="@periodo.Nombre">
+                            @periodo.Nombre
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudSelect Variant="Variant.Outlined"
+                           T="string"
+                           @bind-Value="@SelectedMoneda"
+                           Label="Moneda"
+                           HelperText="Seleccione una moneda"
+                           Required="true">
+                    @foreach (var moneda in _monedas.Where(moneda => moneda is not null))
+                    {
+                        <MudSelectItem Value="@moneda.Nombre">
+                            @moneda.Nombre
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+                <MudButton Variant="Variant.Filled"
+                           Class="rounded-pill"
+                           Disabled="@(!IsSuccess)"
+                           Color="Color.Primary"
+                           OnClick="GenerateReport">
+                    <MudText Typo="Typo.button">Generar Reporte</MudText>
+                </MudButton>
+            </MudStack>
+        </MudForm>
+    </MudPaper>
+</div>
+
+@code {
+    private MudForm _form = null!;
+
+    public bool IsSuccess { get; set; }
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    private List<GestionDto> Gestiones { get; set; } = new();
+
+    private List<EmpresaMonedaDto> EmpresaMonedas { get; set; } = new();
+
+    private List<MonedaDto> Monedas { get; set; } = new();
+
+    private List<MonedaDto?> _monedas { get; } = new();
+
+    private List<PeriodoDto> Periodos { get; set; } = new();
+
+    #region Fields
+
+    private string SelectedGestion { get; set; } = null!;
+
+    private string SelectedMoneda { get; set; } = null!;
+
+    private string SelectedPeriodo { get; set; } = null!;
+
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
+            {
+                IdEmpresa = int.Parse(idValue);
+                Gestiones = await GestionServices.GetGestionAsync(IdEmpresa);
+                EmpresaMonedas = await EmpresaMonedaService.GetEmpresaMonedasActiveAsync(IdEmpresa);
+                Monedas = (await MonedaService.GetMonedasAsync())!;
+                AddMonedasToList();
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                throw new KeyNotFoundException(
+                    "The 'id' parameter was not found in the query string.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"An error occurred while initializing the component: {ex}");
+        }
+    }
+
+
+
+    private async Task HandleGestionChanged(string value)
+    {
+        SelectedGestion = value;
+        var gestionId = Gestiones.Single(g => g.Nombre.Equals(value)).IdGestion;
+        Periodos = await PeriodoService.GetPeriodosAsync(gestionId);
+    }
+
+    private void GenerateReport()
+    {
+        var idGestion = Gestiones.Single(g => g.Nombre.Equals(SelectedGestion)).IdGestion;
+        var idPeriodo = Periodos.Single(p => p.Nombre.Equals(SelectedPeriodo)).IdPeriodo;
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroDiario?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
+        NavigationManager.NavigateTo(url);
+    }
+
+    private void AddMonedasToList()
+    {
+        var idMonedaPrincipal = EmpresaMonedas.First().IdMonedaPrincipal;
+        var idMonedaAlternativa = EmpresaMonedas.First().IdMonedaAlternativa;
+        _monedas.Add(Monedas.First(m => m.IdMoneda == idMonedaPrincipal));
+        _monedas.TryAdd(Monedas.FirstOrDefault(m => m.IdMoneda == idMonedaAlternativa) ?? null);
+    }
+
+}

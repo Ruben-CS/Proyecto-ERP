@@ -54,6 +54,7 @@
     <Report Include="ReporteComprobante.rdl" />
     <Report Include="ReporteEstadoResultado.rdl" />
     <Report Include="ReporteGestiones.rdl" />
+    <Report Include="ReporteLibroDiario.rdl" />
     <Report Include="ReporteNotaCompra.rdl" />
     <Report Include="ReporteNotaVenta.rdl" />
     <Report Include="ReporteSumaSaldo.rdl" />
