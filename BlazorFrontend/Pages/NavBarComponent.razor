@@ -197,7 +197,7 @@
         @if (IsOpen)
         {
             <MudDrawerHeader>
-                <MudText Typo="Typo.h6"> Reportes</MudText>
+                <MudText Typo="Typo.h6">Reportes</MudText>
             </MudDrawerHeader>
         }
         <MudNavLink Match="NavLinkMatch.All"
@@ -211,16 +211,16 @@
         <MudNavLink Match="NavLinkMatch.All"
                     Icon="@Icons.Material.Rounded.AutoStories"
                     OnClick="NavigateToLibro">
-            <MudText> Libro Diario</MudText>
+            <MudText>Libro Diario</MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
                     Light="false"
                     Style="border-top-width: 3px;"
                     Class="my-1"/>
-        <MudNavLink Match="NavLinkMatch.All" 
+        <MudNavLink Match="NavLinkMatch.All"
                     Icon="@Icons.Material.Rounded.PriceCheck"
                     OnClick="() => NavigateToSaldo()">
-            <MudText> Suma y Saldo</MudText>
+            <MudText>Suma y Saldo</MudText>
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
                     Light="false"
@@ -232,15 +232,28 @@
                     OnClick="NavigateToEstado">
             @if (IsOpen)
             {
-                <MudText Class="fixed-width-text">
-                    Estado de Resultados
-                </MudText>
+                <MudText Typo="Typo.body2">Estado de Resultados</MudText>
             }
         </MudNavLink>
         <MudDivider DividerType="DividerType.Middle"
                     Light="false"
                     Style="border-top-width: 3px;"
                     Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.Inventory2"
+                    OnClick="() => NavigateToSaldo()">
+            <MudText>Inventario</MudText>
+        </MudNavLink>
+
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.MenuBook"
+                    OnClick="() => NavigateToLibroMayot()">
+            <MudText>Libro Mayor</MudText>
+        </MudNavLink>
     </MudNavMenu>
 </MudDrawer>
 @if (IsLoggingOut)
@@ -256,6 +269,7 @@
     }
 
 </style>
+
 @code {
 
     [Parameter]
@@ -308,6 +322,8 @@
     private void NavigateToLibro() => NavigationManager.NavigateTo($"/LibroDiario/{IdEmpresa}");
 
     private void NavigateToEstado() => NavigationManager.NavigateTo($"/EstadoResultado/{IdEmpresa}");
+
+    private void NavigateToLibroMayot() => NavigationManager.NavigateTo($"/LibroMayor/{IdEmpresa}");
 
 
     private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";

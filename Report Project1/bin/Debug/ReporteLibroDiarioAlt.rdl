@@ -17,7 +17,7 @@
     <DataSource Name="ReporteLibroDiario">
       <ConnectionProperties>
         <DataProvider>XML</DataProvider>
-        <ConnectString>="https://localhost:44396/LibroDiarioAlternativo/" &amp; Parameters!IdComprobante.Value &amp; "/" &amp; Parameters!IdPeriodo.Value</ConnectString>
+        <ConnectString>="https://localhost:44396/LibroDiarioPrincipal/" &amp; Parameters!IdComprobante.Value &amp; "/" &amp; Parameters!IdPeriodo.Value</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -795,7 +795,7 @@ ResultadoLibroDiario
           <BackgroundColor>White</BackgroundColor>
         </Style>
       </Body>
-      <Width>15.90932cm</Width>
+      <Width>23.41389cm</Width>
       <Page>
         <PageFooter>
           <Height>0.7615cm</Height>
@@ -853,10 +853,12 @@ ResultadoLibroDiario
     <ReportParameter Name="IdComprobante">
       <DataType>String</DataType>
       <Prompt>id</Prompt>
+      <Hidden>true</Hidden>
     </ReportParameter>
     <ReportParameter Name="IdPeriodo">
       <DataType>String</DataType>
       <Prompt>IdPeriodo</Prompt>
+      <Hidden>true</Hidden>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
