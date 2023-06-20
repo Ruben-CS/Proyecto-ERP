@@ -49,10 +49,10 @@
                            Label="Periodo"
                            HelperText="Seleccione un periodo"
                            Required="true">
-                    @foreach (var periodo in Periodos)
+                    @foreach (var periodo in NombrePeriodos)
                     {
-                        <MudSelectItem Value="@periodo.Nombre">
-                            @periodo.Nombre
+                        <MudSelectItem Value="periodo">
+                            @periodo
                         </MudSelectItem>
                     }
                 </MudSelect>
@@ -100,6 +100,8 @@
 
     private List<PeriodoDto> Periodos { get; set; } = new();
 
+    private List<string> NombrePeriodos { get; set; } = new();
+
     #region Fields
 
     private string SelectedGestion { get; set; } = null!;
@@ -146,14 +148,24 @@
         SelectedGestion = value;
         var gestionId = Gestiones.Single(g => g.Nombre.Equals(value)).IdGestion;
         Periodos = await PeriodoService.GetPeriodosAsync(gestionId);
+        NombrePeriodos = Periodos.Select(p => p.Nombre).ToList();
+        NombrePeriodos.Add("Todos los periodos");
     }
 
     private void GenerateReport()
     {
         var idGestion = Gestiones.Single(g => g.Nombre.Equals(SelectedGestion)).IdGestion;
-        var idPeriodo = Periodos.Single(p => p.Nombre.Equals(SelectedPeriodo)).IdPeriodo;
-        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroDiario?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
-        NavigationManager.NavigateTo(url);
+        if (SelectedPeriodo.Equals("Todos los periodos"))
+        {
+            var urlAlt = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroDiario?IdComprobante={idGestion} &IdPeriodo={0}";
+            NavigationManager.NavigateTo(urlAlt);
+        }
+        else
+        {
+            var idPeriodo = Periodos.Single(p => p.Nombre.Equals(SelectedPeriodo)).IdPeriodo;
+            var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteLibroDiario?IdComprobante={idGestion} &IdPeriodo={idPeriodo}";
+            NavigationManager.NavigateTo(url);
+        }
     }
 
     private void AddMonedasToList()

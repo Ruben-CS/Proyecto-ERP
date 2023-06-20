@@ -773,6 +773,116 @@ public class EmpresaReporteControllerApi : Controller
         }
     }
 
+     [HttpGet("LibroDiarioAlternativo/{IdGestion}/{IdPeriodo}")]
+    [Produces(MediaTypeNames.Application.Xml)]
+    public async Task<IActionResult> LibroDiarioAlternativo(
+        [FromRoute] int IdGestion, [FromRoute] int? IdPeriodo)
+    {
+        try
+        {
+            decimal totalDebe  = 0;
+            decimal totalHaber = 0;
+
+            var gestiones = await _context.Gestiones.Include(g => g.Periodos)
+                                          .Where(x => x.IdGestion == IdGestion)
+                                          .ToListAsync();
+            var IdEmpresa = gestiones[0].IdEmpresa;
+
+            var comprobantes = await _context.Comprobantes
+                                             .Include(c => c.DetalleComprobantes)
+                                             .Where(x => x.IdEmpresa == IdEmpresa)
+                                             .OrderByDescending(e => e.Serie)
+                                             .ToListAsync();
+
+            if (comprobantes.Count == 0)
+            {
+                return StatusCode(404);
+            }
+
+            var comprobantesConDetalles =
+                new List<ComprobanteConDetalles>();
+            foreach (var gestion in gestiones)
+            {
+                foreach (var p in gestion.Periodos)
+                {
+                    var Nperiodo = p.Nombre;
+
+                    if (IdPeriodo == 0 || p.IdPeriodo == IdPeriodo)
+                    {
+                        var NGestion = gestion.Nombre;
+                        foreach (var c in comprobantes)
+                        {
+                            var NMoneda  = await GetMonedaName(c.IdMoneda);
+                            var NEmpresa = await GetEmpresaName(c.IdEmpresa);
+                            if (c.Estado == EstadoComprobante.Abierto &&
+                                c.Fecha  >= p.FechaInicio             &&
+                                c.Fecha  <= p.FechaFin)
+                            {
+                                foreach (var detalle in c.DetalleComprobantes)
+                                {
+                                    var cuenta =
+                                        await _context.Cuentas.FindAsync(
+                                            detalle.IdCuenta);
+                                    totalDebe  += detalle.MontoDebeAlt;
+                                    totalHaber += detalle.MontoHaberAlt;
+                                    LibroDiarioReporte libroDiario =
+                                        new LibroDiarioReporte
+                                        {
+                                            NombreGestion = NGestion,
+                                            NombreEmpresa = NEmpresa,
+                                            NombrePeriodo = IdPeriodo == 0
+                                                ? "Todos"
+                                                : Nperiodo,
+                                            NombreMoneda = NMoneda,
+                                            Debe         = detalle.MontoDebeAlt,
+                                            Haber        = detalle.MontoHaberAlt,
+                                            NombreCuenta = detalle.NombreCuenta,
+                                            Fecha        = c.Fecha,
+                                            Glosa        = detalle.Glosa,
+                                        };
+
+                                    var comprobante =
+                                        comprobantesConDetalles.FirstOrDefault(x =>
+                                            x.IdComprobante == c.IdComprobante);
+                                    if (comprobante == null)
+                                    {
+                                        comprobante = new ComprobanteConDetalles
+                                        {
+                                            IdComprobante = c.IdComprobante,
+                                            Detalles      = new List<LibroDiarioReporte>()
+                                        };
+                                        comprobantesConDetalles.Add(comprobante);
+                                    }
+
+                                    comprobante.Detalles.Add(libroDiario);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (comprobantesConDetalles != null && comprobantesConDetalles.Count > 0)
+            {
+                return Ok(new ResultadoLibroDiario
+                {
+                    Comprobantes = comprobantesConDetalles,
+                    TotalDebe    = totalDebe,
+                    TotalHaber   = totalHaber
+                });
+            }
+            else
+            {
+                return StatusCode(404);
+            }
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
+
+
     private async Task<string> GetEmpresaName(int idEmpresa) =>
         await Task.FromResult(_context.Empresas
                                       .SingleAsync(e =>
