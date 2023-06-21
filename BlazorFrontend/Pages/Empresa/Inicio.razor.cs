@@ -4,6 +4,7 @@ using Modelos.Models.Dtos;
 using BlazorFrontend.Pages.Empresa.Crear;
 using BlazorFrontend.Pages.Empresa.Editar;
 using BlazorFrontend.Pages.Empresa.Eliminar;
+using Microsoft.JSInterop;
 using DialogOptions = MudBlazor.DialogOptions;
 
 namespace BlazorFrontend.Pages.Empresa;
@@ -23,6 +24,9 @@ public partial class Inicio
     private bool IsLoading { get; set; }
 
     private bool IsSelectedEmpresaNameNull => SelectedEmpresaName is null;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
 
     private async Task LoadSelectedEmpresaAsync(int selectedId)
     {
@@ -170,6 +174,21 @@ public partial class Inicio
         var uri = $"/inicio/mainpage/{selectedEmpresa}";
         NavigationManager.NavigateTo(uri);
     }
+
+    private void GenerateReport()
+    {
+        const string url =
+            $"http://localhost:80/Reports/report/Report%20Project1/ListarEmpresas";
+        OpenUrlInNewTab(url);
+    }
+
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
+
     private async Task CerrarSesion()
     {
         IsLoading = true;

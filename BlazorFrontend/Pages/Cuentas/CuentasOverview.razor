@@ -21,7 +21,7 @@
             Style="border-top-width: 3px;"
             Class="mb-5"/>
 <MudStack Row="true" Class="stack-container" Style="margin-right: 0">
-    <MudPaper Elevation="0"  MaxHeight="500px" Class="overflow-y-auto">
+    <MudPaper Elevation="0" MaxHeight="500px" Class="overflow-y-auto">
         <MudTreeView T="TreeItemData"
                      Hover="true"
                      @bind-SelectedValue="SelectedValue"
@@ -47,23 +47,34 @@
                        Color="Color.Success"
                        OnClick="ShowCrearCuenta"
                        Disabled="false"
-                       Class="rounded-pill">
+                       Class="rounded-pill"
+                       Size="Size.Small">
                 Agregar
             </MudButton>
             <MudButton StartIcon="@Icons.Material.Rounded.EditAttributes"
                        Variant="Variant.Filled"
                        Color="Color.Warning"
                        OnClick="ShowEditarCuenta"
-                       Class="rounded-pill">
+                       Class="rounded-pill"
+                       Size="Size.Small">
                 Editar
             </MudButton>
             <MudButton StartIcon="@Icons.Material.Rounded.FolderDelete"
                        Variant="Variant.Filled"
                        Color="Color.Error"
                        OnClick="ShowEliminarCuenta"
-                       Class="rounded-pill">
+                       Class="rounded-pill"
+                       Size="Size.Small">
                 Eliminar
             </MudButton>
+            <MudTooltip Text="Imprimir Reporte"
+                        Arrow="true"
+                        Placement="Placement.Top">
+                <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                               Size="Size.Small"
+                               Color="Color.Default"
+                               OnClick="GenerateReport"/>
+            </MudTooltip>
         </MudStack>
     </MudPaper>
 </MudStack>

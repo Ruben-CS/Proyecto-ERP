@@ -49,8 +49,11 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
+    <Report Include="BalanceGeneral.rdl" />
     <Report Include="ListarEmpresas.rdl" />
     <Report Include="ListarPeriodos.rdl" />
+    <Report Include="PlanDeCuentas.rdl" />
+    <Report Include="PlanDeCuentasOficial.rdl" />
     <Report Include="Reporte Stock.rdl" />
     <Report Include="ReporteComprobante.rdl" />
     <Report Include="ReporteEstadoResultado.rdl" />

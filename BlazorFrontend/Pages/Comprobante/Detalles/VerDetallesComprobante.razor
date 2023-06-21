@@ -218,6 +218,9 @@
     [Parameter]
     public int IdComprobante { get; set; }
 
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
     private ComprobanteDto ComprobanteDto { get; set; } = new();
 
     private List<DetalleComprobanteDto> Detalles { get; set; } = new();
@@ -235,7 +238,7 @@
     private void GenerateReport()
     {
         var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteComprobante?IdEmpresa={IdComprobante}";
-        NavigationManager.NavigateTo(url);
+        OpenUrlInNewTab(url);
     }
 
     protected override async Task OnInitializedAsync()
@@ -294,5 +297,11 @@
     }
 
     private void GoBack() => NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
 
 }

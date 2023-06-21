@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.6.33801.468</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-06-18T22:42:37.9884835Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-06-20T23:23:27.8213275Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -17,7 +17,7 @@
     <DataSource Name="ComprobanteAPI">
       <ConnectionProperties>
         <DataProvider>XML</DataProvider>
-        <ConnectString>="https://localhost:44396/ListarComprobantes/" &amp; Parameters!IdEmpresa.Value</ConnectString>
+        <ConnectString>="https://localhost:44396/ListarGestiones/" &amp; Parameters!IdEmpresa.Value</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -467,8 +467,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>GestionDataSet</DataSetName>
-            <Top>2.73834in</Top>
-            <Left>0.18in</Left>
+            <Top>1.88834in</Top>
+            <Left>0.13835in</Left>
             <Height>0.5in</Height>
             <Width>5.47832in</Width>
             <ZIndex>3</ZIndex>
