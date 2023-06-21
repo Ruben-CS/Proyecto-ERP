@@ -908,6 +908,7 @@ public class EmpresaReporteControllerApi : Controller
                         {
                             NombreArticulo = articulo.Nombre,
                             StockArticulo  = articulo.Cantidad,
+                            Precio = articulo.PrecioVenta
                             // Estado = articulo.Estado,
                             // propiedades del StockReporte
                         });

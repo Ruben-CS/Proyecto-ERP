@@ -3,6 +3,7 @@
 @using global::Services.Cuenta
 @using global::Services.DetalleComprobante
 @using global::Services.Moneda
+@using global::Services.NotaService
 @using Modelos.Models.Enums
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
@@ -11,6 +12,7 @@
 @inject DetalleComprobanteService DetalleComprobanteService
 @inject NavigationManager NavigationManager
 @inject MonedaService MonedaService
+@inject NotaService NotaService
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
@@ -235,6 +237,10 @@
 
     private bool IsAnulado() => ComprobanteDto.Estado == EstadoComprobante.Anulado;
 
+    public List<ComprobanteDto> ComprobanteDtos { get; set; } = new();
+
+    public List<NotaDto> Notas { get; set; } = new();
+
     private void GenerateReport()
     {
         var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteComprobante?IdEmpresa={IdComprobante}";
@@ -254,6 +260,8 @@
             {
                 ComprobanteDto = await ComprobanteService.GetComprobanteByIdAsync(id);
                 Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(id);
+                ComprobanteDtos = await ComprobanteService.GetComprobantesAsync(id);
+                Notas = (await NotaService.GetNotaComprasAsync(id))!;
                 IdEmpresa = idempresa;
                 Fecha = ComprobanteDto.Fecha;
                 Moneda = (await MonedaService.GetMonedaByIdAsync(ComprobanteDto.IdMoneda))!;
@@ -273,7 +281,13 @@
 
     private async Task AnularComprobante()
     {
+        var n = Notas.FirstOrDefault(x => x.IdComprobante == IdComprobante);
         var url = $"https://localhost:44352/comprobantes/anularComprobante/{IdComprobante}";
+        if (n is not null)
+        {
+            Snackbar.Add("No puedes anular un comprobante que le pertence a una nota", Severity.Error);
+            return;
+        }
         var response = await HttpClient.DeleteAsync(url);
         if (response.IsSuccessStatusCode)
         {

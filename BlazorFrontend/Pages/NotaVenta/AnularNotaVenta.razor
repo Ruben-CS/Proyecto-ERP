@@ -159,6 +159,9 @@
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
+    public List<NotaDto> Notas { get; set; } = new();
+
+
     [Parameter]
     public int IdNota { get; set; }
 
@@ -179,6 +182,7 @@
             {
                 IdEmpresa = idempresa;
                 IdNota = id;
+                Notas = await NotaService.GetNotaVentasAsync(IdEmpresa);
                 Detalles = (await DetalleVentaService.GetDetalleVentaAsync(IdNota))!;
                 Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
                 Nota = await NotaService.GetNotaAsync(IdNota);
@@ -210,7 +214,10 @@
 
     private async Task AnularNota()
     {
+        var e = Notas.Where(x => x.IdNota == IdNota).ToList();
+
         var uriAnularNota = $"https://localhost:44321/notas/anularNotaVenta/{IdNota}";
+
 
         var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
 

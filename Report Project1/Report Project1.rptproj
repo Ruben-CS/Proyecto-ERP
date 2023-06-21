@@ -50,6 +50,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Report Include="BalanceGeneral.rdl" />
+    <Report Include="BalanceGeneralAternativo.rdl" />
+    <Report Include="Balancegeneraloficial.rdl" />
     <Report Include="ListarEmpresas.rdl" />
     <Report Include="ListarPeriodos.rdl" />
     <Report Include="PlanDeCuentas.rdl" />

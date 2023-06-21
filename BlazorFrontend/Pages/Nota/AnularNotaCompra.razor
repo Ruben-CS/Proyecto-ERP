@@ -2,6 +2,7 @@
 @using global::Services.LoteService
 @using global::Services.NotaService
 @using global::Services.ArticuloService
+@using global::Services.DetalleVentaService
 @using Modelos.Models.Enums
 @inject NavigationManager NavigationManager
 @inject LoteService LoteService
@@ -10,6 +11,7 @@
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
 @layout ComprobanteLayout
+@inject DetalleVentaService DetalleVentaService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
@@ -157,6 +159,8 @@
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
+    private List<DetalleDto> DetalleVentas { get; set; } = new();
+
     [Parameter]
     public int IdNota { get; set; }
 
@@ -179,6 +183,7 @@
                 IdNota = id;
                 Lotes = (await LoteService.GetLotesAsync(IdNota))!;
                 Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
+                DetalleVentas = await DetalleVentaService.GetDetalleVentaAsync(IdNota);
                 Nota = await NotaService.GetNotaAsync(IdNota);
             }
             else
@@ -208,6 +213,13 @@
 
     private async Task AnularNota()
     {
+        var idArticulo = Lotes.First().IdArticulo;
+        var ventaCount = DetalleVentas.Count(v => v.IdArticulo == idArticulo);
+        if (ventaCount > 0)
+        {
+            Snackbar.Add("No se puede anular un articulo con ventas asociadas", Severity.Error);
+            return;
+        }
         var uriAnularNota = $"https://localhost:44321/notas/anularNota/{IdNota}";
 
         var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
@@ -236,7 +248,7 @@
     private void GenerateReport()
     {
         var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteNotaCompra?IdEmpresa={IdNota}";
-        NavigationManager.NavigateTo(url);
+        OpenUrlInNewTab(url);
     }
 
     private void OpenUrlInNewTab(string url)
