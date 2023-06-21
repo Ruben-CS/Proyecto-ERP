@@ -10,12 +10,19 @@ namespace BlazorFrontend.Pages.Periodo;
 
 public partial class InicioPeriodo
 {
+    private MudTable<PeriodoDto> _table;
+
     [Parameter]
     public int IdGestion { get; set; }
 
 
     [Parameter]
     public int IdEmpresa { get; set; }
+
+    private void PageChanged(int i) => _table.NavigateTo(i - 1);
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
 
 
     private IEnumerable<PeriodoDto> _periodos   = new List<PeriodoDto>();
@@ -37,8 +44,8 @@ public partial class InicioPeriodo
             var segments       = uri.Segments;
             var idValue        = segments[^1];
             var idvalueEmpresa = segments[^2].Trim('/');
-            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id)&&
-                int.TryParse(idvalueEmpresa,out var idempresa))
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out var id) &&
+                int.TryParse(idvalueEmpresa, out var idempresa))
             {
                 _gestionDto = await GestionServices.GetGestionSingleAsync(id);
                 _periodos   = await PeriodoService.GetPeriodosAsync(IdGestion);
@@ -112,4 +119,16 @@ public partial class InicioPeriodo
         await InvokeAsync(StateHasChanged);
     }
 
+    private void GenerateReport()
+    {
+        var url =
+            $"http://localhost:80/Reports/report/Report%20Project1/ListarPeriodos?IdEmpresa={IdGestion}";
+        OpenUrlInNewTab(url);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
 }

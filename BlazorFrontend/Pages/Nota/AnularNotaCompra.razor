@@ -2,6 +2,7 @@
 @using global::Services.LoteService
 @using global::Services.NotaService
 @using global::Services.ArticuloService
+@using global::Services.DetalleVentaService
 @using Modelos.Models.Enums
 @inject NavigationManager NavigationManager
 @inject LoteService LoteService
@@ -10,13 +11,15 @@
 @inject HttpClient HttpClient
 @inject ISnackbar Snackbar
 @layout ComprobanteLayout
+@inject DetalleVentaService DetalleVentaService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true"
           Justify="Justify.SpaceBetween"
-          Spacing="1">
+          Spacing="1"
+          Style="margin-right: 0;">
     <MudText Typo="Typo.h5" GutterBottom="true">
         <MudTooltip Text="Volver al listado">
             <MudIconButton Size="Size.Medium"
@@ -31,7 +34,8 @@
                     Placement="Placement.Top">
             <MudIconButton Icon="@Icons.Material.Rounded.Print"
                            Size="Size.Large"
-                           Color="Color.Default"/>
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
         </MudTooltip>
         <MudTooltip Text="Agregar nueva nota de compra"
                     Arrow="true"
@@ -66,7 +70,7 @@
             Class="mb-5"/>
 
 
-<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px;">
+<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px; margin-right: 0;">
     <MudForm>
         <MudStack Row="true">
             <MudTextField Variant="Variant.Outlined"
@@ -96,42 +100,42 @@
     </MudForm>
 </MudPaper>
 
-
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Dense="true"
-              RowsPerPage="4"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;"
-              Items="Lotes"
-              Striped="true">
-        <HeaderContent>
-            <MudTh>Articulo</MudTh>
-            <MudTh>Cantidad</MudTh>
-            <MudTh Style="text-align: right">Precio</MudTh>
-            <MudTh Style="text-align: right">Subtotal</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
-            <MudTd>@context.Cantidad</MudTd>
-            <MudTd Style="text-align: right">
-                @context.PrecioCompra.ToString("F2")
-            </MudTd>
-            <MudTd Style="text-align: right">
-                @(context.Cantidad * context.PrecioCompra)
-            </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTh/>
-            <MudTh/>
-            <MudTh/>
-            <MudTh Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: </MudText> @Total.ToString("F2")
-            </MudTh>
-        </FooterContent>
-    </MudTable>
-</MudPaper>
+<MudTable Hover="true"
+          Dense="true"
+          FixedFooter="true"
+          FixedHeader="true"
+          Height="300px"
+          Bordered="true"
+          Elevation="2"
+          Style="border-radius: 15px; margin-right: 0;"
+          Items="Lotes"
+          Striped="true"
+          Class="mt-4 fade-in">
+    <HeaderContent>
+        <MudTh>Articulo</MudTh>
+        <MudTh>Cantidad</MudTh>
+        <MudTh Style="text-align: right">Precio</MudTh>
+        <MudTh Style="text-align: right">Subtotal</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+        <MudTd>@context.Cantidad</MudTd>
+        <MudTd Style="text-align: right">
+            @context.PrecioCompra.ToString("F2")
+        </MudTd>
+        <MudTd Style="text-align: right">
+            @((context.Cantidad * context.PrecioCompra).ToString("F2"))
+        </MudTd>
+    </RowTemplate>
+    <FooterContent>
+        <MudTh/>
+        <MudTh/>
+        <MudTh/>
+        <MudTh Style="text-align: right">
+            <MudText Typo="Typo.subtitle2">Total: </MudText> @Total.ToString("F2")
+        </MudTh>
+    </FooterContent>
+</MudTable>
 <style>
     .right-aligned-input input {
         text-align: right;
@@ -155,8 +159,13 @@
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
+    private List<DetalleDto> DetalleVentas { get; set; } = new();
+
     [Parameter]
     public int IdNota { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -174,6 +183,7 @@
                 IdNota = id;
                 Lotes = (await LoteService.GetLotesAsync(IdNota))!;
                 Articulos = await ArticuloService.GetArticulosAsync(IdEmpresa);
+                DetalleVentas = await DetalleVentaService.GetDetalleVentaAsync(IdNota);
                 Nota = await NotaService.GetNotaAsync(IdNota);
             }
             else
@@ -203,6 +213,13 @@
 
     private async Task AnularNota()
     {
+        var idArticulo = Lotes.First().IdArticulo;
+        var ventaCount = DetalleVentas.Count(v => v.IdArticulo == idArticulo);
+        if (ventaCount > 0)
+        {
+            Snackbar.Add("No se puede anular un articulo con ventas asociadas", Severity.Error);
+            return;
+        }
         var uriAnularNota = $"https://localhost:44321/notas/anularNota/{IdNota}";
 
         var responseNota = await HttpClient.DeleteAsync(uriAnularNota);
@@ -227,5 +244,17 @@
 
     private string GetArticuloName(int idArticulo) =>
         Articulos.Single(a => a.IdArticulo == idArticulo).Nombre!;
+
+    private void GenerateReport()
+    {
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteNotaCompra?IdEmpresa={IdNota}";
+        OpenUrlInNewTab(url);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
 
 }

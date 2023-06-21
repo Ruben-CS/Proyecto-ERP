@@ -34,11 +34,23 @@ public partial class AgregarNotaCompra
 
     #endregion
 
+    #region Other Properties
+
+    private EmpresaDto Empresa { get; set; } = new();
+
+    private List<ComprobanteDto> Comprobantes { get; set; } = new();
+
+    private List<CuentaDto>? Cuentas { get; set; } = new();
+
+    #endregion
+
     private List<NotaDto> Notas { get; set; } = new();
 
     private List<ArticuloDto> Articulos { get; set; } = new();
 
     private readonly ObservableCollection<LoteDto> _detalleParaLote = new();
+
+    public bool IsLoading { get; set; }
 
     private async Task GoBack() =>
         await Task.FromResult(JsRuntime.InvokeVoidAsync("blazorBrowserHistory.goBack"));
@@ -59,6 +71,8 @@ public partial class AgregarNotaCompra
         await GetNotaCompras();
         var nextNro = GetNextNumeroNota();
         NroNota = nextNro.ToString();
+        Empresa = (await EmpresaService.GetEmpresaByIdAsync(IdEmpresa))!;
+        Cuentas = await CuentaService.GetCuentasDetalle(IdEmpresa);
         await InvokeAsync(StateHasChanged);
     }
 
@@ -79,13 +93,101 @@ public partial class AgregarNotaCompra
                 "AddNewDetalleLote",
                 EventCallback.Factory.Create<LoteDto>(this, AddNewDetalleLote)
             },
-            {"_detalleParaLote", _detalleParaLote}
+            { "_detalleParaLote", _detalleParaLote }
         };
 
         await DialogService.ShowAsync<AgregarDetalleModal>("Ingrese los detalles",
             parameters, _options);
     }
 
+    private async Task RefreshComprobanteList() =>
+        Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
+
+    private async Task AgregarComprobanteSiTieneConfig()
+    {
+        await RefreshComprobanteList();
+        var ultimoIdComprobante = Comprobantes.Last().IdComprobante;
+        var total               = _detalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
+        var url =
+            $"https://localhost:44352/detalleComprobantes/agergarDetalleComprobante/{ultimoIdComprobante}";
+        var detalles = new List<DetalleComprobanteDto>();
+        var detalleCaja = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa.Cuenta1!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta1.Value),
+            Glosa         = "Compra de mercaderias",
+            MontoDebe     = decimal.Zero,
+            MontoHaber    = total,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+
+        var detalleCreditoFiscal = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa.Cuenta2!.Value,
+            NombreCuenta  = await SearchCuenta(Empresa.Cuenta2.Value),
+            Glosa         = "Compra de mercaderias",
+            MontoDebe     = total - (total * (decimal)0.13),
+            MontoHaber    = decimal.Zero,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+
+        var detalleCompras = new DetalleComprobanteDto
+        {
+            IdCuenta      = Empresa.Cuenta4!.Value,
+            NombreCuenta  =  await SearchCuenta(Empresa.Cuenta4.Value),
+            Glosa         = "Compra de mercaderias",
+            MontoDebe     = detalleCaja.MontoHaber - detalleCreditoFiscal.MontoDebe,
+            MontoHaber    = decimal.Zero,
+            MontoDebeAlt  = decimal.Zero,
+            MontoHaberAlt = decimal.Zero,
+            IdComprobante = ultimoIdComprobante,
+            IdUsuario     = 1
+        };
+        detalles.Add(detalleCaja);
+        detalles.Add(detalleCreditoFiscal);
+        detalles.Add(detalleCompras);
+
+        foreach (var detalle in detalles)
+        {
+            var response = await HttpClient.PostAsJsonAsync(url, detalle);
+            response.EnsureSuccessStatusCode();
+        }
+
+        Snackbar.Add("Se ha generado un comprobante", Severity.Info,
+            options => { options.ShowTransitionDuration = 2; });
+    }
+
+    private async Task CreateComprobante()
+    {
+        IsLoading = true;
+        var empresaMonedas =
+            await EmpresaMonedaService.GetEmpresaMonedasActiveAsync(IdEmpresa);
+        var tipoCambio = empresaMonedas.Last().Cambio!.Value;
+        var url        = $"https://localhost:44352/agregarcomprobante/{IdEmpresa}";
+        var comprobanteDto = new ComprobanteDto
+        {
+            Glosa           = "Compra de mercaderias",
+            Fecha           = Fecha!.Value,
+            Tc              = tipoCambio,
+            TipoComprobante = TipoComprobante.Egreso,
+            IdMoneda        = empresaMonedas.Last().IdMonedaPrincipal,
+            IdEmpresa       = IdEmpresa,
+            IdUsuario       = 1
+        };
+
+        var response = await HttpClient.PostAsJsonAsync(url, comprobanteDto);
+        if (response.IsSuccessStatusCode)
+        {
+            await AgregarComprobanteSiTieneConfig();
+            IsLoading = false;
+        }
+    }
 
     private async Task AgregarCompra()
     {
@@ -93,6 +195,11 @@ public partial class AgregarNotaCompra
         {
             Snackbar.Add("Debe agregar al menos un articulo", Severity.Info);
             return;
+        }
+
+        if (Empresa.TieneIntegracion!.Value)
+        {
+            await CreateComprobante();
         }
 
         var          total   = _detalleParaLote.Sum(d => d.PrecioCompra * d.Cantidad);
@@ -152,6 +259,18 @@ public partial class AgregarNotaCompra
             Console.WriteLine($"Error occurred while posting details: {e.Message}");
             Snackbar.Add("Error al guardar los detalles", Severity.Error);
         }
+    }
+
+    private Task<string> SearchCuenta(int idCuenta)
+    {
+        var nombreCuenta =
+            Cuentas!.SingleOrDefault(c => c.IdCuenta == idCuenta);
+        if (nombreCuenta is null)
+        {
+            return Task.FromResult(string.Empty);
+        }
+
+        return Task.FromResult($"{nombreCuenta.Codigo} - {nombreCuenta.Nombre}");
     }
 
     private async Task<int?> CheckIfLoteHasExistingArticulo(int idArticulo)

@@ -9,13 +9,27 @@
 
 <NavBarComponent IdEmpresa="IdEmpresa"/>
 
-<MudStack Row="true" Class="stack-container">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="6"
+          Style="margin-right: 0">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Lista de categorias</MudText>
+</MudStack>
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudStack Row="true" Class="stack-container" Style="margin-right: 0">
     <MudPaper Elevation="0"  MaxHeight="500px" Class="overflow-y-auto">
         <MudTreeView T="TreeItemDataCategoria"
                      Hover="true"
                      @bind-SelectedValue="SelectedValue"
                      Width="500px">
-            <MudTreeViewItem T="TreeItemDataCategoria" Text="Categorias" Expanded="true"
+            <MudTreeViewItem T="TreeItemDataCategoria"
+                             Text="Categorias"
+                             Expanded="true"
                              Icon="@(_folderOneExpanded ? Icons.Custom.Uncategorized.FolderOpen : Icons.Custom.Uncategorized.Folder)">
                 @if (IsLoading)
                 {

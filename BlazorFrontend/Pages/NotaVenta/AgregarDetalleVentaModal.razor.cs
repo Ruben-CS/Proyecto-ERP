@@ -23,12 +23,11 @@ public partial class AgregarDetalleVentaModal
             var lotes =
                 await LoteService.GetLotesPerArticleIdAsync(
                     selectedArticuloDto.IdArticulo);
-            Lotes             = lotes;
-            NroLotes          = lotes.Where(l => l.Stock > 0).Select(l => l.NroLote);
-            SelectedNroLote   = NroLotes.First();
+            Lotes = lotes;
+            NroLotes = lotes.Where(l => l.Stock > 0).Select(l => l.NroLote);
+            SelectedNroLote = NroLotes.First();
             PrecioDelArticulo = selectedArticuloDto.PrecioVenta;
-            StockDelLoteSeleccionado =
-                lotes.Single(l => l.NroLote == SelectedNroLote).Stock;
+            StockDelLoteSeleccionado = await LotesEnElArticulo(selectedArticuloDto);
         }
         else
         {
@@ -76,7 +75,7 @@ public partial class AgregarDetalleVentaModal
 
     private List<ArticuloDto>? _privateArticulos = new();
 
-    private IEnumerable<int?> NroLotes { get; set; }
+    private IEnumerable<int?>? NroLotes { get; set; }
 
     private int? SelectedNroLote { get; set; }
 
@@ -84,16 +83,24 @@ public partial class AgregarDetalleVentaModal
 
     #endregion
 
+    private async Task<int> LotesEnElArticulo(ArticuloDto selectedArticuloDto)
+    {
+        var lotes =
+            await LoteService.GetLotesPerArticleIdAsync(
+                selectedArticuloDto.IdArticulo);
+        return lotes!.Single(l => l.NroLote == SelectedNroLote).Stock;
+    }
+
 
     private string StockMessage => $"Stock del lote: {StockDelLoteSeleccionado}";
 
     private async Task<IEnumerable<string?>> Search1(string value)
     {
-        var nombreArticulos = _privateArticulos.Select(a => a.Nombre).ToList();
+        var nombreArticulos = _privateArticulos!.Select(a => a.Nombre).ToList();
         if (string.IsNullOrEmpty(value))
             return await Task.FromResult(nombreArticulos);
         return nombreArticulos.Where(a =>
-            a.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            a!.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
     protected override async Task OnInitializedAsync()
@@ -113,7 +120,7 @@ public partial class AgregarDetalleVentaModal
             return;
         }
 
-        if ( DetalleParaVenta.Any(d =>
+        if (DetalleParaVenta.Any(d =>
                 d.NroLote == SelectedNroLote && d.IdArticulo == articulo!.IdArticulo))
         {
             Snackbar.Add("No puede agregar el mismo articulo", Severity.Error);
@@ -128,10 +135,9 @@ public partial class AgregarDetalleVentaModal
             Cantidad    = Cantidad!.Value,
             PrecioVenta = PrecioDelArticulo!.Value
         };
-        Cantidad                 = null;
-        PrecioDelArticulo        = null;
-        SelectedArticulo         = null;
-        SelectedNroLote          = null;
+
+        await _form.ResetAsync();
+        _form.ResetValidation();
         NroLotes                 = Enumerable.Empty<int?>();
         StockDelLoteSeleccionado = 0;
         await AddNewDetalleLote.InvokeAsync(detalleDto);

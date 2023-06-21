@@ -1,7 +1,9 @@
 @page "/VerDetallesComprobante/{idempresa:int}/{idcomprobante:int}"
 @using global::Services.Comprobante
+@using global::Services.Cuenta
 @using global::Services.DetalleComprobante
 @using global::Services.Moneda
+@using global::Services.NotaService
 @using Modelos.Models.Enums
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
@@ -10,13 +12,14 @@
 @inject DetalleComprobanteService DetalleComprobanteService
 @inject NavigationManager NavigationManager
 @inject MonedaService MonedaService
-
+@inject NotaService NotaService
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true"
           Justify="Justify.SpaceBetween"
-          Spacing="1">
+          Spacing="1"
+          Style="margin-right: 0;">
     <MudText Typo="Typo.h5" GutterBottom="true">
         <MudTooltip Text="Volver al listado">
             <MudIconButton Size="Size.Medium"
@@ -31,7 +34,8 @@
                     Placement="Placement.Top">
             <MudIconButton Icon="@Icons.Material.Rounded.Print"
                            Size="Size.Large"
-                           Color="Color.Default"/>
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
         </MudTooltip>
         <MudTooltip Text="Agregar nuevo comprobante"
                     Arrow="true"
@@ -53,7 +57,7 @@
                        Variant="Variant.Filled"
                        OnClick="AnularComprobante"
                        Style="justify-self: flex-end; align-self: center"
-                       Class="mb-4"
+                       Class="mb-4 rounded-pill"
                        Disabled="@(IsAnulado())">
                 <MudText>Anular Comprobante</MudText>
             </MudButton>
@@ -65,7 +69,7 @@
             Style="border-top-width: 3px;"
             Class="mb-5"/>
 
-<MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px;">
+<MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px; margin-right: 0;">
     <MudForm>
         <MudGrid Spacing="2" Justify="Justify.Center">
             <MudItem xs="12" sm="4">
@@ -141,54 +145,54 @@
     </MudForm>
 </MudPaper>
 
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Striped="true"
-              RowsPerPage="4"
-              Items="Detalles"
-              Dense="true"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;">
+<MudTable Hover="true"
+          Striped="true"
+          RowsPerPage="4"
+          Items="Detalles"
+          Dense="true"
+          Bordered="true"
+          Elevation="2"
+          Style="border-radius: 15px; margin-right: 0;"
+          FixedFooter="true"
+          FixedHeader="true"
+          Height="300px"
+          Class="mt-4 fade-in">
 
-        <HeaderContent>
-            <MudTh Style="text-align: left">Cuenta</MudTh>
-            <MudTh Style="text-align: left">Glosa</MudTh>
-            <MudTh Style="text-align: right">Monto Debe</MudTh>
-            <MudTh Style="text-align: right">Monto Haber</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Nombre Cuenta">
-                @context.NombreCuenta
-            </MudTd>
-            <MudTd DataLabel="Glosa">
-                @context.Glosa
-            </MudTd>
-            <MudTd DataLabel="Monto Debe" Style="text-align: right">
-                @(context.MontoDebe.ToString("F2"))
-            </MudTd>
-            <MudTd DataLabel="Monto Haber" Style="text-align: right">
-                @context.MontoHaber.ToString("F2")
-            </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTd/>
-            <MudTd/>
-            <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2") </MudText>
-            </MudTd>
-            <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
-            </MudTd>
-        </FooterContent>
-        <PagerContent>
-            <MudTablePager
-                HorizontalAlignment="HorizontalAlignment.Left"
-                HidePageNumber="true"
-                HideRowsPerPage="true"/>
-        </PagerContent>
-    </MudTable>
-</MudPaper>
+    <HeaderContent>
+        <MudTh Style="text-align: left">Cuenta</MudTh>
+        <MudTh Style="text-align: left">Glosa</MudTh>
+        <MudTableSortLabel Class="my-table-sort-label"
+                           InitialDirection="SortDirection.Descending"
+                           SortBy="new Func<DetalleComprobanteDto, object>(x => x.MontoDebe)">
+            <MudTh>Monto Debe</MudTh>
+        </MudTableSortLabel>
+        <MudTh Style="text-align: right">Monto Haber</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre Cuenta">
+            @context.NombreCuenta
+        </MudTd>
+        <MudTd DataLabel="Glosa">
+            @context.Glosa
+        </MudTd>
+        <MudTd DataLabel="Monto Debe" Style="text-align: right">
+            @(context.MontoDebe.ToString("F2"))
+        </MudTd>
+        <MudTd DataLabel="Monto Haber" Style="text-align: right">
+            @context.MontoHaber.ToString("F2")
+        </MudTd>
+    </RowTemplate>
+    <FooterContent>
+        <MudTd/>
+        <MudTd/>
+        <MudTd Style="text-align: right">
+            <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2") </MudText>
+        </MudTd>
+        <MudTd Style="text-align: right">
+            <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+        </MudTd>
+    </FooterContent>
+</MudTable>
 
 <style>
     .right-aligned-input input {
@@ -198,6 +202,12 @@
         .squircle-fab {
             border-radius: 30% !important;
             box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12) !important;
+        }
+
+        .my-table-sort-label {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
 </style>
 
@@ -210,6 +220,9 @@
     [Parameter]
     public int IdComprobante { get; set; }
 
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
     private ComprobanteDto ComprobanteDto { get; set; } = new();
 
     private List<DetalleComprobanteDto> Detalles { get; set; } = new();
@@ -220,9 +233,19 @@
 
     private decimal TotalHaber => Detalles.Sum(x => x.MontoHaber);
 
-    public MonedaDto Moneda { get; set; } = new();
+    private MonedaDto Moneda { get; set; } = new();
 
     private bool IsAnulado() => ComprobanteDto.Estado == EstadoComprobante.Anulado;
+
+    public List<ComprobanteDto> ComprobanteDtos { get; set; } = new();
+
+    public List<NotaDto> Notas { get; set; } = new();
+
+    private void GenerateReport()
+    {
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/ReporteComprobante?IdEmpresa={IdComprobante}";
+        OpenUrlInNewTab(url);
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -237,6 +260,8 @@
             {
                 ComprobanteDto = await ComprobanteService.GetComprobanteByIdAsync(id);
                 Detalles = await DetalleComprobanteService.GetDetalleComprobantesAsync(id);
+                ComprobanteDtos = await ComprobanteService.GetComprobantesAsync(id);
+                Notas = (await NotaService.GetNotaComprasAsync(id))!;
                 IdEmpresa = idempresa;
                 Fecha = ComprobanteDto.Fecha;
                 Moneda = (await MonedaService.GetMonedaByIdAsync(ComprobanteDto.IdMoneda))!;
@@ -256,7 +281,13 @@
 
     private async Task AnularComprobante()
     {
+        var n = Notas.FirstOrDefault(x => x.IdComprobante == IdComprobante);
         var url = $"https://localhost:44352/comprobantes/anularComprobante/{IdComprobante}";
+        if (n is not null)
+        {
+            Snackbar.Add("No puedes anular un comprobante que le pertence a una nota", Severity.Error);
+            return;
+        }
         var response = await HttpClient.DeleteAsync(url);
         if (response.IsSuccessStatusCode)
         {
@@ -280,5 +311,11 @@
     }
 
     private void GoBack() => NavigationManager.NavigateTo($"/comprobantes/overview/{IdEmpresa}");
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
 
 }

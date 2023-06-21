@@ -76,10 +76,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcRGV0YWxsZXNcVmVyRGV0YWxsZXNDb21wcm9iYW50ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Comprobante/Editar/EditarDetalle.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHJvYmFudGVcRWRpdGFyXEVkaXRhckRldGFsbGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Cuentas/Crear/CrearCuenta.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VlbnRhc1xDcmVhclxDcmVhckN1ZW50YS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -138,6 +134,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/InicioSesion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VzaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Integracion/IntegracionCuentas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW50ZWdyYWNpb25cSW50ZWdyYWNpb25DdWVudGFzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Moneda/MonedaDashboard.razor]
@@ -202,6 +202,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Periodo/InicioPeriodo.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyaW9kb1xJbmljaW9QZXJpb2RvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Reportes/BalanceGeneral.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNcQmFsYW5jZUdlbmVyYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Reportes/EstadoResultado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNcRXN0YWRvUmVzdWx0YWRvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Reportes/LibroDiario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNcTGlicm9EaWFyaW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Reportes/LibroMayor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNcTGlicm9NYXlvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Reportes/Stock.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNcU3RvY2sucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Pages/Reportes/SumaSaldo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNcU3VtYVNhbGRvLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ruben/OneDrive/Documents/Repos/ERP-Solultion/Proyecto-ERP/BlazorFrontend/Shared/ComprobanteLayout.razor]

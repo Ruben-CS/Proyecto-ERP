@@ -7,8 +7,12 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
-    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Nota de ventas</MudText>
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="6"
+          Style="margin-right: 0;">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Notas de venta</MudText>
     <div style="display: flex; align-items: center;">
         <MudButton ButtonType="ButtonType.Button"
                    Color="Color.Success"
@@ -33,13 +37,14 @@
           Elevation="3"
           Class="fade-in"
           Bordered="true"
-          Style="border-radius: 15px;"
+          Style="border-radius: 15px; margin-right: 0;"
           LoadingProgressColor="Color.Dark"
-          Loading="IsLoading">
+          Loading="IsLoading"
+          @ref="@_table">
     <HeaderContent>
         <MudTh Style="text-align: center;">
             <MudTableSortLabel InitialDirection="SortDirection.Descending"
-                               SortBy="new Func<NotaDto, object>(x => x.NroNota)">
+                               SortBy="new Func<NotaDto, object>(x => x.NroNota!)">
                 Nro Nota
             </MudTableSortLabel>
 
@@ -96,8 +101,12 @@
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager HorizontalAlignment="HorizontalAlignment.Left"
-                       HidePageNumber="true"
-                       HideRowsPerPage="true"/>
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudPagination SelectedChanged="PageChanged"
+                           Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                           Class="pa-4"
+                           ShowFirstButton="true"
+                           ShowLastButton="true"/>
+        </MudStack>
     </PagerContent>
 </MudTable>

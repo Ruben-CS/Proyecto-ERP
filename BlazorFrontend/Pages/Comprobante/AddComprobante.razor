@@ -36,7 +36,7 @@
                 Style="border-top-width: 3px;"
                 Class="mb-5"/>
 
-<MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px;">
+<MudPaper Elevation="2" Class="p-3 fade-in" Style="border-radius: 15px; margin-right: 0;">
     <MudForm @ref="_form" @bind-IsValid="@_success">
         <MudGrid Spacing="2" Justify="Justify.Center">
             <MudItem xs="12" sm="4">
@@ -52,7 +52,14 @@
                 <MudDatePicker Variant="Variant.Outlined"
                                Label="Fecha"
                                @bind-Date="@Fecha"
-                               Margin="Margin.Dense"/>
+                               Margin="Margin.Dense"
+                               Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Editable="true"
+                               Required="true"
+                               RequiredError="La fecha es requerida"
+                               Clearable="true"
+                               ErrorText="Fecha no valida"/>
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudSelect Variant="Variant.Outlined"
@@ -119,7 +126,7 @@
         </MudGrid>
     </MudForm>
 
-    <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between;"
+    <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between; margin-right: 0;"
               Justify="Justify.SpaceBetween">
         <MudTooltip Text="Agregar comprobante" Placement="Placement.Right"
                     Arrow="true">
@@ -131,8 +138,11 @@
                     OnClick="@AgregarComprobante"
                     Disabled="@(!_success)"/>
         </MudTooltip>
-        <MudTooltip Text="Agregar detalle" Placement="Placement.Left"
-                    Arrow="true">
+        <MudTooltip Text="Agregar detalle"
+                    Placement="Placement.Left"
+                    Arrow="true"
+                    ShowOnClick="false"
+                    ShowOnFocus="false">
             <MudFab Color="Color.Info"
                     IconSize="Size.Small"
                     StartIcon="@Icons.Material.Filled.NoteAdd"

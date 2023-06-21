@@ -61,7 +61,9 @@
                      Variant="Variant.Filled"
                      Dense="false"
                      FullWidth="true"
-                     Class="rounded-pill mb-4"/>
+                     Class="rounded-pill mb-4"
+                     Clearable="true"
+                     Immediate="true"/>
     <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
         <MudButton Color="Color.Success"
                    StartIcon="@Icons.Material.Rounded.Add"
@@ -91,8 +93,9 @@
                    StartIcon="@Icons.Material.Rounded.InsertChart"
                    Class="rounded-pill"
                    Size="Size.Large"
-                   Disabled="true"
-                   Variant="Variant.Filled">
+                   Disabled="false"
+                   Variant="Variant.Filled"
+                   OnClick="GenerateReport">
             Reporte
         </MudButton>
         <MudButton Color="Color.Info"

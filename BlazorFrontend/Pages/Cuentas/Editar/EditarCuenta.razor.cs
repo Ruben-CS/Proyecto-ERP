@@ -37,7 +37,7 @@ public partial class EditarCuenta
 
         var cuentaDto = new CuentaDto
         {
-            IdCuenta = SelectedValue.IdCuenta,
+            IdCuenta = SelectedValue!.IdCuenta,
             Nombre = SelectedValue.Nombre,
             TipoCuenta = SelectedValue.TipoCuenta,
             Codigo = SelectedValue.Codigo

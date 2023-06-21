@@ -53,7 +53,7 @@
         <MudStack Row="true" Justify="Justify.Center" Spacing="1">
             <MudAvatar Color="Color.Secondary"
                        Elevation="1">
-                @GetInitials(NombreEmpresa)
+                @GetInitials(NombreEmpresa!)
             </MudAvatar>
             <MudText Typo="@Typo.h6"
                      Class="ml-5"
@@ -168,11 +168,93 @@
                 </MudText>
             </MudNavLink>
 
+            <MudNavLink Href="@NavitgateToIntegCuentas()"
+                        Icon="@Icons.Material.Rounded.AccountTree"
+                        Match="NavLinkMatch.Prefix">
+                <MudTooltip Text="Integracion de cuentas"
+                            ShowOnClick="false"
+                            ShowOnFocus="false">
+                    <MudText>
+                        Integracion
+                    </MudText>
+                </MudTooltip>
+            </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
-
 </MudDrawer>
+<MudDrawer
+    @bind-Open="IsOpen"
+    Fixed="true"
+    Elevation="2"
+    Variant="@DrawerVariant.Mini"
+    OpenMiniOnHover="true"
+    Anchor="Anchor.End"
+    ClipMode="DrawerClipMode.Docked"
+    Breakpoint="Breakpoint.Lg"
+    PreserveOpenState="true"
+    Style="border-bottom-right-radius: 10px; border-top-right-radius: 10px">
+    <MudNavMenu Bordered="true"
+                Rounded="true"
+                Color="Color.Primary">
+        @if (IsOpen)
+        {
+            <MudDrawerHeader>
+                <MudText Typo="Typo.h6">Reportes</MudText>
+            </MudDrawerHeader>
+        }
 
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.AutoStories"
+                    OnClick="NavigateToLibro">
+            <MudText>Libro Diario</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.PriceCheck"
+                    OnClick="() => NavigateToSaldo()">
+            <MudText>Suma y Saldo</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.Inventory2"
+                    OnClick="() => NavigateToStock()">
+            <MudText>Inventario</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.MenuBook"
+                    OnClick="() => NavigateToLibroMayot()">
+            <MudText>Libro Mayor</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.BarChart"
+                    OnClick="NavigateToEstado">
+            <MudText> Estado de Resultados</MudText>
+        </MudNavLink>
+        <MudNavLink Match="NavLinkMatch.All"
+                    Icon="@Icons.Material.Rounded.Balance"
+                    OnClick="NavigateToBalanceGeneral">
+            <MudText>Balance General</MudText>
+        </MudNavLink>
+        <MudDivider DividerType="DividerType.Middle"
+                    Light="false"
+                    Style="border-top-width: 3px;"
+                    Class="my-1"/>
+    </MudNavMenu>
+</MudDrawer>
 @if (IsLoggingOut)
 {
     <MudOverlay Visible="IsLoggingOut" DarkBackground="true" Absolute="false" ZIndex="9999">
@@ -180,6 +262,12 @@
     </MudOverlay>
 }
 
+<style>
+    .fixed-width-text {
+      width: 160px;
+    }
+
+</style>
 
 @code {
 
@@ -191,6 +279,8 @@
     private bool IsLoggingOut { get; set; }
 
     private string? Username { get; set; }
+
+    public bool IsOpen { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -210,7 +300,9 @@
             return string.Empty;
         }
         var words = nombreEmpresa.Split(' ');
-        return words.Length == 1 ? words[0][0].ToString().ToUpper() : string.Concat(words[0][0], words[1][0]).ToUpper();
+        return words.Length == 1
+            ? words[0][0].ToString().ToUpper()
+            : string.Concat(words[0][0], words[1][0]).ToUpper();
     }
 
     private string NavigateToCuentas() => $"/plandecuentas/overview/{IdEmpresa}";
@@ -223,6 +315,20 @@
             StateHasChanged();
         }
     }
+
+    private void NavigateToSaldo() => NavigationManager.NavigateTo($"/SumaSaldo/{IdEmpresa}");
+
+    private void NavigateToLibro() => NavigationManager.NavigateTo($"/LibroDiario/{IdEmpresa}");
+
+    private void NavigateToBalanceGeneral() => NavigationManager.NavigateTo($"/BalanceGeneral/{IdEmpresa}");
+
+
+    private void NavigateToEstado() => NavigationManager.NavigateTo($"/EstadoResultado/{IdEmpresa}");
+
+    private void NavigateToLibroMayot() => NavigationManager.NavigateTo($"/LibroMayor/{IdEmpresa}");
+
+    private void NavigateToStock() => NavigationManager.NavigateTo($"/Stock/{IdEmpresa}");
+
 
     private string NavigateToGestiones() => $"/gestion/overview/{IdEmpresa}";
 
@@ -239,6 +345,8 @@
         $"/notaVentaOverview/{IdEmpresa}";
 
     private string NavigateToArticulo() => $"/articulo/{IdEmpresa}";
+
+    private string NavitgateToIntegCuentas() => $"/integracionCuentas/{IdEmpresa}";
 
     private async Task CerrarSesion()
     {

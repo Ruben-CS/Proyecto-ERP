@@ -8,6 +8,9 @@
     -o-animation: fadeIn ease 1s;
     -ms-animation: fadeIn ease 1s;
 }
+.mud-drawer-end.mini-closed {
+    margin-right: 8px; /* Adjust the margin value as desired */
+}
 @keyframes fadeIn {
     0% {opacity:0;}
     100% {opacity: 1.01;}

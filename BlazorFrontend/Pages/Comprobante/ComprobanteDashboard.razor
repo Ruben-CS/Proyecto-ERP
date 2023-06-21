@@ -6,7 +6,11 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="6"
+          Style="margin-right: 0;">
     <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">Comprobantes</MudText>
     <div style="display: flex; align-items: center;">
         <MudButton ButtonType="ButtonType.Button"
@@ -35,7 +39,8 @@
           Bordered="true"
           Loading="IsLoading"
           LoadingProgressColor="Color.Dark"
-          Style="border-radius: 15px;">
+          Style="border-radius: 15px; margin-right: 0;"
+          @ref="@_table">
     <HeaderContent>
         <MudTh>
             <MudTableSortLabel InitialDirection="SortDirection.Descending"
@@ -55,17 +60,21 @@
         <MudTd DataLabel="Tipo">@context.TipoComprobante</MudTd>
         <MudTd DataLabel="Acciones" Style="text-align: center">
             <MudTooltip Text="Ver detalles" Arrow="true" Placement="Placement.Bottom">
-            <MudIconButton OnClick="() => NavigateToDetalleComprobante(context.IdComprobante, context.IdEmpresa)"
-                           Size="Size.Small"
-                           Icon="@Icons.Material.Filled.Preview"
-                           Color="Color.Default"/>
+                <MudIconButton OnClick="() => NavigateToDetalleComprobante(context.IdComprobante, context.IdEmpresa)"
+                               Size="Size.Small"
+                               Icon="@Icons.Material.Filled.Preview"
+                               Color="Color.Default"/>
             </MudTooltip>
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager
-            HorizontalAlignment="HorizontalAlignment.Left"
-            HidePageNumber="true"
-            HideRowsPerPage="true"/>
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+        <MudPagination SelectedChanged="PageChanged"
+                       Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                       Class="pa-4"
+                       ShowFirstButton="true"
+                       ShowLastButton="true"
+                       Style="align-self: center"/>
+        </MudStack>
     </PagerContent>
 </MudTable>

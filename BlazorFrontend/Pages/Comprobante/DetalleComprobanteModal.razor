@@ -18,15 +18,16 @@
             <MudTextField @bind-Value="@Debe"
                           Label="Debe"
                           Variant="Variant.Text"
-                          Style="width: 80px; text-align: right"
-                          Placeholder="0.00"
-                          Class="right-aligned-input"/>
+                          Style="width: 100px; text-align: right"
+                          Class="right-aligned-input"
+                          Clearable="true"/>
+
             <MudTextField @bind-Value="@Haber"
                           Label="Haber"
                           Variant="Variant.Text"
-                          Style="width: 80px; text-align: right"
+                          Style="width: 100px; text-align: right"
                           Class="right-aligned-input"
-                          Placeholder="0.00"/>
+                          Clearable="true"/>
         </MudStack>
     </DialogContent>
     <DialogActions>

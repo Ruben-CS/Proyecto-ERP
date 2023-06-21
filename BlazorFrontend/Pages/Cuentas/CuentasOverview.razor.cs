@@ -11,14 +11,15 @@ namespace BlazorFrontend.Pages.Cuentas;
 
 public partial class CuentasOverview
 {
-    private Dictionary<TreeItemData, HashSet<TreeItemData>> RootItems { get; set; }
+    private Dictionary<TreeItemData, HashSet<TreeItemData>>? RootItems { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
 
     private TreeItemData? SelectedValue { get; set; }
 
     [Parameter]
     public EventCallback<TreeItemData> OnItemClicked { get; set; }
-
-    private bool _open;
 
     private bool _folderOneExpanded = true;
 
@@ -55,7 +56,7 @@ public partial class CuentasOverview
         await Task.FromResult(_cuentas.Any(cuenta =>
             cuenta.IdCuentaPadre == selectedValue.IdCuenta));
 
-    private static TreeItemData CreateTree(TreeItemData           treeItemData)
+    private static TreeItemData CreateTree(TreeItemData treeItemData)
     {
         return treeItemData;
     }
@@ -72,6 +73,7 @@ public partial class CuentasOverview
             var children = CreateTree(rootItem);
             rootItems.Add(rootItem, new HashSet<TreeItemData> { children });
         }
+
         return rootItems;
     }
 
@@ -146,7 +148,6 @@ public partial class CuentasOverview
 
     private async Task ShowCrearCuenta()
     {
-
         if (CheckLastHijo())
         {
             Snackbar.Add("Ya no puede crear mas hijos", Severity.Info);
@@ -265,12 +266,24 @@ public partial class CuentasOverview
         }
     }
 
-
     private async Task OnTreeViewChange(CuentaDto cuentaDto)
     {
         _cuentas  = await CuentaService.GetCuentasAsync(IdEmpresa);
         TreeItems = BuildTreeItems(_cuentas);
         await LoadCuentas();
         await Task.FromResult(InvokeAsync(StateHasChanged));
+    }
+
+    private void GenerateReport()
+    {
+        var url =
+            $"http://localhost:80/Reports/report/Report%20Project1/PlanDeCuentas?IdComprobante={IdEmpresa}";
+        OpenUrlInNewTab(url);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
     }
 }

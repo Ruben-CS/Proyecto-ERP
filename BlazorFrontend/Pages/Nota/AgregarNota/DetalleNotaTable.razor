@@ -1,43 +1,93 @@
 @using System.Drawing
 @using Color = MudBlazor.Color
 @using Size = MudBlazor.Size
+@using System.Configuration
 @inject IDialogService DialogService
 
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Dense="true"
-              RowsPerPage="4"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;"
-              Items="DetalleCompra"
-              Striped="true">
-        <HeaderContent>
-            <MudTh>Articulo</MudTh>
-            <MudTh>Cantidad</MudTh>
-            <MudTh>Precio</MudTh>
-            <MudTh>Subtotal</MudTh>
-            <MudTh>Acciones</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
-            <MudTd>@context.Cantidad</MudTd>
-            <MudTd>@context.PrecioCompra</MudTd>
-            <MudTd>@(context.Cantidad * context.PrecioCompra)</MudTd>
-            <MudTd>
-                <MudTooltip Text="Eliminar">
+<MudTable Hover="true"
+          Dense="true"
+          Elevation="2"
+          Bordered="true"
+          Striped="true"
+          Style="border-radius: 15px; margin-right: 0;"
+          Items="DetalleCompra"
+          Height="380px"
+          FixedFooter="true"
+          FixedHeader="true"
+          ApplyButtonPosition="TableApplyButtonPosition.Start"
+          EditTrigger="TableEditTrigger.RowClick"
+          CommitEditTooltip="Guardar cambios"
+          CancelEditTooltip="Cancelar cambios"
+          IsEditRowSwitchingBlocked="true"
+          CanCancelEdit="true"
+          Class="mt-4 fade-in">
+    <HeaderContent>
+        <MudTh>Articulo</MudTh>
+        <MudTh>Cantidad</MudTh>
+        <MudTh Style="text-align: right">Precio</MudTh>
+        <MudTh Style="text-align: right">Subtotal</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@GetArticuloName(context.IdArticulo)</MudTd>
+        <MudTd>@context.Cantidad</MudTd>
+        <MudTd Style="text-align: right">@context.PrecioCompra.ToString("F2")</MudTd>
+        <MudTd Style="text-align: right">
+            @((context.Cantidad * context.PrecioCompra).ToString("F2"))
+        </MudTd>
+
+        <MudTd>
+            <MudTooltip Text="Eliminar fila"
+                        ShowOnClick="false">
                 <MudIconButton Size="Size.Small"
                                Icon="@Icons.Material.Rounded.Delete"
                                Color="Color.Error"
                                OnClick="() => DeleteEntry(context)"/>
-                </MudTooltip>
-            </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTh/>
-            <MudTh/>
-            <MudTh/>
-            <MudTh>Total: @Total</MudTh>
-        </FooterContent>
-    </MudTable>
-</MudPaper>
+            </MudTooltip>
+        </MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd>
+            <MudAutocomplete @bind-Value="@NombreArticulo"
+                             T="string"
+                             Label="Aritculos"
+                             SearchFunc="Search1"
+                             Variant="Variant.Text"
+                             Clearable="true"
+                             Margin="Margin.Dense"/>
+        </MudTd>
+        <MudTd>
+            <MudTextField T="int"
+                          @bind-Value="@context.Cantidad"
+                          Label="Cantidad"
+                          Variant="Variant.Text"
+                          Immediate="true"
+                          Required="true"
+                          RequiredError="Debe ingresar una cantidad"
+                          ErrorText="No se permiten palabras o numeros"
+                          Margin="Margin.Dense"
+                          Class="right-aligned-input"/>
+        </MudTd>
+        <MudTd>
+            <MudTextField @bind-Value="@context.PrecioCompra"
+                          Label="Precio Unitario"
+                          Immediate="true"
+                          Required="true"
+                          RequiredError="Debe colocar un precio"
+                          ErrorText="No se permiten palabras o numeros"
+                          Variant="Variant.Text"
+                          Class="right-aligned-input"
+                          Margin="Margin.Dense"
+                          T="decimal"/>
+        </MudTd>
+        <MudTd/>
+        <MudTd/>
+    </RowEditingTemplate>
+    <FooterContent>
+        <MudTh/>
+        <MudTh/>
+        <MudTh/>
+        <MudTh Style="text-align: right">Total: @Total.ToString("F2")</MudTh>
+        <MudTh/>
+    </FooterContent>
+</MudTable>

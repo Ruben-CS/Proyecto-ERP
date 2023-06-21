@@ -22,11 +22,13 @@
                            Variant="Variant.Outlined"
                            Immediate="true"
                            Style="width: 150px;">
-                    @if (NroLotes != null)
+                    @if (NroLotes is not null)
                     {
                         @foreach (var nroLote in NroLotes)
                         {
-                            <MudSelectItem Value="@nroLote">@nroLote</MudSelectItem>
+                            <MudSelectItem Value="@nroLote">
+                                @nroLote
+                            </MudSelectItem>
                         }
                     }
                 </MudSelect>
@@ -42,6 +44,7 @@
                               HelperText="@StockMessage"/>
                 <MudTextField @bind-Value="PrecioDelArticulo"
                               Label="Precio"
+                              Format="F2"
                               Immediate="true"
                               Variant="Variant.Outlined"
                               Class="right-aligned-input"
@@ -51,6 +54,7 @@
                               Value="@SubTotal"
                               Variant="Variant.Outlined"
                               Label="Subtotal"
+                              Format="F2"
                               Disabled="true"
                               Class="right-aligned-input"/>
             </MudStack>

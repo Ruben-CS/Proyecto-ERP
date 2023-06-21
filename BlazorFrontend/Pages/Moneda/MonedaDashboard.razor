@@ -14,7 +14,8 @@
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
 <MudStack Row="true" AlignItems="AlignItems.Center"
-          Justify="Justify.SpaceBetween" Spacing="6">
+          Justify="Justify.SpaceBetween" Spacing="6"
+          Style="margin-right: 0;">
     <MudText Align="Align.Start"
              Typo="Typo.h5"
              GutterBottom="true">
@@ -27,7 +28,7 @@
                    OnClick="AddMonedaAlternativa"
                    StartIcon="@Icons.Material.Rounded.AddCircleOutline"
                    Size="Size.Medium"
-                   Style="justify-self: flex-end; align-self: center"
+                   Style="justify-self: flex-end; align-self: center; margin-right: 0;"
                    Class="mb-4 rounded-pill"
                    Disabled="@IsLoading">
             <MudText Typo="Typo.button">
@@ -49,15 +50,15 @@
         @if (IsLoading)
         {
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="300"
+                         Width="400px"
                          Height="56px"
                          Animation="Animation.Wave"/>
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="300"
+                         Width="400px"
                          Height="56px"
                          Animation="Animation.Wave"/>
             <MudSkeleton SkeletonType="SkeletonType.Rectangle"
-                         Width="300"
+                         Width="400px"
                          Height="56px"
                          Animation="Animation.Wave"/>
         }
@@ -68,7 +69,8 @@
                           Value="MonedaPrincipalName"
                           Disabled="true"
                           Variant="Variant.Outlined"/>
-            <MudSelect T="string" Label="Moneda Alternativa"
+            <MudSelect T="string"
+                       Label="Moneda Alternativa"
                        AnchorOrigin="Origin.BottomCenter"
                        @bind-Value="@AppState.SelectedMoneda"
                        HelperText="Seleccione una moneda alternativa"
@@ -101,14 +103,15 @@
 
 <MudTable Items="@_empresaMonedas"
           Hover="true"
-          Breakpoint="Breakpoint.Sm"
+          Breakpoint="Breakpoint.Xs"
           Bordered="true"
           Striped="true"
           Loading="@IsLoading"
           Elevation="3"
           Class="mt-1"
           RowsPerPage="4"
-          Style="border-radius: 15px;">
+          Style="border-radius: 15px; margin-right: 0;"
+          @ref="_table">
     <HeaderContent>
         <MudTh Style="text-align: center">
             <MudTableSortLabel
@@ -170,9 +173,13 @@
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager HorizontalAlignment="HorizontalAlignment.Left"
-                       HidePageNumber="true"
-                       HideRowsPerPage="true"/>
+                <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+                    <MudPagination SelectedChanged="PageChanged"
+                                   Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                                   Class="pa-4"
+                                   ShowFirstButton="true"
+                                   ShowLastButton="true"/>
+                </MudStack>
     </PagerContent>
 </MudTable>
 

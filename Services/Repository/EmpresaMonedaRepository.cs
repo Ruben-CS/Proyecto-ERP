@@ -23,9 +23,9 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
     public async Task<List<EmpresaMonedaDto>> GetEmpresasMonedas(int idEmpresa)
     {
         var listaEmpresaMoneda = await _applicationDbContext.EmpresaMonedas
-                                                            .AsNoTracking()
-                                                            .Where(em => em.IdEmpresa == idEmpresa)
-                                                            .ToListAsync();
+            .AsNoTracking()
+            .Where(em => em.IdEmpresa == idEmpresa)
+            .ToListAsync();
         return await Task.FromResult(
             _mapper.Map<List<EmpresaMonedaDto>>(listaEmpresaMoneda));
     }
@@ -50,10 +50,11 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
             _mapper.Map<Modelos.Models.EmpresaMoneda, EmpresaMonedaDto>(empresaMonedaDb));
     }
 
-    public async Task<EmpresaMonedaDto> CrearMonedaAlternativa(EmpresaMonedaDto empresaMonedaDto,
-                                                               int              idEmpresa,
-                                                               int              idMonedaAlterna,
-                                                               int              idMonedaPrincipal)
+    public async Task<EmpresaMonedaDto> CrearMonedaAlternativa(
+        EmpresaMonedaDto empresaMonedaDto,
+        int              idEmpresa,
+        int              idMonedaAlterna,
+        int              idMonedaPrincipal)
     {
         var empresaMonedaDb =
             _mapper.Map<EmpresaMonedaDto, Modelos.Models.EmpresaMoneda>(empresaMonedaDto);
@@ -93,10 +94,16 @@ public class EmpresaMonedaRepository : IEmpresaMonedaRepository
             empresaMonedaDb);
     }
 
-    public async Task<List<EmpresaMonedaDto>> GetMonedaAlternativasPerEmpresa(int idEmpresa)
+    public async Task<List<EmpresaMonedaDto>> GetMonedaAlternativasPerEmpresa(
+        int idEmpresa)
     {
-        var empresaMonedasActivas = await _applicationDbContext.EmpresaMonedas.Where(em => em.IdEmpresa == idEmpresa &&
-            em.Estado == EstadoEmpresaMoneda.Activo).ToListAsync();
-        return await Task.FromResult(_mapper.Map<List<EmpresaMonedaDto>>(empresaMonedasActivas));
+        var empresaMonedasActivas = await _applicationDbContext.EmpresaMonedas
+            .AsNoTracking()
+            .Where(em =>
+                em.IdEmpresa == idEmpresa &&
+                em.Estado    == EstadoEmpresaMoneda.Activo)
+            .ToListAsync();
+        return await Task.FromResult(
+            _mapper.Map<List<EmpresaMonedaDto>>(empresaMonedasActivas));
     }
 }

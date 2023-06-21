@@ -2,7 +2,7 @@
 
 <MudDialog Style="border-radius:15px;">
     <DialogContent>
-        <MudForm @ref="_form" @bind-IsValid="_succes">
+        <MudForm @ref="_form" @bind-IsValid="Succes" >
             <MudStack Row="true">
                 <MudAutocomplete @bind-Value="SelectedArticulo"
                                  T="string"
@@ -37,13 +37,15 @@
                               ErrorText="No se permiten palabras o numeros"
                               Variant="Variant.Outlined"
                               Class="right-aligned-input"
+                              Format="F2"
                               T="decimal?"/>
                 <MudTextField Immediate="true"
                               Value="@SubTotal"
                               Variant="Variant.Outlined"
                               Label="Subtotal"
                               Disabled="true"
-                              Class="right-aligned-input"/>
+                              Class="right-aligned-input"
+                              Format="F2"/>
             </MudStack>
         </MudForm>
     </DialogContent>
@@ -62,12 +64,11 @@
                    OnClick="Submit"
                    Class="rounded-pill mb-2 mr-2"
                    Style="width: 100px;"
-                   Disabled="@(!_succes)">
+                   Disabled="@(!Succes)">
             Agregar
         </MudButton>
     </DialogActions>
 </MudDialog>
-
 
 <style>
     .right-aligned-input input {

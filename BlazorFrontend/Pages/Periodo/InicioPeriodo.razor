@@ -8,12 +8,16 @@
 @inject IDialogService DialogService
 @inject IJSRuntime JsRuntime
 
-
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="6"
-          Justify="Justify.SpaceBetween">
-    <MudText Typo="Typo.h5" Align="Align.Start" GutterBottom="true">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Spacing="6"
+          Justify="Justify.SpaceBetween"
+          Style="margin-right: 0;">
+    <MudText Typo="Typo.h5"
+             Align="Align.Center"
+             GutterBottom="true">
         <MudTooltip Text="Volver a gestion">
             <MudIconButton Size="Size.Medium"
                            Icon="@Icons.Material.Filled.ArrowBack"
@@ -21,7 +25,15 @@
                            OnClick="@(GoBack)"
                            Style="align-self: center"/>
         </MudTooltip>
-        Administracion del periodo de la gestion: @_gestionDto.Nombre
+            Periodo de la gestion: @_gestionDto.Nombre
+        <MudTooltip Text="Imprimir Comprobante"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                           Size="Size.Large"
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
+        </MudTooltip>
     </MudText>
     <div style="display: flex; align-items: center;">
 
@@ -48,8 +60,9 @@
           Striped="true"
           Elevation="3"
           Class="fade-in"
-          Style="border-radius: 15px;"
-          RowsPerPage="6">
+          Style="border-radius: 15px; margin-right: 0;"
+          RowsPerPage="6"
+          @ref="_table">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>
@@ -93,9 +106,12 @@
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager
-            HorizontalAlignment="HorizontalAlignment.Left"
-            HidePageNumber="true"
-            HideRowsPerPage="true"/>
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudPagination SelectedChanged="PageChanged"
+                           Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                           Class="pa-4"
+                           ShowFirstButton="true"
+                           ShowLastButton="true"/>
+        </MudStack>
     </PagerContent>
 </MudTable>

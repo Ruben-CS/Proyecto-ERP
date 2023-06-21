@@ -10,6 +10,8 @@ namespace BlazorFrontend.Pages.Articulo;
 
 public partial class ArticuloOverview
 {
+    private MudTable<ArticuloDto> _table;
+
     #region Parameters
 
     [Parameter]
@@ -43,6 +45,8 @@ public partial class ArticuloOverview
         FullWidth            = true,
         DisableBackdropClick = true
     };
+
+    private void PageChanged(int i) => _table.NavigateTo(i - 1);
 
     private static bool FilterFunc2(ArticuloDto dto, string searchString)
     {

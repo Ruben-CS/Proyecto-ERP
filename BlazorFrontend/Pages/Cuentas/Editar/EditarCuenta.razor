@@ -9,7 +9,7 @@
         <EditForm Model="CuentaDto" OnValidSubmit="EditCuenta">
             <MudTextField Required="true"
                           Label="Nombre"
-                          @bind-Value="@SelectedValue.Nombre"/>
+                          @bind-Value="@SelectedValue!.Nombre"/>
         </EditForm>
     </DialogContent>
     <DialogActions>

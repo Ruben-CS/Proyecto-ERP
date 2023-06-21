@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.IdentityModel.Tokens;
 using Modelos.Models.Dtos;
@@ -9,6 +8,7 @@ namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class DetalleComprobanteModal
 {
+
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; } = null!;
 
@@ -17,6 +17,12 @@ public partial class DetalleComprobanteModal
 
     [Parameter]
     public EventCallback<DetalleComprobanteDto> AddNewDetalleComprobante { get; set; }
+
+    [Parameter]
+    public bool IsMonedaPrincipal { get; set; }
+
+    [Parameter]
+    public decimal TipoDeCambio { get; set; }
 
     public List<CuentaDto> Cuentas { get; set; } = new();
 
@@ -28,9 +34,9 @@ public partial class DetalleComprobanteModal
     [Parameter]
     public string? Glosa { get; set; }
 
-    private decimal? Debe { get; set; }
+    private decimal Debe { get; set; } = decimal.Zero;
 
-    private decimal? Haber { get; set; }
+    private decimal Haber { get; set; } = decimal.Zero;
 
     private string? SelectedCuenta { get; set; }
 
@@ -60,16 +66,36 @@ public partial class DetalleComprobanteModal
 
     private async Task Submit()
     {
+        decimal debe;
+        decimal haber;
+        decimal debeAlt;
+        decimal haberAlt;
+
         if (IsDebeOrHaberNull(Debe, Haber))
             return;
-        if (ValidateNegatives(Debe!.Value, Haber!.Value))
+        if (ValidateNegatives(Debe, Haber))
             return;
-        if (IsHaberOrDebeZero(Debe.Value, Haber.Value))
+        if (IsHaberOrDebeZero(Debe, Haber))
             return;
         if (CuentaHasMoreExistingDetalle())
             return;
         if (IsGlosaNullOrEmpty(Glosa))
             return;
+
+        if (IsMonedaPrincipal)
+        {
+            debe     = Debe;
+            haber    = Haber;
+            debeAlt  = Debe  / TipoDeCambio;
+            haberAlt = Haber / TipoDeCambio;
+        }
+        else
+        {
+            debe     = Debe  * TipoDeCambio;
+            haber    = Haber * TipoDeCambio;
+            debeAlt  = Debe;
+            haberAlt = Haber;
+        }
 
         var selectedCuentaCodigo = ExtractCodigo(SelectedCuenta!);
         var idCuenta = Cuentas.SingleOrDefault(c => c.Codigo == selectedCuentaCodigo)!
@@ -78,16 +104,16 @@ public partial class DetalleComprobanteModal
         {
             NombreCuenta  = SelectedCuenta,
             Glosa         = Glosa!,
-            MontoDebe     = Debe.Value,
-            MontoHaber    = Haber.Value,
+            MontoDebe     = debe,
+            MontoHaber    = haber,
             IdCuenta      = idCuenta,
             IdUsuario     = 1,
-            MontoHaberAlt = default,
-            MontoDebeAlt  = default
+            MontoHaberAlt = haberAlt,
+            MontoDebeAlt  = debeAlt
         };
         await AddNewDetalleComprobante.InvokeAsync(detalleComprobante);
-        Debe           = null;
-        Haber          = null;
+        Debe           = decimal.Zero;
+        Haber          = decimal.Zero;
         SelectedCuenta = null;
     }
 

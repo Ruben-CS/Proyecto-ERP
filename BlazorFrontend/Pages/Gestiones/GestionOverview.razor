@@ -10,12 +10,23 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-
-<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="6"
-          Justify="Justify.SpaceBetween">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Spacing="6"
+          Justify="Justify.SpaceBetween"
+          Style="margin-right: 0;">
     <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">
         Lista de gestiones
+        <MudTooltip Text="Imprimir Comprobante"
+                    Arrow="true"
+                    Placement="Placement.Top">
+            <MudIconButton Icon="@Icons.Material.Rounded.Print"
+                           Size="Size.Large"
+                           Color="Color.Default"
+                           OnClick="GenerateReport"/>
+        </MudTooltip>
     </MudText>
+
     <div style="display: flex; align-items: center;">
         <MudTooltip Text="Borre una gestion para agregar una nueva"
                     ShowOnHover="@(VerifyGestiones())"
@@ -44,7 +55,7 @@
           Striped="true"
           Elevation="3"
           Class="fade-in"
-          Style="border-radius: 15px;">
+          Style="border-radius: 15px; margin-right: 0;">
     <HeaderContent>
         <MudTh> Nombre</MudTh>
         <MudTh>

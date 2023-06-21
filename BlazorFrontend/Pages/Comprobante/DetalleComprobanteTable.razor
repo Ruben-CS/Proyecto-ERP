@@ -1,72 +1,109 @@
 @using System.Collections.ObjectModel
-@using BlazorFrontend.Pages.Comprobante.Editar
+@using global::Services.Cuenta
 @using NuGet.Versioning
 @inject IDialogService DialogService
+@inject CuentaService CuentaService
 
-<MudPaper Elevation="2" Class="p-3 mt-4 fade-in" Style="border-radius: 15px;">
-    <MudTable Hover="true"
-              Striped="true"
-              RowsPerPage="4"
-              Items="Detalles"
-              Dense="true"
-              Bordered="true"
-              Elevation="0"
-              Style="border-radius: 15px;">
-
-        <HeaderContent>
-            <MudTh Style="text-align: left">Cuenta</MudTh>
-            <MudTh Style="text-align: left">Glosa</MudTh>
-            <MudTh Style="text-align: right">Monto Debe</MudTh>
-            <MudTh Style="text-align: right">Monto Haber</MudTh>
-            <MudTh Style="text-align: center">Acciones</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Nombre Cuenta">
-                @context.NombreCuenta
-            </MudTd>
-            <MudTd DataLabel="Glosa">
-                @context.Glosa
-            </MudTd>
+<MudTable Hover="true"
+          Striped="true"
+          Items="Detalles"
+          Dense="true"
+          Bordered="true"
+          Elevation="2"
+          Style="border-radius: 15px; margin-right: 0;"
+          FixedFooter="true"
+          FixedHeader="true"
+          Height="250px"
+          ApplyButtonPosition="TableApplyButtonPosition.Start"
+          RowEditPreview="OnRowEditPreview"
+          RowEditCommit="OnRowEditCommit"
+          RowEditCancel="OnRowEditCancel"
+          EditTrigger="TableEditTrigger.RowClick"
+          CommitEditTooltip="Guardar cambios"
+          CancelEditTooltip="Cancelar cambios"
+          IsEditRowSwitchingBlocked="true"
+          CanCancelEdit="true"
+          Class="mt-4 fade-in">
+    <HeaderContent>
+        <MudTh Style="text-align: left">Cuenta</MudTh>
+        <MudTh Style="text-align: left">Glosa</MudTh>
+        <MudTh Style="text-align: right">Monto Debe</MudTh>
+        <MudTh Style="text-align: right">Monto Haber</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre Cuenta">
+            @context.NombreCuenta
+        </MudTd>
+        <MudTd DataLabel="Glosa">
+            @context.Glosa
+        </MudTd>
+        <MudTd DataLabel="Monto Debe" Style="text-align: right">
+            @(context.MontoDebe.ToString("F2"))
+        </MudTd>
+        <MudTd DataLabel="Monto Haber" Style="text-align: right">
+            @context.MontoHaber.ToString("F2")
+        </MudTd>
+        <MudTd>
+            <MudTooltip Text="Eliminar fila"
+                        ShowOnClick="false"
+                        ShowOnFocus="false">
+                <MudIconButton Color="Color.Error"
+                               Icon="@Icons.Material.Filled.Delete"
+                               Size="Size.Small"
+                               OnClick="@(() => DeleteDetalle(context))"/>
+            </MudTooltip>
+        </MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd DataLabel="Nombre Cuenta">
+            <MudAutocomplete T="string"
+                             @bind-Value="@context.NombreCuenta"
+                             SearchFunc="SearchCuenta"
+                             AdornmentIcon="@Icons.Material.Filled.Search"
+                             TransformOrigin="Origin.BottomCenter"
+                             AnchorOrigin="Origin.CenterCenter"
+                             Dense="true"
+                             Margin="Margin.Dense"
+                             Clearable="true"/>
+        </MudTd>
+        <MudTd DataLabel="Glosa">
+            <MudTextField @bind-Value="@context.Glosa" Margin="Margin.Dense"/>
+        </MudTd>
+        @if (IsPrincipal)
+        {
             <MudTd DataLabel="Monto Debe" Style="text-align: right">
-                @(context.MontoDebe.ToString("F2"))
+                <MudNumericField @bind-Value="@context.MontoDebe" Margin="Margin.Dense"/>
             </MudTd>
             <MudTd DataLabel="Monto Haber" Style="text-align: right">
-                @context.MontoHaber.ToString("F2")
+                <MudNumericField @bind-Value="@context.MontoHaber" Margin="Margin.Dense"/>
             </MudTd>
-            <MudTd DataLabel="Acciones">
-                <MudStack Row="true"
-                          Justify="Justify.Center">
-                    <MudTooltip Text="Eliminar detalle">
-                        <MudIconButton Color="Color.Error"
-                                       Icon="@Icons.Material.Filled.DeleteForever"
-                                       Size="Size.Small"
-                                       OnClick="() => DeleteDetalle(context)"/>
-                    </MudTooltip>
-                    <MudTooltip Text="Editar detalle">
-                        <MudIconButton Color="Color.Warning"
-                                       Icon="@Icons.Material.Filled.Edit"
-                                       Size="Size.Small"
-                                       OnClick="() =>ShowEditDetalleModal(context)"/>
-                    </MudTooltip>
-                </MudStack>
+        }
+        else
+        {
+            <MudTd DataLabel="Monto Debe" Style="text-align: right">
+                <MudNumericField @bind-Value="@context.MontoDebeAlt" Margin="Margin.Dense"/>
             </MudTd>
-        </RowTemplate>
-        <FooterContent>
-            <MudTd/>
-            <MudTd/>
+            <MudTd DataLabel="Monto Haber" Style="text-align: right">
+                <MudNumericField @bind-Value="@context.MontoHaberAlt" Margin="Margin.Dense"/>
+            </MudTd>
+        }
+    </RowEditingTemplate>
+    <FooterContent>
+        <MudTd/>
+        <MudTd/>
+
             <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalDebe.ToString("F2")</MudText>
+                <MudText Align="Align.Right" Typo="Typo.subtitle2">
+                    Total: @TotalDebe.ToString("F2")
+                </MudText>
             </MudTd>
             <MudTd Style="text-align: right">
-                <MudText Typo="Typo.subtitle2">Total: @TotalHaber.ToString("F2") </MudText>
+                <MudText Align="Align.Right" Typo="Typo.subtitle2">
+                    Total: @TotalHaber.ToString("F2")
+                </MudText>
             </MudTd>
-            <MudTd/>
-        </FooterContent>
-        <PagerContent>
-            <MudTablePager
-                HorizontalAlignment="HorizontalAlignment.Left"
-                HidePageNumber="true"
-                HideRowsPerPage="true"/>
-        </PagerContent>
-    </MudTable>
-</MudPaper>
+
+        <MudTd/>
+    </FooterContent>
+</MudTable>

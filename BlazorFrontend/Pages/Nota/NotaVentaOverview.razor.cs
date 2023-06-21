@@ -1,16 +1,22 @@
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
+using MudBlazor;
 
 namespace BlazorFrontend.Pages.Nota;
 
 public partial class NotaVentaOverview
 {
+    private MudTable<NotaDto> _table;
+
     [Parameter]
     public int IdEmpresa { get; set; }
 
     private bool IsLoading { get; set; }
 
     private List<NotaDto>? Notas { get; set; } = new();
+
+    private void PageChanged(int i) => _table.NavigateTo(i - 1);
+
 
     protected override async Task OnInitializedAsync()
     {

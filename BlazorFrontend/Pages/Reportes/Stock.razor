@@ -1,0 +1,112 @@
+@page "/Stock/{idempresa:int}"
+@using global::Services.Gestion
+@using global::Services.CategoriaService
+@inject NavigationManager NavigationManager
+@inject CategoriaService CategoriaService
+
+<NavBarComponent IdEmpresa="@IdEmpresa"/>
+
+<div class="d-flex justify-content-center align-items-center mr-0">
+    <MudPaper Elevation="2"
+              Class="p-3 fade-in"
+              Style="border-radius: 15px; margin-right: 0;"
+              Width="800px"
+              MaxWidth="1000px"
+              Height="500px;">
+        <MudText Typo="Typo.h4"
+                 Align="Align.Center"
+                 GutterBottom="true">
+            Stock del articulo
+        </MudText>
+        <MudForm @ref="_form" @bind-IsValid="@IsSuccess">
+            <MudStack>
+                <MudSelect Variant="Variant.Outlined"
+                           T="string"
+                           @bind-Value="SelectedCategoria"
+                           Label="Categorias"
+                           HelperText="Seleccione una categoria"
+                           Required="true">
+                    @foreach (var gestion in Categorias)
+                    {
+                        <MudSelectItem Value="@gestion.Nombre">
+                            @gestion.Nombre
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudTextField Variant="Variant.Outlined"
+                              T="int"
+                              @bind-Value="Stockint"
+                              Label="Stock"
+                              HelperText="Ingrese el stock"
+                              Required="true">
+                </MudTextField>
+                <MudButton Variant="Variant.Filled"
+                           Class="rounded-pill"
+                           Disabled="@(!IsSuccess)"
+                           Color="Color.Primary"
+                           OnClick="GenerateReport">
+                    <MudText Typo="Typo.button">Generar Reporte</MudText>
+                </MudButton>
+            </MudStack>
+        </MudForm>
+    </MudPaper>
+</div>
+
+
+@code {
+    private MudForm _form = null!;
+
+    public bool IsSuccess { get; set; }
+
+    public string SelectedCategoria { get; set; }
+
+    private List<CategoriaDto> Categorias { get; set; } = new();
+
+    public int Stockint { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    [Parameter]
+    public int IdEmpresa { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            var segments = uri.Segments;
+            var idValue = segments[^1];
+            if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
+            {
+                IdEmpresa = int.Parse(idValue);
+                Categorias = await CategoriaService.GetCategoriasService(IdEmpresa);
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                throw new KeyNotFoundException(
+                    "The 'id' parameter was not found in the query string.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"An error occurred while initializing the component: {ex}");
+        }
+    }
+
+    private void GenerateReport()
+    {
+        var idCategoria = Categorias.Single(g => g.Nombre.Equals(SelectedCategoria)).IdCategoria;
+        var url = $"http://localhost:80/Reports/report/Report%20Project1/Reporte%20Stock?IdComprobante={idCategoria} &IdPeriodo={Stockint}";
+        OpenUrlInNewTab(url);
+    }
+
+    private void OpenUrlInNewTab(string url)
+    {
+        var js = $"window.open('{url}', '_blank');";
+        JSRuntime.InvokeVoidAsync("eval", js);
+    }
+}

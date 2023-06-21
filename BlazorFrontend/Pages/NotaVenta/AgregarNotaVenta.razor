@@ -1,7 +1,10 @@
 @page "/agregarNotaVenta/{idempresa:int}"
 @using global::Services.ArticuloService
-@using global::Services.LoteService
+@using global::Services.Comprobante
 @using global::Services.NotaService
+@using BlazorFrontend.Services
+@using global::Services.Cuenta
+@using global::Services.EmpresaMonedaService
 @layout ComprobanteLayout
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -10,7 +13,10 @@
 @inject NotaService NotaService
 @inject IJSRuntime JsRuntime
 @inject ISnackbar Snackbar
-@inject LoteService LoteService
+@inject ComprobanteService ComprobanteService
+@inject EmpresaService EmpresaService
+@inject CuentaService CuentaService
+@inject EmpresaMonedaService EmpresaMonedaService
 
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
@@ -31,8 +37,8 @@
             Style="border-top-width: 3px;"
             Class="mb-5"/>
 
-<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px;">
-    <MudForm @ref="_form" @bind-IsValid="@_success">
+<MudPaper Elevation="2" Class="p-4 fade-in" Style="border-radius: 15px; margin-right: 0;">
+    <MudForm @bind-IsValid="@_success" Style="margin-right: 0;">
         <MudStack Row="true">
             <MudTextField Variant="Variant.Outlined"
                           Disabled="true"
@@ -56,11 +62,12 @@
                            Placeholder="dd/MM/yyyy"
                            Variant="Variant.Outlined"
                            Margin="Margin.Dense"
-                           Rounded="true"/>
+                           Rounded="true"
+                           Clearable="true"/>
         </MudStack>
     </MudForm>
     <MudStack Row="true" Class="mt-3 fade-in" Style="justify-content: space-between">
-        <MudTooltip Text="Agregar nota de compra"
+        <MudTooltip Text="Agregar nota de venta"
                     ShowOnClick="false"
                     ShowOnFocus="false">
             <MudFab Color="Color.Success"
@@ -69,7 +76,7 @@
                     Size="Size.Small"
                     Class="squircle-fab"
                     Disabled="@(!_success)"
-                    OnClick="AgregarVenta"/>
+                    OnClick="@AgregarVenta"/>
         </MudTooltip>
         <MudTooltip Text="Agregar detalles"
                     ShowOnClick="false"
@@ -79,7 +86,7 @@
                     StartIcon="@Icons.Material.Rounded.NoteAdd"
                     Size="Size.Small"
                     Class="squircle-fab"
-                    OnClick="OpenAgregarDetalle"/>
+                    OnClick="@OpenAgregarDetalle"/>
         </MudTooltip>
     </MudStack>
 </MudPaper>

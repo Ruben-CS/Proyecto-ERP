@@ -1,0 +1,132 @@
+@page "/integracionCuentas/{idempresa:int}"
+@using global::Services.Cuenta
+@using BlazorFrontend.Services
+@layout MonedaDashBoardLayout
+@inject NavigationManager NavigationManager
+@inject CuentaService CuentaService
+@inject EmpresaService EmpresaService
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<NavBarComponent IdEmpresa="IdEmpresa"/>
+
+<MudStack Row="true"
+          AlignItems="AlignItems.Baseline"
+          Justify="Justify.SpaceBetween"
+          Spacing="6"
+          Style="margin-right: 0">
+    <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
+        Configuracion de integracion
+    </MudText>
+    <div style="display: flex; align-items: center;">
+        <MudSwitch @bind-Checked="Configurar"
+                   Label="Activar configuracion"
+                   Size="Size.Large"
+                   Color="Color.Success"/>
+        <MudButton ButtonType="ButtonType.Button"
+                   Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Style="justify-self: flex-end; align-self: center"
+                   Class="ml-4 rounded-pill"
+                   OnClick="GuardarConfiguracion">
+            <MudText Typo="Typo.button">Guardar Configuracion</MudText>
+        </MudButton>
+    </div>
+</MudStack>
+
+<MudDivider DividerType="DividerType.Middle"
+            Light="false"
+            Style="border-top-width: 3px;"
+            Class="mb-5"/>
+
+<MudPaper Style="padding:15px; border-radius:15px; margin-right: 0 ">
+    <MudStack AlignItems="AlignItems.Center"
+              Justify="Justify.SpaceEvenly"
+              Spacing="2"
+              Style="margin-right: 0">
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta1"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Caja"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta2"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Credito Fiscal"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta3"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Debito Fiscal"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta4"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Compras"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta5"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="IT"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta6"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="Venta"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+        <MudAutocomplete T="string"
+                         @bind-Value="Cuenta7"
+                         SearchFunc="SearchCuenta"
+                         AdornmentIcon="@Icons.Material.Filled.Search"
+                         HelperText="IT por Pagar"
+                         FullWidth="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Disabled="!Configurar"
+                         Clearable="true"
+                         Required="true"
+                         RequiredError="Seleccione una cuenta"/>
+    </MudStack>
+</MudPaper>

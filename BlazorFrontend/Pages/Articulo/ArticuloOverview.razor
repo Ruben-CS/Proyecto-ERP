@@ -3,8 +3,6 @@
 @using global::Services.ArticuloService
 @using global::Services.ArticuloCategoriaService
 @inject CategoriaService CategoriaService
-@inject ISnackbar Snackbar
-@inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @inject ArticuloService ArticuloService
 @inject ArticuloCategoriaService ArticuloCategoriaService
@@ -13,7 +11,11 @@
 
 <NavBarComponent IdEmpresa="@IdEmpresa"/>
 
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Spacing="6">
+<MudStack Row="true"
+          AlignItems="AlignItems.Center"
+          Justify="Justify.SpaceBetween"
+          Spacing="6"
+          Style="margin-right: 0;">
     <MudText Align="Align.Start" Typo="Typo.h5" GutterBottom="true">
         Lista de articulos
     </MudText>
@@ -38,12 +40,13 @@
           Hover="true"
           Striped="true"
           Bordered="true"
-          Style="border-radius: 15px;"
+          Style="border-radius: 15px; margin-right: 0;"
           Elevation="4"
           Loading="IsLoading"
           LoadingProgressColor="Color.Info"
           RowsPerPage="5"
-          Filter="new Func<ArticuloDto, bool>(FilterFunc1)">
+          Filter="new Func<ArticuloDto, bool>(FilterFunc1)"
+          @ref="@_table">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Busque articulos por nombre o descripcion</MudText>
         <MudSpacer/>
@@ -87,24 +90,33 @@
             }
         </MudTd>
         <MudTd>
-            <MudIconButton Icon="@Icons.Material.Rounded.Edit"
-                           Color="Color.Warning"
-                           Size="Size.Small"
-                           OnClick="() => ShowEditarModal(context)"/>
-            <MudIconButton Icon="@Icons.Material.Rounded.Delete"
-                           Color="Color.Error"
-                           Size="Size.Small"
-                           OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
-            <MudIconButton Icon="@Icons.Material.Rounded.Notes"
-                           Color="Color.Dark"
-                           Size="Size.Small"
-                           OnClick="() => OpenLotePerArticulo(context.IdArticulo)"/>
+            <MudTooltip Text="Editar" ShowOnClick="false" ShowOnFocus="false">
+                <MudIconButton Icon="@Icons.Material.Rounded.Edit"
+                               Color="Color.Warning"
+                               Size="Size.Small"
+                               OnClick="() => ShowEditarModal(context)"/>
+            </MudTooltip>
+            <MudTooltip Text="Eliminar articulo" ShowOnClick="false" ShowOnFocus="false">
+                <MudIconButton Icon="@Icons.Material.Rounded.Delete"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               OnClick="() => OpenEliminarArticulo(context.IdArticulo)"/>
+            </MudTooltip>
+            <MudTooltip Text="Ver lotes" ShowOnClick="false" ShowOnFocus="false">
+                <MudIconButton Icon="@Icons.Material.Rounded.Notes"
+                               Color="Color.Dark"
+                               Size="Size.Small"
+                               OnClick="() => OpenLotePerArticulo(context.IdArticulo)"/>
+            </MudTooltip>
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager
-            HorizontalAlignment="HorizontalAlignment.Left"
-            HidePageNumber="true"
-            HideRowsPerPage="true"/>
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudPagination SelectedChanged="PageChanged"
+                           Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
+                           Class="pa-4"
+                           ShowFirstButton="true"
+                           ShowLastButton="true"/>
+        </MudStack>
     </PagerContent>
 </MudTable>

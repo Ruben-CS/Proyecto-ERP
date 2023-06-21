@@ -1,14 +1,18 @@
 using Microsoft.AspNetCore.Components;
 using Modelos.Models.Dtos;
+using MudBlazor;
 
 namespace BlazorFrontend.Pages.Comprobante;
 
 public partial class ComprobanteDashboard
 {
+    private MudTable<ComprobanteDto> _table;
+
     [Parameter]
     public int IdEmpresa { get; set; }
 
-    private List<ComprobanteDto> Comprobantes { get; set; } = new();
+    private List<ComprobanteDto> Comprobantes       { get; set; } = new();
+    private void                 PageChanged(int i) => _table.NavigateTo(i - 1);
 
     private bool IsLoading { get; set; }
 
@@ -22,9 +26,8 @@ public partial class ComprobanteDashboard
             var idValue  = segments[^1];
             if (!string.IsNullOrEmpty(idValue) && int.TryParse(idValue, out _))
             {
-                await base.OnInitializedAsync();
+                IdEmpresa = int.Parse(idValue);
                 Comprobantes = await ComprobanteService.GetComprobantesAsync(IdEmpresa);
-                IdEmpresa    = int.Parse(idValue);
                 await InvokeAsync(StateHasChanged);
                 IsLoading = false;
             }
